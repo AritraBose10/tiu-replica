@@ -1,0 +1,86 @@
+[
+    {
+        "id": "btech-cse-google",
+        "title": "B.Tech in Computer Science & Engineering (Powered by Google)",
+        "description": "A flagship program designed in collaboration with Google, focusing on full-stack development, cloud computing, and software engineering principles.",
+        "category": "Engineering",
+        "link": "#"
+    },
+    {
+        "id": "btech-cse-ai-ml",
+        "title": "B.Tech in CSE - AI & Machine Learning",
+        "description": "Master the future of technology with a specialized curriculum in Artificial Intelligence and Machine Learning, including deep learning and neural networks.",
+        "category": "Engineering",
+        "link": "#"
+    },
+    {
+        "id": "bca-data-science-ibm",
+        "title": "BCA with Data Science & AI (Powered by IBM)",
+        "description": "An industry-aligned Bachelor of Computer Applications program integrating IBM's expertise in Data Science and Artificial Intelligence.",
+        "category": "Computer Applications",
+        "link": "#"
+    },
+    {
+        "id": "bba-business-analytics",
+        "title": "BBA in Business Analytics (Powered by IBM)",
+        "description": "Combine business acumen with data analysis skills. Learn to drive business decisions using big data, predictive modeling, and statistical analysis.",
+        "category": "Management",
+        "link": "#"
+    },
+    {
+        "id": "bdes-visual-comm",
+        "title": "B.Des in Visual Communication & Digital Design",
+        "description": "Explore the creative world of visual storytelling, branding, and digital media design with a curriculum focused on modern design tools and aesthetics.",
+        "category": "Design",
+        "link": "#"
+    },
+    {
+        "id": "bsc-sound-engineering",
+        "title": "B.Sc (H) in Sound Engineering",
+        "description": "A specialized program for aspiring audio engineers, covering studio techniques, live sound, and digital audio production.",
+        "category": "Science",
+        "link": "#"
+    },
+    {
+        "id": "mtech-cse",
+        "title": "M.Tech in Computer Science & Engineering",
+        "description": "Advanced postgraduate program for deep research in computer science algorithms, systems, and emerging technologies.",
+        "category": "Engineering",
+        "link": "#"
+    },
+    {
+        "id": "mba-finance",
+        "title": "MBA in Finance & Marketing",
+        "description": "Develop leadership skills and strategic thinking with a dual specialization in Finance and Marketing, preparing for global corporate roles.",
+        "category": "Management",
+        "link": "#"
+    },
+    {
+        "id": "bsc-game-dev",
+        "title": "B.Sc in Game Design & Development",
+        "description": "Learn to create immersive gaming experiences. Covers game mechanics, level design, Unity/Unreal Engine, and 3D assets.",
+        "category": "Computer Applications",
+        "link": "#"
+    },
+    {
+        "id": "bdes-product-design",
+        "title": "B.Des in Product Design",
+        "description": "Focus on designing physical and digital products that solve real-world problems with user-centric functionality and aesthetics.",
+        "category": "Design",
+        "link": "#"
+    },
+    {
+        "id": "phd-ai",
+        "title": "Ph.D. in Artificial Intelligence",
+        "description": "Doctoral program for cutting-edge research in AI, contributing to the next generation of intelligent systems and algorithms.",
+        "category": "Engineering",
+        "link": "#"
+    },
+    {
+        "id": "mca-cloud",
+        "title": "Master of Computer Applications (Cloud Computing)",
+        "description": "Advanced master's degree focusing on cloud infrastructure, deployment, and distributed computing architectures.",
+        "category": "Computer Applications",
+        "link": "#"
+    }
+]

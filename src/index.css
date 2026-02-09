@@ -1,0 +1,133 @@
+@import "tailwindcss";
+
+@theme {
+  /* TIU Exact Colors */
+  --color-tiu-red: #FF0000;
+  --color-tiu-red-light: rgba(255, 0, 0, 0.1);
+  --color-tiu-red-dark: #CC0000;
+  --color-tiu-black: #000000;
+  --color-tiu-white: #FFFFFF;
+  --color-tiu-gray: #F5F5F5;
+  --color-tiu-grid: #E8E8E8;
+
+  /* Font */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* Import Inter font */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+body {
+  @apply antialiased text-black bg-white;
+  font-family: var(--font-sans);
+}
+
+/* Grid Background Pattern */
+.tiu-grid-bg {
+  background-color: #FFFFFF;
+  background-image:
+    linear-gradient(to right, var(--color-tiu-grid) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--color-tiu-grid) 1px, transparent 1px);
+  background-size: 80px 80px;
+  position: relative;
+}
+
+/* Grid cells with random red highlights */
+.tiu-grid-cell {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  background-color: var(--color-tiu-red-light);
+}
+
+/* Floating animation for icons */
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+.animate-float-delayed {
+  animation: float 4s ease-in-out infinite;
+  animation-delay: 2s;
+}
+
+/* Pulse animation for grid cells */
+@keyframes gridPulse {
+
+  0%,
+  100% {
+    opacity: 0.1;
+  }
+
+  50% {
+    opacity: 0.25;
+  }
+}
+
+.animate-grid-pulse {
+  animation: gridPulse 3s ease-in-out infinite;
+}
+
+/* Infinite marquee */
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 30s linear infinite;
+}
+
+/* Seamless scroll left (for tripled content) */
+@keyframes scroll-left {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-33.333%);
+  }
+}
+
+.animate-scroll-left {
+  animation: scroll-left 25s linear infinite;
+}
+
+/* Scroll reveal base (works with Framer Motion) */
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+/* Red button style */
+.btn-tiu-red {
+  @apply bg-[#FF0000] text-white px-8 py-3 rounded-full font-semibold;
+  @apply hover:bg-[#CC0000] transition-all duration-300;
+  @apply hover:shadow-lg hover:scale-105;
+}
+
+/* Red text highlight box */
+.text-box-red {
+  @apply bg-[#FF0000] text-white px-3 py-1 inline-block;
+}
+
+/* Hamburger menu icon */
+.hamburger-line {
+  @apply w-6 h-0.5 bg-black transition-all duration-300;
+}
