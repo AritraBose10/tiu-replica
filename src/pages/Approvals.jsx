@@ -1,0 +1,300 @@
+import React, { useRef, useEffect } from 'react';
+import { motion, useScroll, useTransform, useSpring, useMotionValue } from 'framer-motion';
+
+const approvalBodies = [
+    {
+        id: 1,
+        name: 'UGC',
+        fullName: 'University Grants Commission',
+        description: 'Recognized by India\'s apex body for higher education standards and quality assurance.',
+        logo: 'https://static.wixstatic.com/media/4d76fa_22977ebae1bc4181b6af13c54d0ec195~mv2.jpg',
+    },
+    {
+        id: 2,
+        name: 'AICTE',
+        fullName: 'All India Council for Technical Education',
+        description: 'Approved for delivering world-class technical and management education programs.',
+        logo: 'https://static.wixstatic.com/media/4d76fa_20b732a7a0df4f1aacbee92f04803ff1~mv2.jpg',
+    },
+    {
+        id: 3,
+        name: 'BCI',
+        fullName: 'Bar Council of India',
+        description: 'Affiliated for offering accredited Law programs meeting national legal education standards.',
+        logo: 'https://static.wixstatic.com/media/4d76fa_b4b6e0c8ec2d4b84b19ea16dbcfd016a~mv2.jpg',
+    },
+    {
+        id: 4,
+        name: 'PCI',
+        fullName: 'Pharmacy Council of India',
+        description: 'Approved for pharmaceutical sciences programs with industry-aligned curriculum.',
+        logo: 'https://static.wixstatic.com/media/4d76fa_0f94f520580d4155ac4f8ccb065da04b~mv2.jpg',
+    },
+    {
+        id: 5,
+        name: 'COA',
+        fullName: 'Council of Architecture',
+        description: 'Recognized for Architecture programs fostering creative design and urban planning.',
+        logo: 'https://static.wixstatic.com/media/4d76fa_85c506123858458bbddc73a0ff910cc4~mv2.jpg',
+    },
+    {
+        id: 6,
+        name: 'INC',
+        fullName: 'Indian Nursing Council',
+        description: 'Approved for Nursing programs ensuring healthcare education excellence.',
+        logo: 'https://static.wixstatic.com/media/4d76fa_df762dfb25974f669d9704d2d5fd127e~mv2.jpg',
+    },
+    {
+        id: 7,
+        name: 'WBNC',
+        fullName: 'West Bengal Nursing Council',
+        description: 'State-level recognition for Nursing education programs in West Bengal.',
+        logo: 'https://static.wixstatic.com/media/4d76fa_e3fdabfd4e4f4fcda0bc586777ea9596~mv2.jpg',
+    },
+];
+
+const InfiniteMarquee = () => {
+    return (
+        <div className="relative flex overflow-hidden py-10 before:absolute before:left-0 before:top-0 before:z-10 before:h-full before:w-40 before:bg-gradient-to-r before:from-[#050505] before:to-transparent after:absolute after:right-0 after:top-0 after:z-10 after:h-full after:w-40 after:bg-gradient-to-l after:after:from-[#050505] after:after:to-transparent">
+            <motion.div
+                animate={{ x: [0, -100 * approvalBodies.length] }}
+                transition={{
+                    duration: 30,
+                    repeat: Infinity,
+                    ease: 'linear',
+                }}
+                className="flex shrink-0 items-center justify-around gap-20 px-10"
+            >
+                {[...approvalBodies, ...approvalBodies].map((body, i) => (
+                    <motion.div
+                        key={`${body.id}-${i}`}
+                        whileHover={{ scale: 1.2, filter: 'brightness(1.5)' }}
+                        className="flex h-32 w-48 shrink-0 items-center justify-center grayscale hover:grayscale-0 transition-all duration-500 cursor-pointer"
+                    >
+                        <img
+                            src={body.logo}
+                            alt={body.name}
+                            className="max-h-full max-w-full object-contain drop-shadow-[0_0_15px_rgba(255,0,0,0.3)]"
+                        />
+                    </motion.div>
+                ))}
+            </motion.div>
+        </div>
+    );
+};
+
+const MagneticCard = ({ children, className }) => {
+    const cardRef = useRef(null);
+    const x = useMotionValue(0);
+    const y = useMotionValue(0);
+
+    const springConfig = { damping: 20, stiffness: 150 };
+    const dx = useSpring(x, springConfig);
+    const dy = useSpring(y, springConfig);
+
+    const handleMouseMove = (e) => {
+        const rect = cardRef.current.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        x.set(e.clientX - centerX);
+        y.set(e.clientY - centerY);
+    };
+
+    const handleMouseLeave = () => {
+        x.set(0);
+        y.set(0);
+    };
+
+    return (
+        <motion.div
+            ref={cardRef}
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+            style={{ x: dx, y: dy }}
+            className={className}
+        >
+            {children}
+        </motion.div>
+    );
+};
+
+const Approvals = () => {
+    const containerRef = useRef(null);
+    const { scrollYProgress } = useScroll({
+        target: containerRef,
+        offset: ["start start", "end end"]
+    });
+
+    const opacity = useTransform(scrollYProgress, [0, 0.2], [1, 0.8]);
+
+    return (
+        <div ref={containerRef} className="min-h-screen bg-[#050505] text-white pt-32 pb-20 relative overflow-hidden font-sans">
+            {/* Circuit Grid Background */}
+            <div
+                className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none"
+                style={{
+                    backgroundImage: `linear-gradient(#f00 1px, transparent 1px), linear-gradient(90deg, #f00 1px, transparent 1px)`,
+                    backgroundSize: '40px 40px'
+                }}
+            />
+
+            {/* Ambient Glows */}
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1200px] h-[600px] bg-red-950/20 rounded-full blur-[160px] pointer-events-none" />
+            <div className="absolute middle-0 -right-40 w-[600px] h-[600px] bg-red-900/10 rounded-full blur-[140px] pointer-events-none" />
+
+            <div className="container mx-auto px-6 relative z-10 max-w-7xl">
+                {/* Hero Section */}
+                <motion.div
+                    style={{ opacity }}
+                    className="text-center mb-32"
+                >
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 1, ease: 'backOut' }}
+                        className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-red-500/10 border border-red-500/20 text-red-500 text-[10px] font-bold tracking-[0.3em] uppercase mb-8"
+                    >
+                        <span className="w-2 h-2 bg-red-500 rounded-full animate-pulse" />
+                        Accreditation & Quality Assurance
+                    </motion.div>
+
+                    <h1 className="text-6xl md:text-8xl font-black tracking-tighter mb-8 leading-[0.9]">
+                        <motion.span
+                            initial={{ y: 100, opacity: 0, filter: 'blur(20px)' }}
+                            animate={{ y: 0, opacity: 1, filter: 'blur(0px)' }}
+                            transition={{ duration: 1, ease: 'circOut' }}
+                            className="block text-white"
+                        >
+                            PRESTIGIOUS
+                        </motion.span>
+                        <motion.span
+                            initial={{ y: 100, opacity: 0, filter: 'blur(20px)' }}
+                            animate={{ y: 0, opacity: 1, filter: 'blur(0px)' }}
+                            transition={{ duration: 1, delay: 0.2, ease: 'circOut' }}
+                            className="block bg-clip-text text-transparent bg-gradient-to-r from-red-600 via-orange-500 to-red-600 bg-300% animate-gradient"
+                        >
+                            APPROVALS.
+                        </motion.span>
+                    </h1>
+
+                    <motion.p
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 2, delay: 0.5 }}
+                        className="text-gray-500 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed font-light"
+                    >
+                        Techno India University upholds the highest standards of academic excellence
+                        through rigorous accreditations from India's premier regulatory bodies.
+                    </motion.p>
+                </motion.div>
+
+                {/* Infinite Logo Marquee */}
+                <motion.div
+                    initial={{ opacity: 0, y: 50 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    className="mb-40"
+                >
+                    <InfiniteMarquee />
+                </motion.div>
+
+                {/* Distinctive Feature Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-40">
+                    {approvalBodies.map((body, index) => (
+                        <MagneticCard
+                            key={body.id}
+                            className="group relative h-[400px] rounded-3xl border border-white/5 bg-gradient-to-br from-white/[0.03] to-transparent p-10 overflow-hidden cursor-pointer"
+                        >
+                            {/* Background Number */}
+                            <span className="absolute -bottom-10 -right-10 text-[200px] font-black text-white/[0.02] select-none group-hover:text-red-500/[0.03] transition-colors">
+                                0{index + 1}
+                            </span>
+
+                            {/* Logo Area */}
+                            <div className="w-20 h-20 rounded-2xl bg-white p-4 mb-8 transform group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-500 shadow-2xl shadow-red-500/10">
+                                <img src={body.logo} alt={body.name} className="w-full h-full object-contain" />
+                            </div>
+
+                            {/* Content */}
+                            <div className="relative z-10">
+                                <h3 className="text-2xl font-bold text-white mb-2">{body.name}</h3>
+                                <p className="text-red-500/80 text-xs font-bold tracking-widest uppercase mb-4">
+                                    {body.fullName}
+                                </p>
+                                <p className="text-gray-400 text-sm leading-relaxed font-medium line-clamp-4">
+                                    {body.description}
+                                </p>
+                            </div>
+
+                            {/* Hover Line Animation */}
+                            <div className="absolute bottom-0 left-0 w-0 h-1 bg-gradient-to-r from-red-600 to-orange-500 group-hover:w-full transition-all duration-700" />
+                        </MagneticCard>
+                    ))}
+                </div>
+
+                {/* Dynamic Stats Section */}
+                <div className="relative py-20 rounded-[40px] bg-white/[0.02] border border-white/5 overflow-hidden mb-40">
+                    <div className="absolute inset-0 bg-red-600/5 blur-[120px] pointer-events-none" />
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-10 px-10 relative z-10">
+                        {[
+                            { label: 'Regulatory Bodies', value: '07', suffix: '+' },
+                            { label: 'Global Ranking', value: 'Top', suffix: ' 5%' },
+                            { label: 'Academic Programs', value: '45', suffix: '+' },
+                            { label: 'Student Success', value: '98', suffix: '%' }
+                        ].map((stat, i) => (
+                            <motion.div
+                                key={stat.label}
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ delay: i * 0.1 }}
+                                className="text-center"
+                            >
+                                <div className="text-5xl md:text-6xl font-black text-white mb-2">
+                                    <span className="bg-clip-text text-transparent bg-gradient-to-b from-white to-gray-600">
+                                        {stat.value}
+                                    </span>
+                                    <span className="text-red-600">{stat.suffix}</span>
+                                </div>
+                                <p className="text-gray-500 text-xs font-bold tracking-[0.2em] uppercase">{stat.label}</p>
+                            </motion.div>
+                        ))}
+                    </div>
+                </div>
+
+                {/* Global recognition section */}
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    viewport={{ once: true }}
+                    className="text-center mb-20"
+                >
+                    <h2 className="text-4xl md:text-5xl font-bold mb-10 tracking-tighter">Setting the <span className="text-red-500 italic">benchmark</span> in technical education.</h2>
+                    <motion.button
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        className="px-10 py-5 rounded-full bg-white text-black font-black text-sm tracking-widest uppercase hover:bg-red-600 hover:text-white transition-all shadow-[0_20px_40px_rgba(255,255,255,0.05)]"
+                    >
+                        Download Accreditation Report
+                    </motion.button>
+                </motion.div>
+            </div>
+
+            <style dangerouslySetInnerHTML={{
+                __html: `
+        @keyframes gradient {
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
+        }
+        .animate-gradient {
+          background-size: 200% auto;
+          animation: gradient 5s linear infinite;
+        }
+        .bg-300\\% { background-size: 300% auto; }
+      `}} />
+        </div>
+    );
+};
+
+export default Approvals;
