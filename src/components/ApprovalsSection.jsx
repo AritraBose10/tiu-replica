@@ -55,7 +55,6 @@ const ApprovalsSection = () => {
                             whileInView={{ opacity: 1, scale: 1 }}
                             viewport={{ once: true }}
                             transition={{ delay: index * 0.1 }}
-                            whileHover={{ y: -5, boxShadow: '0 10px 40px rgba(0,0,0,0.1)' }}
                             className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col items-center gap-3"
                         >
                             <span className="text-4xl">{approval.logo}</span>

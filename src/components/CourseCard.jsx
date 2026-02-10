@@ -66,9 +66,7 @@ const CourseCard = ({ course, index }) => {
                         Start Now
                     </button>
                     <a
-                        href={course.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
+                        href="/admissions"
                         className="inline-flex items-center gap-1 bg-[#FF0000] text-white px-4 py-2 rounded-full text-sm font-semibold hover:bg-[#CC0000] transition-all"
                     >
                         Apply Now

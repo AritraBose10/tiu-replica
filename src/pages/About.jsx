@@ -257,7 +257,7 @@ const About = () => {
                             className="flex flex-wrap gap-4 justify-center"
                         >
                             <motion.a
-                                href="#features"
+                                href="/admissions"
                                 whileHover={{ scale: 1.05, boxShadow: "0 0 50px rgba(255,0,0,0.6)" }}
                                 whileTap={{ scale: 0.95 }}
                                 className="bg-gradient-to-r from-[#FF0000] to-[#CC0000] text-white px-10 py-5 rounded-full font-bold flex items-center gap-2 shadow-[0_0_30px_rgba(255,0,0,0.4)] border border-white/10"

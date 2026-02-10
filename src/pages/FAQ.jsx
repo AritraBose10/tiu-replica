@@ -179,7 +179,7 @@ const FAQ = () => {
                     className="mt-24 text-center"
                 >
                     <p className="text-gray-500 mb-6 text-sm tracking-widest uppercase">Still have questions?</p>
-                    <a href="/contact" className="group relative inline-flex items-center justify-center px-8 py-4 bg-transparent overflow-hidden rounded-full transition-all hover:scale-105 active:scale-95">
+                    <a href="/admissions" className="group relative inline-flex items-center justify-center px-8 py-4 bg-transparent overflow-hidden rounded-full transition-all hover:scale-105 active:scale-95">
                         <div className="absolute inset-0 w-full h-full bg-gradient-to-br from-red-600 to-orange-600 opacity-10 group-hover:opacity-20 transition-opacity" />
                         <div className="absolute inset-0 w-full h-full border border-red-500/30 rounded-full group-hover:border-red-500/50 transition-colors" />
                         <span className="relative text-white font-medium tracking-wide flex items-center gap-2">
