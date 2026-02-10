@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const CourseCard = ({ course, index }) => {
     const getCategoryColor = (category) => {
@@ -65,12 +66,12 @@ const CourseCard = ({ course, index }) => {
                     <button className="text-sm font-medium text-gray-500 hover:text-black transition-colors">
                         Start Now
                     </button>
-                    <a
-                        href="/admissions"
+                    <Link
+                        to="/admissions"
                         className="inline-flex items-center gap-1 bg-[#FF0000] text-white px-4 py-2 rounded-full text-sm font-semibold hover:bg-[#CC0000] transition-all"
                     >
                         Apply Now
-                    </a>
+                    </Link>
                 </div>
             </div>
         </motion.div>

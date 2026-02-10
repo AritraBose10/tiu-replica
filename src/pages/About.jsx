@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion, useScroll, useTransform, useMotionValue, useSpring, AnimatePresence } from 'framer-motion';
 import { Lightbulb, Users, Globe, Rocket, Award, Building, ChevronRight, Play, Sparkles, ArrowUpRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 // --- Animated Counter Component ---
 const AnimatedCounter = ({ value, suffix = '' }) => {
@@ -256,16 +257,19 @@ const About = () => {
                             transition={{ delay: 1 }}
                             className="flex flex-wrap gap-4 justify-center"
                         >
-                            <motion.a
-                                href="/admissions"
+                            <motion.div
                                 whileHover={{ scale: 1.05, boxShadow: "0 0 50px rgba(255,0,0,0.6)" }}
                                 whileTap={{ scale: 0.95 }}
-                                className="bg-gradient-to-r from-[#FF0000] to-[#CC0000] text-white px-10 py-5 rounded-full font-bold flex items-center gap-2 shadow-[0_0_30px_rgba(255,0,0,0.4)] border border-white/10"
                             >
-                                <Sparkles className="w-5 h-5" />
-                                Discover More
-                                <ChevronRight className="w-5 h-5" />
-                            </motion.a>
+                                <Link
+                                    to="/admissions"
+                                    className="bg-gradient-to-r from-[#FF0000] to-[#CC0000] text-white px-10 py-5 rounded-full font-bold flex items-center gap-2 shadow-[0_0_30px_rgba(255,0,0,0.4)] border border-white/10"
+                                >
+                                    <Sparkles className="w-5 h-5" />
+                                    Discover More
+                                    <ChevronRight className="w-5 h-5" />
+                                </Link>
+                            </motion.div>
                             <motion.button
                                 whileHover={{ scale: 1.05, backgroundColor: "rgba(255,255,255,0.15)" }}
                                 whileTap={{ scale: 0.95 }}
@@ -465,20 +469,23 @@ const About = () => {
                         <p className="text-xl text-gray-400 mb-12 max-w-xl mx-auto">
                             Join thousands of students who are shaping their future at Techno India University.
                         </p>
-                        <motion.a
-                            href="/admissions"
+                        <motion.div
                             whileHover={{ scale: 1.05, boxShadow: "0 0 60px rgba(255,0,0,0.6)" }}
                             whileTap={{ scale: 0.95 }}
-                            className="inline-flex items-center gap-3 bg-gradient-to-r from-[#FF0000] to-[#CC0000] text-white px-12 py-6 rounded-full font-bold text-xl shadow-[0_0_40px_rgba(255,0,0,0.5)] border border-white/10"
                         >
-                            Apply for Admissions
-                            <motion.span
-                                animate={{ x: [0, 5, 0] }}
-                                transition={{ repeat: Infinity, duration: 1 }}
+                            <Link
+                                to="/admissions"
+                                className="inline-flex items-center gap-3 bg-gradient-to-r from-[#FF0000] to-[#CC0000] text-white px-12 py-6 rounded-full font-bold text-xl shadow-[0_0_40px_rgba(255,0,0,0.5)] border border-white/10"
                             >
-                                <ArrowUpRight className="w-6 h-6" />
-                            </motion.span>
-                        </motion.a>
+                                Apply for Admissions
+                                <motion.span
+                                    animate={{ x: [0, 5, 0] }}
+                                    transition={{ repeat: Infinity, duration: 1 }}
+                                >
+                                    <ArrowUpRight className="w-6 h-6" />
+                                </motion.span>
+                            </Link>
+                        </motion.div>
                     </motion.div>
                 </div>
             </section>

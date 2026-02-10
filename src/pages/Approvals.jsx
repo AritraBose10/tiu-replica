@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from 'react';
-import { motion, useScroll, useTransform, useSpring, useMotionValue } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 
 const approvalBodies = [
     {
@@ -68,7 +68,6 @@ const InfiniteMarquee = () => {
                 {[...approvalBodies, ...approvalBodies].map((body, i) => (
                     <motion.div
                         key={`${body.id}-${i}`}
-                        whileHover={{ scale: 1.2, filter: 'brightness(1.5)' }}
                         className="flex h-32 w-48 shrink-0 items-center justify-center grayscale hover:grayscale-0 transition-all duration-500 cursor-pointer"
                     >
                         <img
@@ -84,37 +83,10 @@ const InfiniteMarquee = () => {
 };
 
 const MagneticCard = ({ children, className }) => {
-    const cardRef = useRef(null);
-    const x = useMotionValue(0);
-    const y = useMotionValue(0);
-
-    const springConfig = { damping: 20, stiffness: 150 };
-    const dx = useSpring(x, springConfig);
-    const dy = useSpring(y, springConfig);
-
-    const handleMouseMove = (e) => {
-        const rect = cardRef.current.getBoundingClientRect();
-        const centerX = rect.left + rect.width / 2;
-        const centerY = rect.top + rect.height / 2;
-        x.set(e.clientX - centerX);
-        y.set(e.clientY - centerY);
-    };
-
-    const handleMouseLeave = () => {
-        x.set(0);
-        y.set(0);
-    };
-
     return (
-        <motion.div
-            ref={cardRef}
-            onMouseMove={handleMouseMove}
-            onMouseLeave={handleMouseLeave}
-            style={{ x: dx, y: dy }}
-            className={className}
-        >
+        <div className={className}>
             {children}
-        </motion.div>
+        </div>
     );
 };
 
