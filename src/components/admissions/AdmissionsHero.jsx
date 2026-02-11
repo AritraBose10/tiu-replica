@@ -19,35 +19,61 @@ const LiquidChromeText = () => {
 };
 
 // Admissions Form Widget
-// Uses a global guard to ensure the external script loads only once,
-// surviving React 18 StrictMode double-mounts and route re-mounts.
+// Uses a retry-poll to wait for #ee-form-9 to be in the DOM before injecting
+// the external script. Prevents the race condition where the script executes
+// before React has committed the container element (StrictMode, route transitions).
 const AdmissionsFormWidget = () => {
     const containerRef = useRef(null);
 
     useEffect(() => {
-        // Primary guard: check if the script tag is already in the DOM.
-        // This is more robust than a window flag alone because it survives HMR
-        // (where vite may remove old script tags but leave window flags set).
-        const existing = document.querySelector('script[src*="ee-form-widget/form-9"]');
-        if (existing) return;
+        let pollTimer = null;
+        let cancelled = false;
 
-        // Secondary guard: window flag covers StrictMode double-fire within the
-        // same tick (before the first script tag has been appended to the DOM).
-        if (window.__EE_WIDGET_LOADED__) return;
-        window.__EE_WIDGET_LOADED__ = true;
+        const injectScript = () => {
+            // Guard 1: script tag already in the DOM (survives HMR)
+            if (document.querySelector('script[src*="ee-form-widget/form-9"]')) return;
+            // Guard 2: window flag (covers same-tick StrictMode double-fire)
+            if (window.__EE_WIDGET_LOADED__) return;
 
-        const script = document.createElement('script');
-        script.src = "https://eeconfigstaticfiles.blob.core.windows.net/staticfiles/softiu/ee-form-widget/form-9/widget.js";
-        script.async = true;
-        document.body.appendChild(script);
+            window.__EE_WIDGET_LOADED__ = true;
 
-        // Do NOT remove the script on cleanup — the widget mutates #ee-form-9
-        // and tearing down the script tag leaves orphaned DOM in a broken state.
+            const script = document.createElement('script');
+            script.src =
+                'https://eeconfigstaticfiles.blob.core.windows.net/staticfiles/softiu/ee-form-widget/form-9/widget.js';
+            script.async = true;
+            document.body.appendChild(script);
+        };
+
+        // Poll every 100ms until #ee-form-9 is present (max ~3s)
+        let attempts = 0;
+        const MAX_ATTEMPTS = 30;
+
+        const poll = () => {
+            if (cancelled) return;
+            const target = document.getElementById('ee-form-9');
+            if (target) {
+                injectScript();
+                return;
+            }
+            attempts++;
+            if (attempts < MAX_ATTEMPTS) {
+                pollTimer = setTimeout(poll, 100);
+            }
+        };
+
+        // Kick off the poll
+        poll();
+
+        // Cleanup: cancel any pending poll (do NOT remove the script)
+        return () => {
+            cancelled = true;
+            if (pollTimer) clearTimeout(pollTimer);
+        };
     }, []);
 
     return (
         <div className="w-full max-w-md mx-auto bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden shadow-2xl relative min-h-[600px] flex flex-col">
-            {/* Loading indication */}
+            {/* Loading spinner (sits behind widget content) */}
             <div className="absolute inset-0 flex items-center justify-center -z-10">
                 <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-red-500"></div>
             </div>

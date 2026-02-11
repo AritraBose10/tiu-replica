@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { ArrowUpRight, Cpu, Code, Database, Globe, Zap } from 'lucide-react';
 
 const programs = [
@@ -155,11 +156,11 @@ const AdmissionsBento = () => {
                     ))}
 
                     {/* CTA Card to fill remaining space - NOW LINKED */}
-                    <a href="/courses" className="col-span-1 md:col-span-1 h-[200px] relative group rounded-3xl overflow-hidden cursor-pointer bg-white text-black flex items-center justify-center p-6 text-center shadow-[0_0_30px_rgba(255,255,255,0.1)] hover:shadow-[0_0_50px_rgba(255,255,255,0.3)] transition-shadow duration-500">
+                    <Link to="/courses" className="col-span-1 md:col-span-1 h-[200px] relative group rounded-3xl overflow-hidden cursor-pointer bg-white text-black flex items-center justify-center p-6 text-center shadow-[0_0_30px_rgba(255,255,255,0.1)] hover:shadow-[0_0_50px_rgba(255,255,255,0.3)] transition-shadow duration-500">
                         <div className="absolute inset-0 bg-gradient-to-br from-gray-100 to-gray-300 opacity-0 group-hover:opacity-100 transition-opacity" />
                         <h3 className="text-xl font-bold relative z-10 text-black">View All 50+ Programs</h3>
                         <ArrowUpRight className="absolute bottom-6 right-6 w-6 h-6 text-black group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                    </a>
+                    </Link>
                 </div>
             </div>
         </section>

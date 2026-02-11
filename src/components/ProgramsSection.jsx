@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { Clock, GraduationCap, ChevronRight, ArrowUpRight } from 'lucide-react';
 
 const categories = [
@@ -131,8 +132,8 @@ const ProgramsSection = () => {
                             key={category.id}
                             onClick={() => setActiveCategory(category.id)}
                             className={`relative px-8 py-3 rounded-full font-semibold text-sm transition-all duration-300 overflow-hidden group ${activeCategory === category.id
-                                    ? 'text-white shadow-[0_0_20px_rgba(255,0,0,0.4)]'
-                                    : 'bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white'
+                                ? 'text-white shadow-[0_0_20px_rgba(255,0,0,0.4)]'
+                                : 'bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white'
                                 }`}
                         >
                             <span className="relative z-10">{category.label}</span>
@@ -219,15 +220,15 @@ const ProgramsSection = () => {
                     transition={{ delay: 0.4 }}
                     className="text-center mt-16"
                 >
-                    <a
-                        href="/courses"
+                    <Link
+                        to="/courses"
                         className="group inline-flex items-center gap-3 text-white transition-colors font-semibold px-8 py-3 rounded-full border border-white/10 hover:bg-white/5"
                     >
                         View All Programs
                         <span className="bg-[#FF0000] rounded-full p-1 group-hover:translate-x-1 transition-transform">
                             <ChevronRight className="w-4 h-4" />
                         </span>
-                    </a>
+                    </Link>
                 </motion.div>
             </div>
         </section>

@@ -1,5 +1,8 @@
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
+
+const MotionLink = motion.create(Link);
 
 const GoogleIBMBanner = () => {
     return (
@@ -28,15 +31,15 @@ const GoogleIBMBanner = () => {
                                 specializing in AI, Data Science, and Cloud Computing. Gain hands-on expertise,
                                 industry-aligned skills, and the confidence to excel in tomorrow's technology landscape.
                             </p>
-                            <motion.a
-                                href="/admissions"
+                            <MotionLink
+                                to="/admissions"
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.98 }}
                                 className="inline-flex items-center gap-2 bg-[#FF0000] text-white px-8 py-4 rounded-full font-semibold hover:bg-[#CC0000] transition-colors"
                             >
                                 Enroll
                                 <ArrowRight className="w-5 h-5" />
-                            </motion.a>
+                            </MotionLink>
                         </div>
 
                         {/* Right Image Section */}
