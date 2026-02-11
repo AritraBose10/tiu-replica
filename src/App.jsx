@@ -9,6 +9,7 @@ import Contact from './pages/Contact';
 import FAQ from './pages/FAQ';
 import Admissions from './pages/Admissions';
 import Approvals from './pages/Approvals';
+import Events from './pages/Events';
 import { AnimatePresence } from 'framer-motion';
 
 // Scroll to top component
@@ -46,6 +47,7 @@ function App() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/faq" element={<FAQ />} />
             <Route path="/approvals" element={<Approvals />} />
+            <Route path="/events" element={<Events />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </main>

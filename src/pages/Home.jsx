@@ -1,6 +1,7 @@
 import React from 'react';
 import Hero from '../components/Hero';
 import PartnersCarousel from '../components/PartnersCarousel';
+import Testimonials from '../components/Testimonials';
 import ProgramsSection from '../components/ProgramsSection';
 import GoogleIBMBanner from '../components/GoogleIBMBanner';
 import HowToApply from '../components/HowToApply';
@@ -25,6 +26,9 @@ const Home = () => {
 
             {/* Partners Carousel */}
             <PartnersCarousel />
+
+            {/* Student Testimonials */}
+            <Testimonials />
 
             {/* Programs Section - Dark themed with tabs */}
             <ProgramsSection />

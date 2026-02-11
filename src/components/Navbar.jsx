@@ -21,6 +21,7 @@ const Navbar = () => {
         { name: 'Contact', path: '/contact' },
         { name: 'Admissions', path: '/admissions' },
         { name: 'Approvals', path: '/approvals' },
+        { name: 'Events', path: '/events' },
         { name: 'FAQ', path: '/faq' },
         { name: 'Google and IBM Courses', path: '/courses' },
     ];
@@ -95,8 +96,8 @@ const Navbar = () => {
                                             to={link.path}
                                             onClick={() => setIsOpen(false)}
                                             className={`block py-4 text-2xl font-medium border-b border-gray-100 transition-colors ${location.pathname === link.path
-                                                    ? 'text-[#FF0000]'
-                                                    : 'text-black hover:text-[#FF0000]'
+                                                ? 'text-[#FF0000]'
+                                                : 'text-black hover:text-[#FF0000]'
                                                 }`}
                                         >
                                             {link.name}

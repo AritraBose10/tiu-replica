@@ -18,63 +18,48 @@ const LiquidChromeText = () => {
     );
 };
 
-const CardStack = () => {
-    const cards = [
-        { id: 1, title: "Google Powered", subtitle: "B.Tech CSE", gradient: "from-blue-600 to-blue-400" },
-        { id: 2, title: "IBM Collaboration", subtitle: "AI & ML", gradient: "from-purple-600 to-purple-400" },
-        { id: 3, title: "L&T Partnership", subtitle: "Civil Engg", gradient: "from-orange-600 to-yellow-400" },
-    ];
+// Admissions Form Widget
+// Uses a global guard to ensure the external script loads only once,
+// surviving React 18 StrictMode double-mounts and route re-mounts.
+const AdmissionsFormWidget = () => {
+    const containerRef = useRef(null);
 
-    const mouseX = useMotionValue(0);
-    const mouseY = useMotionValue(0);
+    useEffect(() => {
+        // Primary guard: check if the script tag is already in the DOM.
+        // This is more robust than a window flag alone because it survives HMR
+        // (where vite may remove old script tags but leave window flags set).
+        const existing = document.querySelector('script[src*="ee-form-widget/form-9"]');
+        if (existing) return;
 
-    const handleMouseMove = (e) => {
-        const { clientX, clientY, currentTarget } = e;
-        const { left, top, width, height } = currentTarget.getBoundingClientRect();
-        const x = (clientX - left) / width - 0.5;
-        const y = (clientY - top) / height - 0.5;
-        mouseX.set(x);
-        mouseY.set(y);
-    };
+        // Secondary guard: window flag covers StrictMode double-fire within the
+        // same tick (before the first script tag has been appended to the DOM).
+        if (window.__EE_WIDGET_LOADED__) return;
+        window.__EE_WIDGET_LOADED__ = true;
 
-    const rotateX = useTransform(mouseY, [-0.5, 0.5], [15, -15]);
-    const rotateY = useTransform(mouseX, [-0.5, 0.5], [-15, 15]);
+        const script = document.createElement('script');
+        script.src = "https://eeconfigstaticfiles.blob.core.windows.net/staticfiles/softiu/ee-form-widget/form-9/widget.js";
+        script.async = true;
+        document.body.appendChild(script);
+
+        // Do NOT remove the script on cleanup — the widget mutates #ee-form-9
+        // and tearing down the script tag leaves orphaned DOM in a broken state.
+    }, []);
 
     return (
-        <motion.div
-            onMouseMove={handleMouseMove}
-            style={{ perspective: 1000 }}
-            className="relative w-full h-[400px] md:h-[500px] flex items-center justify-center p-10"
-        >
-            {cards.map((card, index) => {
-                const yOffset = index * -40;
-                const scale = 1 - index * 0.05;
-                const zIndex = cards.length - index;
+        <div className="w-full max-w-md mx-auto bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden shadow-2xl relative min-h-[600px] flex flex-col">
+            {/* Loading indication */}
+            <div className="absolute inset-0 flex items-center justify-center -z-10">
+                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-red-500"></div>
+            </div>
 
-                return (
-                    <motion.div
-                        key={card.id}
-                        style={{
-                            rotateX: useSpring(rotateX, { stiffness: 150, damping: 20 }),
-                            rotateY: useSpring(rotateY, { stiffness: 150, damping: 20 }),
-                            y: yOffset,
-                            scale: scale,
-                            zIndex: zIndex,
-                        }}
-                        initial={{ opacity: 0, y: 100 }}
-                        animate={{ opacity: 1, y: yOffset }}
-                        transition={{ delay: 0.5 + index * 0.2, duration: 0.8 }}
-                        className={`absolute w-64 h-80 md:w-80 md:h-96 rounded-2xl bg-gradient-to-br ${card.gradient} p-6 shadow-2xl border border-white/10 flex flex-col justify-end transform-style-3d`}
-                    >
-                        <div className="absolute top-4 right-4 bg-white/20 backdrop-blur-md p-2 rounded-full">
-                            <Zap className="w-5 h-5 text-white" />
-                        </div>
-                        <h3 className="text-2xl font-bold text-white mb-2">{card.title}</h3>
-                        <p className="text-white/80">{card.subtitle}</p>
-                    </motion.div>
-                );
-            })}
-        </motion.div>
+            {/* Widget Container — z-10 forces iframe above backdrop layers */}
+            <div
+                ref={containerRef}
+                className="ee-form-widget w-full h-full relative z-10"
+                id="ee-form-9"
+                style={{ position: 'relative', zIndex: 10 }}
+            ></div>
+        </div>
     );
 };
 
@@ -92,7 +77,7 @@ const AdmissionsHero = () => {
                 <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20" />
             </div>
 
-            <div className="container mx-auto px-4 grid md:grid-cols-2 gap-12 items-center relative z-10">
+            <div className="container mx-auto px-4 grid lg:grid-cols-2 gap-12 items-center relative z-10">
                 {/* Left: Typography */}
                 <div className="space-y-8">
                     <LiquidChromeText />
@@ -126,9 +111,9 @@ const AdmissionsHero = () => {
                     </motion.div>
                 </div>
 
-                {/* Right: 3D Card Stack */}
-                <div className="relative flex justify-center">
-                    <CardStack />
+                {/* Right: Admissions Form Widget */}
+                <div className="relative flex justify-center w-full">
+                    <AdmissionsFormWidget />
                 </div>
             </div>
 

@@ -1,0 +1,30 @@
+[
+    {
+        "id": "past-0",
+        "title": "Techno India University to host School of Future, in collaboration with IBM and Google",
+        "description": "Techno India University has collaborated with Google and IBM to form a School of Future, with an aim to create a global ecosystem for digital skills and futuristic technologies.",
+        "date": "May 25, 2024",
+        "time": "Completed",
+        "location": "Techno India University",
+        "category": "Past",
+        "image": "https://technotimes.info/wp-content/uploads/2024/05/20240525_141634-1024x768.jpg",
+        "attendees": 0,
+        "featured": false,
+        "status": "past",
+        "link": "https://technotimes.info/2024/05/25/techno-india-university-to-host-school-of-future-in-collaboration-with-ibm-and-google/"
+    },
+    {
+        "id": "past-1",
+        "title": "Techno India University, West Bengal and Google Cloud India Sign MoU to Transform Digital Education",
+        "description": "Kolkata, 21st May 2024: Techno India University, West Bengal, has entered into a strategic partnership with Google Cloud India by signing a Memorandum of Understanding (MoU) to revolutionize digital education and skill development in the region.",
+        "date": "May 22, 2024",
+        "time": "Completed",
+        "location": "Techno India University",
+        "category": "Past",
+        "image": "https://technotimes.info/wp-content/uploads/2024/05/WhatsApp-Image-2024-05-21-at-20.19.46.jpeg",
+        "attendees": 0,
+        "featured": false,
+        "status": "past",
+        "link": "https://technotimes.info/2024/05/22/techno-india-university-west-bengal-and-google-cloud-india-sign-mou-to-transform-digital-education/"
+    }
+]
