@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, useScroll, useTransform, useSpring, useMotionValue, useMotionTemplate } from 'framer-motion';
 import { Sparkles, ArrowRight, Globe, Zap } from 'lucide-react';
 
@@ -18,74 +18,85 @@ const LiquidChromeText = () => {
     );
 };
 
-// Admissions Form Widget
-// Uses a retry-poll to wait for #ee-form-9 to be in the DOM before injecting
-// the external script. Prevents the race condition where the script executes
-// before React has committed the container element (StrictMode, route transitions).
+// External Admissions Form Widget (Embedded via Iframe to ensure script isolation and proper loading)
 const AdmissionsFormWidget = () => {
-    const containerRef = useRef(null);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        let pollTimer = null;
-        let cancelled = false;
-
-        const injectScript = () => {
-            // Guard 1: script tag already in the DOM (survives HMR)
-            if (document.querySelector('script[src*="ee-form-widget/form-9"]')) return;
-            // Guard 2: window flag (covers same-tick StrictMode double-fire)
-            if (window.__EE_WIDGET_LOADED__) return;
-
-            window.__EE_WIDGET_LOADED__ = true;
-
-            const script = document.createElement('script');
-            script.src =
-                'https://eeconfigstaticfiles.blob.core.windows.net/staticfiles/softiu/ee-form-widget/form-9/widget.js';
-            script.async = true;
-            document.body.appendChild(script);
-        };
-
-        // Poll every 100ms until #ee-form-9 is present (max ~3s)
-        let attempts = 0;
-        const MAX_ATTEMPTS = 30;
-
-        const poll = () => {
-            if (cancelled) return;
-            const target = document.getElementById('ee-form-9');
-            if (target) {
-                injectScript();
-                return;
-            }
-            attempts++;
-            if (attempts < MAX_ATTEMPTS) {
-                pollTimer = setTimeout(poll, 100);
+        const handleMessage = (event) => {
+            if (event.data && event.data.type === 'EE_WIDGET_LOADED') {
+                setIsLoading(false);
             }
         };
 
-        // Kick off the poll
-        poll();
-
-        // Cleanup: cancel any pending poll (do NOT remove the script)
-        return () => {
-            cancelled = true;
-            if (pollTimer) clearTimeout(pollTimer);
-        };
+        window.addEventListener('message', handleMessage);
+        return () => window.removeEventListener('message', handleMessage);
     }, []);
 
-    return (
-        <div className="w-full max-w-md mx-auto bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden shadow-2xl relative min-h-[600px] flex flex-col">
-            {/* Loading spinner (sits behind widget content) */}
-            <div className="absolute inset-0 flex items-center justify-center -z-10">
-                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-red-500"></div>
-            </div>
+    const widgetCode = `
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <style>
+                body { margin: 0; padding: 0; background: transparent; font-family: sans-serif; }
+                /* Custom scrollbar for iframe content */
+                ::-webkit-scrollbar { width: 6px; }
+                ::-webkit-scrollbar-track { background: transparent; }
+                ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.2); border-radius: 3px; }
+            </style>
+        </head>
+        <body>
+            <div class="ee-form-widget" id="ee-form-9"></div>
+            
+            <script>
+                window.addEventListener("DOMContentLoaded", function() {
+                    window.ee_form_widget_baseurl = "https://eeconfigstaticfiles.blob.core.windows.net/staticfiles/ee-form-widget/";
+                    
+                    if (!document.getElementById("__formWidgetCss")) {
+                        var e = document.createElement("link");
+                        e.id = "__formWidgetCss";
+                        e.rel = "stylesheet";
+                        e.href = window.ee_form_widget_baseurl + "css/stylesheet.min.css";
+                        e.type = "text/css";
+                        document.getElementsByTagName("head")[0].appendChild(e);
+                    }
+                    
+                    var t = document.createElement("script");
+                    t.type = "text/javascript";
+                    t.onload = async function() {
+                        var _eeFormWidget = new eeFormWidget();
+                        await _eeFormWidget.init("softiu", "form-9", "ee-form-9");
+                        // Notify parent that widget is loaded
+                        window.parent.postMessage({ type: 'EE_WIDGET_LOADED' }, '*');
+                    };
+                    t.src = window.ee_form_widget_baseurl + "js/eeFormWidget.min.js";
+                    document.getElementsByTagName("head")[0].appendChild(t);
+                });
+            </script>
+        </body>
+        </html>
+    `;
 
-            {/* Widget Container — z-10 forces iframe above backdrop layers */}
-            <div
-                ref={containerRef}
-                className="ee-form-widget w-full h-full relative z-10"
-                id="ee-form-9"
-                style={{ position: 'relative', zIndex: 10 }}
-            ></div>
-        </div>
+    return (
+        <div className="w-full max-w-md mx-auto bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl shadow-2xl relative h-[585px] flex flex-col" style={{ padding: '10px 5px' }}>
+            {/* Real-time Loading spinner */}
+            {
+                isLoading && (
+                    <div className="absolute inset-0 flex items-center justify-center z-20 bg-black/20 backdrop-blur-sm rounded-3xl transition-opacity duration-300">
+                        <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-red-500"></div>
+                    </div>
+                )
+            }
+
+            <iframe
+                srcDoc={widgetCode}
+                title="Admissions Enquiry Form"
+                className={`w-full h-full border-0 z-10 rounded-2xl transition-opacity duration-500 ${isLoading ? 'opacity-0' : 'opacity-100'}`}
+                style={{ backgroundColor: 'transparent' }}
+            />
+        </div >
     );
 };
 
@@ -96,8 +107,27 @@ const AdmissionsHero = () => {
 
     return (
         <section className="relative min-h-screen bg-[#020205] overflow-hidden flex items-center pt-20">
-            {/* Ambient Background */}
-            <div className="absolute inset-0 pointer-events-none">
+            {/* Video Background */}
+            <div className="absolute inset-0 z-0">
+                <video
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    poster="https://images.unsplash.com/photo-1562774053-701939374585?q=80&w=2086&auto=format&fit=crop"
+                    className="w-full h-full object-cover"
+                >
+                    <source
+                        src="https://videos.pexels.com/video-files/3129671/3129671-uhd_2560_1440_30fps.mp4"
+                        type="video/mp4"
+                    />
+                </video>
+                {/* Dark overlay for readability */}
+                <div className="absolute inset-0 bg-black/70" />
+            </div>
+
+            {/* Ambient Background (above video) */}
+            <div className="absolute inset-0 pointer-events-none z-[1]">
                 <motion.div style={{ y: y1 }} className="absolute -top-[10%] -left-[10%] w-[50vw] h-[50vw] bg-red-600/10 rounded-full blur-[120px]" />
                 <motion.div style={{ y: y2 }} className="absolute top-[20%] -right-[10%] w-[40vw] h-[40vw] bg-blue-600/10 rounded-full blur-[120px]" />
                 <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20" />

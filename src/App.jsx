@@ -12,6 +12,24 @@ import Approvals from './pages/Approvals';
 import Events from './pages/Events';
 import { AnimatePresence } from 'framer-motion';
 
+// Admin imports
+import { AuthProvider } from './components/admin/AuthProvider';
+import AdminGuard from './components/admin/AdminGuard';
+import AdminLayout from './components/admin/AdminLayout';
+import AdminLogin from './pages/admin/AdminLogin';
+import AdminDashboard from './pages/admin/AdminDashboard';
+import AdminCourses from './pages/admin/AdminCourses';
+import AdminEvents from './pages/admin/AdminEvents';
+import AdminFAQs from './pages/admin/AdminFAQs';
+import AdminTestimonials from './pages/admin/AdminTestimonials';
+import AdminPartners from './pages/admin/AdminPartners';
+import AdminApprovals from './pages/admin/AdminApprovals';
+import AdminGallery from './pages/admin/AdminGallery';
+import AdminScholarships from './pages/admin/AdminScholarships';
+import AdminRecruiters from './pages/admin/AdminRecruiters';
+import AdminSettings from './pages/admin/AdminSettings';
+import './styles/admin.css';
+
 // Scroll to top component
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -27,32 +45,50 @@ const NotFound = () => (
   </div>
 );
 
-
-
-
-
-
 function App() {
   return (
     <Router>
-      <ScrollToTop />
-      <div className="flex flex-col min-h-screen font-sans antialiased text-gray-900 bg-white">
-        <Navbar />
-        <main className="flex-grow">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/courses" element={<Courses />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/admissions" element={<Admissions />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/faq" element={<FAQ />} />
-            <Route path="/approvals" element={<Approvals />} />
-            <Route path="/events" element={<Events />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </main>
-        <Footer />
-      </div>
+      <AuthProvider>
+        <ScrollToTop />
+        <Routes>
+          {/* ── Admin Routes (no Navbar/Footer) ── */}
+          <Route path="/admin" element={<AdminLogin />} />
+          <Route path="/admin" element={<AdminGuard><AdminLayout /></AdminGuard>}>
+            <Route path="dashboard" element={<AdminDashboard />} />
+            <Route path="courses" element={<AdminCourses />} />
+            <Route path="events" element={<AdminEvents />} />
+            <Route path="faqs" element={<AdminFAQs />} />
+            <Route path="testimonials" element={<AdminTestimonials />} />
+            <Route path="partners" element={<AdminPartners />} />
+            <Route path="approvals" element={<AdminApprovals />} />
+            <Route path="gallery" element={<AdminGallery />} />
+            <Route path="scholarships" element={<AdminScholarships />} />
+            <Route path="recruiters" element={<AdminRecruiters />} />
+            <Route path="settings" element={<AdminSettings />} />
+          </Route>
+
+          {/* ── Public Routes ── */}
+          <Route path="/*" element={
+            <div className="flex flex-col min-h-screen font-sans antialiased text-gray-900 bg-white">
+              <Navbar />
+              <main className="flex-grow">
+                <Routes>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/courses" element={<Courses />} />
+                  <Route path="/about" element={<About />} />
+                  <Route path="/admissions" element={<Admissions />} />
+                  <Route path="/contact" element={<Contact />} />
+                  <Route path="/faq" element={<FAQ />} />
+                  <Route path="/approvals" element={<Approvals />} />
+                  <Route path="/events" element={<Events />} />
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              </main>
+              <Footer />
+            </div>
+          } />
+        </Routes>
+      </AuthProvider>
     </Router>
   );
 }
