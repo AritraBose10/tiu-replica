@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import logo from '../assets/logo.png';
+import logo from '../assets/logo1.png';
 
 const Footer = () => {
     return (
@@ -8,7 +8,7 @@ const Footer = () => {
             <div className="container mx-auto px-4 md:px-6 text-center">
                 {/* Logo */}
                 <div className="flex items-center justify-center mb-6">
-                    <img src={logo} alt="Techno India University" className="h-12 object-contain" />
+                    <img src={logo} alt="Techno India University" className="w-48 h-auto object-contain brightness-150" />
                 </div>
 
                 {/* Links */}
