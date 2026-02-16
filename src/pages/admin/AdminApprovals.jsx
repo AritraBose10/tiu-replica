@@ -19,7 +19,7 @@ const fields = [
     { key: 'name', label: 'Short Name (e.g. UGC)', type: 'text', required: true },
     { key: 'full_name', label: 'Full Name', type: 'text', required: true },
     { key: 'description', label: 'Description', type: 'textarea', placeholder: 'Brief description of the approval body' },
-    { key: 'logo', label: 'Logo Image URL', type: 'image_url', placeholder: 'https://example.com/logo.jpg' },
+    { key: 'logo', label: 'Logo Image', type: 'image', placeholder: 'Upload logo...' },
     { key: 'sort_order', label: 'Sort Order', type: 'number' },
 ];
 

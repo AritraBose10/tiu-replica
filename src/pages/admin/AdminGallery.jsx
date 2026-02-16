@@ -12,7 +12,7 @@ const columns = [
 ];
 
 const fields = [
-    { key: 'src', label: 'Image URL', type: 'text', required: true },
+    { key: 'src', label: 'Image', type: 'image', required: true },
     { key: 'alt', label: 'Alt Text', type: 'text' },
     { key: 'caption', label: 'Caption', type: 'text' },
     { key: 'category', label: 'Category', type: 'select', options: ['Innovation Labs', 'AI Workshops', 'Hackathons', 'Study Tours', 'Startup Incubation'] },

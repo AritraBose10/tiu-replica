@@ -12,7 +12,7 @@ const columns = [
 
 const fields = [
     { key: 'name', label: 'Partner Name', type: 'text', required: true },
-    { key: 'logo_url', label: 'Logo URL', type: 'text', required: true },
+    { key: 'logo_url', label: 'Logo URL', type: 'image', required: true },
     { key: 'sort_order', label: 'Sort Order', type: 'number' },
 ];
 

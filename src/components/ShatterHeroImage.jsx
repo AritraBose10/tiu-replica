@@ -1,68 +1,135 @@
 import { useState, useEffect, useMemo } from 'react';
 import { motion } from 'framer-motion';
 
-const COLS = 10;
-const ROWS = 6;
+const CENTER_COLS = 10;
+const CENTER_ROWS = 6;
+const SIDE_COLS = 6;
+const SIDE_ROWS = 5;
+const SIDE_COLS_FAR = 4;
+const SIDE_ROWS_FAR = 4;
 
 const CENTER_IMG =
     'https://images.unsplash.com/photo-1562774053-701939374585?q=80&w=2086&auto=format&fit=crop';
-const LEFT_IMG =
-    'https://images.unsplash.com/photo-1607237138185-eedd9c632b0b?q=80&w=2070&auto=format&fit=crop';
-const RIGHT_IMG =
-    'https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?q=80&w=2070&auto=format&fit=crop';
+
+const SIDE_PANELS = [
+    {
+        id: 'far-left',
+        src: 'https://images.unsplash.com/photo-1564981797816-1043664bf78d?q=80&w=2074&auto=format&fit=crop',
+        alt: 'University Hall',
+        side: 'left',
+        far: true,
+    },
+    {
+        id: 'near-left',
+        src: 'https://images.unsplash.com/photo-1607237138185-eedd9c632b0b?q=80&w=2070&auto=format&fit=crop',
+        alt: 'Campus Architecture',
+        side: 'left',
+        far: false,
+    },
+    {
+        id: 'near-right',
+        src: 'https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?q=80&w=2070&auto=format&fit=crop',
+        alt: 'Student Life',
+        side: 'right',
+        far: false,
+    },
+    {
+        id: 'far-right',
+        src: 'https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=2070&auto=format&fit=crop',
+        alt: 'Graduation Day',
+        side: 'right',
+        far: true,
+    },
+];
 
 /**
- * Multi-phase hero image with shatter effect:
- * 1. Center image enters with spring (3D unbox)
- * 2. Brief flash, then center image shatters into COLS×ROWS tiles
- * 3. Tiles scatter outward (left half → left, right half → right)
- * 4. Side panel images assemble from the particle direction
- * 5. All three images visible with subtle float
+ * Multi-phase hero image with CONNECTED shatter→assembly:
+ * 1. Center image enters with fast spring
+ * 2. Center shatters into tiles that scatter outward
+ * 3. Side panel tiles converge INWARD from scattered positions,
+ *    assembling from the particle direction to form each side image
+ * 4. Once assembled, clean images replace tile grids
+ * 5. All 5 images float gently
  */
 export default function ShatterHeroImage() {
     const [phase, setPhase] = useState('entrance');
     // entrance → shatter → done
 
-    /* ── Pre-compute tile scatter data ── */
-    const tiles = useMemo(() => {
+    /* ── Center scatter tiles ── */
+    const centerTiles = useMemo(() => {
         const arr = [];
-        for (let r = 0; r < ROWS; r++) {
-            for (let c = 0; c < COLS; c++) {
-                const goLeft = c < COLS / 2;
-                // Distance from center column (0–1), used to scale scatter distance
-                const distFromCenter = Math.abs(c - COLS / 2) / (COLS / 2);
+        for (let r = 0; r < CENTER_ROWS; r++) {
+            for (let c = 0; c < CENTER_COLS; c++) {
+                const goLeft = c < CENTER_COLS / 2;
+                const distFromCenter =
+                    Math.abs(c - CENTER_COLS / 2) / (CENTER_COLS / 2);
                 arr.push({
-                    key: `t${r}-${c}`,
+                    key: `ct-${r}-${c}`,
                     col: c,
                     row: r,
-                    // Background-position to show the correct slice
-                    bgPosX: COLS > 1 ? (c / (COLS - 1)) * 100 : 0,
-                    bgPosY: ROWS > 1 ? (r / (ROWS - 1)) * 100 : 0,
-                    // Scatter destination
+                    bgPosX:
+                        CENTER_COLS > 1 ? (c / (CENTER_COLS - 1)) * 100 : 0,
+                    bgPosY:
+                        CENTER_ROWS > 1 ? (r / (CENTER_ROWS - 1)) * 100 : 0,
                     dx: goLeft
-                        ? -(180 + distFromCenter * 280 + Math.random() * 120)
-                        : (180 + distFromCenter * 280 + Math.random() * 120),
-                    dy: (Math.random() - 0.5) * 220,
+                        ? -(160 + distFromCenter * 300 + Math.random() * 100)
+                        : 160 + distFromCenter * 300 + Math.random() * 100,
+                    dy: (Math.random() - 0.5) * 200,
                     dr: (Math.random() - 0.5) * 100,
-                    // Stagger: tiles closer to edges scatter first
-                    delay: (1 - distFromCenter) * 0.25 + Math.random() * 0.1,
+                    delay: (1 - distFromCenter) * 0.15 + Math.random() * 0.08,
                 });
             }
         }
         return arr;
     }, []);
 
+    /* ── Side panel assembly tile data ── */
+    const sidePanelData = useMemo(() => {
+        return SIDE_PANELS.map((panel) => {
+            const cols = panel.far ? SIDE_COLS_FAR : SIDE_COLS;
+            const rows = panel.far ? SIDE_ROWS_FAR : SIDE_ROWS;
+            const tiles = [];
+            // Tiles come FROM the center direction
+            const fromDir = panel.side === 'left' ? 1 : -1;
+
+            for (let r = 0; r < rows; r++) {
+                for (let c = 0; c < cols; c++) {
+                    // Tiles near the center edge assemble first
+                    const edgeDist =
+                        panel.side === 'left'
+                            ? (cols - 1 - c) / cols // right edge = near center
+                            : c / cols; // left edge = near center
+                    tiles.push({
+                        key: `${panel.id}-${r}-${c}`,
+                        col: c,
+                        row: r,
+                        cols,
+                        rows,
+                        bgPosX: cols > 1 ? (c / (cols - 1)) * 100 : 0,
+                        bgPosY: rows > 1 ? (r / (rows - 1)) * 100 : 0,
+                        // Start scattered from center direction
+                        startX: fromDir * (100 + Math.random() * 250),
+                        startY: (Math.random() - 0.5) * 180,
+                        startRotate: (Math.random() - 0.5) * 70,
+                        // Stagger: edge nearest to center assembles first
+                        delay: edgeDist * 0.2 + Math.random() * 0.08,
+                    });
+                }
+            }
+            return { ...panel, tiles, cols, rows };
+        });
+    }, []);
+
     /* ── Phase transitions ── */
     useEffect(() => {
-        // Spring entrance finishes around 2.1s (0.6 delay + ~1.5s spring settling)
-        // Add small pause after landing for dramatic effect
-        const t = setTimeout(() => setPhase('shatter'), 2800);
+        const t = setTimeout(() => setPhase('shatter'), 800);
         return () => clearTimeout(t);
     }, []);
 
     useEffect(() => {
         if (phase === 'shatter') {
-            const t = setTimeout(() => setPhase('done'), 1600);
+            // Allow enough time for assembly to complete
+            const t = setTimeout(() => setPhase('done'), 1800);
             return () => clearTimeout(t);
         }
     }, [phase]);
@@ -70,38 +137,25 @@ export default function ShatterHeroImage() {
     const isShattered = phase === 'shatter' || phase === 'done';
 
     return (
-        <div className="relative w-full flex items-center justify-center gap-2 md:gap-4">
-            {/* ═══════════ LEFT SIDE PANEL ═══════════ */}
-            <motion.div
-                className="hidden md:block relative w-[22%] aspect-[3/4] rounded-lg overflow-hidden border border-white/10 shadow-xl"
-                initial={{ opacity: 0, scale: 0, x: 80, rotateY: -20 }}
-                animate={
-                    isShattered
-                        ? { opacity: 1, scale: 1, x: 0, rotateY: 0 }
-                        : { opacity: 0, scale: 0, x: 80, rotateY: -20 }
-                }
-                transition={{
-                    type: 'spring',
-                    stiffness: 70,
-                    damping: 14,
-                    delay: isShattered ? 0.3 : 0,
-                }}
-                style={{ perspective: '600px', transformStyle: 'preserve-3d' }}
-            >
-                <img
-                    src={LEFT_IMG}
-                    alt="Campus Architecture"
-                    className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
-            </motion.div>
+        <div className="relative w-full flex items-center justify-center gap-1.5 md:gap-3">
+            {/* ═══════════ LEFT PANELS (far → near) ═══════════ */}
+            {sidePanelData
+                .filter((p) => p.side === 'left')
+                .map((panel) => (
+                    <AssemblingPanel
+                        key={panel.id}
+                        panel={panel}
+                        phase={phase}
+                        isShattered={isShattered}
+                    />
+                ))}
 
             {/* ═══════════ CENTER IMAGE + SHATTER ═══════════ */}
             <div
-                className="relative w-[80%] sm:w-[55%] md:w-[45%] aspect-[4/3] z-10"
+                className="relative w-[75%] sm:w-[50%] md:w-[38%] aspect-[16/10] z-10"
                 style={{ perspective: '900px' }}
             >
-                {/* ── Main image (spring entrance) ── */}
+                {/* ── Main image (fast spring entrance) ── */}
                 <motion.div
                     className="absolute inset-0 rounded-md overflow-hidden border border-white/10 shadow-2xl"
                     style={{ transformStyle: 'preserve-3d' }}
@@ -120,14 +174,13 @@ export default function ShatterHeroImage() {
                         y: 0,
                     }}
                     transition={{
-                        delay: 0.6,
+                        delay: 0.15,
                         type: 'spring',
-                        stiffness: 60,
-                        damping: 14,
-                        mass: 1,
+                        stiffness: 90,
+                        damping: 15,
+                        mass: 0.8,
                     }}
                 >
-                    {/* Subtle float after everything settles */}
                     <motion.div
                         animate={phase === 'done' ? { y: [0, -6, 0] } : { y: 0 }}
                         transition={{
@@ -145,34 +198,35 @@ export default function ShatterHeroImage() {
                     </motion.div>
                 </motion.div>
 
-                {/* ── White flash when shatter triggers ── */}
+                {/* ── White flash on shatter ── */}
                 {phase === 'shatter' && (
                     <motion.div
-                        className="absolute inset-0 bg-white/90 rounded-md z-15 pointer-events-none"
-                        initial={{ opacity: 0.9 }}
+                        className="absolute inset-0 bg-white/80 rounded-md pointer-events-none"
+                        style={{ zIndex: 15 }}
+                        initial={{ opacity: 0.8 }}
                         animate={{ opacity: 0 }}
-                        transition={{ duration: 0.5, ease: 'easeOut' }}
+                        transition={{ duration: 0.4, ease: 'easeOut' }}
                     />
                 )}
 
-                {/* ── Shatter tile grid ── */}
+                {/* ── Center scatter tiles ── */}
                 {isShattered && (
                     <div
-                        className="absolute inset-0 z-20 pointer-events-none"
+                        className="absolute inset-0 pointer-events-none"
                         style={{
+                            zIndex: 20,
                             display: 'grid',
-                            gridTemplateColumns: `repeat(${COLS}, 1fr)`,
-                            gridTemplateRows: `repeat(${ROWS}, 1fr)`,
+                            gridTemplateColumns: `repeat(${CENTER_COLS}, 1fr)`,
+                            gridTemplateRows: `repeat(${CENTER_ROWS}, 1fr)`,
                             borderRadius: '0.375rem',
                         }}
                     >
-                        {tiles.map((tile) => (
+                        {centerTiles.map((tile) => (
                             <motion.div
                                 key={tile.key}
-                                className="rounded-[1px]"
                                 style={{
                                     backgroundImage: `url(${CENTER_IMG})`,
-                                    backgroundSize: `${COLS * 100}% ${ROWS * 100}%`,
+                                    backgroundSize: `${CENTER_COLS * 100}% ${CENTER_ROWS * 100}%`,
                                     backgroundPosition: `${tile.bgPosX}% ${tile.bgPosY}%`,
                                     backfaceVisibility: 'hidden',
                                 }}
@@ -187,11 +241,11 @@ export default function ShatterHeroImage() {
                                     x: tile.dx,
                                     y: tile.dy,
                                     rotate: tile.dr,
-                                    scale: 0,
+                                    scale: 0.3,
                                     opacity: 0,
                                 }}
                                 transition={{
-                                    duration: 1.1,
+                                    duration: 0.9,
                                     delay: tile.delay,
                                     ease: [0.36, 0.07, 0.19, 0.97],
                                 }}
@@ -201,26 +255,93 @@ export default function ShatterHeroImage() {
                 )}
             </div>
 
-            {/* ═══════════ RIGHT SIDE PANEL ═══════════ */}
+            {/* ═══════════ RIGHT PANELS (near → far) ═══════════ */}
+            {sidePanelData
+                .filter((p) => p.side === 'right')
+                .map((panel) => (
+                    <AssemblingPanel
+                        key={panel.id}
+                        panel={panel}
+                        phase={phase}
+                        isShattered={isShattered}
+                    />
+                ))}
+        </div>
+    );
+}
+
+/* ─────────────────────────────────────────────
+ * Side panel that assembles from scattered tiles
+ * ───────────────────────────────────────────── */
+function AssemblingPanel({ panel, phase, isShattered }) {
+    const showTiles = phase === 'shatter';
+    const showClean = phase === 'done';
+    const baseDelay = panel.far ? 0.35 : 0.1;
+
+    return (
+        <div
+            className={`hidden md:block relative ${panel.far ? 'w-[13%] aspect-[3/4]' : 'w-[17%] aspect-[3/4]'
+                }`}
+            style={{ perspective: '600px' }}
+        >
+            {/* ── Assembling tile grid (overflow visible so tiles come from outside) ── */}
+            {isShattered && (
+                <div
+                    style={{
+                        position: 'absolute',
+                        inset: 0,
+                        zIndex: 10,
+                        display: 'grid',
+                        gridTemplateColumns: `repeat(${panel.cols}, 1fr)`,
+                        gridTemplateRows: `repeat(${panel.rows}, 1fr)`,
+                        overflow: 'visible',
+                        borderRadius: '0.5rem',
+                    }}
+                >
+                    {panel.tiles.map((tile) => (
+                        <motion.div
+                            key={tile.key}
+                            style={{
+                                backgroundImage: `url(${panel.src})`,
+                                backgroundSize: `${tile.cols * 100}% ${tile.rows * 100}%`,
+                                backgroundPosition: `${tile.bgPosX}% ${tile.bgPosY}%`,
+                                backfaceVisibility: 'hidden',
+                                borderRadius: 1,
+                            }}
+                            initial={{
+                                x: tile.startX,
+                                y: tile.startY,
+                                rotate: tile.startRotate,
+                                opacity: 0,
+                                scale: 0.3,
+                            }}
+                            animate={{
+                                x: 0,
+                                y: 0,
+                                rotate: 0,
+                                opacity: 1,
+                                scale: 1,
+                            }}
+                            transition={{
+                                duration: 0.85,
+                                delay: tile.delay + baseDelay,
+                                ease: [0.25, 0.46, 0.45, 0.94],
+                            }}
+                        />
+                    ))}
+                </div>
+            )}
+
+            {/* ── Clean image (replaces tiles after assembly) ── */}
             <motion.div
-                className="hidden md:block relative w-[22%] aspect-[3/4] rounded-lg overflow-hidden border border-white/10 shadow-xl"
-                initial={{ opacity: 0, scale: 0, x: -80, rotateY: 20 }}
-                animate={
-                    isShattered
-                        ? { opacity: 1, scale: 1, x: 0, rotateY: 0 }
-                        : { opacity: 0, scale: 0, x: -80, rotateY: 20 }
-                }
-                transition={{
-                    type: 'spring',
-                    stiffness: 70,
-                    damping: 14,
-                    delay: isShattered ? 0.3 : 0,
-                }}
-                style={{ perspective: '600px', transformStyle: 'preserve-3d' }}
+                className="absolute inset-0 rounded-lg overflow-hidden border border-white/10 shadow-xl"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: showClean ? 1 : 0 }}
+                transition={{ duration: 0.3 }}
             >
                 <img
-                    src={RIGHT_IMG}
-                    alt="Student Life"
+                    src={panel.src}
+                    alt={panel.alt}
                     className="w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />

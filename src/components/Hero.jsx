@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { DollarSign, CheckCircle, Building2, Globe, ArrowRight } from 'lucide-react';
@@ -18,7 +18,7 @@ const statBadges = [
 const MetricsBar = () => {
     return (
         <motion.div
-            className="w-full max-w-4xl mx-auto mt-8"
+            className="w-full max-w-4xl mx-auto mt-4"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.2, duration: 0.7, ease: 'easeOut' }}
@@ -85,6 +85,88 @@ const InteriorWireframe = () => (
 );
 
 /* ═══════════════════════════════════════════
+   TIU ANIMATION COMPONENT
+   ═══════════════════════════════════════════ */
+const TiuText = () => {
+    // Variants for the initial "TIU" fade in
+    const letterVariants = {
+        hidden: { opacity: 0, y: 20, filter: 'blur(10px)' },
+        visible: { opacity: 1, y: 0, filter: 'blur(0px)' }
+    };
+
+    // Variants for the expansion of the full name
+    const suffixVariants = {
+        hidden: { width: 0, opacity: 0 },
+        visible: {
+            width: "auto",
+            opacity: 1,
+            transition: {
+                delay: 1.5, // Wait for T I U to be read
+                duration: 0.8,
+                ease: [0.16, 1, 0.3, 1]
+            }
+        }
+    };
+
+    // Variants for the space between words
+    const spaceVariants = {
+        hidden: { width: 0 },
+        visible: {
+            width: "0.4ch", // Standard character width space
+            transition: { delay: 1.5, duration: 0.8, ease: [0.16, 1, 0.3, 1] }
+        }
+    };
+
+    return (
+        <motion.div
+            className="flex flex-wrap justify-center text-[#FF0000] font-black tracking-tighter"
+            initial="hidden"
+            animate="visible"
+            variants={{
+                visible: { transition: { staggerChildren: 0.1, delayChildren: 0.2 } }
+            }}
+        >
+            {/* T-ECHNO */}
+            <span className="inline-flex items-baseline">
+                <motion.span variants={letterVariants}>T</motion.span>
+                <motion.span
+                    variants={suffixVariants}
+                    className="overflow-hidden whitespace-nowrap pr-0.5"
+                >
+                    ECHNO
+                </motion.span>
+            </span>
+
+            <motion.span variants={spaceVariants} />
+
+            {/* I-NDIA */}
+            <span className="inline-flex items-baseline">
+                <motion.span variants={letterVariants}>I</motion.span>
+                <motion.span
+                    variants={suffixVariants}
+                    className="overflow-hidden whitespace-nowrap pr-0.5"
+                >
+                    NDIA
+                </motion.span>
+            </span>
+
+            <motion.span variants={spaceVariants} />
+
+            {/* U-NIVERSITY */}
+            <span className="inline-flex items-baseline">
+                <motion.span variants={letterVariants}>U</motion.span>
+                <motion.span
+                    variants={suffixVariants}
+                    className="overflow-hidden whitespace-nowrap pr-0.5"
+                >
+                    NIVERSITY
+                </motion.span>
+            </span>
+        </motion.div>
+    );
+};
+
+/* ═══════════════════════════════════════════
    HERO COMPONENT
    ═══════════════════════════════════════════ */
 const Hero = () => {
@@ -107,7 +189,7 @@ const Hero = () => {
     };
 
     return (
-        <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-[#0A0A0A] pt-32 md:pt-24 pb-16">
+        <section className="relative min-h-screen flex flex-col items-center overflow-hidden bg-[#0A0A0A] pt-28 md:pt-20 pb-6">
             {/* ── Subtle Grid Background ── */}
             <div
                 className="absolute inset-0 opacity-[0.03] pointer-events-none"
@@ -132,31 +214,24 @@ const Hero = () => {
 
             {/* ═══ MAIN CONTENT ═══ */}
             <motion.div
-                className="relative z-10 w-full max-w-6xl mx-auto px-4"
+                className="relative z-10 w-full max-w-6xl mx-auto px-4 flex-1 flex flex-col justify-center"
                 variants={containerVariants}
                 initial="hidden"
                 animate="visible"
             >
                 {/* ── Heading ── */}
-                <motion.div className="text-center mb-6" variants={fadeUp}>
+                <motion.div className="text-center mb-4 md:mb-6" variants={fadeUp}>
                     <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black uppercase leading-tight tracking-tight">
                         <span className="text-white">SHAPE YOUR FUTURE </span>
                         <span className="text-gray-500 font-light lowercase text-2xl sm:text-4xl md:text-5xl lg:text-6xl">at</span>
                         <br />
-                        <motion.span
-                            className="text-[#FF0000] inline-block whitespace-nowrap"
-                            initial={{ opacity: 0, letterSpacing: '0.2em' }}
-                            animate={{ opacity: 1, letterSpacing: '0.02em' }}
-                            transition={{ delay: 0.6, duration: 0.8, ease: 'easeOut' }}
-                        >
-                            TECHNO INDIA UNIVERSITY
-                        </motion.span>
+                        <TiuText />
                     </h1>
                 </motion.div>
 
                 {/* ── Subtitle ── */}
                 <motion.p
-                    className="text-center text-gray-400 text-sm md:text-base max-w-2xl mx-auto mb-12 leading-relaxed"
+                    className="text-center text-gray-400 text-sm md:text-base max-w-2xl mx-auto mb-6 md:mb-8 leading-relaxed"
                     variants={fadeUp}
                 >
                     The School of the Future offers interdisciplinary programs that blend modern technologies
@@ -164,14 +239,14 @@ const Hero = () => {
                 </motion.p>
 
                 {/* ═══ CENTER IMAGE + METRICS BAR ═══ */}
-                <div
-                    className="relative max-w-4xl mx-auto mb-12"
-                >
+                <div className="relative max-w-5xl mx-auto mb-4 md:mb-6">
                     {/* ── Campus Image — Shatter + Side Panels ── */}
                     <ShatterHeroImage />
 
                     {/* ── Metrics Bar ── */}
-                    <MetricsBar />
+                    <div className="mt-4 md:mt-6 relative z-20">
+                        <MetricsBar />
+                    </div>
                 </div>
 
                 {/* ── CTA Buttons ── */}
