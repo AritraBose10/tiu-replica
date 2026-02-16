@@ -62,7 +62,11 @@ export default function AdminDashboard() {
                 {contentTypes.map((ct) => {
                     const Icon = ct.icon;
                     return (
-                        <div key={ct.key} className="admin-stat-card">
+                        <Link
+                            key={ct.key}
+                            to={`/admin/${ct.key}`}
+                            className="admin-stat-card transition-transform hover:scale-105 hover:shadow-lg cursor-pointer block text-inherit no-underline"
+                        >
                             <div
                                 className="admin-stat-icon-wrap"
                                 style={{ background: `${ct.color}15`, color: ct.color }}
@@ -75,7 +79,7 @@ export default function AdminDashboard() {
                                 </span>
                                 <span className="admin-stat-label">{ct.label}</span>
                             </div>
-                        </div>
+                        </Link>
                     );
                 })}
             </div>

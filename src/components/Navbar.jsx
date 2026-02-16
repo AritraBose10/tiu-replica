@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
+import logo from '../assets/logo.png';
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -35,20 +36,11 @@ const Navbar = () => {
                 <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
                     {/* Logo - School of the FUTURE */}
                     <Link to="/" className="flex items-center gap-3">
-                        <div className="flex flex-col leading-tight">
-                            <span className="text-[10px] font-medium text-gray-600 tracking-wide">School of the</span>
-                            <span className="text-xl font-black text-black tracking-tight">FUTURE</span>
-                        </div>
-                        <div className="w-8 h-8 bg-[#FF0000] rounded-full flex items-center justify-center">
-                            <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M12 3L4 9v12h16V9l-8-6zm0 2.5l6 4.5v9H6v-9l6-4.5z" />
-                            </svg>
-                        </div>
-                        <div className="flex flex-col leading-tight text-right">
-                            <span className="text-[10px] font-bold text-black">techno india</span>
-                            <span className="text-[10px] font-bold text-black">university</span>
-                            <span className="text-[8px] font-normal text-[#FF0000]">WEST BENGAL</span>
-                        </div>
+                        <img
+                            src={logo}
+                            alt="Techno India University"
+                            className="h-8 sm:h-10 md:h-12 w-auto object-contain transition-all duration-300"
+                        />
                     </Link>
 
                     {/* Hamburger Menu */}

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { DollarSign, CheckCircle, Building2, Globe, ArrowRight } from 'lucide-react';
 import ShatterHeroImage from './ShatterHeroImage';
@@ -13,45 +13,169 @@ const statBadges = [
 ];
 
 /* ═══════════════════════════════════════════
-   METRICS BAR COMPONENT
+   METRICS BAR — ARROW PROCESS (GLASSMORPHISM)
+   Inline SVG chevrons with visible stroke borders,
+   frosted glass fill, icon centered above label.
    ═══════════════════════════════════════════ */
-const MetricsBar = () => {
-    return (
-        <motion.div
-            className="w-full max-w-4xl mx-auto mt-4"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.2, duration: 0.7, ease: 'easeOut' }}
-        >
-            <div className="flex items-center justify-between rounded-full border border-white/10 bg-[#111111]/90 backdrop-blur-xl px-4 py-4 md:px-8 md:py-5 shadow-[0_0_40px_rgba(0,0,0,0.5)]">
-                {statBadges.map((badge, i) => {
-                    const Icon = badge.icon;
-                    return (
-                        <React.Fragment key={badge.title}>
-                            {/* Vertical divider (skip first) */}
-                            {i > 0 && (
-                                <div className="hidden md:block w-px h-10 bg-white/10 flex-shrink-0" />
-                            )}
+const ARROW_W = 250;   // viewBox width per arrow
+const ARROW_H = 80;    // viewBox height per arrow
+const TIP = 28;        // how far the point extends
+const R = 8;           // corner radius
+const OVERLAP = 18;    // px each arrow overlaps the previous
 
-                            {/* Stat item */}
-                            <div className="flex items-center gap-3 flex-1 justify-center px-2">
-                                <div className="flex-shrink-0 w-9 h-9 md:w-10 md:h-10 rounded-lg bg-red-600/10 border border-red-500/20 flex items-center justify-center">
-                                    <Icon className="w-4 h-4 md:w-5 md:h-5 text-red-500" />
+// Generate the SVG path for one arrow shape
+const arrowPath = (isFirst, isLast) => {
+    const w = ARROW_W;
+    const h = ARROW_H;
+    const t = TIP;
+    const r = R;
+
+    if (isFirst) {
+        return `
+            M ${r} 0
+            L ${w - t} 0
+            L ${w} ${h / 2}
+            L ${w - t} ${h}
+            L ${r} ${h}
+            Q 0 ${h} 0 ${h - r}
+            L 0 ${r}
+            Q 0 0 ${r} 0
+            Z`;
+    }
+    if (isLast) {
+        return `
+            M 0 0
+            L ${w - r} 0
+            Q ${w} 0 ${w} ${r}
+            L ${w} ${h - r}
+            Q ${w} ${h} ${w - r} ${h}
+            L 0 ${h}
+            L ${t} ${h / 2}
+            Z`;
+    }
+    return `
+        M 0 0
+        L ${w - t} 0
+        L ${w} ${h / 2}
+        L ${w - t} ${h}
+        L 0 ${h}
+        L ${t} ${h / 2}
+        Z`;
+};
+
+const MetricsBar = () => {
+    const [startIdx, setStartIdx] = useState(statBadges.length);
+
+    useEffect(() => {
+        const timers = [];
+        timers.push(setTimeout(() => setStartIdx(3), 1200));
+        timers.push(setTimeout(() => setStartIdx(2), 1600));
+        timers.push(setTimeout(() => setStartIdx(1), 2000));
+        timers.push(setTimeout(() => setStartIdx(0), 2400));
+        return () => timers.forEach(clearTimeout);
+    }, []);
+
+    const visibleBadges = statBadges.slice(startIdx);
+
+    return (
+        <div className="w-full max-w-5xl mx-auto mt-4 px-2 h-[112px] flex items-center justify-center">
+            <div className="flex items-center justify-center overflow-visible py-4 w-full">
+                <AnimatePresence mode="popLayout" initial={false}>
+                    {visibleBadges.map((badge, i) => {
+                        const realIndex = statBadges.indexOf(badge);
+                        const isFirst = realIndex === 0;
+                        const isLast = realIndex === statBadges.length - 1;
+                        const d = arrowPath(isFirst, isLast);
+
+                        return (
+                            <motion.div
+                                key={badge.title}
+                                layout
+                                initial={{ x: -100, opacity: 0, scale: 0.9 }}
+                                animate={{ x: 0, opacity: 1, scale: 1 }}
+                                transition={{
+                                    type: 'spring',
+                                    stiffness: 180,
+                                    damping: 24,
+                                    mass: 1,
+                                }}
+                                className="relative group"
+                                style={{
+                                    width: `${ARROW_W}px`,
+                                    height: `${ARROW_H}px`,
+                                    marginLeft: i === 0 ? 0 : `-${OVERLAP}px`,
+                                    zIndex: statBadges.length - realIndex,
+                                    flexShrink: 0,
+                                }}
+                            >
+                                {/* SVG arrow — transparent with white border & slight fill */}
+                                <svg
+                                    className="absolute inset-0 w-full h-full"
+                                    viewBox={`0 0 ${ARROW_W} ${ARROW_H}`}
+                                    preserveAspectRatio="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    {/* Very subtle white fill for body presence */}
+                                    <path d={d} fill="rgba(255,255,255,0.02)" />
+                                    {/* Smooth White Border */}
+                                    <path
+                                        d={d}
+                                        fill="none"
+                                        stroke="rgba(255,255,255,0.3)"
+                                        strokeWidth="1.5"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                    />
+                                    {/* Inner Shine - Optional */}
+                                    <path
+                                        d={d}
+                                        fill="none"
+                                        stroke="rgba(255,255,255,0.1)"
+                                        strokeWidth="3"
+                                        className="opacity-20"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                    />
+                                </svg>
+
+                                {/* The ACTUAL Frosted Glass Filter Layer */}
+                                <div
+                                    className="absolute inset-0 -z-10"
+                                    style={{
+                                        clipPath: `path('${d.replace(/\n/g, ' ').replace(/\s+/g, ' ').trim()}')`,
+                                        backdropFilter: 'blur(6px)',
+                                        WebkitBackdropFilter: 'blur(6px)',
+                                        backgroundColor: 'rgba(255,255,255,0.03)', // Increased Transparency
+                                        boxShadow: 'inset 0 1px 0 0 rgba(255,255,255,0.2)'
+                                    }}
+                                />
+
+                                {/* Content */}
+                                <div
+                                    className="absolute inset-0 flex items-center gap-3"
+                                    style={{
+                                        paddingLeft: isFirst ? '24px' : `${TIP + 14}px`,
+                                        paddingRight: isLast ? '16px' : `${TIP + 4}px`,
+                                    }}
+                                >
+                                    <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center">
+                                        {React.createElement(badge.icon, { className: "w-5 h-5 text-white/80" })}
+                                    </div>
+                                    <div className="min-w-0 flex flex-col justify-center">
+                                        <p className="text-white font-bold text-sm leading-tight tracking-wide">
+                                            {badge.value}
+                                        </p>
+                                        <p className="text-white/40 text-[10px] font-semibold uppercase tracking-widest leading-tight truncate">
+                                            {badge.title}
+                                        </p>
+                                    </div>
                                 </div>
-                                <div className="hidden sm:block min-w-0">
-                                    <p className="text-white font-bold text-sm md:text-base leading-tight truncate">
-                                        {badge.value}
-                                    </p>
-                                    <p className="text-gray-500 text-[10px] md:text-xs font-medium uppercase tracking-wider leading-tight truncate">
-                                        {badge.title}
-                                    </p>
-                                </div>
-                            </div>
-                        </React.Fragment>
-                    );
-                })}
+                            </motion.div>
+                        );
+                    })}
+                </AnimatePresence>
             </div>
-        </motion.div>
+        </div>
     );
 };
 
@@ -88,31 +212,31 @@ const InteriorWireframe = () => (
    TIU ANIMATION COMPONENT
    ═══════════════════════════════════════════ */
 const TiuText = () => {
-    // Variants for the initial "TIU" fade in
     const letterVariants = {
         hidden: { opacity: 0, y: 20, filter: 'blur(10px)' },
         visible: { opacity: 1, y: 0, filter: 'blur(0px)' }
     };
 
-    // Variants for the expansion of the full name
     const suffixVariants = {
-        hidden: { width: 0, opacity: 0 },
+        hidden: { width: 0, opacity: 0, overflow: "hidden" },
         visible: {
             width: "auto",
             opacity: 1,
             transition: {
-                delay: 1.5, // Wait for T I U to be read
+                delay: 1.5,
                 duration: 0.8,
                 ease: [0.16, 1, 0.3, 1]
+            },
+            transitionEnd: {
+                overflow: "visible"
             }
         }
     };
 
-    // Variants for the space between words
     const spaceVariants = {
         hidden: { width: 0 },
         visible: {
-            width: "0.4ch", // Standard character width space
+            width: "0.4ch",
             transition: { delay: 1.5, duration: 0.8, ease: [0.16, 1, 0.3, 1] }
         }
     };
@@ -170,7 +294,6 @@ const TiuText = () => {
    HERO COMPONENT
    ═══════════════════════════════════════════ */
 const Hero = () => {
-    // Stagger orchestration
     const containerVariants = {
         hidden: {},
         visible: {
@@ -238,15 +361,14 @@ const Hero = () => {
                     and innovation, equipping students to excel in a rapidly changing world.
                 </motion.p>
 
-                {/* ═══ CENTER IMAGE + METRICS BAR ═══ */}
-                <div className="relative max-w-5xl mx-auto mb-4 md:mb-6">
-                    {/* ── Campus Image — Shatter + Side Panels ── */}
+                {/* ═══ CENTER IMAGE ═══ */}
+                <div className="relative w-full max-w-5xl mx-auto mb-2 md:mb-4">
                     <ShatterHeroImage />
+                </div>
 
-                    {/* ── Metrics Bar ── */}
-                    <div className="mt-4 md:mt-6 relative z-20">
-                        <MetricsBar />
-                    </div>
+                {/* ═══ METRICS BAR ═══ */}
+                <div className="relative z-20 mb-6 md:mb-8">
+                    <MetricsBar />
                 </div>
 
                 {/* ── CTA Buttons ── */}

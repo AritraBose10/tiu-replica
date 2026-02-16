@@ -12,6 +12,12 @@ import Approvals from './pages/Approvals';
 import Events from './pages/Events';
 import { AnimatePresence } from 'framer-motion';
 
+// Engagement Components
+import StickyApplyButton from './components/StickyApplyButton';
+import WhatsAppButton from './components/WhatsAppButton';
+import ExitIntentPopup from './components/ExitIntentPopup';
+import LeadMagnetBanner from './components/LeadMagnetBanner';
+
 // Admin imports
 import { AuthProvider } from './components/admin/AuthProvider';
 import AdminGuard from './components/admin/AdminGuard';
@@ -85,6 +91,10 @@ function App() {
                 </Routes>
               </main>
               <Footer />
+              <StickyApplyButton />
+              <WhatsAppButton />
+              <ExitIntentPopup />
+              <LeadMagnetBanner />
             </div>
           } />
         </Routes>

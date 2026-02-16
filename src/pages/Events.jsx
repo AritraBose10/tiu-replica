@@ -221,7 +221,7 @@ const FeaturedEventCard = ({ event, index }) => (
                 <div className="flex items-center justify-between pt-4 border-t border-white/5">
                     <div className="flex items-center gap-2 text-gray-500 text-sm">
                         <Users className="w-4 h-4" />
-                        <span>{event.attendees.toLocaleString()}+ expected</span>
+                        <span>{(event.attendees || 0).toLocaleString()}+ expected</span>
                     </div>
                     <motion.div
                         whileHover={{ x: 5 }}
@@ -500,7 +500,7 @@ const Events = () => {
                                                 <div className="flex items-center justify-between pt-3 border-t border-white/5">
                                                     <div className="flex items-center gap-1.5 text-gray-500 text-xs">
                                                         <Users className="w-3.5 h-3.5" />
-                                                        <span>{event.attendees.toLocaleString()}+</span>
+                                                        <span>{(event.attendees || 0).toLocaleString()}+</span>
                                                     </div>
                                                     <motion.div
                                                         whileHover={{ x: 3 }}
