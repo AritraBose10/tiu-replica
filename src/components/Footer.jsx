@@ -1,26 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import logo from '../assets/logo.png';
 
 const Footer = () => {
     return (
         <footer className="bg-black text-white py-12">
             <div className="container mx-auto px-4 md:px-6 text-center">
                 {/* Logo */}
-                <div className="flex items-center justify-center gap-3 mb-6">
-                    <div className="flex flex-col leading-tight text-left">
-                        <span className="text-[10px] font-medium text-gray-400 tracking-wide">School of the</span>
-                        <span className="text-xl font-black text-white tracking-tight">FUTURE</span>
-                    </div>
-                    <div className="w-8 h-8 bg-[#FF0000] rounded-full flex items-center justify-center">
-                        <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M12 3L4 9v12h16V9l-8-6zm0 2.5l6 4.5v9H6v-9l6-4.5z" />
-                        </svg>
-                    </div>
-                    <div className="flex flex-col leading-tight text-left">
-                        <span className="text-[10px] font-bold text-white">techno india</span>
-                        <span className="text-[10px] font-bold text-white">university</span>
-                        <span className="text-[8px] font-normal text-[#FF0000]">WEST BENGAL</span>
-                    </div>
+                <div className="flex items-center justify-center mb-6">
+                    <img src={logo} alt="Techno India University" className="h-12 object-contain" />
                 </div>
 
                 {/* Links */}
