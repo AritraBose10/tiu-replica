@@ -19,19 +19,19 @@ export default async function handler(req, res) {
         if (!auth.authorized) return res.status(auth.status).json({ error: auth.message });
 
         if (req.method === 'POST') {
-            const { name, full_name, logo, sort_order } = req.body;
+            const { name, full_name, logo, description, sort_order } = req.body;
             await db.execute({
-                sql: 'INSERT INTO approvals (name, full_name, logo, sort_order) VALUES (?, ?, ?, ?)',
-                args: [name, full_name, logo || '', sort_order || 0],
+                sql: 'INSERT INTO approvals (name, full_name, logo, description, sort_order) VALUES (?, ?, ?, ?, ?)',
+                args: [name, full_name, logo || '', description || '', sort_order || 0],
             });
             return res.status(201).json({ success: true });
         }
 
         if (req.method === 'PUT') {
-            const { id, name, full_name, logo, sort_order } = req.body;
+            const { id, name, full_name, logo, description, sort_order } = req.body;
             await db.execute({
-                sql: 'UPDATE approvals SET name=?, full_name=?, logo=?, sort_order=? WHERE id=?',
-                args: [name, full_name, logo, sort_order || 0, id],
+                sql: 'UPDATE approvals SET name=?, full_name=?, logo=?, description=?, sort_order=? WHERE id=?',
+                args: [name, full_name, logo, description || '', sort_order || 0, id],
             });
             return res.status(200).json({ success: true });
         }

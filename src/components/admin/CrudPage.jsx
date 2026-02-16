@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useAuth } from './AuthProvider';
-import { Search, Plus, Pencil, Trash2, Inbox, X, Check, AlertCircle } from 'lucide-react';
+import { Search, Plus, Pencil, Trash2, Inbox, X, Check, AlertCircle, ImageIcon } from 'lucide-react';
 
 /**
  * Reusable CRUD admin page with premium UI.
@@ -207,6 +207,27 @@ export default function CrudPage({ title, endpoint, columns, fields, idField = '
                                                     <option key={o} value={o}>{o}</option>
                                                 ))}
                                             </select>
+                                        ) : f.type === 'image_url' ? (
+                                            <div>
+                                                <input
+                                                    type="text"
+                                                    value={formData[f.key] ?? ''}
+                                                    onChange={(e) => setFormData(prev => ({ ...prev, [f.key]: e.target.value }))}
+                                                    placeholder={f.placeholder || 'Paste image URL...'}
+                                                    required={f.required}
+                                                />
+                                                {formData[f.key] && (
+                                                    <div style={{ marginTop: 8, padding: 10, background: 'rgba(255,255,255,0.03)', borderRadius: 8, border: '1px solid rgba(255,255,255,0.08)', display: 'flex', alignItems: 'center', gap: 10 }}>
+                                                        <img
+                                                            src={formData[f.key]}
+                                                            alt="Preview"
+                                                            style={{ width: 48, height: 48, objectFit: 'contain', borderRadius: 6, background: '#fff' }}
+                                                            onError={(e) => { e.target.style.display = 'none'; }}
+                                                        />
+                                                        <span style={{ fontSize: 12, color: '#888' }}>Image preview</span>
+                                                    </div>
+                                                )}
+                                            </div>
                                         ) : (
                                             <input
                                                 type={f.type || 'text'}

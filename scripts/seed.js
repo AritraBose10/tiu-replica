@@ -72,6 +72,7 @@ async function seed() {
       name TEXT NOT NULL,
       full_name TEXT NOT NULL,
       logo TEXT,
+      description TEXT,
       sort_order INTEGER DEFAULT 0
     );
 
@@ -217,18 +218,18 @@ async function seed() {
     // ── Seed Approvals ──
     console.log('🏛️ Seeding approvals...');
     const approvals = [
-        { name: 'UGC', full_name: 'University Grants Commission', logo: '🏛️' },
-        { name: 'AICTE', full_name: 'All India Council for Technical Education', logo: '📚' },
-        { name: 'AIU', full_name: 'Association of Indian Universities', logo: '🎓' },
-        { name: 'NIRF', full_name: 'National Institutional Ranking Framework', logo: '🏆' },
-        { name: 'NAAC', full_name: 'National Assessment and Accreditation Council', logo: '⭐' },
-        { name: 'ISO', full_name: 'ISO 9001:2015 Certified', logo: '✅' },
+        { name: 'UGC', full_name: 'University Grants Commission', logo: 'https://static.wixstatic.com/media/4d76fa_22977ebae1bc4181b6af13c54d0ec195~mv2.jpg', description: 'Recognized by India\'s apex body for higher education standards and quality assurance.' },
+        { name: 'AICTE', full_name: 'All India Council for Technical Education', logo: 'https://static.wixstatic.com/media/4d76fa_20b732a7a0df4f1aacbee92f04803ff1~mv2.jpg', description: 'Approved for delivering world-class technical and management education programs.' },
+        { name: 'BCI', full_name: 'Bar Council of India', logo: 'https://static.wixstatic.com/media/4d76fa_b4b6e0c8ec2d4b84b19ea16dbcfd016a~mv2.jpg', description: 'Affiliated for offering accredited Law programs meeting national legal education standards.' },
+        { name: 'PCI', full_name: 'Pharmacy Council of India', logo: 'https://static.wixstatic.com/media/4d76fa_0f94f520580d4155ac4f8ccb065da04b~mv2.jpg', description: 'Approved for pharmaceutical sciences programs with industry-aligned curriculum.' },
+        { name: 'COA', full_name: 'Council of Architecture', logo: 'https://static.wixstatic.com/media/4d76fa_85c506123858458bbddc73a0ff910cc4~mv2.jpg', description: 'Recognized for Architecture programs fostering creative design and urban planning.' },
+        { name: 'INC', full_name: 'Indian Nursing Council', logo: 'https://static.wixstatic.com/media/4d76fa_df762dfb25974f669d9704d2d5fd127e~mv2.jpg', description: 'Approved for Nursing programs ensuring healthcare education excellence.' },
     ];
     for (let i = 0; i < approvals.length; i++) {
         const a = approvals[i];
         await db.execute({
-            sql: 'INSERT INTO approvals (name, full_name, logo, sort_order) VALUES (?, ?, ?, ?)',
-            args: [a.name, a.full_name, a.logo, i],
+            sql: 'INSERT INTO approvals (name, full_name, logo, description, sort_order) VALUES (?, ?, ?, ?, ?)',
+            args: [a.name, a.full_name, a.logo, a.description || '', i],
         });
     }
 

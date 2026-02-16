@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { DollarSign, CheckCircle, Building2, Globe, ArrowRight } from 'lucide-react';
+import ShatterHeroImage from './ShatterHeroImage';
 
 /* ─── Stat Badge Data ─── */
 const statBadges = [
@@ -64,7 +65,7 @@ const ExteriorWireframe = () => (
         <img
             src="/wireframes/exterior.jpg"
             alt=""
-            className="w-full h-full object-cover opacity-20 filter grayscale contrast-125"
+            className="w-full h-full object-cover opacity-35 filter grayscale contrast-125"
         />
     </div>
 );
@@ -78,7 +79,7 @@ const InteriorWireframe = () => (
         <img
             src="/wireframes/interior.jpg"
             alt=""
-            className="w-full h-full object-cover opacity-20 filter grayscale contrast-125"
+            className="w-full h-full object-cover opacity-35 filter grayscale contrast-125"
         />
     </div>
 );
@@ -163,38 +164,15 @@ const Hero = () => {
                 </motion.p>
 
                 {/* ═══ CENTER IMAGE + METRICS BAR ═══ */}
-                <motion.div
+                <div
                     className="relative max-w-4xl mx-auto mb-12"
-                    variants={fadeScale}
                 >
-                    {/* ── Campus Image ── */}
-                    <div className="relative mx-auto w-[80%] sm:w-[60%] md:w-[50%] aspect-[4/3] z-10">
-                        {/* Outer glow */}
-                        <motion.div
-                            className="absolute -inset-2 bg-gradient-to-br from-red-600/20 via-transparent to-red-600/20 rounded-lg blur-md"
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            transition={{ delay: 1, duration: 0.8 }}
-                        />
-
-                        {/* Image container */}
-                        <motion.div
-                            className="relative rounded-sm overflow-hidden border border-red-500/20 shadow-[0_0_40px_rgba(255,0,0,0.12)]"
-                            initial={{ opacity: 0, scale: 0.95 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            transition={{ delay: 0.6, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                        >
-                            <img
-                                src="https://images.unsplash.com/photo-1562774053-701939374585?q=80&w=2086&auto=format&fit=crop"
-                                alt="Techno India University Campus"
-                                className="w-full h-full object-cover"
-                            />
-                        </motion.div>
-                    </div>
+                    {/* ── Campus Image — Shatter + Side Panels ── */}
+                    <ShatterHeroImage />
 
                     {/* ── Metrics Bar ── */}
                     <MetricsBar />
-                </motion.div>
+                </div>
 
                 {/* ── CTA Buttons ── */}
                 <motion.div
@@ -216,7 +194,7 @@ const Hero = () => {
                     </Link>
                 </motion.div>
             </motion.div>
-        </section>
+        </section >
     );
 };
 
