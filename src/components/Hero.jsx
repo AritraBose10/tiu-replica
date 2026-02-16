@@ -28,14 +28,18 @@ const arrowPath = (isFirst, isLast) => {
     const w = ARROW_W;
     const h = ARROW_H;
     const t = TIP;
-    const r = R;
+    const r = R; // Corner radius for box corners
+    const tr = 3; // Tip radius - slight rounding for the sharp point
 
     if (isFirst) {
         return `
             M ${r} 0
-            L ${w - t} 0
-            L ${w} ${h / 2}
-            L ${w - t} ${h}
+            L ${w - t - tr} 0
+            Q ${w - t} 0 ${w - t + tr} ${tr}
+            L ${w - tr} ${h / 2 - tr}
+            Q ${w} ${h / 2} ${w - tr} ${h / 2 + tr}
+            L ${w - t + tr} ${h - tr}
+            Q ${w - t} ${h} ${w - t - tr} ${h}
             L ${r} ${h}
             Q 0 ${h} 0 ${h - r}
             L 0 ${r}
@@ -50,16 +54,24 @@ const arrowPath = (isFirst, isLast) => {
             L ${w} ${h - r}
             Q ${w} ${h} ${w - r} ${h}
             L 0 ${h}
-            L ${t} ${h / 2}
+            L ${t - tr} ${h / 2 + tr}
+            Q ${t - tr * 2} ${h / 2} ${t - tr} ${h / 2 - tr}
+            L 0 0
             Z`;
     }
+    // Middle Arrow
     return `
         M 0 0
-        L ${w - t} 0
-        L ${w} ${h / 2}
-        L ${w - t} ${h}
+        L ${w - t - tr} 0
+        Q ${w - t} 0 ${w - t + tr} ${tr}
+        L ${w - tr} ${h / 2 - tr}
+        Q ${w} ${h / 2} ${w - tr} ${h / 2 + tr}
+        L ${w - t + tr} ${h - tr}
+        Q ${w - t} ${h} ${w - t - tr} ${h}
         L 0 ${h}
-        L ${t} ${h / 2}
+        L ${t - tr} ${h / 2 + tr}
+        Q ${t - tr * 2} ${h / 2} ${t - tr} ${h / 2 - tr}
+        L 0 0
         Z`;
 };
 
@@ -108,47 +120,39 @@ const MetricsBar = () => {
                                     flexShrink: 0,
                                 }}
                             >
-                                {/* SVG arrow — transparent with white border & slight fill */}
+                                {/* Frosted Glass Backdrop — the main visual */}
+                                <div
+                                    className="absolute inset-0"
+                                    style={{
+                                        clipPath: `path('${d.replace(/\n/g, ' ').replace(/\s+/g, ' ').trim()}')`,
+                                        backdropFilter: 'blur(12px)',
+                                        WebkitBackdropFilter: 'blur(12px)',
+                                        backgroundColor: 'rgba(255,255,255,0.07)',
+                                        boxShadow: 'inset 0 1px 1px rgba(255,255,255,0.15), inset 0 -1px 1px rgba(255,255,255,0.05)',
+                                    }}
+                                />
+
+                                {/* Soft outer glow SVG — no crisp lines */}
                                 <svg
-                                    className="absolute inset-0 w-full h-full"
+                                    className="absolute inset-0 w-full h-full pointer-events-none"
                                     viewBox={`0 0 ${ARROW_W} ${ARROW_H}`}
                                     preserveAspectRatio="none"
                                     xmlns="http://www.w3.org/2000/svg"
                                 >
-                                    {/* Very subtle white fill for body presence */}
-                                    <path d={d} fill="rgba(255,255,255,0.02)" />
-                                    {/* Smooth White Border */}
+                                    <defs>
+                                        <filter id={`glass-glow-${i}`} x="-10%" y="-10%" width="120%" height="120%">
+                                            <feGaussianBlur in="SourceGraphic" stdDeviation="2" />
+                                        </filter>
+                                    </defs>
+                                    {/* Soft diffused edge — no hard border */}
                                     <path
                                         d={d}
                                         fill="none"
-                                        stroke="rgba(255,255,255,0.3)"
-                                        strokeWidth="1.5"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                    />
-                                    {/* Inner Shine - Optional */}
-                                    <path
-                                        d={d}
-                                        fill="none"
-                                        stroke="rgba(255,255,255,0.1)"
-                                        strokeWidth="3"
-                                        className="opacity-20"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
+                                        stroke="rgba(255,255,255,0.12)"
+                                        strokeWidth="2"
+                                        filter={`url(#glass-glow-${i})`}
                                     />
                                 </svg>
-
-                                {/* The ACTUAL Frosted Glass Filter Layer */}
-                                <div
-                                    className="absolute inset-0 -z-10"
-                                    style={{
-                                        clipPath: `path('${d.replace(/\n/g, ' ').replace(/\s+/g, ' ').trim()}')`,
-                                        backdropFilter: 'blur(6px)',
-                                        WebkitBackdropFilter: 'blur(6px)',
-                                        backgroundColor: 'rgba(255,255,255,0.03)', // Increased Transparency
-                                        boxShadow: 'inset 0 1px 0 0 rgba(255,255,255,0.2)'
-                                    }}
-                                />
 
                                 {/* Content */}
                                 <div
