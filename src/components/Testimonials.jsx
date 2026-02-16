@@ -1,9 +1,11 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { Quote, Star, GraduationCap, Sparkles } from 'lucide-react';
+import { useSanity } from '../hooks/useSanity';
+import { TESTIMONIALS_QUERY } from '../lib/queries';
 
-// ─── Mock Testimonials ───────────────────────────────────────
-const testimonialsRow1 = [
+// ─── Fallback Testimonials ───────────────────────────────────────
+const fallbackRow1 = [
     {
         name: 'Aarav Sharma',
         course: 'B.Tech CSE, Batch 2024',
@@ -46,7 +48,7 @@ const testimonialsRow1 = [
     },
 ];
 
-const testimonialsRow2 = [
+const fallbackRow2 = [
     {
         name: 'Sneha Mukherjee',
         course: 'BBA, Batch 2024',
@@ -214,6 +216,16 @@ const TestimonialCard = ({ testimonial }) => {
 
 // ─── Main Section ─────────────────────────────────────────────
 const Testimonials = () => {
+    const { data: allTestimonials } = useSanity(TESTIMONIALS_QUERY, null);
+
+    // Split testimonials into two rows for the marquee
+    const testimonialsRow1 = allTestimonials
+        ? allTestimonials.slice(0, Math.ceil(allTestimonials.length / 2))
+        : fallbackRow1;
+    const testimonialsRow2 = allTestimonials
+        ? allTestimonials.slice(Math.ceil(allTestimonials.length / 2))
+        : fallbackRow2;
+
     return (
         <section className="py-24 bg-[#020205] relative overflow-hidden">
             {/* Subtle grid */}

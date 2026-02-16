@@ -1,7 +1,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { useSanity } from '../hooks/useSanity';
+import { PARTNERS_QUERY } from '../lib/queries';
 
-const partners = [
+const fallbackPartners = [
     { name: 'Google', logo: 'https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg' },
     { name: 'IBM', logo: 'https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg' },
     { name: 'Microsoft', logo: 'https://upload.wikimedia.org/wikipedia/commons/9/96/Microsoft_logo_%282012%29.svg' },
@@ -11,6 +13,10 @@ const partners = [
 ];
 
 const PartnersCarousel = () => {
+    const { data: sanityPartners } = useSanity(PARTNERS_QUERY, null);
+    const partners = sanityPartners
+        ? sanityPartners.map(p => ({ name: p.name, logo: p.logoUrl }))
+        : fallbackPartners;
     return (
         <section className="py-16 bg-white">
             {/* Badge */}

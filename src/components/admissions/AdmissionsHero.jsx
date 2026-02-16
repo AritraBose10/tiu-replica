@@ -21,11 +21,15 @@ const LiquidChromeText = () => {
 // External Admissions Form Widget (Embedded via Iframe to ensure script isolation and proper loading)
 const AdmissionsFormWidget = () => {
     const [isLoading, setIsLoading] = useState(true);
+    const [iframeHeight, setIframeHeight] = useState(520);
 
     useEffect(() => {
         const handleMessage = (event) => {
             if (event.data && event.data.type === 'EE_WIDGET_LOADED') {
                 setIsLoading(false);
+            }
+            if (event.data && event.data.type === 'EE_WIDGET_HEIGHT') {
+                setIframeHeight(event.data.height);
             }
         };
 
@@ -51,6 +55,11 @@ const AdmissionsFormWidget = () => {
             <div class="ee-form-widget" id="ee-form-9"></div>
             
             <script>
+                function reportHeight() {
+                    var h = document.body.scrollHeight;
+                    window.parent.postMessage({ type: 'EE_WIDGET_HEIGHT', height: h }, '*');
+                }
+
                 window.addEventListener("DOMContentLoaded", function() {
                     window.ee_form_widget_baseurl = "https://eeconfigstaticfiles.blob.core.windows.net/staticfiles/ee-form-widget/";
                     
@@ -70,17 +79,25 @@ const AdmissionsFormWidget = () => {
                         await _eeFormWidget.init("softiu", "form-9", "ee-form-9");
                         // Notify parent that widget is loaded
                         window.parent.postMessage({ type: 'EE_WIDGET_LOADED' }, '*');
+                        // Report height after a short delay for styles to settle
+                        setTimeout(reportHeight, 300);
+                        setTimeout(reportHeight, 1000);
                     };
                     t.src = window.ee_form_widget_baseurl + "js/eeFormWidget.min.js";
                     document.getElementsByTagName("head")[0].appendChild(t);
                 });
+
+                // Also observe resize changes
+                if (window.ResizeObserver) {
+                    new ResizeObserver(reportHeight).observe(document.documentElement);
+                }
             </script>
         </body>
         </html>
     `;
 
     return (
-        <div className="w-full max-w-md mx-auto bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl shadow-2xl relative h-[585px] flex flex-col" style={{ padding: '10px 5px' }}>
+        <div className="w-full max-w-md mx-auto bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl shadow-2xl relative flex flex-col transition-all duration-300" style={{ padding: '10px 5px', height: iframeHeight + 40 }}>
             {/* Real-time Loading spinner */}
             {
                 isLoading && (
@@ -93,10 +110,10 @@ const AdmissionsFormWidget = () => {
             <iframe
                 srcDoc={widgetCode}
                 title="Admissions Enquiry Form"
-                className={`w-full h-full border-0 z-10 rounded-2xl transition-opacity duration-500 ${isLoading ? 'opacity-0' : 'opacity-100'}`}
-                style={{ backgroundColor: 'transparent' }}
+                className={`w-full border-0 z-10 rounded-2xl transition-opacity duration-500 ${isLoading ? 'opacity-0' : 'opacity-100'}`}
+                style={{ backgroundColor: 'transparent', height: iframeHeight }}
             />
-        </div >
+        </div>
     );
 };
 

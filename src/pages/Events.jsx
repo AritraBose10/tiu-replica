@@ -3,11 +3,13 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Calendar, MapPin, Clock, Users, ArrowUpRight, Search, Filter, Sparkles, ChevronRight, Tag } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import pastEvents from '../data/past_events.json';
+import { useSanity } from '../hooks/useSanity';
+import { EVENTS_QUERY } from '../lib/queries';
 
 // ─── Mock Data ───────────────────────────────────────────────
 const CATEGORIES = ['All', 'Technical', 'Cultural', 'Workshop', 'Seminar', 'Sports'];
 
-const eventsData = [
+const fallbackEventsData = [
     {
         id: 1,
         title: 'TechNova 2026 – Annual Tech Fest',
@@ -235,6 +237,8 @@ const FeaturedEventCard = ({ event, index }) => (
 
 // ─── Main Events Page ─────────────────────────────────────────
 const Events = () => {
+    const { data: sanityEvents } = useSanity(EVENTS_QUERY, null);
+    const eventsData = sanityEvents && sanityEvents.length > 0 ? sanityEvents : fallbackEventsData;
     const [activeCategory, setActiveCategory] = useState('All');
     const [searchQuery, setSearchQuery] = useState('');
 

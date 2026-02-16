@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import { useSanity } from '../hooks/useSanity';
+import { FAQS_QUERY } from '../lib/queries';
 
-const FAQData = [
+const fallbackFAQData = [
     {
         id: 1,
         question: "What programs and technologies are included in the curriculum?",
@@ -102,6 +104,7 @@ const FAQItem = ({ item, isOpen, onClick }) => {
 };
 
 const FAQ = () => {
+    const { data: FAQData } = useSanity(FAQS_QUERY, fallbackFAQData);
     const [openId, setOpenId] = useState(1);
 
     const handleToggle = (id) => {

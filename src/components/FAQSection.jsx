@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Plus, Minus } from 'lucide-react';
+import { useSanity } from '../hooks/useSanity';
+import { FAQS_QUERY } from '../lib/queries';
 
-const faqs = [
+const fallbackFaqs = [
     {
         id: 1,
         question: 'How are emerging technologies integrated into learning?',
@@ -26,6 +28,7 @@ const faqs = [
 ];
 
 const FAQSection = () => {
+    const { data: faqs } = useSanity(FAQS_QUERY, fallbackFaqs);
     const [openId, setOpenId] = useState(null);
 
     const toggleFAQ = (id) => {

@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence, useMotionValue, useTransform, useSpring } from 'framer-motion';
 import { Search, Filter, Sparkles, ArrowUpRight, Zap, Code, Database, Palette, Microscope } from 'lucide-react';
 import coursesData from '../data/mock_courses.json';
+import { useSanity } from '../hooks/useSanity';
+import { COURSES_QUERY } from '../lib/queries';
 
 // --- 3D Tilt Card Component ---
 const TiltCard = ({ course, index }) => {
@@ -118,7 +120,8 @@ const getDegreeLevel = (title) => {
 
 // --- Main Page Component ---
 const Courses = () => {
-    const [filteredCourses, setFilteredCourses] = useState(coursesData);
+    const { data: allCourses } = useSanity(COURSES_QUERY, coursesData);
+    const [filteredCourses, setFilteredCourses] = useState(allCourses);
     const [searchTerm, setSearchTerm] = useState('');
     const [activeTab, setActiveTab] = useState('All');
     const [degreeType, setDegreeType] = useState('UG'); // New State: UG or PG
@@ -127,7 +130,7 @@ const Courses = () => {
     const categoryTabs = ['All', 'Engineering', 'Management', 'Design', 'Computer Applications', 'Science'];
 
     useEffect(() => {
-        let results = coursesData;
+        let results = allCourses;
 
         // 1. Filter by Degree Level (UG/PG)
         results = results.filter(c => getDegreeLevel(c.title) === degreeType);
@@ -145,7 +148,7 @@ const Courses = () => {
             );
         }
         setFilteredCourses(results);
-    }, [searchTerm, activeTab, degreeType]);
+    }, [searchTerm, activeTab, degreeType, allCourses]);
 
     return (
         <div className="min-h-screen bg-[#020205] text-white relative overflow-x-hidden selection:bg-[#FF0000] selection:text-white">

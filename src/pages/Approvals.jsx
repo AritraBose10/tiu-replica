@@ -1,7 +1,9 @@
 import React, { useRef, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import { useSanity } from '../hooks/useSanity';
+import { APPROVALS_QUERY } from '../lib/queries';
 
-const approvalBodies = [
+const fallbackApprovalBodies = [
     {
         id: 1,
         name: 'UGC',
@@ -53,7 +55,7 @@ const approvalBodies = [
     },
 ];
 
-const InfiniteMarquee = () => {
+const InfiniteMarquee = ({ approvalBodies }) => {
     return (
         <div className="relative flex overflow-hidden py-10 before:absolute before:left-0 before:top-0 before:z-10 before:h-full before:w-40 before:bg-gradient-to-r before:from-[#050505] before:to-transparent after:absolute after:right-0 after:top-0 after:z-10 after:h-full after:w-40 after:bg-gradient-to-l after:after:from-[#050505] after:after:to-transparent">
             <motion.div
@@ -67,7 +69,7 @@ const InfiniteMarquee = () => {
             >
                 {[...approvalBodies, ...approvalBodies].map((body, i) => (
                     <motion.div
-                        key={`${body.id}-${i}`}
+                        key={`${body.id || body.name}-${i}`}
                         className="flex h-32 w-48 shrink-0 items-center justify-center grayscale hover:grayscale-0 transition-all duration-500 cursor-pointer"
                     >
                         <img
@@ -91,6 +93,8 @@ const MagneticCard = ({ children, className }) => {
 };
 
 const Approvals = () => {
+    const { data: sanityApprovals } = useSanity(APPROVALS_QUERY, null);
+    const approvalBodies = sanityApprovals && sanityApprovals.length > 0 ? sanityApprovals : fallbackApprovalBodies;
     const containerRef = useRef(null);
     const { scrollYProgress } = useScroll({
         target: containerRef,
@@ -167,7 +171,7 @@ const Approvals = () => {
                     viewport={{ once: true }}
                     className="mb-40"
                 >
-                    <InfiniteMarquee />
+                    <InfiniteMarquee approvalBodies={approvalBodies} />
                 </motion.div>
 
                 {/* Distinctive Feature Grid */}

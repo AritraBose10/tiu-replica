@@ -1,6 +1,8 @@
 import { motion } from 'framer-motion';
+import { useSanity } from '../hooks/useSanity';
+import { APPROVALS_QUERY } from '../lib/queries';
 
-const approvals = [
+const fallbackApprovals = [
     { name: 'UGC', fullName: 'University Grants Commission', logo: '🏛️' },
     { name: 'AICTE', fullName: 'All India Council for Technical Education', logo: '📚' },
     { name: 'AIU', fullName: 'Association of Indian Universities', logo: '🎓' },
@@ -10,6 +12,7 @@ const approvals = [
 ];
 
 const ApprovalsSection = () => {
+    const { data: approvals } = useSanity(APPROVALS_QUERY, fallbackApprovals);
     return (
         <section className="py-20 px-4 bg-gradient-to-br from-pink-50 via-white to-blue-50">
             <div className="max-w-7xl mx-auto text-center">
