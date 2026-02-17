@@ -145,7 +145,7 @@ const CareerOutcomes = () => {
                     {/* Quick Stats Grid */}
                     <div className="grid grid-cols-2 gap-4">
                         {[
-                            { icon: TrendingUp, value: '95%', label: 'Placement Rate', color: 'text-emerald-400' },
+                            { icon: TrendingUp, value: '100%', label: 'Placement Assistance', color: 'text-emerald-400' },
                             { icon: Building2, value: '300+', label: 'Recruiting Companies', color: 'text-blue-400' },
                             { icon: Handshake, value: '1200+', label: 'Offers Made (2025)', color: 'text-amber-400' },
                             { icon: ArrowUpRight, value: '40%', label: 'YoY Package Growth', color: 'text-red-400' },
