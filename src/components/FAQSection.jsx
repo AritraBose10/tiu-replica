@@ -7,28 +7,34 @@ import { FAQS_QUERY } from '../lib/queries';
 const fallbackFaqs = [
     {
         id: 1,
-        question: 'How are emerging technologies integrated into learning?',
-        answer: 'Our curriculum is designed in collaboration with Google and IBM to incorporate the latest technologies including AI, Machine Learning, Cloud Computing, and Cybersecurity. Students work on real-world projects and gain industry certifications.',
+        question: 'What is the School of the Future?',
+        answer: 'The School of the Future is a next-generation academic school under Techno India University, created to prepare students for emerging careers. It combines strong academics with industry-powered curriculum, project-based learning, and real-world exposure across technology, business, creative disciplines, and applied sciences.',
     },
     {
         id: 2,
-        question: 'What career paths can graduates pursue?',
-        answer: 'Graduates can pursue careers as Software Engineers, Data Scientists, AI/ML Engineers, Cloud Architects, UI/UX Designers, Digital Marketers, and more. Our placement cell connects students with top tech companies.',
+        question: 'Is the degree recognised?',
+        answer: 'Yes. All programs are offered under a UGC-recognised university framework (Techno India University) with structured academic governance and full regulatory compliance. Degrees are valid across India and recognised globally.',
     },
     {
         id: 3,
-        question: 'What are the eligibility criteria and admission requirements?',
-        answer: 'Eligibility varies by program. Engineering courses require 10+2 with PCM, while other programs accept students from any stream. Apply through our online portal and complete the document submission process.',
+        question: 'Who awards the degree?',
+        answer: 'Degrees are awarded by Techno India University, a UGC-recognised university under the Techno India Group. The School of the Future operates as a future-focused academic school within this established institutional ecosystem.',
     },
     {
         id: 4,
-        question: 'How is the teaching and learning approach structured?',
-        answer: 'We follow a blended learning approach combining classroom instruction, hands-on labs, industry projects, and internships. Faculty includes industry experts and certified Google/IBM trainers.',
+        question: 'Do I need a coding background?',
+        answer: 'Not at all. Many of our programs are designed for students from any academic background. Whether you come from science, commerce, or arts, our curriculum starts from fundamentals and builds up with hands-on projects and industry tools.',
+    },
+    {
+        id: 5,
+        question: 'What are the career options after these programs?',
+        answer: 'Graduates explore multiple pathways including technology, business, creative, and healthcare roles, internships and live industry projects, higher studies in India and abroad, and startup and entrepreneurial journeys. Our focus is on long-term careers, not short-term hype.',
     },
 ];
 
-const FAQSection = () => {
-    const { data: faqs } = useSanity(FAQS_QUERY, fallbackFaqs);
+const FAQSection = ({ customFaqs }) => {
+    const { data: sanityFaqs } = useSanity(FAQS_QUERY, fallbackFaqs);
+    const faqs = customFaqs || sanityFaqs;
     const [openId, setOpenId] = useState(null);
 
     const toggleFAQ = (id) => {

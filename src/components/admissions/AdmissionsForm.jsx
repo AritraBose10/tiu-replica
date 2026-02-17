@@ -93,21 +93,39 @@ const AdmissionsForm = () => {
                     <h2 className="text-5xl md:text-7xl font-bold text-white mb-6">
                         Ready to <br />
                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-orange-500">
-                            Change the World?
+                            Apply?
                         </span>
                     </h2>
                     <p className="text-xl text-gray-400 mb-8 max-w-md">
-                        Your future starts with a single step. Apply now to join the next generation of innovators at TIU.
+                        Seats are limited and programs are in high demand. Apply early to secure your
+                        preferred program and scholarship consideration.
                     </p>
+
+                    <div className="flex flex-col gap-3 mb-8">
+                        <a
+                            href="https://wa.me/919876543210?text=Hi%2C%20I%20want%20the%20SoF%20course%20brochure"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-3 px-6 py-4 rounded-2xl bg-green-500/10 border border-green-500/20 text-green-400 font-semibold hover:bg-green-500/20 transition-all"
+                        >
+                            📱 Get Course List & Brochure on WhatsApp
+                        </a>
+                        <a
+                            href="#"
+                            className="flex items-center gap-3 px-6 py-4 rounded-2xl bg-white/5 border border-white/10 text-white font-semibold hover:bg-white/10 transition-all"
+                        >
+                            📞 Book a 10-Minute Counselling Call
+                        </a>
+                    </div>
 
                     <div className="flex gap-4">
                         <div className="p-4 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10">
-                            <h4 className="text-2xl font-bold text-white">24/7</h4>
-                            <p className="text-sm text-gray-500">Support Available</p>
+                            <h4 className="text-2xl font-bold text-red-500">2026</h4>
+                            <p className="text-sm text-gray-500">Intake Open</p>
                         </div>
                         <div className="p-4 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10">
-                            <h4 className="text-2xl font-bold text-red-500">100%</h4>
-                            <p className="text-sm text-gray-500">Online Process</p>
+                            <h4 className="text-2xl font-bold text-white">Rolling</h4>
+                            <p className="text-sm text-gray-500">Admissions</p>
                         </div>
                     </div>
                 </div>
@@ -166,13 +184,25 @@ const AdmissionsForm = () => {
                                     </div>
                                 </div>
 
+                                <div className="flex items-start gap-3 mb-6">
+                                    <input
+                                        type="checkbox"
+                                        id="whatsapp-optin"
+                                        className="mt-1 w-4 h-4 accent-red-500 bg-white/10 border-white/20 rounded"
+                                        defaultChecked
+                                    />
+                                    <label htmlFor="whatsapp-optin" className="text-gray-400 text-sm">
+                                        I agree to receive updates on WhatsApp
+                                    </label>
+                                </div>
+
                                 <button
                                     type="submit"
                                     disabled={status === 'submitting'}
                                     className="w-full bg-gradient-to-r from-red-600 to-orange-600 text-white font-bold py-4 rounded-xl hover:shadow-lg hover:shadow-red-500/30 transition-all flex items-center justify-center gap-2 transform active:scale-95 disabled:opacity-50"
                                 >
                                     {status === 'submitting' ? 'Sending...' : (
-                                        <>Send Enquiry <Send className="w-4 h-4" /></>
+                                        <>Apply for Admissions 2026 <Send className="w-4 h-4" /></>
                                     )}
                                 </button>
                             </form>

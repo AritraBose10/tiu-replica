@@ -51,7 +51,13 @@ const CourseCard = ({ course, index }) => {
                     <div className="flex items-center gap-2">
                         <span className="text-gray-400">Industry Partner:</span>
                         <span className="font-medium text-[#FF0000]">
-                            {course.title.includes('Google') ? 'Google' : course.title.includes('IBM') ? 'IBM' : 'TIU'}
+                            {course.title.includes('Google') ? (
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Google_Cloud_logo.svg" alt="Google Cloud" className="h-5 object-contain" />
+                            ) : course.title.includes('IBM') ? (
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg" alt="IBM" className="h-5 object-contain" />
+                            ) : (
+                                <span className="text-[#FF0000]">TIU</span>
+                            )}
                         </span>
                     </div>
                 </div>

@@ -6,12 +6,12 @@ import { Sparkles, ArrowRight, Globe, Zap } from 'lucide-react';
 const LiquidChromeText = () => {
     return (
         <div className="relative z-10">
-            <h1 className="text-6xl md:text-8xl lg:text-9xl font-black tracking-tighter leading-[0.85]">
+            <h1 className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter leading-[0.9]">
                 <span className="block text-transparent bg-clip-text bg-gradient-to-b from-white via-gray-200 to-gray-500 drop-shadow-2xl">
-                    SHAPING
+                    ADMISSIONS 2026
                 </span>
-                <span className="block text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-orange-400 to-red-600 animate-gradient-x pb-4">
-                    THE FUTURE
+                <span className="block text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-orange-400 to-red-600 animate-gradient-x pb-4 text-4xl md:text-5xl lg:text-6xl mt-2">
+                    NOW OPEN
                 </span>
             </h1>
         </div>
@@ -160,10 +160,19 @@ const AdmissionsHero = () => {
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.8 }}
                     >
-                        <p className="text-xl md:text-2xl text-gray-400 max-w-xl border-l-2 border-red-600 pl-6 mb-8">
-                            Step into a world where technology meets imagination. <br />
-                            <span className="text-white font-semibold">Admissions Open for 2026.</span>
+                        <h2 className="text-2xl md:text-3xl text-white font-bold max-w-xl mb-4">
+                            Build a Career That Actually Matters
+                        </h2>
+                        <p className="text-lg text-gray-400 max-w-xl border-l-2 border-red-600 pl-6 mb-4">
+                            Industry-powered undergraduate, postgraduate and doctoral programs designed for future careers, under Techno India University.
                         </p>
+                        <div className="flex flex-wrap items-center gap-3 text-sm text-gray-500 font-medium mb-8">
+                            <span className="px-3 py-1 rounded-full bg-red-600/10 border border-red-600/20 text-red-400">Limited Seats</span>
+                            <span className="text-white/20">|</span>
+                            <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-gray-300">High-Demand Programs</span>
+                            <span className="text-white/20">|</span>
+                            <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-gray-300">Rolling Admissions</span>
+                        </div>
                     </motion.div>
 
                     <motion.div
@@ -172,15 +181,15 @@ const AdmissionsHero = () => {
                         transition={{ delay: 0.6, duration: 0.8 }}
                         className="flex flex-wrap gap-4"
                     >
-                        <button className="group relative px-8 py-4 bg-white text-black font-bold rounded-full overflow-hidden transition-all hover:scale-105">
+                        <a href="#apply-section" className="group relative px-8 py-4 bg-white text-black font-bold rounded-full overflow-hidden transition-all hover:scale-105 inline-flex items-center gap-2">
                             <span className="relative z-10 flex items-center gap-2">
-                                Start Application <ArrowRight className="w-4 h-4" />
+                                Apply Now <ArrowRight className="w-4 h-4" />
                             </span>
                             <div className="absolute inset-0 bg-gradient-to-r from-red-500 to-orange-500 opacity-0 group-hover:opacity-10 transition-opacity" />
-                        </button>
-                        <button className="px-8 py-4 rounded-full border border-white/20 text-white font-medium hover:bg-white/5 transition-all flex items-center gap-2">
-                            <Globe className="w-4 h-4" /> Virtual Tour
-                        </button>
+                        </a>
+                        <a href="https://wa.me/919876543210?text=Hi%2C%20I%20want%20the%20SoF%20course%20brochure" target="_blank" rel="noopener noreferrer" className="px-8 py-4 rounded-full border border-green-500/30 bg-green-500/10 text-green-400 font-medium hover:bg-green-500/20 transition-all flex items-center gap-2">
+                            📱 Get Brochure on WhatsApp
+                        </a>
                     </motion.div>
                 </div>
 

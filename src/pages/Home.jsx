@@ -4,75 +4,79 @@ import PartnersCarousel from '../components/PartnersCarousel';
 import Testimonials from '../components/Testimonials';
 import ProgramsSection from '../components/ProgramsSection';
 import GoogleIBMBanner from '../components/GoogleIBMBanner';
-import HowToApply from '../components/HowToApply';
 import FAQSection from '../components/FAQSection';
 import ApprovalsSection from '../components/ApprovalsSection';
+import WhatIsSoF from '../components/WhatIsSoF';
+import WhySoF from '../components/WhySoF';
+import ProgramQuiz from '../components/ProgramQuiz';
+import HowLearningWorks from '../components/HowLearningWorks';
+import StudentWork from '../components/StudentWork';
+import CampusLife from '../components/CampusLife';
+import CareerPathways from '../components/CareerPathways';
+import Ecosystem from '../components/Ecosystem';
+import ScholarshipsStrip from '../components/ScholarshipsStrip';
 import { motion } from 'framer-motion';
-import { Users, Award, Globe, BookOpen } from 'lucide-react';
 import { Link } from 'react-router-dom';
-
-const stats = [
-    { icon: Users, value: "5 Lakh+", label: "Alumni Network" },
-    { icon: Award, value: "1st", label: "Private Uni in WB" },
-    { icon: Globe, value: "100+", label: "Global Partners" },
-    { icon: BookOpen, value: "50+", label: "Courses" }
-];
+import { ArrowRight, MessageCircle } from 'lucide-react';
 
 const Home = () => {
     return (
         <div className="bg-white">
-            {/* Hero Section */}
+            {/* §1 — Hero */}
             <Hero />
 
-            {/* Partners Carousel */}
+            {/* Partners Carousel (kept) */}
             <PartnersCarousel />
 
-            {/* Student Testimonials */}
-            <Testimonials />
+            {/* §2 — What is SoF? */}
+            <WhatIsSoF />
 
-            {/* Programs Section - Dark themed with tabs */}
+            {/* §3 — Why SoF is Different */}
+            <WhySoF />
+
+            {/* §4 — Find My Program Quiz */}
+            <ProgramQuiz />
+
+            {/* §5 — Program Pathways */}
             <ProgramsSection />
 
-            {/* Stats Section */}
-            <section className="py-16 bg-black text-white">
-                <div className="container mx-auto px-4">
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-                        {stats.map((stat, index) => (
-                            <motion.div
-                                key={index}
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: index * 0.1 }}
-                                className="text-center"
-                            >
-                                <div className="inline-flex p-3 bg-[#FF0000]/20 text-[#FF0000] rounded-full mb-3">
-                                    <stat.icon size={28} />
-                                </div>
-                                <div className="text-4xl font-black mb-1">{stat.value}</div>
-                                <div className="text-sm text-gray-400 font-medium">{stat.label}</div>
-                            </motion.div>
-                        ))}
-                    </div>
-                </div>
-            </section>
-
-            {/* Google & IBM Feature Banner */}
+            {/* §6 — Industry Collaboration */}
             <GoogleIBMBanner />
 
-            {/* How to Apply Timeline */}
-            <HowToApply />
+            {/* Testimonials (kept) */}
+            <Testimonials />
 
-            {/* FAQ Section */}
-            <FAQSection />
+            {/* §7 — How Learning Works */}
+            <HowLearningWorks />
 
-            {/* Approvals & Affiliations */}
+            {/* §8 — Real Work / Outcomes */}
+            <StudentWork />
+
+            {/* §9 — Campus Life */}
+            <CampusLife />
+
+            {/* §10 — Careers & Pathways */}
+            <CareerPathways />
+
+            {/* §11 — The Ecosystem */}
+            <Ecosystem />
+
+            {/* §12 — Scholarships */}
+            <ScholarshipsStrip />
+
+            {/* §13 — Accreditations */}
             <ApprovalsSection />
 
-            {/* CTA Section */}
+            {/* §14 — Admissions Snapshot */}
             <section className="py-24 bg-black relative overflow-hidden text-center text-white">
-                {/* Red glow effect */}
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(255,0,0,0.3)_0%,_transparent_70%)]" />
+                {/* Subtle motion gradient */}
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(255,0,0,0.15)_0%,_transparent_70%)]" />
+                <motion.div
+                    className="absolute inset-0 opacity-30"
+                    animate={{ backgroundPosition: ['0% 0%', '100% 100%'] }}
+                    transition={{ duration: 8, repeat: Infinity, repeatType: 'reverse' }}
+                    style={{ background: 'linear-gradient(135deg, rgba(255,0,0,0.1), transparent, rgba(255,0,0,0.05))', backgroundSize: '200% 200%' }}
+                />
 
                 <div className="container mx-auto px-4 relative z-10">
                     <motion.div
@@ -81,22 +85,36 @@ const Home = () => {
                         viewport={{ once: true }}
                     >
                         <h2 className="text-4xl md:text-6xl font-black mb-6">
-                            Applications{' '}
-                            <span className="bg-[#FF0000] px-4 py-1">Open</span>{' '}
-                            Now
+                            Your Journey to the Future{' '}
+                            <span className="bg-[#FF0000] px-4 py-1">Starts Here</span>
                         </h2>
                         <p className="text-xl text-gray-400 mb-10 max-w-2xl mx-auto">
-                            Secure your spot in the School of the Future. Admissions open for 2026 batch.
+                            Admissions follow a guided process to help students choose the right program aligned with their interests and aspirations.
                         </p>
-                        <Link
-                            to="/admissions"
-                            className="inline-block bg-[#FF0000] text-white px-12 py-5 rounded-full font-bold text-xl hover:bg-[#CC0000] transition-all duration-300 hover:shadow-2xl hover:scale-105"
-                        >
-                            Apply Now
-                        </Link>
+                        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                            <Link
+                                to="/admissions"
+                                className="inline-flex items-center justify-center gap-2 bg-[#FF0000] text-white px-10 py-5 rounded-full font-bold text-lg hover:bg-[#CC0000] transition-all duration-300 hover:shadow-2xl hover:scale-105"
+                            >
+                                Explore Admissions 2026
+                                <ArrowRight className="w-5 h-5" />
+                            </Link>
+                            <a
+                                href="https://wa.me/919876543210?text=Hi,%20I'd%20like%20the%20program%20brochure"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center justify-center gap-2 bg-white/10 text-white px-10 py-5 rounded-full font-bold text-lg hover:bg-white/20 transition-all duration-300 border border-white/20"
+                            >
+                                <MessageCircle className="w-5 h-5" />
+                                Get Brochure on WhatsApp
+                            </a>
+                        </div>
                     </motion.div>
                 </div>
             </section>
+
+            {/* §15 — FAQs */}
+            <FAQSection />
         </div>
     );
 };

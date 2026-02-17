@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "concurrently \"vite\" \"node server.js\"",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
@@ -13,6 +13,8 @@
   "dependencies": {
     "@libsql/client": "^0.17.0",
     "@sanity/client": "^7.14.1",
+    "axios": "^1.13.5",
+    "cheerio": "^1.2.0",
     "dotenv": "^17.2.4",
     "express": "^5.2.1",
     "framer-motion": "^12.34.0",
@@ -29,6 +31,7 @@
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^5.1.1",
     "autoprefixer": "^10.4.24",
+    "concurrently": "^9.2.1",
     "eslint": "^9.39.1",
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.4.24",

@@ -1,75 +1,138 @@
+import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, CheckCircle2 } from 'lucide-react';
 
 const MotionLink = motion.create(Link);
 
+const highlights = [
+    'Curriculum co-designed with industry partners',
+    'Students work with real tools, frameworks & cloud platforms',
+    'Google Cloud & IBM certifications embedded in programs',
+    'Industry mentors & guest lectures from practitioners',
+];
+
 const GoogleIBMBanner = () => {
     return (
-        <section className="py-20 px-4 bg-gradient-to-br from-gray-50 to-pink-50">
+        <section className="py-20 px-4 bg-gradient-to-br from-gray-50 to-white overflow-hidden">
             <div className="max-w-7xl mx-auto">
+                {/* Header */}
                 <motion.div
-                    initial={{ opacity: 0, y: 30 }}
+                    initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.6 }}
-                    className="bg-white rounded-3xl overflow-hidden shadow-xl relative"
+                    className="text-center mb-14"
                 >
-                    <div className="grid md:grid-cols-2 items-center">
-                        {/* Left Content */}
-                        <div className="p-10 md:p-14">
-                            <span className="text-[#FF0000] text-sm font-semibold tracking-wide">
-                                Google & IBM Courses
-                            </span>
-                            <h2 className="text-3xl md:text-4xl font-black text-black mt-3 mb-6 leading-tight">
-                                Advance Your Career
-                                <br />
-                                with Google & IBM Programs
-                            </h2>
-                            <p className="text-gray-600 mb-8 leading-relaxed">
-                                Empower your future with globally recognized programs developed with Google and IBM,
-                                specializing in AI, Data Science, and Cloud Computing. Gain hands-on expertise,
-                                industry-aligned skills, and the confidence to excel in tomorrow's technology landscape.
-                            </p>
+                    <span className="inline-block bg-red-100 text-[#FF0000] text-sm font-semibold px-5 py-2 rounded-full mb-6">
+                        Industry Partnership
+                    </span>
+                    <h2 className="text-4xl md:text-5xl font-black text-black mb-4">
+                        Industry-Powered Learning with{' '}
+                        <span className="text-[#FF0000]">Global Technology Leaders</span>
+                    </h2>
+                    <p className="text-lg text-gray-500 max-w-3xl mx-auto">
+                        At SoF, industry collaboration is embedded into the curriculum — not added as a marketing layer.
+                        Students learn using real tools, real frameworks and real-world problems.
+                    </p>
+                </motion.div>
+
+                {/* Two-Column Layout */}
+                <div className="grid md:grid-cols-2 gap-8 items-stretch">
+                    {/* Left — Content Card */}
+                    <motion.div
+                        initial={{ opacity: 0, x: -30 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        className="bg-white rounded-3xl p-8 md:p-10 border border-gray-100 shadow-lg flex flex-col"
+                    >
+                        {/* Partner Logos */}
+                        <div className="flex items-center gap-6 mb-8 pb-8 border-b border-gray-100">
+                            <img
+                                src="https://upload.wikimedia.org/wikipedia/commons/5/51/Google_Cloud_logo.svg"
+                                alt="Google Cloud"
+                                className="h-7 object-contain"
+                            />
+                            <div className="w-px h-8 bg-gray-200" />
+                            <div className="flex items-center gap-2">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg" alt="IBM" className="h-8 object-contain" />
+                            </div>
+                        </div>
+
+                        {/* Highlights */}
+                        <div className="space-y-4 flex-1">
+                            {highlights.map((item, i) => (
+                                <motion.div
+                                    key={i}
+                                    initial={{ opacity: 0, x: -10 }}
+                                    whileInView={{ opacity: 1, x: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ delay: i * 0.1 }}
+                                    className="flex items-start gap-3"
+                                >
+                                    <CheckCircle2 className="text-[#FF0000] flex-shrink-0 mt-0.5" size={20} />
+                                    <span className="text-gray-700 font-medium">{item}</span>
+                                </motion.div>
+                            ))}
+                        </div>
+
+                        {/* CTA */}
+                        <div className="mt-8">
                             <MotionLink
-                                to="/admissions"
+                                to="/courses"
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.98 }}
                                 className="inline-flex items-center gap-2 bg-[#FF0000] text-white px-8 py-4 rounded-full font-semibold hover:bg-[#CC0000] transition-colors"
                             >
-                                Enroll
+                                Explore Industry Programs
                                 <ArrowRight className="w-5 h-5" />
                             </MotionLink>
                         </div>
+                    </motion.div>
 
-                        {/* Right Image Section */}
-                        <div className="relative h-full min-h-[400px] overflow-hidden">
-                            {/* Red accent */}
-                            <div className="absolute right-0 top-0 bottom-0 w-16 bg-[#FF0000] z-10" />
-
-                            {/* Google & IBM logos */}
-                            <div className="absolute top-6 right-24 z-20 flex items-center gap-3">
-                                <img
-                                    src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png"
-                                    alt="Google"
-                                    className="h-6 object-contain"
-                                />
-                                <span className="text-blue-600 font-bold text-xl">IBM</span>
-                            </div>
-
-                            {/* Student montage - B&W effect */}
-                            <div className="absolute inset-0 grayscale">
-                                <img
-                                    src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=2070&auto=format&fit=crop"
-                                    alt="Students"
-                                    className="w-full h-full object-cover"
-                                />
-                                {/* Gradient fade on left */}
-                                <div className="absolute inset-0 bg-gradient-to-r from-white via-white/50 to-transparent" />
+                    {/* Right — Image + Visual */}
+                    <motion.div
+                        initial={{ opacity: 0, x: 30 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        className="flex flex-col gap-4"
+                    >
+                        {/* Main Image */}
+                        <div className="flex-1 rounded-3xl overflow-hidden bg-gray-100 relative min-h-[280px]">
+                            <img
+                                src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=2070&auto=format&fit=crop"
+                                alt="Students working with industry tools"
+                                className="w-full h-full object-cover"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
+                            <div className="absolute bottom-4 left-4 right-4">
+                                <span className="bg-white/90 backdrop-blur-sm text-black text-xs font-bold px-4 py-2 rounded-full">
+                                    Real tools. Real frameworks. Real projects.
+                                </span>
                             </div>
                         </div>
-                    </div>
-                </motion.div>
+
+                        {/* Bottom stats strip */}
+                        <div className="grid grid-cols-3 gap-4">
+                            {[
+                                { value: '10+', label: 'Industry Certifications' },
+                                { value: '50+', label: 'Live Projects' },
+                                { value: '2', label: 'Global Tech Partners' },
+                            ].map((stat, i) => (
+                                <motion.div
+                                    key={i}
+                                    initial={{ opacity: 0, y: 10 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ delay: 0.3 + i * 0.1 }}
+                                    className="bg-black rounded-2xl p-4 text-center"
+                                >
+                                    <div className="text-2xl font-black text-[#FF0000]">{stat.value}</div>
+                                    <div className="text-xs text-gray-400 font-medium mt-1">{stat.label}</div>
+                                </motion.div>
+                            ))}
+                        </div>
+                    </motion.div>
+                </div>
             </div>
         </section>
     );

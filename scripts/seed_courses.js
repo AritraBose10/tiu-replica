@@ -1,4 +1,19 @@
-[
+import { createClient } from "@libsql/client";
+import dotenv from "dotenv";
+
+dotenv.config();
+
+const url = process.env.TURSO_DATABASE_URL;
+const authToken = process.env.TURSO_AUTH_TOKEN;
+
+if (!url || !authToken) {
+    console.error("Missing TURSO_DATABASE_URL or TURSO_AUTH_TOKEN");
+    process.exit(1);
+}
+
+const db = createClient({ url, authToken });
+
+const courses = [
     {
         "id": "btech-cse",
         "title": "B.Tech Computer Science & Engineering (CSE)",
@@ -202,4 +217,35 @@
         "category": "Health & Allied Sciences",
         "link": "#"
     }
-]
+];
+
+async function seed() {
+    console.log("Starting seed...");
+    try {
+        // Optional: Clear existing courses
+        // await db.execute("DELETE FROM courses"); 
+        // console.log("Cleared existing courses.");
+
+        // Or just upsert/insert. Let's delete for clean slate if that's desired, 
+        // but usually user might want to keep existing? 
+        // The user said "These are the current programs, update accordingly".
+        // I'll delete and re-insert to be safe and clean.
+
+        await db.execute("DELETE FROM courses");
+        console.log("Cleared courses table.");
+
+        for (const course of courses) {
+            const { id, title, description, category, link } = course;
+            await db.execute({
+                sql: "INSERT INTO courses (id, title, description, category, link, sort_order) VALUES (?, ?, ?, ?, ?, ?)",
+                args: [id, title, description, category, link, 0]
+            });
+            console.log(`Inserted: ${title}`);
+        }
+        console.log("Seed complete!");
+    } catch (e) {
+        console.error("Error seeding:", e);
+    }
+}
+
+seed();

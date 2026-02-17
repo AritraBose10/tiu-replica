@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Calendar, MapPin, Clock, Users, ArrowUpRight, Search, Filter, Sparkles, ChevronRight, Tag } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -149,18 +149,9 @@ const StatusBadge = ({ status }) => {
 };
 
 // ─── Featured Event Card ──────────────────────────────────────
-const FeaturedEventCard = ({ event, index }) => (
-    <motion.div
-        initial={{ opacity: 0, y: 60 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-50px" }}
-        transition={{ duration: 0.6, delay: index * 0.15 }}
-        className="group relative col-span-1 md:col-span-2 lg:col-span-1"
-    >
-        {/* Hover Glow */}
-        <div className="absolute -inset-0.5 bg-gradient-to-br from-[#FF0000] to-purple-600 opacity-0 group-hover:opacity-40 blur-xl transition-opacity duration-500 rounded-3xl" />
-
-        <div className="relative h-full bg-[#0a0a12]/90 backdrop-blur-xl border border-white/10 rounded-3xl overflow-hidden group-hover:border-[#FF0000]/30 transition-colors duration-500">
+const FeaturedEventCard = ({ event, index }) => {
+    const CardContent = (
+        <>
             {/* Image */}
             <div className="relative h-56 overflow-hidden">
                 <motion.img
@@ -207,14 +198,6 @@ const FeaturedEventCard = ({ event, index }) => (
                         <Calendar className="w-4 h-4 text-[#FF0000]" />
                         <span>{event.date}</span>
                     </div>
-                    <div className="flex items-center gap-2 text-gray-500 text-sm">
-                        <Clock className="w-4 h-4 text-[#FF0000]" />
-                        <span>{event.time}</span>
-                    </div>
-                    <div className="flex items-center gap-2 text-gray-500 text-sm">
-                        <MapPin className="w-4 h-4 text-[#FF0000]" />
-                        <span>{event.location}</span>
-                    </div>
                 </div>
 
                 {/* Footer */}
@@ -231,21 +214,87 @@ const FeaturedEventCard = ({ event, index }) => (
                     </motion.div>
                 </div>
             </div>
-        </div>
-    </motion.div>
-);
+        </>
+    );
+
+    const Wrapper = event.isExternal ? 'a' : 'div';
+    const wrapperProps = event.isExternal ? {
+        href: event.link,
+        target: "_blank",
+        rel: "noopener noreferrer",
+        className: "block h-full"
+    } : {};
+
+    return (
+        <motion.div
+            initial={{ opacity: 0, y: 60 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.6, delay: index * 0.15 }}
+            className="group relative col-span-1 md:col-span-2 lg:col-span-1"
+        >
+            {/* Hover Glow */}
+            <div className="absolute -inset-0.5 bg-gradient-to-br from-[#FF0000] to-purple-600 opacity-0 group-hover:opacity-40 blur-xl transition-opacity duration-500 rounded-3xl" />
+
+            <Wrapper {...wrapperProps}>
+                <div className="relative h-full bg-[#0a0a12]/90 backdrop-blur-xl border border-white/10 rounded-3xl overflow-hidden group-hover:border-[#FF0000]/30 transition-colors duration-500">
+                    {CardContent}
+                </div>
+            </Wrapper>
+        </motion.div>
+    );
+};
 
 // ─── Main Events Page ─────────────────────────────────────────
 const Events = () => {
     const { data: sanityEvents } = useSanity(EVENTS_QUERY, null);
-    const eventsData = sanityEvents && sanityEvents.length > 0 ? sanityEvents : fallbackEventsData;
+    const [scrapedEvents, setScrapedEvents] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    // Fetch scraped events
+    useEffect(() => {
+        const fetchEvents = async () => {
+            try {
+                const response = await fetch('/api/scrape-events');
+                if (response.ok) {
+                    const data = await response.json();
+                    // Transform scraped data to match component shape
+                    const transformed = data.map((event, index) => ({
+                        id: `scraped-${index}`,
+                        title: event.title,
+                        description: 'Click to read the full story on Techno Times.', // Default description
+                        date: event.date,
+                        time: 'All Day', // Default time
+                        location: 'Techno India University', // Default location
+                        category: event.category || 'Event',
+                        image: event.image,
+                        attendees: Math.floor(Math.random() * 500) + 100, // Mock attendance
+                        featured: index < 2, // Feature first 2
+                        status: 'upcoming',
+                        link: event.link, // External link
+                        isExternal: true
+                    }));
+                    setScrapedEvents(transformed);
+                }
+            } catch (err) {
+                console.error("Failed to fetch events:", err);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchEvents();
+    }, []);
+
+    // Prioritize scraped events, then Sanity, then fallback
+    const eventsData = scrapedEvents.length > 0 ? scrapedEvents : (sanityEvents && sanityEvents.length > 0 ? sanityEvents : fallbackEventsData);
+
     const [activeCategory, setActiveCategory] = useState('All');
     const [searchQuery, setSearchQuery] = useState('');
 
     const filteredEvents = eventsData.filter((event) => {
         const matchesCategory = activeCategory === 'All' || event.category === activeCategory;
         const matchesSearch = event.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            event.description.toLowerCase().includes(searchQuery.toLowerCase());
+            (event.description && event.description.toLowerCase().includes(searchQuery.toLowerCase()));
         return matchesCategory && matchesSearch;
     });
 
@@ -446,73 +495,75 @@ const Events = () => {
                             className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
                         >
                             {filteredEvents.length > 0 ? (
-                                filteredEvents.map((event, i) => (
-                                    <motion.div
-                                        key={event.id}
-                                        initial={{ opacity: 0, y: 40 }}
-                                        whileInView={{ opacity: 1, y: 0 }}
-                                        viewport={{ once: true, margin: "-30px" }}
-                                        transition={{ duration: 0.5, delay: i * 0.08 }}
-                                        className="group relative"
-                                    >
-                                        {/* Hover glow */}
-                                        <div className="absolute -inset-0.5 bg-gradient-to-br from-[#FF0000] to-purple-600 opacity-0 group-hover:opacity-30 blur-xl transition-opacity duration-500 rounded-3xl" />
+                                filteredEvents.map((event, index) => {
+                                    const Wrapper = event.isExternal ? 'a' : 'div';
+                                    const wrapperProps = event.isExternal ? {
+                                        href: event.link,
+                                        target: "_blank",
+                                        rel: "noopener noreferrer",
+                                        className: "block h-full cursor-pointer"
+                                    } : { className: "block h-full" };
 
-                                        <div className="relative h-full bg-[#0a0a12]/90 backdrop-blur-xl border border-white/10 rounded-3xl overflow-hidden group-hover:border-[#FF0000]/30 transition-colors duration-500">
-                                            {/* Image */}
-                                            <div className="relative h-44 overflow-hidden">
-                                                <motion.img
-                                                    whileHover={{ scale: 1.05 }}
-                                                    transition={{ duration: 0.4 }}
-                                                    src={event.image}
-                                                    alt={event.title}
-                                                    className="w-full h-full object-cover"
-                                                />
-                                                <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a12] via-transparent to-transparent" />
-                                                <div className="absolute top-3 left-3 flex items-center gap-2">
-                                                    <span className="text-xs font-bold uppercase tracking-wider text-white bg-[#FF0000]/90 px-2.5 py-1 rounded-full">
-                                                        {event.category}
-                                                    </span>
-                                                    <StatusBadge status={event.status} />
-                                                </div>
-                                            </div>
-
-                                            {/* Content */}
-                                            <div className="p-5">
-                                                <h3 className="text-lg font-bold text-white mb-2 group-hover:text-[#FF0000] transition-colors duration-300 line-clamp-1">
-                                                    {event.title}
-                                                </h3>
-                                                <p className="text-gray-400 text-sm leading-relaxed mb-4 line-clamp-2">
-                                                    {event.description}
-                                                </p>
-
-                                                <div className="space-y-1.5 mb-4">
-                                                    <div className="flex items-center gap-2 text-gray-500 text-xs">
-                                                        <Calendar className="w-3.5 h-3.5 text-[#FF0000]" />
-                                                        <span>{event.date}</span>
+                                    return (
+                                        <motion.div
+                                            key={event.id}
+                                            initial={{ opacity: 0, y: 30 }}
+                                            whileInView={{ opacity: 1, y: 0 }}
+                                            viewport={{ once: true, margin: "-50px" }}
+                                            transition={{ duration: 0.5, delay: index * 0.1 }}
+                                            className="group h-full"
+                                        >
+                                            <Wrapper {...wrapperProps}>
+                                                <div className="bg-[#0a0a12] border border-white/5 rounded-2xl overflow-hidden hover:border-[#FF0000]/30 transition-all duration-300 h-full flex flex-col">
+                                                    {/* Image */}
+                                                    <div className="relative h-48 overflow-hidden">
+                                                        <motion.img
+                                                            whileHover={{ scale: 1.1 }}
+                                                            transition={{ duration: 0.5 }}
+                                                            src={event.image}
+                                                            alt={event.title}
+                                                            className="w-full h-full object-cover"
+                                                        />
+                                                        <div className="absolute top-4 left-4">
+                                                            <StatusBadge status={event.status} />
+                                                        </div>
                                                     </div>
-                                                    <div className="flex items-center gap-2 text-gray-500 text-xs">
-                                                        <MapPin className="w-3.5 h-3.5 text-[#FF0000]" />
-                                                        <span>{event.location}</span>
-                                                    </div>
-                                                </div>
 
-                                                <div className="flex items-center justify-between pt-3 border-t border-white/5">
-                                                    <div className="flex items-center gap-1.5 text-gray-500 text-xs">
-                                                        <Users className="w-3.5 h-3.5" />
-                                                        <span>{(event.attendees || 0).toLocaleString()}+</span>
+                                                    {/* Content */}
+                                                    <div className="p-6 flex flex-col flex-grow">
+                                                        <div className="flex items-center justify-between mb-4">
+                                                            <span className="text-xs font-bold text-[#FF0000] uppercase tracking-wider">
+                                                                {event.category}
+                                                            </span>
+                                                            <div className="flex items-center text-gray-500 text-xs">
+                                                                <Calendar className="w-3 h-3 mr-1" />
+                                                                {event.date}
+                                                            </div>
+                                                        </div>
+
+                                                        <h3 className="text-lg font-bold text-white mb-3 group-hover:text-[#FF0000] transition-colors line-clamp-2">
+                                                            {event.title}
+                                                        </h3>
+
+                                                        <p className="text-gray-400 text-sm mb-4 line-clamp-2 flex-grow">
+                                                            {event.description}
+                                                        </p>
+
+                                                        <div className="pt-4 border-t border-white/5 flex items-center justify-between mt-auto">
+                                                            <div className="flex items-center text-gray-500 text-xs">
+                                                                <MapPin className="w-3 h-3 mr-1" />
+                                                                {event.location}
+                                                            </div>
+                                                            <div className="bg-white/5 p-1.5 rounded-full group-hover:bg-[#FF0000] transition-colors">
+                                                                <ArrowUpRight className="w-3 h-3 text-white" />
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                    <motion.div
-                                                        whileHover={{ x: 3 }}
-                                                        className="bg-white/5 p-1.5 rounded-full group-hover:bg-[#FF0000] transition-all duration-300"
-                                                    >
-                                                        <ArrowUpRight className="w-3.5 h-3.5 text-white" />
-                                                    </motion.div>
                                                 </div>
-                                            </div>
-                                        </div>
-                                    </motion.div>
-                                ))
+                                            </Wrapper>
+                                        </motion.div>
+                                    );
+                                })
                             ) : (
                                 <div className="col-span-full text-center py-20">
                                     <motion.div
@@ -588,8 +639,8 @@ const Events = () => {
                         </div>
                     </motion.div>
                 </div>
-            </section>
-        </div>
+            </section >
+        </div >
     );
 };
 

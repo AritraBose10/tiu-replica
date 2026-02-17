@@ -32,30 +32,28 @@ const GoogleIBMDark = () => {
                             {/* Partner Logos */}
                             <div className="flex items-center gap-5 mb-8">
                                 <img
-                                    src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_92x30dp.png"
-                                    alt="Google"
+                                    src="https://upload.wikimedia.org/wikipedia/commons/5/51/Google_Cloud_logo.svg"
+                                    alt="Google Cloud"
                                     className="h-7 object-contain"
                                 />
                                 <div className="w-px h-8 bg-white/20" />
-                                <span className="text-white font-bold text-2xl tracking-tight">IBM</span>
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg" alt="IBM" className="h-8 object-contain brightness-0 invert" />
                             </div>
 
                             <span className="text-red-500 text-sm font-semibold tracking-wider uppercase">
-                                Industry Partnership
+                                Embedded Partnership
                             </span>
                             <h2 className="text-3xl md:text-5xl font-black text-white mt-3 mb-6 leading-tight">
-                                Advance Your Career
+                                Industry-Powered Learning,
                                 <br />
-                                with{' '}
                                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-orange-500">
-                                    Google & IBM
-                                </span>{' '}
-                                Programs
+                                    Not Just Classroom Teaching
+                                </span>
                             </h2>
                             <p className="text-gray-400 mb-8 leading-relaxed text-lg">
-                                Empower your future with globally recognized programs developed with Google and IBM,
-                                specializing in AI, Data Science, and Cloud Computing. Gain hands-on expertise
-                                and industry certifications.
+                                Programs at the School of the Future are designed with Google Cloud and IBM to ensure
+                                industry-aligned curriculum, exposure to real tools and platforms, and applied learning
+                                instead of outdated theory. Industry collaboration is embedded into the curriculum — not added later.
                             </p>
 
                             {/* Certification Badges */}

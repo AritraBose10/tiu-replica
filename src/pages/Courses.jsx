@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, useMotionValue, useTransform, useSpring } from 'framer-motion';
-import { Search, Filter, Sparkles, ArrowUpRight, Zap, Code, Database, Palette, Microscope } from 'lucide-react';
+import { Search, Filter, Sparkles, ArrowUpRight, Zap, Code, Database, Palette, Microscope, ChevronLeft, ChevronRight } from 'lucide-react';
 import coursesData from '../data/mock_courses.json';
 import { useSanity } from '../hooks/useSanity';
 import { COURSES_QUERY } from '../lib/queries';
@@ -70,10 +70,10 @@ const TiltCard = ({ course, index }) => {
                             {course.category}
                         </span>
                         {course.title.includes('Google') && (
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" alt="Google" className="h-5 opacity-80 grayscale group-hover:grayscale-0 transition-all" />
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Google_Cloud_logo.svg" alt="Google Cloud" className="h-5 opacity-80 grayscale group-hover:grayscale-0 transition-all" />
                         )}
                         {course.title.includes('IBM') && (
-                            <span className="font-bold text-blue-500 opacity-80 group-hover:opacity-100 transition-opacity">IBM</span>
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg" alt="IBM" className="h-8 opacity-80 group-hover:opacity-100 transition-opacity" />
                         )}
                     </div>
 
@@ -125,9 +125,16 @@ const Courses = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [activeTab, setActiveTab] = useState('All');
     const [degreeType, setDegreeType] = useState('UG'); // New State: UG or PG
+    const scrollContainerRef = useRef(null);
 
     const degreeTabs = ['UG', 'PG'];
-    const categoryTabs = ['All', 'Engineering', 'Management', 'Design', 'Computer Applications', 'Science'];
+    const categoryTabs = ['All', 'School of Engineering & Technology', 'Information Technology & Applied Sciences', 'School of Business & Management', 'Creative Arts & Design', 'Health & Allied Sciences'];
+
+    const scroll = (offset) => {
+        if (scrollContainerRef.current) {
+            scrollContainerRef.current.scrollBy({ left: offset, behavior: 'smooth' });
+        }
+    };
 
     useEffect(() => {
         let results = allCourses;
@@ -206,16 +213,18 @@ const Courses = () => {
 
                 {/* Search & Filter Bar */}
                 <div className="sticky top-24 z-50 mb-16 space-y-6">
-                    <div className="glass-panel bg-white/5 backdrop-blur-xl border border-white/10 p-4 rounded-3xl shadow-2xl space-y-4">
+                    <div className="glass-panel bg-white/5 backdrop-blur-xl border border-white/10 p-6 rounded-3xl shadow-2xl space-y-6">
 
-                        {/* Level 1: UG / PG Selector */}
-                        <div className="flex justify-center md:justify-start border-b border-white/10 pb-4 mb-2">
+                        {/* Top Section: UG/PG Selector & Search */}
+                        <div className="flex flex-col md:flex-row justify-between items-center gap-4 border-b border-white/10 pb-6">
+
+                            {/* Level 1: UG / PG Selector */}
                             <div className="inline-flex bg-black/20 p-1 rounded-full relative">
                                 {degreeTabs.map((type) => (
                                     <button
                                         key={type}
                                         onClick={() => setDegreeType(type)}
-                                        className={`relative px-8 py-2 rounded-full text-sm font-bold transition-all duration-300 z-10 ${degreeType === type ? 'text-white' : 'text-gray-400 hover:text-white'
+                                        className={`relative px-8 py-2.5 rounded-full text-sm font-bold transition-all duration-300 z-10 ${degreeType === type ? 'text-white' : 'text-gray-400 hover:text-white'
                                             }`}
                                     >
                                         {type === 'UG' ? 'Undergraduate' : 'Postgraduate'}
@@ -230,17 +239,41 @@ const Courses = () => {
                                     </button>
                                 ))}
                             </div>
+
+                            {/* Search (Moved to Top) */}
+                            <div className="relative w-full md:w-96 group">
+                                <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 group-focus-within:text-[#FF0000] transition-colors" />
+                                <input
+                                    type="text"
+                                    placeholder="Search programs..."
+                                    value={searchTerm}
+                                    onChange={(e) => setSearchTerm(e.target.value)}
+                                    className="w-full bg-black/40 border border-white/10 rounded-full pl-12 pr-6 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-[#FF0000]/50 transition-all font-medium"
+                                />
+                            </div>
                         </div>
 
-                        <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
+                        {/* Bottom Section: Categories with Scroll Arrows */}
+                        <div className="relative flex items-center gap-3">
+
+                            {/* Left Scroll Arrow */}
+                            <button
+                                onClick={() => scroll(-200)}
+                                className="p-2 rounded-full bg-white/5 border border-white/10 hover:bg-[#FF0000] hover:border-[#FF0000] hover:text-white text-gray-400 transition-all duration-300 flex-shrink-0"
+                            >
+                                <ChevronLeft className="w-5 h-5" />
+                            </button>
 
                             {/* Level 2: Category Tabs */}
-                            <div className="flex gap-2 overflow-x-auto pb-2 md:pb-0 w-full md:w-auto scrollbar-hide">
+                            <div
+                                ref={scrollContainerRef}
+                                className="flex gap-2 overflow-x-auto pb-2 md:pb-0 w-full scrollbar-hide scroll-smooth"
+                            >
                                 {categoryTabs.map((tab) => (
                                     <button
                                         key={tab}
                                         onClick={() => setActiveTab(tab)}
-                                        className={`relative px-6 py-2.5 rounded-full text-sm font-bold whitespace-nowrap transition-all duration-300 ${activeTab === tab ? 'text-white' : 'text-gray-400 hover:text-white hover:bg-white/5'
+                                        className={`relative px-6 py-2.5 rounded-full text-sm font-bold whitespace-nowrap transition-all duration-300 flex-shrink-0 ${activeTab === tab ? 'text-white' : 'text-gray-400 hover:text-white hover:bg-white/5'
                                             }`}
                                     >
                                         {activeTab === tab && (
@@ -255,17 +288,14 @@ const Courses = () => {
                                 ))}
                             </div>
 
-                            {/* Search */}
-                            <div className="relative w-full md:w-96 group">
-                                <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 group-focus-within:text-[#FF0000] transition-colors" />
-                                <input
-                                    type="text"
-                                    placeholder="Search programs..."
-                                    value={searchTerm}
-                                    onChange={(e) => setSearchTerm(e.target.value)}
-                                    className="w-full bg-black/40 border border-white/10 rounded-full pl-12 pr-6 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-[#FF0000]/50 transition-all font-medium"
-                                />
-                            </div>
+                            {/* Right Scroll Arrow */}
+                            <button
+                                onClick={() => scroll(200)}
+                                className="p-2 rounded-full bg-white/5 border border-white/10 hover:bg-[#FF0000] hover:border-[#FF0000] hover:text-white text-gray-400 transition-all duration-300 flex-shrink-0"
+                            >
+                                <ChevronRight className="w-5 h-5" />
+                            </button>
+
                         </div>
                     </div>
                 </div>

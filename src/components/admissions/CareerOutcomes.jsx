@@ -197,7 +197,7 @@ const CareerOutcomes = () => {
                     <div className="flex flex-col md:flex-row items-center gap-8 p-8 md:p-12">
                         {/* IBM Logo */}
                         <div className="flex-shrink-0 w-24 h-24 rounded-2xl bg-blue-600/10 border border-blue-500/20 flex items-center justify-center">
-                            <span className="text-blue-400 font-black text-3xl tracking-tighter">IBM</span>
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg" alt="IBM" className="w-16 h-auto object-contain" />
                         </div>
 
                         <div className="flex-1 text-center md:text-left">

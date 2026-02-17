@@ -97,12 +97,13 @@ const ScholarshipSection = () => {
                     <h2 className="text-4xl md:text-6xl font-black text-white mt-3 mb-4">
                         Scholarships &{' '}
                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-orange-500">
-                            Financial Aid
+                            Financial Support
                         </span>
                     </h2>
                     <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-                        We believe talent should never be held back by finances. Explore our comprehensive
-                        scholarship programs designed to support your academic journey.
+                        Eligible students can apply for merit-based scholarships, need-based financial support,
+                        and limited-seat scholarship categories. Scholarships are awarded on a rolling basis
+                        and subject to availability.
                     </p>
                 </motion.div>
 
@@ -180,8 +181,8 @@ const ScholarshipSection = () => {
                     transition={{ delay: 0.6 }}
                     className="text-center text-gray-500 text-sm mt-10"
                 >
-                    All scholarships are renewable annually based on academic performance.
-                    Contact the admissions office for detailed terms.
+                    All scholarships are limited and awarded on a rolling basis, subject to availability.
+                    Contact the admissions team for detailed terms and eligibility.
                 </motion.p>
             </div>
         </section>

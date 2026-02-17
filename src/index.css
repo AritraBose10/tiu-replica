@@ -125,7 +125,18 @@ body {
   @apply bg-[#FF0000] text-white px-3 py-1 inline-block;
 }
 
+
 /* Hamburger menu icon */
 .hamburger-line {
   @apply w-6 h-0.5 bg-black transition-all duration-300;
+}
+
+/* Hide scrollbar utility */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }

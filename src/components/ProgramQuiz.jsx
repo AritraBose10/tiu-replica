@@ -1,0 +1,296 @@
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ArrowRight, ArrowLeft, Sparkles, RotateCcw } from 'lucide-react';
+import { Link } from 'react-router-dom';
+
+const questions = [
+    {
+        id: 1,
+        question: 'What excites you the most?',
+        options: [
+            { label: 'Building apps, AI & technology', tags: ['tech'] },
+            { label: 'Business strategy & analytics', tags: ['business'] },
+            { label: 'Design, film & creative media', tags: ['creative'] },
+            { label: 'Healthcare & helping people', tags: ['health'] },
+        ],
+    },
+    {
+        id: 2,
+        question: 'How do you prefer to learn?',
+        options: [
+            { label: 'Coding, labs & problem-solving', tags: ['tech'] },
+            { label: 'Case studies & data-driven thinking', tags: ['business'] },
+            { label: 'Visual storytelling & hands-on creation', tags: ['creative'] },
+            { label: 'Practical training & clinical exposure', tags: ['health'] },
+        ],
+    },
+    {
+        id: 3,
+        question: 'What career path sounds right?',
+        options: [
+            { label: 'AI Engineer, Cloud Architect, Data Scientist', tags: ['tech'] },
+            { label: 'Business Analyst, Product Manager, Consultant', tags: ['business'] },
+            { label: 'UX Designer, Filmmaker, Game Developer', tags: ['creative'] },
+            { label: 'Physiotherapist, Radiology Tech, Clinical Specialist', tags: ['health'] },
+        ],
+    },
+];
+
+const results = {
+    tech: {
+        domain: 'Technology & Artificial Intelligence',
+        tagline: 'Build careers in AI, data and cloud — not just degrees.',
+        programs: 'B.Tech CSE | B.Sc Data Analytics & Gen AI | BCA AI | M.Tech / Ph.D in AI',
+        badge: 'Powered by Google Cloud & IBM',
+        color: 'from-blue-600 to-cyan-500',
+        link: '/courses?category=engineering',
+    },
+    business: {
+        domain: 'Business, Analytics & Management',
+        tagline: 'Where business decisions are driven by data and intelligence.',
+        programs: 'BBA Business Analytics | MBA Analytics & AI | Executive MBA',
+        badge: 'Powered by IBM',
+        color: 'from-amber-500 to-orange-500',
+        link: '/courses?category=management',
+    },
+    creative: {
+        domain: 'Design, Media & Creative Technology',
+        tagline: 'Turn creativity into real careers — not just portfolios.',
+        programs: 'B.Des | Filmmaking | Game Development | VFX & Animation',
+        badge: '',
+        color: 'from-purple-600 to-pink-500',
+        link: '/courses?category=design',
+    },
+    health: {
+        domain: 'Health & Allied Sciences',
+        tagline: 'Skill-focused healthcare education aligned with real hospitals.',
+        programs: 'Cardiovascular Tech | OT & Anesthesia | BPT / MPT | Radiology',
+        badge: '',
+        color: 'from-emerald-500 to-teal-500',
+        link: '/courses?category=health',
+    },
+};
+
+const ProgramQuiz = () => {
+    const [step, setStep] = useState(0); // 0 = intro, 1-3 = questions, 4 = result
+    const [answers, setAnswers] = useState([]);
+    const [selectedOption, setSelectedOption] = useState(null);
+
+    const handleSelect = (option) => {
+        setSelectedOption(option);
+    };
+
+    const handleNext = () => {
+        if (selectedOption === null) return;
+        const newAnswers = [...answers, selectedOption];
+        setAnswers(newAnswers);
+        setSelectedOption(null);
+
+        if (step >= questions.length) {
+            setStep(4); // result
+        } else {
+            setStep(step + 1);
+        }
+    };
+
+    const handleBack = () => {
+        if (step <= 1) {
+            setStep(0);
+            setAnswers([]);
+            setSelectedOption(null);
+        } else {
+            const newAnswers = answers.slice(0, -1);
+            setAnswers(newAnswers);
+            setSelectedOption(null);
+            setStep(step - 1);
+        }
+    };
+
+    const handleReset = () => {
+        setStep(0);
+        setAnswers([]);
+        setSelectedOption(null);
+    };
+
+    // Calculate result
+    const getResult = () => {
+        const tagCounts = {};
+        answers.forEach((ans) => {
+            ans.tags.forEach((tag) => {
+                tagCounts[tag] = (tagCounts[tag] || 0) + 1;
+            });
+        });
+        const topTag = Object.entries(tagCounts).sort((a, b) => b[1] - a[1])[0]?.[0] || 'tech';
+        return results[topTag];
+    };
+
+    const currentQuestion = questions[step - 1];
+    const result = step === 4 ? getResult() : null;
+
+    return (
+        <section className="py-20 px-4 bg-gradient-to-b from-gray-50 to-white overflow-hidden">
+            <div className="max-w-3xl mx-auto">
+                <AnimatePresence mode="wait">
+                    {/* Intro */}
+                    {step === 0 && (
+                        <motion.div
+                            key="intro"
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -20 }}
+                            className="text-center"
+                        >
+                            <span className="inline-block bg-red-100 text-[#FF0000] text-sm font-semibold px-5 py-2 rounded-full mb-6">
+                                Quick Discovery
+                            </span>
+                            <h2 className="text-4xl md:text-5xl font-black text-black mb-4">
+                                Not Sure Which Program{' '}
+                                <span className="text-[#FF0000]">Fits You</span>?
+                            </h2>
+                            <p className="text-lg text-gray-500 mb-8 max-w-xl mx-auto">
+                                Most students don't start with clarity — and that's okay.
+                                Answer a few quick questions and discover programs aligned to your interests and goals.
+                            </p>
+                            <motion.button
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.98 }}
+                                onClick={() => setStep(1)}
+                                className="inline-flex items-center gap-2 bg-[#FF0000] text-white px-10 py-5 rounded-full font-bold text-lg hover:bg-[#CC0000] transition-colors"
+                            >
+                                <Sparkles size={20} />
+                                Find My Best-Fit Program
+                                <ArrowRight size={20} />
+                            </motion.button>
+                        </motion.div>
+                    )}
+
+                    {/* Questions */}
+                    {step >= 1 && step <= 3 && currentQuestion && (
+                        <motion.div
+                            key={`q-${step}`}
+                            initial={{ opacity: 0, x: 40 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            exit={{ opacity: 0, x: -40 }}
+                        >
+                            {/* Progress */}
+                            <div className="flex items-center justify-between mb-8">
+                                <button
+                                    onClick={handleBack}
+                                    className="flex items-center gap-1 text-gray-400 hover:text-black transition-colors text-sm font-medium"
+                                >
+                                    <ArrowLeft size={16} /> Back
+                                </button>
+                                <div className="flex gap-2">
+                                    {[1, 2, 3].map((i) => (
+                                        <div
+                                            key={i}
+                                            className={`h-2 w-10 rounded-full transition-colors ${i <= step ? 'bg-[#FF0000]' : 'bg-gray-200'
+                                                }`}
+                                        />
+                                    ))}
+                                </div>
+                                <span className="text-sm text-gray-400 font-medium">Step {step} of 3</span>
+                            </div>
+
+                            <h3 className="text-2xl md:text-3xl font-black text-black mb-8 text-center">
+                                {currentQuestion.question}
+                            </h3>
+
+                            <div className="grid sm:grid-cols-2 gap-4 mb-8">
+                                {currentQuestion.options.map((option, i) => (
+                                    <motion.button
+                                        key={i}
+                                        whileHover={{ scale: 1.02 }}
+                                        whileTap={{ scale: 0.98 }}
+                                        onClick={() => handleSelect(option)}
+                                        className={`text-left p-5 rounded-2xl border-2 transition-all duration-200 ${selectedOption === option
+                                                ? 'border-[#FF0000] bg-red-50 shadow-lg'
+                                                : 'border-gray-200 bg-white hover:border-gray-300'
+                                            }`}
+                                    >
+                                        <span className={`font-semibold text-sm ${selectedOption === option ? 'text-[#FF0000]' : 'text-gray-700'
+                                            }`}>
+                                            {option.label}
+                                        </span>
+                                    </motion.button>
+                                ))}
+                            </div>
+
+                            <div className="text-center">
+                                <motion.button
+                                    whileHover={{ scale: selectedOption ? 1.05 : 1 }}
+                                    whileTap={{ scale: selectedOption ? 0.98 : 1 }}
+                                    onClick={handleNext}
+                                    disabled={!selectedOption}
+                                    className={`inline-flex items-center gap-2 px-10 py-4 rounded-full font-bold text-lg transition-all ${selectedOption
+                                            ? 'bg-[#FF0000] text-white hover:bg-[#CC0000] cursor-pointer'
+                                            : 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                                        }`}
+                                >
+                                    {step === 3 ? 'See My Result' : 'Next'}
+                                    <ArrowRight size={20} />
+                                </motion.button>
+                            </div>
+                        </motion.div>
+                    )}
+
+                    {/* Result */}
+                    {step === 4 && result && (
+                        <motion.div
+                            key="result"
+                            initial={{ opacity: 0, scale: 0.95 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            exit={{ opacity: 0 }}
+                            className="text-center"
+                        >
+                            <motion.div
+                                className="inline-flex p-4 bg-green-100 text-green-600 rounded-full mb-6"
+                                initial={{ scale: 0 }}
+                                animate={{ scale: 1, rotate: [0, 10, -10, 0] }}
+                                transition={{ delay: 0.2 }}
+                            >
+                                <Sparkles size={32} />
+                            </motion.div>
+
+                            <h3 className="text-2xl font-bold text-gray-500 mb-2">Your best fit is</h3>
+                            <h2 className="text-3xl md:text-4xl font-black text-black mb-4">
+                                {result.domain}
+                            </h2>
+                            <p className="text-lg text-gray-500 italic mb-2">"{result.tagline}"</p>
+
+                            {result.badge && (
+                                <span className="inline-block bg-gray-100 text-gray-600 text-xs font-semibold px-4 py-2 rounded-full mb-6">
+                                    {result.badge}
+                                </span>
+                            )}
+
+                            <div className="bg-gray-50 rounded-2xl p-6 mb-8 mt-4">
+                                <p className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-3">Matching Programs</p>
+                                <p className="text-gray-700 font-medium">{result.programs}</p>
+                            </div>
+
+                            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                                <Link
+                                    to={result.link}
+                                    className="inline-flex items-center justify-center gap-2 bg-[#FF0000] text-white px-10 py-4 rounded-full font-bold hover:bg-[#CC0000] transition-all hover:scale-105"
+                                >
+                                    Explore These Programs
+                                    <ArrowRight size={18} />
+                                </Link>
+                                <button
+                                    onClick={handleReset}
+                                    className="inline-flex items-center justify-center gap-2 bg-gray-100 text-gray-600 px-8 py-4 rounded-full font-bold hover:bg-gray-200 transition-all"
+                                >
+                                    <RotateCcw size={16} />
+                                    Retake Quiz
+                                </button>
+                            </div>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
+            </div>
+        </section>
+    );
+};
+
+export default ProgramQuiz;

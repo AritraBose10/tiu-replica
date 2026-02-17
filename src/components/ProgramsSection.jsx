@@ -4,19 +4,19 @@ import { Link } from 'react-router-dom';
 import { Clock, GraduationCap, ChevronRight, ArrowUpRight } from 'lucide-react';
 
 const categories = [
-    { id: 'google', label: 'Courses with Google' },
-    { id: 'ibm', label: 'Courses with IBM' },
-    { id: 'design', label: 'Design' },
-    { id: 'media', label: 'Media & Arts' },
-    { id: 'health', label: 'Allied Health' },
+    { id: 'engineering', label: 'Engineering & Tech' },
+    { id: 'it_applied', label: 'IT & Applied Sciences' },
+    { id: 'business', label: 'Business & Management' },
+    { id: 'creative', label: 'Creative Arts & Design' },
+    { id: 'health', label: 'Health & Allied Sciences' },
 ];
 
 const courses = {
-    google: [
+    engineering: [
         {
             id: 1,
             title: 'B.Tech in Computer Science & Engineering',
-            subtitle: 'Specialization in Cloud Computing',
+            subtitle: 'Powered by Google Cloud',
             partner: 'Google',
             duration: '4 Years',
             eligibility: '10+2 with PCM',
@@ -24,8 +24,8 @@ const courses = {
         },
         {
             id: 2,
-            title: 'B.Tech in Artificial Intelligence',
-            subtitle: 'Specialization in AI & ML',
+            title: 'B.Tech CSE - AI & Machine Learning',
+            subtitle: 'Powered by Google Cloud',
             partner: 'Google',
             duration: '4 Years',
             eligibility: '10+2 with PCM',
@@ -33,63 +33,99 @@ const courses = {
         },
         {
             id: 3,
-            title: 'BCA in Data Science',
-            subtitle: 'Specialization in Data Analytics',
+            title: 'B.Tech CSE - Cloud Computing',
+            subtitle: 'Powered by Google Cloud',
             partner: 'Google',
-            duration: '3 Years',
-            eligibility: '10+2 any stream',
-            badge: 'Bachelor',
-        },
-    ],
-    ibm: [
-        {
-            id: 4,
-            title: 'B.Tech in Information Technology',
-            subtitle: 'Specialization in Cybersecurity',
-            partner: 'IBM',
             duration: '4 Years',
             eligibility: '10+2 with PCM',
             badge: 'Bachelor',
         },
+    ],
+    it_applied: [
         {
-            id: 5,
-            title: 'BBA in Business Analytics',
-            subtitle: 'Specialization in Data Science',
+            id: 4,
+            title: 'BCA with Data Science & AI',
+            subtitle: 'Powered by IBM',
             partner: 'IBM',
             duration: '3 Years',
             eligibility: '10+2 any stream',
             badge: 'Bachelor',
         },
-    ],
-    design: [
+        {
+            id: 5,
+            title: 'B.Sc (H) Cyber Security',
+            subtitle: 'Powered by IBM',
+            partner: 'IBM',
+            duration: '3 Years',
+            eligibility: '10+2 with Science',
+            badge: 'Bachelor',
+        },
         {
             id: 6,
-            title: 'B.Des in Graphic Design',
-            subtitle: 'UI/UX Specialization',
-            partner: 'Design Team',
+            title: 'M.Sc in Data Science & AI',
+            subtitle: 'Advanced Specialization',
+            partner: 'Tech',
+            duration: '2 Years',
+            eligibility: 'Graduation',
+            badge: 'Master',
+        },
+    ],
+    business: [
+        {
+            id: 7,
+            title: 'BBA Business Analytics & AI',
+            subtitle: 'Powered by IBM',
+            partner: 'IBM',
+            duration: '3 Years',
+            eligibility: '10+2 any stream',
+            badge: 'Bachelor',
+        },
+        {
+            id: 8,
+            title: 'MBA Business Analytics & AI',
+            subtitle: 'Powered by IBM',
+            partner: 'IBM',
+            duration: '2 Years',
+            eligibility: 'Graduation',
+            badge: 'Master',
+        },
+    ],
+    creative: [
+        {
+            id: 9,
+            title: 'B.Des Visual Communication',
+            subtitle: 'Digital Design Focus',
+            partner: 'Design',
             duration: '4 Years',
             eligibility: '10+2 any stream',
             badge: 'Bachelor',
         },
-    ],
-    media: [
         {
-            id: 7,
-            title: 'BA in Mass Communication',
-            subtitle: 'Digital Media Focus',
-            partner: 'Media',
+            id: 10,
+            title: 'B.Sc (H) Game Development',
+            subtitle: 'Unity & Unreal Engine',
+            partner: 'Gaming',
             duration: '3 Years',
-            eligibility: '10+2 any stream',
+            eligibility: '10+2 with Science',
             badge: 'Bachelor',
         },
     ],
     health: [
         {
-            id: 8,
-            title: 'B.Sc in Medical Lab Technology',
-            subtitle: 'Hospital Training Included',
+            id: 11,
+            title: 'B.Sc (H) Cardiovascular Tech',
+            subtitle: 'Medical Specialization',
             partner: 'Health',
-            duration: '3 Years',
+            duration: '4 Years',
+            eligibility: '10+2 with PCB',
+            badge: 'Bachelor',
+        },
+        {
+            id: 12,
+            title: 'Bachelor of Physiotherapy',
+            subtitle: 'Clinical Practice',
+            partner: 'Health',
+            duration: '4.5 Years',
             eligibility: '10+2 with PCB',
             badge: 'Bachelor',
         },
@@ -97,7 +133,7 @@ const courses = {
 };
 
 const ProgramsSection = () => {
-    const [activeCategory, setActiveCategory] = useState('google');
+    const [activeCategory, setActiveCategory] = useState('engineering');
 
     return (
         <section className="bg-[#050510] py-24 px-4 overflow-hidden relative">

@@ -4,11 +4,11 @@ import logo from '../assets/logo1.png';
 
 const Footer = () => {
     return (
-        <footer className="bg-black text-white py-12">
+        <footer className="relative bg-black text-white py-8 border-t border-white/10 overflow-hidden">
             <div className="container mx-auto px-4 md:px-6 text-center">
                 {/* Logo */}
-                <div className="flex items-center justify-center mb-6">
-                    <img src={logo} alt="Techno India University" className="w-48 h-auto object-contain brightness-150" />
+                <div className="flex items-center justify-center mb-0">
+                    <img src={logo} alt="Techno India University" className="h-[200px] w-auto object-contain -my-14" />
                 </div>
 
                 {/* Links */}
@@ -27,7 +27,7 @@ const Footer = () => {
 
                 {/* Copyright */}
                 <p className="text-gray-500 text-sm">
-                    © {new Date().getFullYear()} Techno India University. Website Created By: FRIX Studio
+                    © {new Date().getFullYear()} Techno India University. Website Created By: Aritra
                 </p>
             </div>
         </footer>

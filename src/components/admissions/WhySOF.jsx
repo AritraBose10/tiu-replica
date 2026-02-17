@@ -4,30 +4,30 @@ import { Cpu, Users, Briefcase, BrainCircuit, Play, X } from 'lucide-react';
 
 const differentiators = [
     {
-        icon: BrainCircuit,
-        title: 'AI-Powered Learning',
-        description: 'Personalized learning paths powered by artificial intelligence that adapt to your pace and style.',
-        gradient: 'from-violet-500/20 to-purple-500/20',
-        border: 'border-violet-500/20',
-    },
-    {
         icon: Cpu,
-        title: 'Industry-Integrated Curriculum',
-        description: 'Curriculum co-designed with Google & IBM engineers, updated every semester to match industry demands.',
+        title: 'Industry-Powered Curriculum',
+        description: 'Curriculum designed with Google Cloud and IBM — not a generic syllabus updated years later.',
         gradient: 'from-blue-500/20 to-cyan-500/20',
         border: 'border-blue-500/20',
     },
     {
+        icon: BrainCircuit,
+        title: 'Project-Based Learning from Year One',
+        description: 'Students build, create and solve real problems from the very first semester — not just in final year.',
+        gradient: 'from-violet-500/20 to-purple-500/20',
+        border: 'border-violet-500/20',
+    },
+    {
         icon: Users,
-        title: 'Certified Expert Faculty',
-        description: 'Learn from Google & IBM certified trainers with 10+ years of real-world tech industry experience.',
+        title: 'Clear Academic Structure',
+        description: 'Structured academic governance, transparent evaluation and a recognised degree — not a bootcamp certificate.',
         gradient: 'from-emerald-500/20 to-teal-500/20',
         border: 'border-emerald-500/20',
     },
     {
         icon: Briefcase,
-        title: 'Mandatory Tech Internships',
-        description: 'Every student completes structured internships at top tech companies before graduating.',
+        title: 'A Degree with Long-Term Value',
+        description: 'Nationally recognised university degree valid for careers and higher studies in India and abroad.',
         gradient: 'from-orange-500/20 to-amber-500/20',
         border: 'border-orange-500/20',
     },
@@ -61,16 +61,19 @@ const WhySOF = () => {
                     className="mb-16"
                 >
                     <span className="text-red-500 text-sm font-semibold tracking-wider uppercase">
-                        What Sets Us Apart
+                        Why Students Choose Us
                     </span>
                     <h2 className="text-4xl md:text-6xl font-black text-white mt-3 leading-tight">
-                        Why{' '}
+                        Because the{' '}
                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-orange-500">
-                            School of the Future
+                            Future
                         </span>
                         <br />
-                        is Different
+                        Won't Wait
                     </h2>
+                    <p className="text-gray-400 text-lg mt-4 max-w-2xl">
+                        The School of the Future is built for students who want clarity, relevance and direction — not outdated degrees, unclear career paths or theory-heavy learning.
+                    </p>
                 </motion.div>
 
                 <div className="grid lg:grid-cols-2 gap-12 items-start">

@@ -23,7 +23,7 @@ const ApprovalsSection = () => {
                     viewport={{ once: true }}
                 >
                     <span className="inline-block bg-[#FF0000] text-white text-sm font-semibold px-6 py-2 rounded-full mb-6">
-                        Assurance matters the most
+                        Trust & Credibility
                     </span>
                 </motion.div>
 
@@ -35,7 +35,7 @@ const ApprovalsSection = () => {
                     transition={{ delay: 0.1 }}
                     className="text-4xl md:text-5xl font-black text-black mb-6"
                 >
-                    Prestigious Approvals & Affiliations
+                    Recognition & Academic Assurance
                 </motion.h2>
 
                 <motion.p
@@ -45,8 +45,8 @@ const ApprovalsSection = () => {
                     transition={{ delay: 0.2 }}
                     className="text-gray-600 max-w-3xl mx-auto mb-14 leading-relaxed"
                 >
-                    TIU - School of The Future is revolutionizing education with cutting-edge teaching methods,
-                    personalized learning experiences, and a commitment to shaping the leaders of tomorrow in India.
+                    All programs are offered under a UGC-recognised university framework with structured
+                    academic governance and compliance.
                 </motion.p>
 
                 {/* Approval Logos Grid */}

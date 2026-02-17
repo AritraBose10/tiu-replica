@@ -5,63 +5,63 @@ import { Camera, X, ChevronLeft, ChevronRight } from 'lucide-react';
 const galleryImages = [
     {
         src: 'https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?q=80&w=2070&auto=format&fit=crop',
-        alt: 'AI Research Lab',
-        caption: 'Next-Gen AI Research Lab',
-        category: 'Innovation Labs',
+        alt: 'Tech Club Session',
+        caption: 'Technology & Innovation Club',
+        category: 'Clubs',
         span: 'col-span-2 row-span-2',
     },
     {
         src: 'https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=2070&auto=format&fit=crop',
-        alt: 'AI Workshop',
-        caption: 'Hands-on Machine Learning Workshop',
-        category: 'AI Workshops',
-        span: 'col-span-1 row-span-1',
-    },
-    {
-        src: 'https://images.unsplash.com/photo-1504384308090-c54be3853247?q=80&w=2062&auto=format&fit=crop',
-        alt: 'Hackathon',
-        caption: 'Global HackOver 4.0',
+        alt: 'Hackathon Event',
+        caption: 'Annual Hackathon Championship',
         category: 'Hackathons',
         span: 'col-span-1 row-span-1',
     },
     {
+        src: 'https://images.unsplash.com/photo-1504384308090-c54be3853247?q=80&w=2062&auto=format&fit=crop',
+        alt: 'Industry Masterclass',
+        caption: 'Expert-Led Masterclass Series',
+        category: 'Masterclasses',
+        span: 'col-span-1 row-span-1',
+    },
+    {
         src: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=2070&auto=format&fit=crop',
-        alt: 'Study Tour',
-        caption: 'Silicon Valley Study Tour',
-        category: 'Study Tours',
+        alt: 'Cultural Festival',
+        caption: 'Annual Cultural Fest',
+        category: 'Cultural Events',
         span: 'col-span-1 row-span-1',
     },
     {
         src: 'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=2032&auto=format&fit=crop',
-        alt: 'Startup Incubation',
-        caption: 'Student Founder Workspace',
-        category: 'Startup Incubation',
+        alt: 'Design Showcase',
+        caption: 'Student Design Exhibition',
+        category: 'Clubs',
         span: 'col-span-1 row-span-2',
     },
     {
         src: 'https://images.unsplash.com/photo-1517048676732-d65bc937f952?q=80&w=2070&auto=format&fit=crop',
-        alt: 'Incubation Meeting',
-        caption: 'Venture Capital Pitch Day',
-        category: 'Startup Incubation',
+        alt: 'Industry Visit',
+        caption: 'Google Cloud Campus Visit',
+        category: 'Masterclasses',
         span: 'col-span-1 row-span-1',
     },
     {
         src: 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=2070&auto=format&fit=crop',
-        alt: 'Collaborative Coding',
-        caption: '24-Hour Coding Sprint',
+        alt: 'Coding Competition',
+        caption: '24-Hour Code Sprint',
         category: 'Hackathons',
         span: 'col-span-1 row-span-1',
     },
     {
         src: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=2070&auto=format&fit=crop',
-        alt: 'Robotics Lab',
-        caption: 'Robotics Innovation Center',
-        category: 'Innovation Labs',
+        alt: 'Student Performance',
+        caption: 'Music & Creative Night',
+        category: 'Cultural Events',
         span: 'col-span-1 row-span-1',
     },
 ];
 
-const categories = ['All', 'Innovation Labs', 'AI Workshops', 'Hackathons', 'Study Tours', 'Startup Incubation'];
+const categories = ['All', 'Clubs', 'Hackathons', 'Masterclasses', 'Cultural Events'];
 
 const containerVariants = {
     hidden: {},
@@ -102,17 +102,17 @@ const CampusGallery = () => {
                     className="mb-12"
                 >
                     <span className="text-red-500 text-sm font-semibold tracking-wider uppercase">
-                        Life at TIU
+                        Campus Life
                     </span>
                     <h2 className="text-4xl md:text-6xl font-black text-white mt-3 mb-4">
-                        Campus{' '}
+                        Campus Life That Builds{' '}
                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-orange-500">
-                            Experience
+                            Confidence
                         </span>
                     </h2>
                     <p className="text-gray-400 text-lg max-w-2xl">
-                        Explore our world-class campus facilities, modern labs, vibrant events,
-                        and the energy that makes School of the Future unlike any other.
+                        Learning at the School of the Future extends beyond classrooms. Students actively
+                        engage through clubs, hackathons, masterclasses, and student-led events.
                     </p>
                 </motion.div>
 
@@ -128,8 +128,8 @@ const CampusGallery = () => {
                             key={cat}
                             onClick={() => setActiveCategory(cat)}
                             className={`px-5 py-2 rounded-full text-sm font-semibold transition-all duration-300 ${activeCategory === cat
-                                    ? 'bg-red-600 text-white shadow-[0_0_20px_rgba(255,0,0,0.3)]'
-                                    : 'bg-white/5 text-gray-400 border border-white/10 hover:bg-white/10 hover:text-white'
+                                ? 'bg-red-600 text-white shadow-[0_0_20px_rgba(255,0,0,0.3)]'
+                                : 'bg-white/5 text-gray-400 border border-white/10 hover:bg-white/10 hover:text-white'
                                 }`}
                         >
                             {cat}
