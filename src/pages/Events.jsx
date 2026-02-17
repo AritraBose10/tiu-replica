@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import pastEvents from '../data/past_events.json';
 import { useSanity } from '../hooks/useSanity';
 import { EVENTS_QUERY } from '../lib/queries';
+import SEO from '../components/SEO';
 
 // ─── Mock Data ───────────────────────────────────────────────
 const CATEGORIES = ['All', 'Technical', 'Cultural', 'Workshop', 'Seminar', 'Sports'];
@@ -302,6 +303,10 @@ const Events = () => {
 
     return (
         <div className="min-h-screen bg-[#020205] text-white overflow-x-hidden selection:bg-[#FF0000] selection:text-white">
+            <SEO
+                title="Events & Happenings | School of the Future"
+                description="Discover tech fests, workshops, hackathons, cultural events and seminars at the School of the Future, Techno India University."
+            />
             <FloatingBackground />
 
             {/* ═══ HERO ═══ */}

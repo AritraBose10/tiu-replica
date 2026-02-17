@@ -75,9 +75,15 @@ const FloatingCTA = () => {
     );
 };
 
+import SEO from '../components/SEO';
+
 const Admissions = () => {
     return (
         <div className="bg-[#020205] min-h-screen text-white">
+            <SEO
+                title="Admissions 2026 Open | School of the Future | TIU"
+                description="Apply for future-ready UG & PG programs at the School of the Future. Guided admissions, scholarships available. Admissions 2026 open."
+            />
             {/* §1. Hero — Video Overlay + Form Widget */}
             <AdmissionsHero />
 

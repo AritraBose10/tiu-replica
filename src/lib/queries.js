@@ -62,6 +62,7 @@ export const APPROVALS_QUERY = `*[_type == "approval"] | order(sortOrder asc) {
   "id": _id,
   name,
   fullName,
+  description,
   logo,
   sortOrder
 }`;
@@ -103,4 +104,4 @@ export const SITE_SETTINGS_QUERY = `*[_type == "siteSettings"] {
 
 /** Fetch a single site setting by key */
 export const siteSettingByKey = (key) =>
-    `*[_type == "siteSettings" && key == "${key}"][0].value`;
+  `*[_type == "siteSettings" && key == "${key}"][0].value`;

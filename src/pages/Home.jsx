@@ -18,10 +18,15 @@ import ScholarshipsStrip from '../components/ScholarshipsStrip';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ArrowRight, MessageCircle } from 'lucide-react';
+import SEO from '../components/SEO';
 
 const Home = () => {
     return (
         <div className="bg-white">
+            <SEO
+                title="School of the Future | Future-Ready Degrees | Techno India University"
+                description="Industry-powered programs in AI, Data, Cloud, Design & Business. Powered by Google Cloud & IBM. Degrees by Techno India University."
+            />
             {/* §1 — Hero */}
             <Hero />
 

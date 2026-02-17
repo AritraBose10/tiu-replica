@@ -4,6 +4,7 @@ import { Search, Filter, Sparkles, ArrowUpRight, Zap, Code, Database, Palette, M
 import coursesData from '../data/mock_courses.json';
 import { useSanity } from '../hooks/useSanity';
 import { COURSES_QUERY } from '../lib/queries';
+import SEO from '../components/SEO';
 
 // --- 3D Tilt Card Component ---
 const TiltCard = ({ course, index }) => {
@@ -159,6 +160,10 @@ const Courses = () => {
 
     return (
         <div className="min-h-screen bg-[#020205] text-white relative overflow-x-hidden selection:bg-[#FF0000] selection:text-white">
+            <SEO
+                title="Future-Ready Programs After 12th & Graduation | School of the Future"
+                description="Explore UG, PG & PhD programs in AI, Data Science, Business Analytics, Design, Media & Allied Health at the School of the Future."
+            />
 
             {/* Background Ambience */}
             <div className="fixed inset-0 pointer-events-none">

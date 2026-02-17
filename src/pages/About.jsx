@@ -2,6 +2,7 @@ import React from 'react';
 import { motion, useScroll, useTransform, useMotionValue, useSpring, AnimatePresence } from 'framer-motion';
 import { Lightbulb, Users, Globe, Rocket, Award, Building, ChevronRight, Play, Sparkles, ArrowUpRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import SEO from '../components/SEO';
 
 // --- Animated Counter Component ---
 const AnimatedCounter = ({ value, suffix = '' }) => {
@@ -166,6 +167,10 @@ const About = () => {
 
     return (
         <div className="min-h-screen bg-[#020205] text-white overflow-x-hidden selection:bg-[#FF0000] selection:text-white">
+            <SEO
+                title="Why Choose the School of the Future? | SoF"
+                description="Discover how industry-powered learning, projects and future-focused curriculum make SoF different from traditional colleges."
+            />
             <FloatingBackground />
 
             {/* === HERO SECTION === */}
