@@ -21,7 +21,7 @@ const ThreeDCarousel = ({ images = defaultImages }) => {
 
     // Auto-rotate
     useEffect(() => {
-        const interval = setInterval(handleNext, 4000);
+        const interval = setInterval(handleNext, 2500);
         return () => clearInterval(interval);
     }, [displayImages.length]);
 
@@ -120,7 +120,7 @@ const ThreeDCarousel = ({ images = defaultImages }) => {
                         className="absolute w-[450px] h-[260px] rounded-2xl overflow-hidden bg-black shadow-2xl backdrop-blur-sm group cursor-pointer"
                         initial={false}
                         animate={style}
-                        transition={{ duration: 0.6, ease: "easeInOut" }}
+                        transition={{ duration: 0.4, ease: "easeInOut" }}
                         style={{
                             boxShadow: style.zIndex === 10
                                 ? '0 0 50px rgba(255, 0, 0, 0.3), 0 0 20px rgba(255,0,0,0.2) inset'
