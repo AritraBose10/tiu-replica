@@ -275,7 +275,7 @@ const Hero = () => {
                 <motion.div className="text-center mb-4 md:mb-6" variants={fadeUp}>
                     <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black leading-[1.1] tracking-tight">
                         <span className="text-white">Future-Ready Degrees for Careers That </span>
-                        <span className="text-[#FF0000]">Don't Exist Yet</span>
+                        <span className="text-[#FF0000]">that actually matter</span>
                     </h1>
                 </motion.div>
 
