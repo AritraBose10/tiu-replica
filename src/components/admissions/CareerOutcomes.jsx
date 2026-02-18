@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { motion, useInView } from 'framer-motion';
+import { useSettings } from '../../contexts/SettingsContext';
 import { TrendingUp, Building2, Handshake, ArrowUpRight } from 'lucide-react';
 
 /* ─── Data ─── */
@@ -104,6 +105,8 @@ const LogoMarquee = () => {
 
 /* ─── Main Component ─── */
 const CareerOutcomes = () => {
+    const { getSetting } = useSettings();
+
     return (
         <section className="py-24 px-4 bg-[#020205] relative overflow-hidden">
             {/* Background */}
@@ -197,7 +200,11 @@ const CareerOutcomes = () => {
                     <div className="flex flex-col md:flex-row items-center gap-8 p-8 md:p-12">
                         {/* IBM Logo */}
                         <div className="flex-shrink-0 w-24 h-24 rounded-2xl bg-blue-600/10 border border-blue-500/20 flex items-center justify-center">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg" alt="IBM" className="w-16 h-auto object-contain" />
+                            <img
+                                src={getSetting('logo_ibm') || "https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg"}
+                                alt="IBM"
+                                className="w-16 h-auto object-contain"
+                            />
                         </div>
 
                         <div className="flex-1 text-center md:text-left">

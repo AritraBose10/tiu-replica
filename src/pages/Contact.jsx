@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import { motion, useScroll, useTransform, useInView, AnimatePresence } from 'framer-motion';
 import { Phone, Mail, MapPin, Send, Clock, Users, Award, Building, ChevronRight, Sparkles, ArrowUpRight, CheckCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { useSettings } from '../contexts/SettingsContext';
 
 // --- Animated Counter ---
 const AnimatedCounter = ({ end, suffix = '', label, icon: Icon }) => {
@@ -95,6 +96,7 @@ const ContactInfoCard = ({ icon: Icon, title, value, href, subtitle, index }) =>
 );
 
 const Contact = () => {
+    const { getSetting } = useSettings();
     const heroRef = useRef(null);
     const { scrollYProgress } = useScroll({ target: heroRef, offset: ['start start', 'end start'] });
     const heroY = useTransform(scrollYProgress, [0, 1], [0, 150]);
@@ -186,16 +188,16 @@ const Contact = () => {
                     <ContactInfoCard
                         icon={Phone}
                         title="Call Us Now"
-                        value="08062642222"
-                        href="tel:08062642222"
+                        value={getSetting('phone') || "08062642222"}
+                        href={`tel:${getSetting('phone') || "08062642222"}`}
                         subtitle="Mon – Sat, 9:30 AM – 5:00 PM"
                         index={0}
                     />
                     <ContactInfoCard
                         icon={Mail}
                         title="Email Us Now"
-                        value="admissions@tiu.com"
-                        href="mailto:admissions@technoindiauniversity.com"
+                        value={getSetting('email') || "admissions@tiu.com"}
+                        href={`mailto:${getSetting('email') || "admissions@technoindiauniversity.com"}`}
                         subtitle="We reply within 24 hours"
                         index={1}
                     />
@@ -203,7 +205,7 @@ const Contact = () => {
                         icon={MapPin}
                         title="Visit Campus"
                         value="Salt Lake, Sector V"
-                        href="https://maps.google.com/?q=Techno+India+University+EM-4+Salt+Lake+Sector+V+Kolkata"
+                        href={getSetting('contact_map_url') || "https://maps.google.com/?q=Techno+India+University+EM-4+Salt+Lake+Sector+V+Kolkata"}
                         subtitle="Kolkata – 700091, West Bengal"
                         index={2}
                     />
@@ -380,7 +382,7 @@ const Contact = () => {
                                 <div className="relative h-full rounded-3xl overflow-hidden border border-white/[0.06]">
                                     <iframe
                                         title="TIU Location"
-                                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3684.256837!2d88.4314!3d22.5726!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a0275b8c02e2c75%3A0x57c071e0f78ee5d6!2sTechno%20India%20University!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
+                                        src={getSetting('contact_map_url') || "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3684.256837!2d88.4314!3d22.5726!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a0275b8c02e2c75%3A0x57c071e0f78ee5d6!2sTechno%20India%20University!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"}
                                         width="100%"
                                         height="100%"
                                         style={{ border: 0, filter: 'invert(90%) hue-rotate(180deg) brightness(0.95) contrast(0.9)' }}
@@ -401,10 +403,12 @@ const Contact = () => {
                                         </div>
                                         <div>
                                             <h3 className="text-lg font-semibold text-white mb-1">Techno India University</h3>
-                                            <p className="text-gray-400 text-sm leading-relaxed">
-                                                Ground Floor, EM-4, Salt Lake City,<br />
-                                                Sector V, Kolkata – 700091,<br />
-                                                West Bengal, India
+                                            <p className="text-gray-400 text-sm leading-relaxed whitespace-pre-line">
+                                                {getSetting('address') || <>
+                                                    Ground Floor, EM-4, Salt Lake City,<br />
+                                                    Sector V, Kolkata – 700091,<br />
+                                                    West Bengal, India
+                                                </>}
                                             </p>
                                         </div>
                                     </div>

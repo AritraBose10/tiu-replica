@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, useScroll, useTransform, useSpring, useMotionValue, useMotionTemplate } from 'framer-motion';
 import { Sparkles, ArrowRight, Globe, Zap } from 'lucide-react';
+import { useSettings } from '../../contexts/SettingsContext';
 
 // Premium Liquid Metal Text Effect
 const LiquidChromeText = () => {
@@ -118,6 +119,7 @@ const AdmissionsFormWidget = () => {
 };
 
 const AdmissionsHero = () => {
+    const { getSetting } = useSettings();
     const { scrollY } = useScroll();
     const y1 = useTransform(scrollY, [0, 500], [0, 200]);
     const y2 = useTransform(scrollY, [0, 500], [0, -150]);
@@ -135,7 +137,7 @@ const AdmissionsHero = () => {
                     className="w-full h-full object-cover"
                 >
                     <source
-                        src="https://videos.pexels.com/video-files/3129671/3129671-uhd_2560_1440_30fps.mp4"
+                        src={getSetting('admissions_hero_video') || "https://videos.pexels.com/video-files/3129671/3129671-uhd_2560_1440_30fps.mp4"}
                         type="video/mp4"
                     />
                 </video>

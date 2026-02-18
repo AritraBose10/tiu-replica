@@ -3,77 +3,68 @@ import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef } from 'react';
 import { Code2, Trophy, Building, Award, Laptop, FileCheck, Lightbulb, Users, ArrowUpRight } from 'lucide-react';
-
-// Instructions for User:
-// 1. Create a folder: src/assets/student-work
-// 2. Add your images there and rename them to:
-//    - project1.jpg (for Live Coding)
-//    - hackathon.jpg (for Hackathons)
-//    - visit.jpg (for Industry Visits)
-//    - cert.jpg (for Certifications)
-//    - portfolio.jpg (for Portfolios)
-//    - research.jpg (for Research)
-//    - startup.jpg (for Startups)
-//    - community.jpg (for Community)
-// 3. Uncomment the imports below and the image property in the tiles object.
-
-// import img1 from '../assets/student-work/project1.jpg';
-// import img2 from '../assets/student-work/hackathon.jpg';
-// ... etc
-
-const tiles = [
-    {
-        id: 'coding',
-        icon: Code2,
-        title: 'Live Coding Projects',
-        description: 'Real applications built using industry tools like React, Node.js & Python.',
-        size: 'col-span-1 md:col-span-2 row-span-2', // Large Feature
-        gradient: 'from-blue-600 to-indigo-600',
-        // image: img1
-    },
-    {
-        id: 'hackathon',
-        icon: Trophy,
-        title: 'Hackathon Wins',
-        description: 'National winners at Smart India Hackathon & more.',
-        size: 'col-span-1 row-span-1',
-        gradient: 'from-amber-500 to-orange-500',
-    },
-    {
-        id: 'visits',
-        icon: Building,
-        title: 'Industry Venues',
-        description: 'On-site exposure at Google, IBM & Microsoft campuses.',
-        size: 'col-span-1 row-span-1',
-        gradient: 'from-emerald-500 to-teal-500',
-    },
-    {
-        id: 'startup',
-        icon: Lightbulb,
-        title: 'Startup Incubation',
-        description: '3 student startups funded in 2024 alone.',
-        size: 'col-span-1 md:col-span-2 row-span-1', // Wide
-        gradient: 'from-purple-600 to-pink-600',
-    },
-    {
-        id: 'research',
-        icon: FileCheck,
-        title: 'Research Pubs',
-        description: 'Papers in IEEE & Springer conferences.',
-        size: 'col-span-1 row-span-1',
-        gradient: 'from-cyan-500 to-blue-500',
-    },
-    {
-        id: 'community',
-        icon: Users,
-        title: 'Tech Community',
-        description: 'Leading GDSC and other tech clubs.',
-        size: 'col-span-1 row-span-1',
-        gradient: 'from-rose-500 to-red-500',
-    },
-];
+import { useSettings } from '../contexts/SettingsContext';
 
 const StudentWork = () => {
+    const { getSetting } = useSettings();
+
+    const tiles = [
+        {
+            id: 'coding',
+            icon: Code2,
+            title: 'Live Coding Projects',
+            description: 'Real applications built using industry tools like React, Node.js & Python.',
+            size: 'col-span-1 md:col-span-2 row-span-2', // Large Feature
+            gradient: 'from-blue-600 to-indigo-600',
+            image: getSetting('student_work_coding_image') || "https://images.unsplash.com/photo-1571171637578-41bc2dd41cd2?q=80&w=3540&auto=format&fit=crop"
+        },
+        {
+            id: 'hackathon',
+            icon: Trophy,
+            title: 'Hackathon Wins',
+            description: 'National winners at Smart India Hackathon & more.',
+            size: 'col-span-1 row-span-1',
+            gradient: 'from-amber-500 to-orange-500',
+            image: getSetting('student_work_hackathon_image') || "https://images.unsplash.com/photo-1504384308090-c54be3855485?q=80&w=2669&auto=format&fit=crop"
+        },
+        {
+            id: 'visits',
+            icon: Building,
+            title: 'Industry Venues',
+            description: 'On-site exposure at Google, IBM & Microsoft campuses.',
+            size: 'col-span-1 row-span-1',
+            gradient: 'from-emerald-500 to-teal-500',
+            image: getSetting('student_work_visits_image') || "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=2664&auto=format&fit=crop"
+        },
+        {
+            id: 'startup',
+            icon: Lightbulb,
+            title: 'Startup Incubation',
+            description: '3 student startups funded in 2024 alone.',
+            size: 'col-span-1 md:col-span-2 row-span-1', // Wide
+            gradient: 'from-purple-600 to-pink-600',
+            image: getSetting('student_work_startup_image') || "https://images.unsplash.com/photo-1559136555-9303baea8ebd?q=80&w=2670&auto=format&fit=crop"
+        },
+        {
+            id: 'research',
+            icon: FileCheck,
+            title: 'Research Pubs',
+            description: 'Papers in IEEE & Springer conferences.',
+            size: 'col-span-1 row-span-1',
+            gradient: 'from-cyan-500 to-blue-500',
+            image: getSetting('student_work_research_image') || "https://images.unsplash.com/photo-1532094349884-543bc11b234d?q=80&w=2670&auto=format&fit=crop"
+        },
+        {
+            id: 'community',
+            icon: Users,
+            title: 'Tech Community',
+            description: 'Leading GDSC and other tech clubs.',
+            size: 'col-span-1 row-span-1',
+            gradient: 'from-rose-500 to-red-500',
+            image: getSetting('student_work_community_image') || "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=2668&auto=format&fit=crop"
+        },
+    ];
+
     return (
         <section className="py-24 px-4 bg-[#020205] relative overflow-hidden">
             {/* Background elements */}
@@ -120,10 +111,16 @@ const StudentWork = () => {
                                 {/* Image Placeholder / Background */}
                                 <div className="absolute inset-0 z-0">
                                     {/* If image exists, render it: */}
-                                    {/* <img src={tile.image} alt={tile.title} className="w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity duration-700" /> */}
+                                    {tile.image && (
+                                        <img
+                                            src={tile.image}
+                                            alt={tile.title}
+                                            className="w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity duration-700"
+                                        />
+                                    )}
 
                                     {/* Fallback Gradient */}
-                                    <div className={`absolute inset-0 bg-gradient-to-br ${tile.gradient} opacity-10 group-hover:opacity-20 transition-opacity duration-500`} />
+                                    <div className={`absolute inset-0 bg-gradient-to-br ${tile.gradient} opacity-10 group-hover:opacity-20 transition-opacity duration-500 ${tile.image ? 'mix-blend-overlay' : ''}`} />
 
                                     {/* Vignette Overlay */}
                                     <div className="absolute inset-0 bg-gradient-to-t from-[#020205] via-[#020205]/40 to-transparent opacity-90" />

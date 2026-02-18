@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Play, BookOpen, Wrench, Trophy, Users } from 'lucide-react';
+import { useSettings } from '../contexts/SettingsContext';
 
 const experiences = [
     { icon: BookOpen, label: 'Classroom learning supported by modern labs' },
@@ -9,15 +10,18 @@ const experiences = [
     { icon: Users, label: 'Faculty mentorship and industry interaction' },
 ];
 
-const galleryImages = [
-    { src: '/images/learning-lab.jpg', alt: 'Students in a modern computer lab' },
-    { src: '/images/learning-collab.jpg', alt: 'Collaborative project work' },
-    { src: '/images/learning-mentor.jpg', alt: 'Faculty mentoring students' },
-    { src: '/images/learning-hackathon.jpg', alt: 'Hackathon in progress' },
-];
+
 
 const HowLearningWorks = () => {
+    const { getSetting } = useSettings();
     const [videoLoaded, setVideoLoaded] = useState(false);
+
+    const galleryImages = [
+        { src: getSetting('learning_lab_image') || '/images/learning-lab.jpg', alt: 'Students in a modern computer lab' },
+        { src: getSetting('learning_collab_image') || '/images/learning-collab.jpg', alt: 'Collaborative project work' },
+        { src: getSetting('learning_mentor_image') || '/images/learning-mentor.jpg', alt: 'Faculty mentoring students' },
+        { src: getSetting('learning_hackathon_image') || '/images/learning-hackathon.jpg', alt: 'Hackathon in progress' },
+    ];
 
     return (
         <section className="py-24 px-0 bg-gradient-to-b from-gray-50 to-white overflow-hidden">
@@ -72,7 +76,7 @@ const HowLearningWorks = () => {
                     >
                         <div className="aspect-video rounded-3xl overflow-hidden shadow-2xl bg-black border-4 border-white ring-1 ring-gray-100">
                             <iframe
-                                src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&mute=1&controls=0&loop=1&playlist=dQw4w9WgXcQ"
+                                src={getSetting('learning_video_url') || "https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&mute=1&controls=0&loop=1&playlist=dQw4w9WgXcQ"}
                                 title="How Learning Works at SoF"
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                 allowFullScreen

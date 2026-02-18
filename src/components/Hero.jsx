@@ -295,7 +295,7 @@ const Hero = () => {
                     <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white/[0.04] border border-white/10 hover:bg-white/[0.07] transition-all duration-300">
                         <span className="text-white/40 text-[10px] font-semibold uppercase tracking-widest whitespace-nowrap">Powered by</span>
                         <img
-                            src="https://upload.wikimedia.org/wikipedia/commons/5/51/Google_Cloud_logo.svg"
+                            src={getSetting('logo_google_cloud') || "https://upload.wikimedia.org/wikipedia/commons/5/51/Google_Cloud_logo.svg"}
                             alt="Google Cloud"
                             className="h-5 object-contain opacity-80 hover:opacity-100 transition-opacity"
                         />
@@ -304,7 +304,7 @@ const Hero = () => {
                     <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white/[0.04] border border-white/10 hover:bg-white/[0.07] transition-all duration-300">
                         <span className="text-white/40 text-[10px] font-semibold uppercase tracking-widest whitespace-nowrap">In collaboration with</span>
                         <img
-                            src="https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg"
+                            src={getSetting('logo_ibm') || "https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg"}
                             alt="IBM"
                             className="h-5 object-contain opacity-80 hover:opacity-100 transition-opacity brightness-0 invert"
                         />

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Cpu, Users, Briefcase, BrainCircuit, Play, X } from 'lucide-react';
+import { useSettings } from '../../contexts/SettingsContext';
 
 const differentiators = [
     {
@@ -44,6 +45,7 @@ const cardVariants = {
 };
 
 const WhySOF = () => {
+    const { getSetting } = useSettings();
     const [isPlaying, setIsPlaying] = useState(false);
 
     return (
@@ -126,7 +128,7 @@ const WhySOF = () => {
                                 {/* Poster Image */}
                                 <div className="relative aspect-[16/10]">
                                     <img
-                                        src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=2070&auto=format&fit=crop"
+                                        src={getSetting('admissions_why_sof_bg') || "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=2070&auto=format&fit=crop"}
                                         alt="School of the Future"
                                         className="w-full h-full object-cover"
                                     />

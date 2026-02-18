@@ -2,8 +2,10 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { useSettings } from '../contexts/SettingsContext';
 
 const CourseCard = ({ course, index }) => {
+    const { getSetting } = useSettings();
     const getCategoryColor = (category) => {
         switch (category) {
             case 'Engineering': return 'bg-[#FF0000]';
@@ -52,9 +54,9 @@ const CourseCard = ({ course, index }) => {
                         <span className="text-gray-400">Industry Partner:</span>
                         <span className="font-medium text-[#FF0000]">
                             {course.title.includes('Google') ? (
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Google_Cloud_logo.svg" alt="Google Cloud" className="h-5 object-contain" />
+                                <img src={getSetting('logo_google_cloud') || "https://upload.wikimedia.org/wikipedia/commons/5/51/Google_Cloud_logo.svg"} alt="Google Cloud" className="h-5 object-contain" />
                             ) : course.title.includes('IBM') ? (
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg" alt="IBM" className="h-5 object-contain" />
+                                <img src={getSetting('logo_ibm') || "https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg"} alt="IBM" className="h-5 object-contain" />
                             ) : (
                                 <span className="text-[#FF0000]">TIU</span>
                             )}

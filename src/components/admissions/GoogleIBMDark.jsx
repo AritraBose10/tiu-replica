@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Award, BookOpen, Cloud, Shield } from 'lucide-react';
+import { useSettings } from '../../contexts/SettingsContext';
 
 const MotionLink = motion.create(Link);
 
@@ -13,6 +14,8 @@ const certifications = [
 ];
 
 const GoogleIBMDark = () => {
+    const { getSetting } = useSettings();
+
     return (
         <section className="py-24 px-4 bg-[#020205] relative overflow-hidden">
             {/* Background glow */}
@@ -32,12 +35,16 @@ const GoogleIBMDark = () => {
                             {/* Partner Logos */}
                             <div className="flex items-center gap-5 mb-8">
                                 <img
-                                    src="https://upload.wikimedia.org/wikipedia/commons/5/51/Google_Cloud_logo.svg"
+                                    src={getSetting('logo_google_cloud') || "https://upload.wikimedia.org/wikipedia/commons/5/51/Google_Cloud_logo.svg"}
                                     alt="Google Cloud"
                                     className="h-7 object-contain"
                                 />
                                 <div className="w-px h-8 bg-white/20" />
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg" alt="IBM" className="h-8 object-contain brightness-0 invert" />
+                                <img
+                                    src={getSetting('logo_ibm') || "https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg"}
+                                    alt="IBM"
+                                    className="h-8 object-contain brightness-0 invert"
+                                />
                             </div>
 
                             <span className="text-red-500 text-sm font-semibold tracking-wider uppercase">
@@ -95,7 +102,7 @@ const GoogleIBMDark = () => {
                             {/* Student image */}
                             <div className="absolute inset-0">
                                 <img
-                                    src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=2071&auto=format&fit=crop"
+                                    src={getSetting('admissions_google_ibm_bg') || "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=2071&auto=format&fit=crop"}
                                     alt="Students collaborating"
                                     className="w-full h-full object-cover"
                                 />

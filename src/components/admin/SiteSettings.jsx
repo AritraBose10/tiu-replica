@@ -1,46 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { useAuth } from './AuthProvider';
-import { Save, Loader2, Check, AlertCircle } from 'lucide-react';
+import { Save, Loader2, Upload, AlertCircle, Monitor, BookOpen, GraduationCap, LayoutTemplate, Briefcase } from 'lucide-react';
+import { useAuth } from '../../contexts/AuthContext';
 import { sanityClient } from '../../lib/sanityClient';
 import MediaUploader from './MediaUploader';
 
-export default function SiteSettings() {
+const SiteSettings = () => {
     const { token } = useAuth();
     const [settings, setSettings] = useState({});
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
+    const [error, setError] = useState('');
     const [toast, setToast] = useState(null);
-
-    // Initial state matching expected keys
-    const initialSettings = {
-        logo: '',
-        favicon: '',
-        hero_video: '',
-        contact_email: '',
-        contact_phone: '',
-        address: '',
-        social_facebook: '',
-        social_twitter: '',
-        social_linkedin: '',
-        social_instagram: '',
-        // Home Page Images
-        hero_wireframe_exterior: '',
-        hero_wireframe_interior: '',
-        what_is_sof_image: '',
-        home_carousel_img_1: '',
-        home_carousel_img_2: '',
-        home_carousel_img_3: '',
-        home_carousel_img_4: '',
-        home_carousel_img_5: '',
-        // About Page Images
-        about_hero_bg: '',
-        about_campus_image: '',
-    };
-
-    const showToast = (message, type = 'success') => {
-        setToast({ message, type });
-        setTimeout(() => setToast(null), 3500);
-    };
+    const [activeTab, setActiveTab] = useState('home'); // home, student, learning, admissions, branding, contact
 
     useEffect(() => {
         fetchSettings();
@@ -49,356 +20,436 @@ export default function SiteSettings() {
     const fetchSettings = async () => {
         try {
             const res = await fetch('/api/settings');
-            if (res.ok) {
-                const data = await res.json();
-                // Convert array [{key, value}] to object {key: value}
-                const settingsObj = { ...initialSettings };
-                data.forEach(item => {
-                    settingsObj[item.key] = item.value;
-                });
-                setSettings(settingsObj);
-            }
+            const data = await res.json();
+            setSettings(data);
         } catch (err) {
-            console.error('Failed to fetch settings:', err);
-            showToast('Failed to load settings', 'error');
+            setError('Failed to load settings');
         } finally {
             setLoading(false);
         }
     };
 
-    const handleUpload = async (file, key, type = 'image') => {
-        try {
-            setSaving(true);
-            showToast(`Uploading ${type}...`, 'info');
-
-            // Sanity upload
-            const assetType = type === 'video' ? 'file' : 'image';
-            const asset = await sanityClient.assets.upload(assetType, file, {
-                filename: file.name
-            });
-
-            // Update local state
-            setSettings(prev => ({ ...prev, [key]: asset.url }));
-            showToast(`${type === 'video' ? 'Video' : 'Image'} uploaded`, 'success');
-        } catch (err) {
-            console.error('Upload failed:', err);
-            showToast('Upload failed', 'error');
-        } finally {
-            setSaving(false);
-        }
+    const showToast = (message, type = 'success') => {
+        setToast({ message, type });
+        setTimeout(() => setToast(null), 3000);
     };
 
-    const handleSave = async (e) => {
-        e.preventDefault();
+    const handleSave = async () => {
         setSaving(true);
-        let successCount = 0;
-        let failCount = 0;
-
+        setError('');
         try {
             // Save each setting individually
-            const promises = Object.entries(settings).map(async ([key, value]) => {
-                const res = await fetch('/api/settings', {
+            for (const [key, value] of Object.entries(settings)) {
+                await fetch('/api/settings', {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${token}`
                     },
-                    body: JSON.stringify({ key, value }),
+                    body: JSON.stringify({ key, value })
                 });
-                if (res.ok) successCount++; else failCount++;
-            });
-
-            await Promise.all(promises);
-
-            if (failCount === 0) {
-                showToast('All settings saved successfully', 'success');
-            } else if (successCount > 0) {
-                showToast(`Saved ${successCount} settings, ${failCount} failed`, 'warning');
-            } else {
-                showToast('Failed to save settings', 'error');
             }
+            showToast('Settings saved successfully!');
         } catch (err) {
-            console.error('Save error:', err);
-            showToast('Error saving settings', 'error');
+            setError('Failed to save settings');
+            showToast('Failed to save settings', 'error');
         } finally {
             setSaving(false);
         }
     };
 
+    const handleChange = (key, value) => {
+        setSettings(prev => ({ ...prev, [key]: value }));
+    };
+
+    const tabs = [
+        { id: 'home', label: 'Home Page', icon: Monitor },
+        { id: 'student', label: 'Student Work', icon: Briefcase },
+        { id: 'learning', label: 'Learning', icon: BookOpen },
+        { id: 'admissions', label: 'Admissions', icon: GraduationCap },
+        { id: 'branding', label: 'Branding & Layout', icon: LayoutTemplate },
+        { id: 'contact', label: 'Contact & Social', icon: Upload }
+    ];
+
     if (loading) return (
-        <div className="flex justify-center items-center h-64">
-            <Loader2 className="w-8 h-8 animate-spin text-gray-500" />
+        <div className="flex items-center justify-center min-h-[400px]">
+            <Loader2 className="w-8 h-8 text-red-500 animate-spin" />
         </div>
     );
 
     return (
-        <div className="admin-content-page">
-            <div className="admin-page-header">
-                <h1>Site Settings</h1>
-                <p>Manage clear global configuration and assets.</p>
+        <div className="space-y-6">
+            <div className="flex items-center justify-between">
+                <div>
+                    <h1 className="text-2xl font-bold text-white">Site Settings</h1>
+                    <p className="text-gray-400">Manage global website content and images</p>
+                </div>
+                <button
+                    onClick={handleSave}
+                    disabled={saving}
+                    className="flex items-center gap-2 px-6 py-2 bg-red-600 hover:bg-red-700 disabled:opacity-50 disabled:cursor-not-allowed text-white rounded-lg transition-colors font-medium"
+                >
+                    {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
+                    {saving ? 'Saving...' : 'Save Changes'}
+                </button>
             </div>
 
-            <form onSubmit={handleSave} className="admin-settings-form max-w-4xl">
-                {/* ─── Branding ─── */}
-                <div className="bg-[#0a0a12] border border-white/10 rounded-xl p-6 mb-8">
-                    <h2 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
-                        <span className="w-1 h-6 bg-[#FF0000] rounded-full" />
-                        Branding & Assets
-                    </h2>
-
-                    <div className="grid md:grid-cols-2 gap-8">
-                        {/* Logo */}
-                        <div className="form-group">
-                            <label className="block text-sm font-medium text-gray-400 mb-2">Website Logo</label>
-                            <MediaUploader
-                                type="image"
-                                value={settings.logo}
-                                onChange={(url) => setSettings(prev => ({ ...prev, logo: url }))}
-                                showToast={showToast}
-                            />
-                        </div>
-
-                        {/* Hero Video */}
-                        <div className="form-group">
-                            <label className="block text-sm font-medium text-gray-400 mb-2">Hero Background Video</label>
-                            <MediaUploader
-                                type="video"
-                                value={settings.hero_video}
-                                onChange={(url) => setSettings(prev => ({ ...prev, hero_video: url }))}
-                                showToast={showToast}
-                            />
-                        </div>
-                    </div>
+            {error && (
+                <div className="bg-red-500/10 border border-red-500/20 text-red-400 p-4 rounded-lg flex items-center gap-3">
+                    <AlertCircle className="w-5 h-5 flex-shrink-0" />
+                    {error}
                 </div>
+            )}
 
-                {/* ─── Page Images ─── */}
-                <div className="bg-[#0a0a12] border border-white/10 rounded-xl p-6 mb-8">
-                    <h2 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
-                        <span className="w-1 h-6 bg-pink-500 rounded-full" />
-                        Page Images
-                    </h2>
+            {/* Tabs Navigation */}
+            <div className="flex flex-wrap gap-2 border-b border-white/10 pb-4">
+                {tabs.map(tab => (
+                    <button
+                        key={tab.id}
+                        onClick={() => setActiveTab(tab.id)}
+                        className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all ${activeTab === tab.id
+                                ? 'bg-red-600 text-white shadow-lg shadow-red-900/20'
+                                : 'text-gray-400 hover:text-white hover:bg-white/5'
+                            }`}
+                    >
+                        <tab.icon className="w-4 h-4" />
+                        {tab.label}
+                    </button>
+                ))}
+            </div>
 
-                    <h3 className="text-lg font-semibold text-white mb-4 border-b border-white/10 pb-2">Home Page</h3>
-                    <div className="grid md:grid-cols-2 gap-6 mb-6">
-                        <div>
-                            <label className="block text-sm text-gray-400 mb-2">Wireframe Exterior (Left)</label>
-                            <MediaUploader
-                                type="image"
-                                value={settings.hero_wireframe_exterior}
-                                onChange={(url) => setSettings(prev => ({ ...prev, hero_wireframe_exterior: url }))}
-                                showToast={showToast}
-                            />
-                        </div>
-                        <div>
-                            <label className="block text-sm text-gray-400 mb-2">Wireframe Interior (Right)</label>
-                            <MediaUploader
-                                type="image"
-                                value={settings.hero_wireframe_interior}
-                                onChange={(url) => setSettings(prev => ({ ...prev, hero_wireframe_interior: url }))}
-                                showToast={showToast}
-                            />
-                        </div>
-                        <div>
-                            <label className="block text-sm text-gray-400 mb-2">"What is SoF" Section Image</label>
-                            <MediaUploader
-                                type="image"
-                                value={settings.what_is_sof_image}
-                                onChange={(url) => setSettings(prev => ({ ...prev, what_is_sof_image: url }))}
-                                showToast={showToast}
-                            />
-                        </div>
-                    </div>
+            {/* Content Area */}
+            <div className="space-y-8 bg-white/[0.02] border border-white/10 rounded-2xl p-6 md:p-8">
 
-                    <h3 className="text-lg font-semibold text-white mb-4 border-b border-white/10 pb-2">Home Carousel (3D)</h3>
-                    <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-6">
-                        {[1, 2, 3, 4, 5].map(num => (
-                            <div key={num}>
-                                <label className="block text-xs text-gray-400 mb-2">Image {num}</label>
+                {/* --- HOME TAB --- */}
+                {activeTab === 'home' && (
+                    <div className="space-y-8">
+                        <div>
+                            <h3 className="text-xl font-bold text-white mb-4">Hero Section Options</h3>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <MediaUploader
-                                    type="image"
-                                    value={settings[`home_carousel_img_${num}`]}
-                                    onChange={(url) => setSettings(prev => ({ ...prev, [`home_carousel_img_${num}`]: url }))}
+                                    label="Exterior Wireframe"
+                                    value={settings.hero_wireframe_exterior}
+                                    onChange={(val) => handleChange('hero_wireframe_exterior', val)}
+                                    showToast={showToast}
+                                />
+                                <MediaUploader
+                                    label="Interior Wireframe"
+                                    value={settings.hero_wireframe_interior}
+                                    onChange={(val) => handleChange('hero_wireframe_interior', val)}
                                     showToast={showToast}
                                 />
                             </div>
-                        ))}
-                    </div>
+                        </div>
 
-                    <h3 className="text-lg font-semibold text-white mb-4 border-b border-white/10 pb-2">About Page</h3>
-                    <div className="grid md:grid-cols-2 gap-6">
                         <div>
-                            <label className="block text-sm text-gray-400 mb-2">Hero Background</label>
-                            <MediaUploader
-                                type="image"
-                                value={settings.about_hero_bg}
-                                onChange={(url) => setSettings(prev => ({ ...prev, about_hero_bg: url }))}
-                                showToast={showToast}
-                            />
-                        </div>
-                        <div>
-                            <label className="block text-sm text-gray-400 mb-2">Campus Image (Mission Section)</label>
-                            <MediaUploader
-                                type="image"
-                                value={settings.about_campus_image}
-                                onChange={(url) => setSettings(prev => ({ ...prev, about_campus_image: url }))}
-                                showToast={showToast}
-                            />
-                        </div>
-                    </div>
-                </div>
-
-                {/* ─── Contact Info ─── */}
-                <div className="bg-[#0a0a12] border border-white/10 rounded-xl p-6 mb-8">
-                    <h2 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
-                        <span className="w-1 h-6 bg-blue-500 rounded-full" />
-                        Contact Information
-                    </h2>
-                    <div className="grid md:grid-cols-2 gap-6">
-                        <div>
-                            <label className="block text-sm text-gray-400 mb-1">Email Address</label>
-                            <input
-                                type="email"
-                                value={settings.contact_email}
-                                onChange={e => setSettings(prev => ({ ...prev, contact_email: e.target.value }))}
-                                className="w-full bg-black/20 border border-white/10 rounded-lg px-4 py-2.5 text-white focus:border-blue-500 outline-none transition-colors"
-                                placeholder="admissions@techno.edu"
-                            />
-                        </div>
-                        <div>
-                            <label className="block text-sm text-gray-400 mb-1">Phone Number</label>
-                            <input
-                                type="text"
-                                value={settings.contact_phone}
-                                onChange={e => setSettings(prev => ({ ...prev, contact_phone: e.target.value }))}
-                                className="w-full bg-black/20 border border-white/10 rounded-lg px-4 py-2.5 text-white focus:border-blue-500 outline-none transition-colors"
-                                placeholder="+91 98765 43210"
-                            />
-                        </div>
-                        <div className="md:col-span-2">
-                            <label className="block text-sm text-gray-400 mb-1">Office Address</label>
-                            <textarea
-                                value={settings.address}
-                                onChange={e => setSettings(prev => ({ ...prev, address: e.target.value }))}
-                                className="w-full bg-black/20 border border-white/10 rounded-lg px-4 py-2.5 text-white focus:border-blue-500 outline-none transition-colors h-24 resize-none"
-                                placeholder="Plot No. 123, Sector V, Salt Lake..."
-                            />
-                        </div>
-                    </div>
-                </div>
-
-                {/* ─── Social Links ─── */}
-                <div className="bg-[#0a0a12] border border-white/10 rounded-xl p-6 mb-8">
-                    <h2 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
-                        <span className="w-1 h-6 bg-purple-500 rounded-full" />
-                        Social Media
-                    </h2>
-                    <div className="grid md:grid-cols-2 gap-6">
-                        <div>
-                            <label className="block text-sm text-gray-400 mb-1">Facebook URL</label>
-                            <input
-                                type="url"
-                                value={settings.social_facebook}
-                                onChange={e => setSettings(prev => ({ ...prev, social_facebook: e.target.value }))}
-                                className="w-full bg-black/20 border border-white/10 rounded-lg px-4 py-2.5 text-white focus:border-purple-500 outline-none transition-colors"
-                            />
-                        </div>
-                        <div>
-                            <label className="block text-sm text-gray-400 mb-1">Twitter (X) URL</label>
-                            <input
-                                type="url"
-                                value={settings.social_twitter}
-                                onChange={e => setSettings(prev => ({ ...prev, social_twitter: e.target.value }))}
-                                className="w-full bg-black/20 border border-white/10 rounded-lg px-4 py-2.5 text-white focus:border-purple-500 outline-none transition-colors"
-                            />
-                        </div>
-                        <div>
-                            <label className="block text-sm text-gray-400 mb-1">LinkedIn URL</label>
-                            <input
-                                type="url"
-                                value={settings.social_linkedin}
-                                onChange={e => setSettings(prev => ({ ...prev, social_linkedin: e.target.value }))}
-                                className="w-full bg-black/20 border border-white/10 rounded-lg px-4 py-2.5 text-white focus:border-purple-500 outline-none transition-colors"
-                            />
-                        </div>
-                        <div>
-                            <label className="block text-sm text-gray-400 mb-1">Instagram URL</label>
-                            <input
-                                type="url"
-                                value={settings.social_instagram}
-                                onChange={e => setSettings(prev => ({ ...prev, social_instagram: e.target.value }))}
-                                className="w-full bg-black/20 border border-white/10 rounded-lg px-4 py-2.5 text-white focus:border-purple-500 outline-none transition-colors"
-                            />
-                        </div>
-                    </div>
-                </div>
-
-                {/* ─── Advanced Settings (JSON Only) ─── */}
-                <div className="admin-page-header mt-12 mb-6">
-                    <h2>Advanced Configuration</h2>
-                    <p>Edit complex data structures directly (JSON)</p>
-                </div>
-
-                {Object.entries(settings)
-                    .filter(([key]) => ![
-                        'logo', 'favicon', 'hero_video', 'contact_email', 'contact_phone',
-                        'address', 'social_facebook', 'social_twitter', 'social_linkedin', 'social_instagram',
-                        'hero_wireframe_exterior', 'hero_wireframe_interior', 'what_is_sof_image',
-                        'about_hero_bg', 'about_campus_image',
-                        'home_carousel_img_1', 'home_carousel_img_2', 'home_carousel_img_3', 'home_carousel_img_4', 'home_carousel_img_5'
-                    ].includes(key))
-                    .map(([key, value]) => (
-                        <div key={key} className="bg-[#0a0a12] border border-white/10 rounded-xl p-4 mb-4">
-                            <div className="flex justify-between items-center mb-2">
-                                <h3 className="font-semibold text-white capitalize">{key.replace(/_/g, ' ')}</h3>
-                                <button
-                                    type="button"
-                                    onClick={async () => {
-                                        // Placeholder for future JSON editor modal
-                                    }}
-                                    className="text-xs bg-white/10 px-2 py-1 rounded"
-                                >
-                                    Edit JSON
-                                </button>
+                            <h3 className="text-xl font-bold text-white mb-4">3D Carousel Images</h3>
+                            <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+                                {[1, 2, 3, 4, 5].map(num => (
+                                    <MediaUploader
+                                        key={num}
+                                        label={`Carousel Image ${num}`}
+                                        value={settings[`home_carousel_img_${num}`]}
+                                        onChange={(val) => handleChange(`home_carousel_img_${num}`, val)}
+                                        showToast={showToast}
+                                    />
+                                ))}
                             </div>
-                            <textarea
-                                className="w-full bg-black/40 border border-white/10 rounded p-2 text-xs font-mono text-gray-300 h-32"
-                                value={typeof value === 'object' ? JSON.stringify(value, null, 2) : value}
-                                onChange={(e) => {
-                                    let newVal = e.target.value;
-                                    try {
-                                        newVal = JSON.parse(e.target.value);
-                                    } catch (err) {
-                                        // keep as string if not valid json
-                                    }
-                                    setSettings(prev => ({ ...prev, [key]: newVal }));
-                                }}
+                        </div>
+
+                        <div>
+                            <h3 className="text-xl font-bold text-white mb-4">"What Is SoF" Section</h3>
+                            <MediaUploader
+                                label="Main Feature Image"
+                                value={settings.what_is_sof_image}
+                                onChange={(val) => handleChange('what_is_sof_image', val)}
+                                showToast={showToast}
                             />
                         </div>
-                    ))}
+                    </div>
+                )}
 
-                {/* Footer Actions */}
-                <div className="sticky bottom-4 z-50 flex justify-end">
-                    <button
-                        type="submit"
-                        disabled={saving}
-                        className="flex items-center gap-2 bg-[#FF0000] text-white px-8 py-3 rounded-full font-bold shadow-lg shadow-red-900/20 hover:bg-red-600 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-                    >
-                        {saving ? <Loader2 className="animate-spin w-5 h-5" /> : <Save className="w-5 h-5" />}
-                        {saving ? 'Saving Changes...' : 'Save All Settings'}
-                    </button>
-                </div>
-            </form>
 
-            {/* Toast Notification */}
+                {/* --- STUDENT WORK TAB --- */}
+                {activeTab === 'student' && (
+                    <div className="space-y-8">
+                        <h3 className="text-xl font-bold text-white mb-4">Student Work Gallery</h3>
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <MediaUploader
+                                label="Live Coding Projects"
+                                value={settings.student_work_coding_image}
+                                onChange={(val) => handleChange('student_work_coding_image', val)}
+                                showToast={showToast}
+                            />
+                            <MediaUploader
+                                label="Hackathon Wins"
+                                value={settings.student_work_hackathon_image}
+                                onChange={(val) => handleChange('student_work_hackathon_image', val)}
+                                showToast={showToast}
+                            />
+                            <MediaUploader
+                                label="Industry Venues"
+                                value={settings.student_work_visits_image}
+                                onChange={(val) => handleChange('student_work_visits_image', val)}
+                                showToast={showToast}
+                            />
+                            <MediaUploader
+                                label="Startup Incubation"
+                                value={settings.student_work_startup_image}
+                                onChange={(val) => handleChange('student_work_startup_image', val)}
+                                showToast={showToast}
+                            />
+                            <MediaUploader
+                                label="Research Pubs"
+                                value={settings.student_work_research_image}
+                                onChange={(val) => handleChange('student_work_research_image', val)}
+                                showToast={showToast}
+                            />
+                            <MediaUploader
+                                label="Tech Community"
+                                value={settings.student_work_community_image}
+                                onChange={(val) => handleChange('student_work_community_image', val)}
+                                showToast={showToast}
+                            />
+                        </div>
+                    </div>
+                )}
+
+
+                {/* --- LEARNING TAB --- */}
+                {activeTab === 'learning' && (
+                    <div className="space-y-8">
+                        <div>
+                            <h3 className="text-xl font-bold text-white mb-4">Learning Methodology</h3>
+                            <div className="space-y-4 mb-6">
+                                <label className="block text-gray-400 text-sm mb-2">Explainer Video URL (YouTube/MP4)</label>
+                                <input
+                                    type="text"
+                                    value={settings.learning_video_url || ''}
+                                    onChange={(e) => handleChange('learning_video_url', e.target.value)}
+                                    className="w-full bg-white/5 border border-white/10 rounded-lg p-3 text-white focus:outline-none focus:border-red-500 transition-colors"
+                                    placeholder="https://www.youtube.com/embed/..."
+                                />
+                            </div>
+
+                            <h4 className="text-lg font-semibold text-white mb-3">Gallery Images</h4>
+                            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+                                <MediaUploader
+                                    label="Lab Environment"
+                                    value={settings.learning_lab_image}
+                                    onChange={(val) => handleChange('learning_lab_image', val)}
+                                    showToast={showToast}
+                                />
+                                <MediaUploader
+                                    label="Collaboration"
+                                    value={settings.learning_collab_image}
+                                    onChange={(val) => handleChange('learning_collab_image', val)}
+                                    showToast={showToast}
+                                />
+                                <MediaUploader
+                                    label="Mentorship"
+                                    value={settings.learning_mentor_image}
+                                    onChange={(val) => handleChange('learning_mentor_image', val)}
+                                    showToast={showToast}
+                                />
+                                <MediaUploader
+                                    label="Hackathon Action"
+                                    value={settings.learning_hackathon_image}
+                                    onChange={(val) => handleChange('learning_hackathon_image', val)}
+                                    showToast={showToast}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                )}
+
+
+                {/* --- ADMISSIONS TAB --- */}
+                {activeTab === 'admissions' && (
+                    <div className="space-y-8">
+                        <div>
+                            <h3 className="text-xl font-bold text-white mb-4">Admissions Page Assets</h3>
+                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                                <MediaUploader
+                                    type="video"
+                                    label="Admissions Hero Video (MP4)"
+                                    value={settings.admissions_hero_video}
+                                    onChange={(val) => handleChange('admissions_hero_video', val)}
+                                    showToast={showToast}
+                                />
+                                <div className="space-y-4">
+                                    <MediaUploader
+                                        label="Why SOF Background Image"
+                                        value={settings.admissions_why_sof_bg}
+                                        onChange={(val) => handleChange('admissions_why_sof_bg', val)}
+                                        showToast={showToast}
+                                    />
+                                </div>
+                                <MediaUploader
+                                    label="Google & IBM Section Background"
+                                    value={settings.admissions_google_ibm_bg}
+                                    onChange={(val) => handleChange('admissions_google_ibm_bg', val)}
+                                    showToast={showToast}
+                                />
+                                <div className="space-y-2">
+                                    <label className="block text-gray-400 text-sm">Campus Map URL (Google Maps Embed)</label>
+                                    <input
+                                        type="text"
+                                        value={settings.admissions_campus_map_url || ''}
+                                        onChange={(e) => handleChange('admissions_campus_map_url', e.target.value)}
+                                        className="w-full bg-white/5 border border-white/10 rounded-lg p-3 text-white focus:outline-none focus:border-red-500 transition-colors"
+                                        placeholder="https://www.google.com/maps/embed?..."
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                )}
+
+
+                {/* --- BRANDING TAB --- */}
+                {activeTab === 'branding' && (
+                    <div className="space-y-8">
+                        <div>
+                            <h3 className="text-xl font-bold text-white mb-4">Logos & Identity</h3>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <MediaUploader
+                                    label="Main Site Logo"
+                                    value={settings.logo}
+                                    onChange={(val) => handleChange('logo', val)}
+                                    showToast={showToast}
+                                />
+                                <MediaUploader
+                                    type="video"
+                                    label="Home Hero Video Loop"
+                                    value={settings.hero_video}
+                                    onChange={(val) => handleChange('hero_video', val)}
+                                    showToast={showToast}
+                                />
+                            </div>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                                <MediaUploader
+                                    label="Google Cloud Logo"
+                                    value={settings.logo_google_cloud}
+                                    onChange={(val) => handleChange('logo_google_cloud', val)}
+                                    showToast={showToast}
+                                />
+                                <MediaUploader
+                                    label="IBM Logo"
+                                    value={settings.logo_ibm}
+                                    onChange={(val) => handleChange('logo_ibm', val)}
+                                    showToast={showToast}
+                                />
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 className="text-xl font-bold text-white mb-4">Page Backgrounds</h3>
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <MediaUploader
+                                    label="About Page Hero"
+                                    value={settings.about_hero_bg}
+                                    onChange={(val) => handleChange('about_hero_bg', val)}
+                                    showToast={showToast}
+                                />
+                                <MediaUploader
+                                    label="Events Page Hero"
+                                    value={settings.events_hero_bg}
+                                    onChange={(val) => handleChange('events_hero_bg', val)}
+                                    showToast={showToast}
+                                />
+                                <MediaUploader
+                                    label="FAQ Section Background"
+                                    value={settings.faq_bg_image}
+                                    onChange={(val) => handleChange('faq_bg_image', val)}
+                                    showToast={showToast}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                )}
+
+
+                {/* --- CONTACT TAB --- */}
+                {activeTab === 'contact' && (
+                    <div className="space-y-6">
+                        <h3 className="text-xl font-bold text-white mb-4">Contact Information & Maps</h3>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label className="block text-gray-400 text-sm mb-2">Phone Number</label>
+                                <input
+                                    type="text"
+                                    value={settings.phone || ''}
+                                    onChange={(e) => handleChange('phone', e.target.value)}
+                                    className="w-full bg-white/5 border border-white/10 rounded-lg p-3 text-white focus:outline-none focus:border-red-500 transition-colors"
+                                />
+                            </div>
+                            <div>
+                                <label className="block text-gray-400 text-sm mb-2">Email Address</label>
+                                <input
+                                    type="email"
+                                    value={settings.email || ''}
+                                    onChange={(e) => handleChange('email', e.target.value)}
+                                    className="w-full bg-white/5 border border-white/10 rounded-lg p-3 text-white focus:outline-none focus:border-red-500 transition-colors"
+                                />
+                            </div>
+                            <div className="md:col-span-2">
+                                <label className="block text-gray-400 text-sm mb-2">Admission Contact</label>
+                                <input
+                                    type="text"
+                                    value={settings.admission_contact || ''}
+                                    onChange={(e) => handleChange('admission_contact', e.target.value)}
+                                    className="w-full bg-white/5 border border-white/10 rounded-lg p-3 text-white focus:outline-none focus:border-red-500 transition-colors"
+                                />
+                            </div>
+                            <div className="md:col-span-2">
+                                <label className="block text-gray-400 text-sm mb-2">Address</label>
+                                <textarea
+                                    value={settings.address || ''}
+                                    onChange={(e) => handleChange('address', e.target.value)}
+                                    className="w-full bg-white/5 border border-white/10 rounded-lg p-3 text-white focus:outline-none focus:border-red-500 transition-colors h-24"
+                                />
+                            </div>
+                            <div className="md:col-span-2">
+                                <label className="block text-gray-400 text-sm mb-2">Contact Page Map URL</label>
+                                <input
+                                    type="text"
+                                    value={settings.contact_map_url || ''}
+                                    onChange={(e) => handleChange('contact_map_url', e.target.value)}
+                                    className="w-full bg-white/5 border border-white/10 rounded-lg p-3 text-white focus:outline-none focus:border-red-500 transition-colors"
+                                />
+                            </div>
+                        </div>
+
+                        <h3 className="text-xl font-bold text-white mt-8 mb-4">Social Media Links</h3>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            {['facebook', 'twitter', 'instagram', 'linkedin', 'youtube'].map(social => (
+                                <div key={social}>
+                                    <label className="block text-gray-400 text-sm mb-2 capitalize">{social}</label>
+                                    <input
+                                        type="text"
+                                        value={settings[social] || ''}
+                                        onChange={(e) => handleChange(social, e.target.value)}
+                                        className="w-full bg-white/5 border border-white/10 rounded-lg p-3 text-white focus:outline-none focus:border-red-500 transition-colors"
+                                        placeholder={`https://${social}.com/...`}
+                                    />
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                )}
+
+            </div>
+
             {toast && (
-                <div className={`fixed bottom-8 right-8 z-[100] flex items-center gap-3 px-6 py-4 rounded-xl shadow-2xl border border-white/10 backdrop-blur-xl animate-slide-up ${toast.type === 'error' ? 'bg-red-900/90 text-red-200' :
-                    toast.type === 'warning' ? 'bg-amber-900/90 text-amber-200' :
-                        'bg-emerald-900/90 text-emerald-200'
+                <div className={`fixed bottom-8 right-8 px-6 py-3 rounded-xl shadow-2xl flex items-center gap-3 animate-in fade-in slide-in-from-bottom-5 z-50 ${toast.type === 'error' ? 'bg-red-500 text-white' : 'bg-emerald-500 text-white'
                     }`}>
-                    {toast.type === 'success' ? <Check className="w-5 h-5" /> : <AlertCircle className="w-5 h-5" />}
+                    {toast.type === 'error' ? <AlertCircle className="w-5 h-5" /> : <Save className="w-5 h-5" />}
                     <span className="font-medium">{toast.message}</span>
                 </div>
             )}
         </div>
     );
-}
+};
+
+export default SiteSettings;

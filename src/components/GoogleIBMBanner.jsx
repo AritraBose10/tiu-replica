@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ArrowRight, CheckCircle2 } from 'lucide-react';
+import { useSettings } from '../contexts/SettingsContext';
 
 const MotionLink = motion.create(Link);
 
@@ -13,6 +14,7 @@ const highlights = [
 ];
 
 const GoogleIBMBanner = () => {
+    const { getSetting } = useSettings();
     return (
         <section className="py-20 px-0 bg-gradient-to-br from-gray-50 to-white overflow-hidden">
             <div className="w-[90%] md:w-[70%] mx-auto">
@@ -49,13 +51,13 @@ const GoogleIBMBanner = () => {
                         {/* Partner Logos */}
                         <div className="flex items-center gap-6 mb-8 pb-8 border-b border-gray-100">
                             <img
-                                src="https://upload.wikimedia.org/wikipedia/commons/5/51/Google_Cloud_logo.svg"
+                                src={getSetting('logo_google_cloud') || "https://upload.wikimedia.org/wikipedia/commons/5/51/Google_Cloud_logo.svg"}
                                 alt="Google Cloud"
                                 className="h-7 object-contain"
                             />
                             <div className="w-px h-8 bg-gray-200" />
                             <div className="flex items-center gap-2">
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg" alt="IBM" className="h-8 object-contain" />
+                                <img src={getSetting('logo_ibm') || "https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg"} alt="IBM" className="h-8 object-contain" />
                             </div>
                         </div>
 
@@ -100,7 +102,7 @@ const GoogleIBMBanner = () => {
                         {/* Main Image */}
                         <div className="flex-1 rounded-3xl overflow-hidden bg-gray-100 relative min-h-[280px]">
                             <img
-                                src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=2070&auto=format&fit=crop"
+                                src={getSetting('admissions_google_ibm_bg') || "https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=2070&auto=format&fit=crop"}
                                 alt="Students working with industry tools"
                                 className="w-full h-full object-cover"
                             />

@@ -4,6 +4,7 @@ import { Calendar, MapPin, Clock, Users, ArrowUpRight, Search, Filter, Sparkles,
 import { Link } from 'react-router-dom';
 import pastEvents from '../data/past_events.json';
 import { useSanity } from '../hooks/useSanity';
+import { useSettings } from '../contexts/SettingsContext';
 import { EVENTS_QUERY } from '../lib/queries';
 import SEO from '../components/SEO';
 
@@ -248,6 +249,7 @@ const FeaturedEventCard = ({ event, index }) => {
 
 // ─── Main Events Page ─────────────────────────────────────────
 const Events = () => {
+    const { getSetting } = useSettings();
     const { data: sanityEvents } = useSanity(EVENTS_QUERY, null);
     const [scrapedEvents, setScrapedEvents] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -314,7 +316,7 @@ const Events = () => {
                 {/* Background image */}
                 <div className="absolute inset-0 z-0">
                     <img
-                        src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=2070&auto=format&fit=crop"
+                        src={getSetting('events_bg') || "https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=2070&auto=format&fit=crop"}
                         alt="Events"
                         className="w-full h-full object-cover"
                     />

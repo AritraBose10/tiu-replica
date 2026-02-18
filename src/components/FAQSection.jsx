@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Plus, Minus } from 'lucide-react';
 import { useSanity } from '../hooks/useSanity';
+import { useSettings } from '../contexts/SettingsContext';
 import { FAQS_QUERY } from '../lib/queries';
 
 const fallbackFaqs = [
@@ -33,6 +34,7 @@ const fallbackFaqs = [
 ];
 
 const FAQSection = ({ customFaqs }) => {
+    const { getSetting } = useSettings();
     const { data: sanityFaqs } = useSanity(FAQS_QUERY, fallbackFaqs);
     const faqs = customFaqs || sanityFaqs;
     const [openId, setOpenId] = useState(null);
@@ -41,9 +43,15 @@ const FAQSection = ({ customFaqs }) => {
         setOpenId(openId === id ? null : id);
     };
 
+    const bgImage = getSetting('faq_bg_image');
+
     return (
-        <section className="bg-[#0a0a1a] py-20 px-4">
-            <div className="max-w-7xl mx-auto">
+        <section
+            className="bg-[#0a0a1a] py-20 px-4 relative bg-cover bg-center"
+            style={bgImage ? { backgroundImage: `url(${bgImage})` } : {}}
+        >
+            {bgImage && <div className="absolute inset-0 bg-black/80"></div>}
+            <div className="max-w-7xl mx-auto relative z-10">
                 <div className="grid md:grid-cols-2 gap-12 items-center">
                     {/* Left - Student Image */}
                     <motion.div
