@@ -30,8 +30,7 @@ const Home = () => {
             {/* §1 — Hero */}
             <Hero />
 
-            {/* Partners Carousel (kept) */}
-            <PartnersCarousel />
+
 
             {/* §2 — What is SoF? */}
             <WhatIsSoF />
@@ -48,9 +47,6 @@ const Home = () => {
             {/* §6 — Industry Collaboration */}
             <GoogleIBMBanner />
 
-            {/* Testimonials (kept) */}
-            <Testimonials />
-
             {/* §7 — How Learning Works */}
             <HowLearningWorks />
 
@@ -63,11 +59,17 @@ const Home = () => {
             {/* §10 — Careers & Pathways */}
             <CareerPathways />
 
+            {/* Partners — Moved here */}
+            <PartnersCarousel />
+
             {/* §11 — The Ecosystem */}
             <Ecosystem />
 
             {/* §12 — Scholarships */}
             <ScholarshipsStrip />
+
+            {/* Testimonials Strip */}
+            <Testimonials />
 
             {/* §13 — Accreditations */}
             <ApprovalsSection />

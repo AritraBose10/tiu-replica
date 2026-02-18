@@ -1,110 +1,166 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Briefcase, Code, Palette, HeartPulse, ArrowUpRight, Quote } from 'lucide-react';
+import { Briefcase, Code, Palette, HeartPulse, ArrowUpRight, TrendingUp, Users, Building2, Quote, Globe } from 'lucide-react';
 
 const pathways = [
     {
         icon: Code,
         domain: 'Technology',
-        roles: 'AI Engineer, Cloud Architect, Data Analyst, Full-Stack Developer',
-        color: 'from-blue-500/10 to-blue-600/5',
-        accent: 'text-blue-600',
-        border: 'border-blue-200',
+        roles: 'AI Engineer, Cloud Architect, Full-Stack Dev',
+        color: 'bg-blue-500',
+        gradient: 'from-blue-500/20 to-blue-600/5',
+        border: 'border-blue-500/20',
+        text: 'text-blue-400'
     },
     {
         icon: Briefcase,
         domain: 'Business',
-        roles: 'Business Analyst, Product Manager, Strategy Consultant, Fintech Analyst',
-        color: 'from-amber-500/10 to-amber-600/5',
-        accent: 'text-amber-600',
-        border: 'border-amber-200',
+        roles: 'Product Manager, Fintech Analyst, Consultant',
+        color: 'bg-amber-500',
+        gradient: 'from-amber-500/20 to-amber-600/5',
+        border: 'border-amber-500/20',
+        text: 'text-amber-400'
     },
     {
         icon: Palette,
         domain: 'Creative',
-        roles: 'UX Designer, Filmmaker, Game Developer, Motion Graphics Artist',
-        color: 'from-purple-500/10 to-purple-600/5',
-        accent: 'text-purple-600',
-        border: 'border-purple-200',
+        roles: 'UX Designer, Game Dev, Motion Artist',
+        color: 'bg-purple-500',
+        gradient: 'from-purple-500/20 to-purple-600/5',
+        border: 'border-purple-500/20',
+        text: 'text-purple-400'
     },
     {
         icon: HeartPulse,
         domain: 'Healthcare',
-        roles: 'Cardiovascular Technologist, Physiotherapist, Radiology Tech, Clinical Researcher',
-        color: 'from-emerald-500/10 to-emerald-600/5',
-        accent: 'text-emerald-600',
-        border: 'border-emerald-200',
+        roles: 'Bio-Tech Researcher, Clinical Data Scientist',
+        color: 'bg-emerald-500',
+        gradient: 'from-emerald-500/20 to-emerald-600/5',
+        border: 'border-emerald-500/20',
+        text: 'text-emerald-400'
     },
 ];
 
 const quotes = [
-    { text: 'I build AI models at a startup I interned with during Year 3.', name: 'Arjun R.', program: 'B.Tech CSE' },
-    { text: 'My design portfolio landed me a role before convocation.', name: 'Priya M.', program: 'B.Des' },
-    { text: 'The MBA analytics track gave me confidence to lead data teams.', name: 'Rahul S.', program: 'MBA Analytics' },
+    { text: "I build AI models at a startup I interned with.", name: "Arjun R.", role: "AI Engineer @ Stealth" },
+    { text: "My design portfolio landed me a role before graduation.", name: "Priya M.", role: "Product Designer @ Swiggy" },
+    { text: "The MBA analytics track gave me confidence to lead teams.", name: "Rahul S.", role: "Data Lead @ Accenture" },
 ];
 
 const CareerPathways = () => {
     return (
-        <section className="py-20 px-4 bg-gradient-to-b from-white to-gray-50 overflow-hidden">
-            <div className="max-w-7xl mx-auto">
-                {/* Header */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    className="text-center mb-16"
-                >
-                    <span className="inline-block bg-red-100 text-[#FF0000] text-sm font-semibold px-5 py-2 rounded-full mb-6">
-                        Career Outcomes
-                    </span>
-                    <h2 className="text-4xl md:text-5xl font-black text-black mb-4">
-                        Careers After the{' '}
-                        <span className="text-[#FF0000]">School of the Future</span>
-                    </h2>
-                    <p className="text-lg text-gray-500 max-w-2xl mx-auto">
-                        Focus: long-term careers, not short-term hype.
-                    </p>
-                </motion.div>
+        <section className="py-16 px-4 bg-[#05050A] relative overflow-hidden border-t border-white/5">
+            {/* Ambient Background */}
+            <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-600/5 rounded-full blur-[120px] pointer-events-none" />
+            <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-purple-600/5 rounded-full blur-[120px] pointer-events-none" />
 
-                {/* Pathway Cards */}
-                <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-                    {pathways.map((path, index) => (
-                        <motion.div
-                            key={index}
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: index * 0.1 }}
-                            whileHover={{ y: -4 }}
-                            className={`bg-gradient-to-br ${path.color} rounded-2xl p-6 border ${path.border} hover:shadow-lg transition-all duration-300`}
-                        >
-                            <path.icon className={`${path.accent} mb-4`} size={32} strokeWidth={1.5} />
-                            <h3 className="font-black text-black text-lg mb-2">{path.domain}</h3>
-                            <p className="text-gray-600 text-sm leading-relaxed">{path.roles}</p>
-                            <ArrowUpRight className={`${path.accent} mt-4`} size={18} />
-                        </motion.div>
-                    ))}
+            <div className="w-[90%] md:w-[70%] mx-auto relative z-10">
+                {/* Header — fully left-aligned */}
+                <div className="mb-10 border-b border-white/10 pb-8">
+                    <div className="max-w-4xl">
+                        <span className="inline-flex items-center gap-2 text-red-500 text-[10px] font-bold tracking-[0.2em] uppercase px-3 py-1 bg-red-500/10 rounded-full border border-red-500/20 mb-4">
+                            Outcomes First
+                        </span>
+                        <h2 className="text-3xl md:text-4xl font-black text-white leading-tight mb-3">
+                            Careers Built for the <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-orange-500">Long Game</span>
+                        </h2>
+                        <p className="text-gray-400 text-sm max-w-lg border-l-4 border-red-500 pl-4 py-1 mb-8">
+                            Go beyond placements. Build a career trajectory that adapts to the future of work.
+                        </p>
+
+                        {/* Stats — left-aligned row below heading */}
+                        <div className="flex flex-wrap gap-6 md:gap-10">
+                            <div className="flex items-center gap-3">
+                                <div className="p-2 rounded-lg bg-green-500/10 border border-green-500/20">
+                                    <TrendingUp className="w-5 h-5 text-green-400" />
+                                </div>
+                                <div>
+                                    <p className="text-white font-bold text-lg leading-none">₹12 LPA</p>
+                                    <p className="text-gray-500 text-xs uppercase tracking-wider font-semibold mt-1">Avg Package</p>
+                                </div>
+                            </div>
+                            <div className="flex items-center gap-3">
+                                <div className="p-2 rounded-lg bg-blue-500/10 border border-blue-500/20">
+                                    <Building2 className="w-5 h-5 text-blue-400" />
+                                </div>
+                                <div>
+                                    <p className="text-white font-bold text-lg leading-none">500+</p>
+                                    <p className="text-gray-500 text-xs uppercase tracking-wider font-semibold mt-1">Hiring Partners</p>
+                                </div>
+                            </div>
+                            <div className="flex items-center gap-3">
+                                <div className="p-2 rounded-lg bg-purple-500/10 border border-purple-500/20">
+                                    <Globe className="w-5 h-5 text-purple-400" />
+                                </div>
+                                <div>
+                                    <p className="text-white font-bold text-lg leading-none">Global</p>
+                                    <p className="text-gray-500 text-xs uppercase tracking-wider font-semibold mt-1">Alumni Network</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                {/* Student Quotes */}
-                <div className="grid md:grid-cols-3 gap-6">
-                    {quotes.map((quote, index) => (
-                        <motion.div
-                            key={index}
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: index * 0.1 }}
-                            className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm"
-                        >
-                            <Quote className="text-[#FF0000]/30 mb-3" size={24} />
-                            <p className="text-gray-700 text-sm italic mb-4">"{quote.text}"</p>
-                            <div>
-                                <p className="font-bold text-black text-sm">{quote.name}</p>
-                                <p className="text-gray-400 text-xs">{quote.program}</p>
-                            </div>
-                        </motion.div>
-                    ))}
+                {/* Dashboard Grid */}
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
+
+                    {/* Left Col: Domain Pathways (Compact Grid) */}
+                    <div className="lg:col-span-2 grid sm:grid-cols-2 gap-4 h-full">
+                        {pathways.map((path, index) => (
+                            <motion.div
+                                key={index}
+                                whileHover={{ y: -2 }}
+                                className={`group relative p-5 rounded-xl border ${path.border} bg-white/[0.02] hover:bg-white/[0.04] transition-all duration-300 overflow-hidden h-full`}
+                            >
+                                {/* Hover Gradient */}
+                                <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br ${path.gradient}`} />
+
+                                <div className="relative z-10 flex flex-col h-full">
+                                    <div className="flex justify-between items-start mb-3">
+                                        <path.icon className={`w-8 h-8 ${path.text}`} strokeWidth={1.5} />
+                                        <ArrowUpRight className="w-4 h-4 text-white/20 group-hover:text-white/60 transition-colors" />
+                                    </div>
+                                    <h3 className="text-white font-bold text-lg mb-1">{path.domain}</h3>
+                                    <p className="text-gray-500 text-xs leading-relaxed group-hover:text-gray-400 transition-colors">
+                                        {path.roles}
+                                    </p>
+                                </div>
+                            </motion.div>
+                        ))}
+                    </div>
+
+                    {/* Right Col: Voices / Success Stories (Vertical Stack) */}
+                    <div className="lg:col-span-1 bg-white/[0.02] border border-white/10 rounded-xl p-6 relative overflow-hidden flex flex-col justify-center h-full">
+                        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/40 pointer-events-none" />
+
+                        <div className="mb-4 flex items-center gap-2">
+                            <Users className="w-4 h-4 text-red-500" />
+                            <h4 className="text-white text-sm font-bold uppercase tracking-widest">Alumni Voices</h4>
+                        </div>
+
+                        <div className="space-y-4 relative z-10">
+                            {quotes.map((quote, i) => (
+                                <motion.div
+                                    key={i}
+                                    initial={{ opacity: 0, x: 20 }}
+                                    whileInView={{ opacity: 1, x: 0 }}
+                                    transition={{ delay: i * 0.1 }}
+                                    className="p-3 rounded-lg bg-white/[0.03] border border-white/5 hover:border-white/10 transition-colors"
+                                >
+                                    <p className="text-gray-400 text-xs italic mb-2 leading-relaxed">"{quote.text}"</p>
+                                    <div className="flex items-center gap-2">
+                                        <div className="w-6 h-6 rounded-full bg-gradient-to-br from-gray-700 to-gray-800 flex items-center justify-center text-[8px] text-white font-bold">
+                                            {quote.name.charAt(0)}
+                                        </div>
+                                        <div>
+                                            <p className="text-white text-xs font-bold">{quote.name}</p>
+                                            <p className="text-gray-600 text-[10px] uppercase font-semibold">{quote.role}</p>
+                                        </div>
+                                    </div>
+                                </motion.div>
+                            ))}
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>

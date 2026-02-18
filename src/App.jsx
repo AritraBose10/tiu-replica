@@ -19,6 +19,9 @@ import WhatsAppButton from './components/WhatsAppButton';
 import ExitIntentPopup from './components/ExitIntentPopup';
 import LeadMagnetBanner from './components/LeadMagnetBanner';
 
+// Contexts
+import { SettingsProvider } from './contexts/SettingsContext';
+
 // Admin imports
 import { AuthProvider } from './components/admin/AuthProvider';
 import AdminGuard from './components/admin/AdminGuard';
@@ -55,52 +58,54 @@ const NotFound = () => (
 function App() {
   return (
     <Router>
-      <AuthProvider>
-        <ScrollToTop />
-        <Routes>
-          {/* ── Admin Routes (no Navbar/Footer) ── */}
-          <Route path="/admin" element={<AdminLogin />} />
-          <Route path="/admin" element={<AdminGuard><AdminLayout /></AdminGuard>}>
-            <Route path="dashboard" element={<AdminDashboard />} />
-            <Route path="courses" element={<AdminCourses />} />
-            <Route path="events" element={<AdminEvents />} />
-            <Route path="faqs" element={<AdminFAQs />} />
-            <Route path="testimonials" element={<AdminTestimonials />} />
-            <Route path="partners" element={<AdminPartners />} />
-            <Route path="approvals" element={<AdminApprovals />} />
-            <Route path="gallery" element={<AdminGallery />} />
-            <Route path="scholarships" element={<AdminScholarships />} />
-            <Route path="recruiters" element={<AdminRecruiters />} />
-            <Route path="settings" element={<AdminSettings />} />
-          </Route>
+      <SettingsProvider>
+        <AuthProvider>
+          <ScrollToTop />
+          <Routes>
+            {/* ── Admin Routes (no Navbar/Footer) ── */}
+            <Route path="/admin" element={<AdminLogin />} />
+            <Route path="/admin" element={<AdminGuard><AdminLayout /></AdminGuard>}>
+              <Route path="dashboard" element={<AdminDashboard />} />
+              <Route path="courses" element={<AdminCourses />} />
+              <Route path="events" element={<AdminEvents />} />
+              <Route path="faqs" element={<AdminFAQs />} />
+              <Route path="testimonials" element={<AdminTestimonials />} />
+              <Route path="partners" element={<AdminPartners />} />
+              <Route path="approvals" element={<AdminApprovals />} />
+              <Route path="gallery" element={<AdminGallery />} />
+              <Route path="scholarships" element={<AdminScholarships />} />
+              <Route path="recruiters" element={<AdminRecruiters />} />
+              <Route path="settings" element={<AdminSettings />} />
+            </Route>
 
-          {/* ── Public Routes ── */}
-          <Route path="/*" element={
-            <div className="flex flex-col min-h-screen font-sans antialiased text-gray-900 bg-white">
-              <Navbar />
-              <main className="flex-grow">
-                <Routes>
-                  <Route path="/" element={<Home />} />
-                  <Route path="/courses" element={<Courses />} />
-                  <Route path="/about" element={<About />} />
-                  <Route path="/admissions" element={<Admissions />} />
-                  <Route path="/contact" element={<Contact />} />
-                  <Route path="/faq" element={<FAQ />} />
-                  <Route path="/approvals" element={<Approvals />} />
-                  <Route path="/events" element={<Events />} />
-                  <Route path="/events-demo" element={<EventScraperDemo />} />
-                  <Route path="*" element={<NotFound />} />
-                </Routes>
-              </main>
-              <Footer />
-              <StickyApplyButton />
-              <WhatsAppButton />
-              <ExitIntentPopup />
-              <LeadMagnetBanner />
-            </div>
-          } />
-        </Routes>
-      </AuthProvider>
+            {/* ── Public Routes ── */}
+            <Route path="/*" element={
+              <div className="flex flex-col min-h-screen font-sans antialiased text-gray-900 bg-white">
+                <Navbar />
+                <main className="flex-grow">
+                  <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/courses" element={<Courses />} />
+                    <Route path="/about" element={<About />} />
+                    <Route path="/admissions" element={<Admissions />} />
+                    <Route path="/contact" element={<Contact />} />
+                    <Route path="/faq" element={<FAQ />} />
+                    <Route path="/approvals" element={<Approvals />} />
+                    <Route path="/events" element={<Events />} />
+                    <Route path="/events-demo" element={<EventScraperDemo />} />
+                    <Route path="*" element={<NotFound />} />
+                  </Routes>
+                </main>
+                <Footer />
+                <StickyApplyButton />
+                <WhatsAppButton />
+                <ExitIntentPopup />
+                <LeadMagnetBanner />
+              </div>
+            } />
+          </Routes>
+        </AuthProvider>
+      </SettingsProvider>
     </Router>
   );
 }

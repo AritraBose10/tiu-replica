@@ -3,6 +3,7 @@ import { motion, useScroll, useTransform, useMotionValue, useSpring, AnimatePres
 import { Lightbulb, Users, Globe, Rocket, Award, Building, ChevronRight, Play, Sparkles, ArrowUpRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import SEO from '../components/SEO';
+import { useSettings } from '../contexts/SettingsContext';
 
 // --- Animated Counter Component ---
 const AnimatedCounter = ({ value, suffix = '' }) => {
@@ -147,6 +148,10 @@ const FloatingBackground = () => (
 
 // --- Main About Page ---
 const About = () => {
+    const { getSetting } = useSettings();
+    const heroBg = getSetting('about_hero_bg', 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=2070&auto=format&fit=crop');
+    const campusImg = getSetting('about_campus_image', 'https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=2070&auto=format&fit=crop');
+
     const { scrollYProgress } = useScroll();
     const y = useTransform(scrollYProgress, [0, 1], [0, -150]);
     const opacity = useTransform(scrollYProgress, [0, 0.3], [1, 0]);
@@ -181,7 +186,7 @@ const About = () => {
                     className="absolute inset-0 z-0"
                 >
                     <img
-                        src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=2070&auto=format&fit=crop"
+                        src={heroBg}
                         alt="Students"
                         className="w-full h-[120%] object-cover"
                     />
@@ -426,7 +431,7 @@ const About = () => {
                             className="absolute -inset-4 bg-gradient-to-r from-[#FF0000]/30 to-blue-500/30 rounded-3xl blur-3xl opacity-50"
                         />
                         <img
-                            src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=2070&auto=format&fit=crop"
+                            src={campusImg}
                             alt="Campus"
                             className="relative rounded-3xl shadow-2xl border border-white/10"
                         />

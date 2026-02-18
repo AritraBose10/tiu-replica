@@ -33,6 +33,7 @@ const fields = [
     { key: 'id', label: 'ID', type: 'text', required: true, placeholder: 'e.g. event-1' },
     { key: 'title', label: 'Title', type: 'text', required: true },
     { key: 'description', label: 'Description', type: 'textarea' },
+    { key: 'image', label: 'Event Banner', type: 'image' },
     { key: 'date', label: 'Date', type: 'text', placeholder: 'March 15-17, 2026' },
     { key: 'time', label: 'Time', type: 'text', placeholder: '9:00 AM - 6:00 PM' },
     { key: 'location', label: 'Location', type: 'text' },

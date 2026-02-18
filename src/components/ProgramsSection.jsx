@@ -187,7 +187,7 @@ const ProgramsSection = () => {
                 {/* Course Cards Grid */}
                 <motion.div
                     layout
-                    className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+                    className="flex flex-wrap gap-8"
                 >
                     <AnimatePresence mode='wait'>
                         {courses[activeCategory]?.map((course, index) => (
@@ -198,6 +198,7 @@ const ProgramsSection = () => {
                                 exit={{ opacity: 0, scale: 0.95 }}
                                 transition={{ duration: 0.4, delay: index * 0.1 }}
                                 className="group relative bg-[#11111f] rounded-3xl p-1 overflow-hidden"
+                                style={{ width: 'calc(33.333% - 22px)', minWidth: '280px', flexGrow: 0 }}
                             >
                                 {/* Hover Gradient Border */}
                                 <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -254,7 +255,7 @@ const ProgramsSection = () => {
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
                     transition={{ delay: 0.4 }}
-                    className="text-center mt-16"
+                    className="mt-16 flex justify-start"
                 >
                     <Link
                         to="/courses"

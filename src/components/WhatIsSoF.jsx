@@ -1,7 +1,11 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { useSettings } from '../contexts/SettingsContext';
 
 const WhatIsSoF = () => {
+    const { getSetting } = useSettings();
+    const sofImage = getSetting('what_is_sof_image', '/images/classroom-candid.jpg');
+
     return (
         <section className="py-20 px-4 bg-white overflow-hidden">
             <div className="max-w-7xl mx-auto">
@@ -48,11 +52,16 @@ const WhatIsSoF = () => {
                     >
                         <div className="aspect-[4/3] rounded-3xl overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 relative">
                             <img
-                                src="/images/classroom-candid.jpg"
+                                src={sofImage}
                                 alt="Students collaborating in a modern classroom at School of the Future"
                                 className="w-full h-full object-cover"
                                 onError={(e) => {
-                                    e.target.style.display = 'none';
+                                    // Fallback if image fails to load
+                                    if (e.target.src !== '/images/classroom-candid.jpg' && !e.target.src.includes('classroom-candid.jpg')) {
+                                        e.target.src = '/images/classroom-candid.jpg';
+                                    } else {
+                                        e.target.style.display = 'none';
+                                    }
                                 }}
                             />
                             {/* Fallback gradient overlay if no image */}

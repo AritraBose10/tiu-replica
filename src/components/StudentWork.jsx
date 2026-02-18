@@ -1,107 +1,154 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Code2, Trophy, Building, Award, Laptop, FileCheck, Lightbulb, Users } from 'lucide-react';
+import { useInView } from 'framer-motion';
+import { useRef } from 'react';
+import { Code2, Trophy, Building, Award, Laptop, FileCheck, Lightbulb, Users, ArrowUpRight } from 'lucide-react';
+
+// Instructions for User:
+// 1. Create a folder: src/assets/student-work
+// 2. Add your images there and rename them to:
+//    - project1.jpg (for Live Coding)
+//    - hackathon.jpg (for Hackathons)
+//    - visit.jpg (for Industry Visits)
+//    - cert.jpg (for Certifications)
+//    - portfolio.jpg (for Portfolios)
+//    - research.jpg (for Research)
+//    - startup.jpg (for Startups)
+//    - community.jpg (for Community)
+// 3. Uncomment the imports below and the image property in the tiles object.
+
+// import img1 from '../assets/student-work/project1.jpg';
+// import img2 from '../assets/student-work/hackathon.jpg';
+// ... etc
 
 const tiles = [
     {
+        id: 'coding',
         icon: Code2,
         title: 'Live Coding Projects',
-        description: 'Real applications built using industry tools and frameworks.',
-        color: 'from-blue-500/10 to-blue-600/5',
-        accent: 'text-blue-600',
+        description: 'Real applications built using industry tools like React, Node.js & Python.',
+        size: 'col-span-1 md:col-span-2 row-span-2', // Large Feature
+        gradient: 'from-blue-600 to-indigo-600',
+        // image: img1
     },
     {
+        id: 'hackathon',
         icon: Trophy,
         title: 'Hackathon Wins',
-        description: 'Students competing and winning at state and national hackathons.',
-        color: 'from-amber-500/10 to-amber-600/5',
-        accent: 'text-amber-600',
+        description: 'National winners at Smart India Hackathon & more.',
+        size: 'col-span-1 row-span-1',
+        gradient: 'from-amber-500 to-orange-500',
     },
     {
+        id: 'visits',
         icon: Building,
-        title: 'Industry Visits',
-        description: 'On-site exposure to how top companies build and operate.',
-        color: 'from-emerald-500/10 to-emerald-600/5',
-        accent: 'text-emerald-600',
+        title: 'Industry Venues',
+        description: 'On-site exposure at Google, IBM & Microsoft campuses.',
+        size: 'col-span-1 row-span-1',
+        gradient: 'from-emerald-500 to-teal-500',
     },
     {
-        icon: Award,
-        title: 'Certifications',
-        description: 'Google Cloud, IBM, and industry-recognised credentials.',
-        color: 'from-purple-500/10 to-purple-600/5',
-        accent: 'text-purple-600',
-    },
-    {
-        icon: Laptop,
-        title: 'Portfolio Showcases',
-        description: 'Design, film, and tech portfolios reviewed by industry mentors.',
-        color: 'from-rose-500/10 to-rose-600/5',
-        accent: 'text-rose-600',
-    },
-    {
-        icon: FileCheck,
-        title: 'Research Papers',
-        description: 'Student-led research published in journals and conferences.',
-        color: 'from-cyan-500/10 to-cyan-600/5',
-        accent: 'text-cyan-600',
-    },
-    {
+        id: 'startup',
         icon: Lightbulb,
-        title: 'Startup Ideas',
-        description: 'Ideas incubated and pitched during entrepreneurship modules.',
-        color: 'from-orange-500/10 to-orange-600/5',
-        accent: 'text-orange-600',
+        title: 'Startup Incubation',
+        description: '3 student startups funded in 2024 alone.',
+        size: 'col-span-1 md:col-span-2 row-span-1', // Wide
+        gradient: 'from-purple-600 to-pink-600',
     },
     {
+        id: 'research',
+        icon: FileCheck,
+        title: 'Research Pubs',
+        description: 'Papers in IEEE & Springer conferences.',
+        size: 'col-span-1 row-span-1',
+        gradient: 'from-cyan-500 to-blue-500',
+    },
+    {
+        id: 'community',
         icon: Users,
-        title: 'Community Events',
-        description: 'Tech talks, workshops, and student-led community meetups.',
-        color: 'from-indigo-500/10 to-indigo-600/5',
-        accent: 'text-indigo-600',
+        title: 'Tech Community',
+        description: 'Leading GDSC and other tech clubs.',
+        size: 'col-span-1 row-span-1',
+        gradient: 'from-rose-500 to-red-500',
     },
 ];
 
 const StudentWork = () => {
     return (
-        <section className="py-20 px-4 bg-black overflow-hidden">
-            <div className="max-w-7xl mx-auto">
+        <section className="py-24 px-4 bg-[#020205] relative overflow-hidden">
+            {/* Background elements */}
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,_var(--tw-gradient-stops))] from-blue-900/10 via-transparent to-transparent pointer-events-none" />
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-red-900/10 via-transparent to-transparent pointer-events-none" />
+
+            <div className="w-[90%] md:w-[70%] mx-auto relative z-10">
                 {/* Header */}
                 <motion.div
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="text-center mb-14"
+                    className="flex flex-col md:flex-row items-end justify-between gap-8 mb-16"
                 >
-                    <span className="inline-block bg-[#FF0000]/20 text-[#FF0000] text-sm font-semibold px-5 py-2 rounded-full mb-6">
-                        Proof, Not Promises
-                    </span>
-                    <h2 className="text-4xl md:text-5xl font-black text-white mb-4">
-                        What Students Actually{' '}
-                        <span className="text-[#FF0000]">Build</span> at SoF
-                    </h2>
-                    <p className="text-lg text-gray-400 max-w-3xl mx-auto">
-                        From live projects and showcases to industry visits and certifications —
-                        students at SoF build real work, not just resumes.
+                    <div className="max-w-2xl">
+                        <span className="text-red-500 text-xs font-bold tracking-[0.2em] uppercase mb-4 block">
+                            Student Outcomes
+                        </span>
+                        <h2 className="text-4xl md:text-6xl font-black text-white leading-tight">
+                            Proof, Not Just <br />
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-orange-500">
+                                Promises.
+                            </span>
+                        </h2>
+                    </div>
+                    <p className="text-gray-400 max-w-sm text-sm md:text-base leading-relaxed text-right md:text-left">
+                        Our students don't just study theory. They build, ship, and launch real-world projects from Day 1.
                     </p>
                 </motion.div>
 
-                {/* Tile Grid */}
-                <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                    {tiles.map((tile, index) => (
-                        <motion.div
-                            key={index}
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: index * 0.08 }}
-                            whileHover={{ y: -6, scale: 1.02 }}
-                            className={`bg-gradient-to-br ${tile.color} rounded-2xl p-6 border border-white/5 backdrop-blur-sm hover:border-white/15 transition-all duration-300 cursor-default`}
-                        >
-                            <tile.icon className={`${tile.accent} mb-4`} size={28} strokeWidth={1.5} />
-                            <h3 className="font-bold text-white text-sm mb-2">{tile.title}</h3>
-                            <p className="text-gray-400 text-xs leading-relaxed">{tile.description}</p>
-                        </motion.div>
-                    ))}
+                {/* Bento Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-4 auto-rows-[240px] gap-4">
+                    {tiles.map((tile, i) => {
+                        const Icon = tile.icon;
+                        return (
+                            <motion.div
+                                key={tile.id}
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ delay: i * 0.1 }}
+                                className={`group relative rounded-3xl overflow-hidden bg-white/[0.03] border border-white/[0.08] hover:border-white/[0.2] transition-colors duration-500 ${tile.size}`}
+                            >
+                                {/* Image Placeholder / Background */}
+                                <div className="absolute inset-0 z-0">
+                                    {/* If image exists, render it: */}
+                                    {/* <img src={tile.image} alt={tile.title} className="w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity duration-700" /> */}
+
+                                    {/* Fallback Gradient */}
+                                    <div className={`absolute inset-0 bg-gradient-to-br ${tile.gradient} opacity-10 group-hover:opacity-20 transition-opacity duration-500`} />
+
+                                    {/* Vignette Overlay */}
+                                    <div className="absolute inset-0 bg-gradient-to-t from-[#020205] via-[#020205]/40 to-transparent opacity-90" />
+                                </div>
+
+                                {/* Content */}
+                                <div className="relative z-10 h-full flex flex-col justify-end p-8">
+                                    <div className="absolute top-8 right-8 bg-white/10 backdrop-blur-md border border-white/10 p-3 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-2 group-hover:translate-y-0">
+                                        <ArrowUpRight className="w-5 h-5 text-white" />
+                                    </div>
+
+                                    <div className={`w-12 h-12 rounded-2xl flex items-center justify-center mb-6 bg-gradient-to-br ${tile.gradient} shadow-lg shadow-black/50 group-hover:scale-110 transition-transform duration-500`}>
+                                        <Icon className="w-6 h-6 text-white" />
+                                    </div>
+
+                                    <h3 className="text-2xl font-bold text-white mb-2 leading-tight">
+                                        {tile.title}
+                                    </h3>
+                                    <p className="text-gray-400 text-sm leading-relaxed max-w-[90%] group-hover:text-gray-200 transition-colors">
+                                        {tile.description}
+                                    </p>
+                                </div>
+                            </motion.div>
+                        );
+                    })}
                 </div>
             </div>
         </section>

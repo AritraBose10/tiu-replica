@@ -14,23 +14,24 @@ const highlights = [
 
 const GoogleIBMBanner = () => {
     return (
-        <section className="py-20 px-4 bg-gradient-to-br from-gray-50 to-white overflow-hidden">
-            <div className="max-w-7xl mx-auto">
+        <section className="py-20 px-0 bg-gradient-to-br from-gray-50 to-white overflow-hidden">
+            <div className="w-[90%] md:w-[70%] mx-auto">
                 {/* Header */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="text-center mb-14"
+                    className="mb-14 max-w-4xl"
                 >
-                    <span className="inline-block bg-red-100 text-[#FF0000] text-sm font-semibold px-5 py-2 rounded-full mb-6">
+                    <span className="inline-block bg-red-100 text-[#FF0000] text-sm font-semibold px-5 py-2 rounded-full mb-6 relative border border-red-500/20 shadow-sm">
                         Industry Partnership
+                        <span className="absolute inset-0 rounded-full animate-pulse bg-red-500/10"></span>
                     </span>
-                    <h2 className="text-4xl md:text-5xl font-black text-black mb-4">
+                    <h2 className="text-4xl md:text-5xl font-black text-black mb-6 leading-tight">
                         Industry-Powered Learning with{' '}
                         <span className="text-[#FF0000]">Global Technology Leaders</span>
                     </h2>
-                    <p className="text-lg text-gray-500 max-w-3xl mx-auto">
+                    <p className="text-lg text-gray-500 max-w-2xl border-l-4 border-red-500 pl-6 py-1">
                         At SoF, industry collaboration is embedded into the curriculum — not added as a marketing layer.
                         Students learn using real tools, real frameworks and real-world problems.
                     </p>

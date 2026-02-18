@@ -24,7 +24,7 @@ const fields = [
     { key: 'course', label: 'Course / Batch', type: 'text' },
     { key: 'quote', label: 'Quote', type: 'textarea', required: true },
     { key: 'rating', label: 'Rating (1-5)', type: 'number' },
-    { key: 'image', label: 'Image URL', type: 'text' },
+    { key: 'image', label: 'Student Image', type: 'image' },
     { key: 'company', label: 'Company', type: 'text' },
     { key: 'row_num', label: 'Display Row (1 or 2)', type: 'number' },
     { key: 'sort_order', label: 'Sort Order', type: 'number' },

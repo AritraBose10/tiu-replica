@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { useAuth } from './AuthProvider';
 import { Search, Plus, Pencil, Trash2, Inbox, X, Check, AlertCircle, ImageIcon } from 'lucide-react';
 import { sanityClient } from '../../lib/sanityClient';
+import MediaUploader from './MediaUploader';
 
 /**
  * Reusable CRUD admin page with premium UI.
@@ -229,49 +230,15 @@ export default function CrudPage({ title, endpoint, columns, fields, idField = '
                                                     </div>
                                                 )}
                                             </div>
-                                        ) : f.type === 'image' ? (
-                                            <div className="admin-image-upload">
-                                                {formData[f.key] && (
-                                                    <img
-                                                        src={formData[f.key]}
-                                                        alt="Preview"
-                                                        className="admin-image-preview"
-                                                        style={{ height: 80, marginBottom: 10, borderRadius: 6, border: '1px solid #333' }}
-                                                    />
-                                                )}
-                                                <input
-                                                    type="file"
-                                                    accept="image/*"
-                                                    onChange={async (e) => {
-                                                        const file = e.target.files[0];
-                                                        if (!file) return;
-
-                                                        // Set a temporary loading state specifically for this field if needed
-                                                        // For now we'll just show it in the button or similar
-                                                        const originalText = e.target.previousElementSibling?.innerText;
-
-                                                        try {
-                                                            setSaving(true); // Disable save while uploading
-                                                            const asset = await sanityClient.assets.upload('image', file);
-                                                            setFormData(prev => ({ ...prev, [f.key]: asset.url }));
-                                                            showToast('Image uploaded successfully', 'success');
-                                                        } catch (err) {
-                                                            console.error('Upload failed:', err);
-                                                            showToast('Upload failed', 'error');
-                                                        } finally {
-                                                            setSaving(false);
-                                                        }
-                                                    }}
-                                                />
-                                                <input
-                                                    type="hidden"
-                                                    value={formData[f.key] || ''}
-                                                    name={f.key}
-                                                />
-                                                <p style={{ fontSize: 12, opacity: 0.5, marginTop: 5 }}>
-                                                    Supported: JPG, PNG, WEBP, SVG
-                                                </p>
-                                            </div>
+                                        ) : f.type === 'image' || f.type === 'video' ? (
+                                            <MediaUploader
+                                                type={f.type}
+                                                value={formData[f.key]}
+                                                onChange={(url) => setFormData(prev => ({ ...prev, [f.key]: url }))}
+                                                onUploadStart={() => setSaving(true)}
+                                                onUploadEnd={() => setSaving(false)}
+                                                showToast={showToast}
+                                            />
                                         ) : (
                                             <input
                                                 type={f.type || 'text'}

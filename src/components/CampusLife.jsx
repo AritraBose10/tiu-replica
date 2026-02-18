@@ -8,49 +8,49 @@ const campusItems = [
         title: 'Tech Fests & Hackathons',
         span: 'col-span-2 row-span-2',
         gradient: 'from-[#FF0000]/20 to-orange-600/10',
-        imageSrc: '/images/campus-techfest.jpg',
+        imageSrc: 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=2070&auto=format&fit=crop',
     },
     {
         icon: Music,
         title: 'Cultural Events',
         span: 'col-span-1 row-span-1',
         gradient: 'from-purple-500/20 to-pink-600/10',
-        imageSrc: '/images/campus-cultural.jpg',
+        imageSrc: 'https://images.unsplash.com/photo-1514525253440-b393452eeb25?q=80&w=2074&auto=format&fit=crop',
     },
     {
         icon: Users,
         title: 'Student Clubs',
         span: 'col-span-1 row-span-1',
         gradient: 'from-blue-500/20 to-cyan-600/10',
-        imageSrc: '/images/campus-clubs.jpg',
+        imageSrc: 'https://images.unsplash.com/photo-1523580494863-6f3031224c94?q=80&w=2070&auto=format&fit=crop',
     },
     {
         icon: Palette,
         title: 'Design Studios',
         span: 'col-span-1 row-span-1',
         gradient: 'from-amber-500/20 to-yellow-600/10',
-        imageSrc: '/images/campus-studio.jpg',
+        imageSrc: 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?q=80&w=2071&auto=format&fit=crop',
     },
     {
         icon: BookOpen,
         title: 'Workshops & Seminars',
         span: 'col-span-1 row-span-1',
         gradient: 'from-emerald-500/20 to-green-600/10',
-        imageSrc: '/images/campus-workshop.jpg',
+        imageSrc: 'https://images.unsplash.com/photo-1524178232363-1fb2b075b955?q=80&w=2070&auto=format&fit=crop',
     },
     {
         icon: Camera,
         title: 'Industry Exposure',
         span: 'col-span-2 row-span-1',
         gradient: 'from-indigo-500/20 to-violet-600/10',
-        imageSrc: '/images/campus-industry.jpg',
+        imageSrc: 'https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2070&auto=format&fit=crop',
     },
 ];
 
 const CampusLife = () => {
     return (
-        <section className="py-20 px-4 bg-white overflow-hidden">
-            <div className="max-w-7xl mx-auto">
+        <section className="py-20 px-0 bg-white overflow-hidden">
+            <div className="w-[90%] md:w-[70%] mx-auto">
                 {/* Header */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}

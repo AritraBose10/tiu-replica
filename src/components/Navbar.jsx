@@ -30,36 +30,39 @@ const Navbar = () => {
     return (
         <>
             <nav
-                className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-white shadow-md py-3' : 'bg-white/90 backdrop-blur-sm py-4'
+                className={`fixed top-4 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] max-w-6xl z-50 transition-all duration-500 rounded-2xl border h-14 overflow-visible ${scrolled
+                    ? 'bg-white/[0.08] backdrop-blur-2xl border-white/[0.1] shadow-[0_8px_32px_rgba(0,0,0,0.4)]'
+                    : 'bg-white/[0.04] backdrop-blur-xl border-white/[0.06]'
                     }`}
+                style={{ WebkitBackdropFilter: scrolled ? 'blur(40px)' : 'blur(20px)' }}
             >
-                <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
-                    {/* Logo - School of the FUTURE */}
-                    <Link to="/" className="flex items-center gap-3">
+                <div className="flex items-center justify-between h-full px-6">
+                    {/* Logo */}
+                    <Link to="/" className="flex items-center">
                         <img
                             src={logo}
                             alt="Techno India University"
-                            className="h-10 sm:h-12 md:h-14 w-auto object-contain transition-all duration-300"
+                            className="h-10 sm:h-11 md:h-12 w-auto object-contain"
                         />
                     </Link>
 
                     {/* Hamburger Menu */}
                     <button
                         onClick={() => setIsOpen(!isOpen)}
-                        className="flex flex-col gap-1.5 p-2 focus:outline-none z-50"
+                        className="flex flex-col gap-1.5 p-2 focus:outline-none z-50 group"
                         aria-label="Toggle menu"
                     >
                         <motion.span
                             animate={isOpen ? { rotate: 45, y: 8 } : { rotate: 0, y: 0 }}
-                            className="w-6 h-0.5 bg-black block"
+                            className="w-6 h-0.5 bg-[#FF0000] block group-hover:bg-red-600 transition-colors"
                         />
                         <motion.span
                             animate={isOpen ? { opacity: 0 } : { opacity: 1 }}
-                            className="w-6 h-0.5 bg-black block"
+                            className="w-6 h-0.5 bg-[#FF0000] block group-hover:bg-red-600 transition-colors"
                         />
                         <motion.span
                             animate={isOpen ? { rotate: -45, y: -8 } : { rotate: 0, y: 0 }}
-                            className="w-6 h-0.5 bg-black block"
+                            className="w-6 h-0.5 bg-[#FF0000] block group-hover:bg-red-600 transition-colors"
                         />
                     </button>
                 </div>
@@ -73,7 +76,7 @@ const Navbar = () => {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -20 }}
                         transition={{ duration: 0.3 }}
-                        className="fixed inset-0 z-40 bg-white pt-24"
+                        className="fixed inset-0 z-40 bg-black/95 backdrop-blur-xl pt-24"
                     >
                         <div className="max-w-7xl mx-auto px-6">
                             <nav className="flex flex-col gap-1">
@@ -87,9 +90,9 @@ const Navbar = () => {
                                         <Link
                                             to={link.path}
                                             onClick={() => setIsOpen(false)}
-                                            className={`block py-4 text-2xl font-medium border-b border-gray-100 transition-colors ${location.pathname === link.path
-                                                ? 'text-[#FF0000]'
-                                                : 'text-black hover:text-[#FF0000]'
+                                            className={`block py-4 text-2xl font-medium border-b border-white/10 transition-all duration-300 ${location.pathname === link.path
+                                                ? 'text-red-500 pl-4'
+                                                : 'text-white/80 hover:text-red-500 hover:pl-4'
                                                 }`}
                                         >
                                             {link.name}

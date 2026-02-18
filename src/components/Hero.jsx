@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { DollarSign, CheckCircle, Building2, Globe, ArrowRight } from 'lucide-react';
-import ShatterHeroImage from './ShatterHeroImage';
+import ThreeDCarousel from './ThreeDCarousel';
+import { useSettings } from '../contexts/SettingsContext';
 
 /* ─── Stat Badge Data ─── */
 const statBadges = [
@@ -14,8 +15,6 @@ const statBadges = [
 
 /* ═══════════════════════════════════════════
    METRICS BAR — ARROW PROCESS (GLASSMORPHISM)
-   Inline SVG chevrons with visible stroke borders,
-   frosted glass fill, icon centered above label.
    ═══════════════════════════════════════════ */
 const ARROW_W = 250;   // viewBox width per arrow
 const ARROW_H = 80;    // viewBox height per arrow
@@ -184,28 +183,28 @@ const MetricsBar = () => {
 };
 
 /* ─── Wireframe Components ─── */
-const ExteriorWireframe = () => (
+const ExteriorWireframe = ({ src }) => (
     <div className="absolute left-0 top-1/2 -translate-y-1/2 pointer-events-none hidden md:block w-[400px] h-[550px] overflow-hidden z-[2] mix-blend-screen"
         style={{
             maskImage: 'linear-gradient(to right, rgba(0,0,0,1) 20%, rgba(0,0,0,0) 100%)',
             WebkitMaskImage: 'linear-gradient(to right, rgba(0,0,0,1) 20%, rgba(0,0,0,0) 100%)'
         }}>
         <img
-            src="/wireframes/exterior.jpg"
+            src={src || "/wireframes/exterior.jpg"}
             alt=""
             className="w-full h-full object-cover opacity-35 filter grayscale contrast-125"
         />
     </div>
 );
 
-const InteriorWireframe = () => (
+const InteriorWireframe = ({ src }) => (
     <div className="absolute right-0 top-1/2 -translate-y-1/2 pointer-events-none hidden md:block w-[400px] h-[550px] overflow-hidden z-[2] mix-blend-screen"
         style={{
             maskImage: 'linear-gradient(to left, rgba(0,0,0,1) 20%, rgba(0,0,0,0) 100%)',
             WebkitMaskImage: 'linear-gradient(to left, rgba(0,0,0,1) 20%, rgba(0,0,0,0) 100%)'
         }}>
         <img
-            src="/wireframes/interior.jpg"
+            src={src || "/wireframes/interior.jpg"}
             alt=""
             className="w-full h-full object-cover opacity-35 filter grayscale contrast-125"
         />
@@ -213,91 +212,18 @@ const InteriorWireframe = () => (
 );
 
 /* ═══════════════════════════════════════════
-   TIU ANIMATION COMPONENT
-   ═══════════════════════════════════════════ */
-const TiuText = () => {
-    const letterVariants = {
-        hidden: { opacity: 0, y: 20, filter: 'blur(10px)' },
-        visible: { opacity: 1, y: 0, filter: 'blur(0px)' }
-    };
-
-    const suffixVariants = {
-        hidden: { width: 0, opacity: 0, overflow: "hidden" },
-        visible: {
-            width: "auto",
-            opacity: 1,
-            transition: {
-                delay: 1.5,
-                duration: 0.8,
-                ease: [0.16, 1, 0.3, 1]
-            },
-            transitionEnd: {
-                overflow: "visible"
-            }
-        }
-    };
-
-    const spaceVariants = {
-        hidden: { width: 0 },
-        visible: {
-            width: "0.4ch",
-            transition: { delay: 1.5, duration: 0.8, ease: [0.16, 1, 0.3, 1] }
-        }
-    };
-
-    return (
-        <motion.div
-            className="flex flex-wrap justify-center text-[#FF0000] font-black tracking-tighter"
-            initial="hidden"
-            animate="visible"
-            variants={{
-                visible: { transition: { staggerChildren: 0.1, delayChildren: 0.2 } }
-            }}
-        >
-            {/* T-ECHNO */}
-            <span className="inline-flex items-baseline">
-                <motion.span variants={letterVariants}>T</motion.span>
-                <motion.span
-                    variants={suffixVariants}
-                    className="overflow-hidden whitespace-nowrap pr-0.5"
-                >
-                    ECHNO
-                </motion.span>
-            </span>
-
-            <motion.span variants={spaceVariants} />
-
-            {/* I-NDIA */}
-            <span className="inline-flex items-baseline">
-                <motion.span variants={letterVariants}>I</motion.span>
-                <motion.span
-                    variants={suffixVariants}
-                    className="overflow-hidden whitespace-nowrap pr-0.5"
-                >
-                    NDIA
-                </motion.span>
-            </span>
-
-            <motion.span variants={spaceVariants} />
-
-            {/* U-NIVERSITY */}
-            <span className="inline-flex items-baseline">
-                <motion.span variants={letterVariants}>U</motion.span>
-                <motion.span
-                    variants={suffixVariants}
-                    className="overflow-hidden whitespace-nowrap pr-0.5"
-                >
-                    NIVERSITY
-                </motion.span>
-            </span>
-        </motion.div>
-    );
-};
-
-/* ═══════════════════════════════════════════
    HERO COMPONENT
    ═══════════════════════════════════════════ */
 const Hero = () => {
+    const { getSetting } = useSettings();
+    const exteriorImg = getSetting('hero_wireframe_exterior');
+    const interiorImg = getSetting('hero_wireframe_interior');
+
+    // Collect carousel images from settings
+    const carouselImages = [1, 2, 3, 4, 5]
+        .map(num => getSetting(`home_carousel_img_${num}`))
+        .filter(url => url && url.trim() !== '');
+
     const containerVariants = {
         hidden: {},
         visible: {
@@ -310,14 +236,11 @@ const Hero = () => {
         visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: 'easeOut' } },
     };
 
-    const fadeScale = {
-        hidden: { opacity: 0, scale: 0.85 },
-        visible: { opacity: 1, scale: 1, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } },
-    };
-
     return (
-        <section className="relative min-h-screen flex flex-col items-center overflow-hidden bg-[#0A0A0A] pt-28 md:pt-20 pb-6">
-            {/* ── Subtle Grid Background ── */}
+        <section
+            className="relative min-h-screen flex flex-col items-center overflow-hidden pt-32 md:pt-28 pb-6 bg-[#020205]"
+        >
+            {/* ── Background Elements ── */}
             <div
                 className="absolute inset-0 opacity-[0.03] pointer-events-none"
                 style={{
@@ -328,63 +251,86 @@ const Hero = () => {
                     backgroundSize: '80px 80px',
                 }}
             />
-
-            {/* ── Vignette overlay ── */}
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_transparent_30%,_#0A0A0A_80%)] pointer-events-none z-[1]" />
-
-            {/* ── Architectural Wireframes ── */}
-            <ExteriorWireframe />
-            <InteriorWireframe />
-
-            {/* ── Ambient red glow ── */}
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_transparent_30%,_#020205_80%)] pointer-events-none z-[1]" />
+            <ExteriorWireframe src={exteriorImg} />
+            <InteriorWireframe src={interiorImg} />
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-red-600/[0.04] rounded-full blur-[100px] pointer-events-none" />
 
             {/* ═══ MAIN CONTENT ═══ */}
             <motion.div
-                className="relative z-10 w-full max-w-6xl mx-auto px-4 flex-1 flex flex-col justify-center"
+                className="relative z-10 w-[90%] md:w-[70%] mx-auto flex-1 flex flex-col justify-center"
                 variants={containerVariants}
                 initial="hidden"
                 animate="visible"
             >
+                {/* ── Admissions Badge ── */}
+                <motion.div className="flex justify-center mb-5" variants={fadeUp}>
+                    <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-red-600/15 border border-red-500/30 text-red-400 text-xs font-semibold uppercase tracking-widest">
+                        <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
+                        Admissions 2026 Now Open
+                    </span>
+                </motion.div>
+
                 {/* ── Heading ── */}
                 <motion.div className="text-center mb-4 md:mb-6" variants={fadeUp}>
-                    <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black uppercase leading-tight tracking-tight">
-                        <span className="text-white">SHAPE YOUR FUTURE </span>
-                        <span className="text-gray-500 font-light lowercase text-2xl sm:text-4xl md:text-5xl lg:text-6xl">at</span>
-                        <br />
-                        <TiuText />
+                    <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black leading-[1.1] tracking-tight">
+                        <span className="text-white">Future-Ready Degrees for Careers That </span>
+                        <span className="text-[#FF0000]">Don't Exist Yet</span>
                     </h1>
                 </motion.div>
 
                 {/* ── Subtitle ── */}
                 <motion.p
-                    className="text-center text-gray-400 text-sm md:text-base max-w-2xl mx-auto mb-6 md:mb-8 leading-relaxed"
+                    className="text-center text-gray-400 text-sm md:text-base max-w-2xl mx-auto mb-5 md:mb-6 leading-relaxed"
                     variants={fadeUp}
                 >
-                    The School of the Future offers interdisciplinary programs that blend modern technologies
-                    and innovation, equipping students to excel in a rapidly changing world.
+                    Industry-powered UG, PG &amp; Ph.D programs at Techno India University, West Bengal
                 </motion.p>
 
-                {/* ═══ CENTER IMAGE ═══ */}
-                <div className="relative w-full max-w-5xl mx-auto mb-2 md:mb-4">
-                    <ShatterHeroImage />
+                {/* ── Partner Logos ── */}
+                <motion.div
+                    className="flex items-center justify-center gap-6 mb-8 md:mb-10"
+                    variants={fadeUp}
+                >
+                    <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white/[0.04] border border-white/10 hover:bg-white/[0.07] transition-all duration-300">
+                        <span className="text-white/40 text-[10px] font-semibold uppercase tracking-widest whitespace-nowrap">Powered by</span>
+                        <img
+                            src="https://upload.wikimedia.org/wikipedia/commons/5/51/Google_Cloud_logo.svg"
+                            alt="Google Cloud"
+                            className="h-5 object-contain opacity-80 hover:opacity-100 transition-opacity"
+                        />
+                    </div>
+                    <div className="w-px h-6 bg-white/10" />
+                    <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white/[0.04] border border-white/10 hover:bg-white/[0.07] transition-all duration-300">
+                        <span className="text-white/40 text-[10px] font-semibold uppercase tracking-widest whitespace-nowrap">In collaboration with</span>
+                        <img
+                            src="https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg"
+                            alt="IBM"
+                            className="h-5 object-contain opacity-80 hover:opacity-100 transition-opacity brightness-0 invert"
+                        />
+                    </div>
+                </motion.div>
+
+                {/* ═══ 3D CAROUSEL ═══ */}
+                <div className="relative w-full max-w-[1200px] mx-auto mb-8 md:mb-12">
+                    <ThreeDCarousel images={carouselImages.length > 0 ? carouselImages : undefined} />
                 </div>
 
                 {/* ═══ METRICS BAR ═══ */}
-                <div className="relative z-20 mb-6 md:mb-8">
+                <div className="relative z-20 mb-8 md:mb-10 scale-90 md:scale-100 origin-top">
                     <MetricsBar />
                 </div>
 
                 {/* ── CTA Buttons ── */}
                 <motion.div
-                    className="flex flex-col sm:flex-row items-center justify-center gap-4"
+                    className="flex flex-col sm:flex-row items-center justify-center gap-4 py-4"
                     variants={fadeUp}
                 >
                     <Link
                         to="/admissions"
                         className="bg-[#FF0000] text-white px-8 py-3.5 rounded-full font-bold text-sm uppercase tracking-widest hover:bg-[#CC0000] transition-all duration-300 hover:shadow-[0_0_30px_rgba(255,0,0,0.4)] hover:scale-105"
                     >
-                        Apply Now
+                        Apply for 2026
                     </Link>
                     <Link
                         to="/courses"

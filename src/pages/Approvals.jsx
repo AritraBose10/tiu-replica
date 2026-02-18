@@ -8,51 +8,78 @@ const fallbackApprovalBodies = [
         id: 1,
         name: 'UGC',
         fullName: 'University Grants Commission',
-        description: 'Recognized by India\'s apex body for higher education standards and quality assurance.',
+        description: 'Recognized under Section 2(f) of the UGC Act, 1956, authorizing it to award degrees.',
         logo: 'https://static.wixstatic.com/media/4d76fa_22977ebae1bc4181b6af13c54d0ec195~mv2.jpg',
     },
     {
         id: 2,
         name: 'AICTE',
         fullName: 'All India Council for Technical Education',
-        description: 'Approved for delivering world-class technical and management education programs.',
+        description: 'Approved for its technical and engineering programs.',
         logo: 'https://static.wixstatic.com/media/4d76fa_20b732a7a0df4f1aacbee92f04803ff1~mv2.jpg',
     },
     {
         id: 3,
-        name: 'BCI',
-        fullName: 'Bar Council of India',
-        description: 'Affiliated for offering accredited Law programs meeting national legal education standards.',
-        logo: 'https://static.wixstatic.com/media/4d76fa_b4b6e0c8ec2d4b84b19ea16dbcfd016a~mv2.jpg',
+        name: 'COA',
+        fullName: 'Council of Architecture',
+        description: 'Approval for its Bachelor of Architecture (B.Arch) program.',
+        logo: 'https://static.wixstatic.com/media/4d76fa_85c506123858458bbddc73a0ff910cc4~mv2.jpg',
     },
     {
         id: 4,
         name: 'PCI',
         fullName: 'Pharmacy Council of India',
-        description: 'Approved for pharmaceutical sciences programs with industry-aligned curriculum.',
+        description: 'Approval for Pharmacy courses (B.Pharm and D.Pharm).',
         logo: 'https://static.wixstatic.com/media/4d76fa_0f94f520580d4155ac4f8ccb065da04b~mv2.jpg',
     },
     {
         id: 5,
-        name: 'COA',
-        fullName: 'Council of Architecture',
-        description: 'Recognized for Architecture programs fostering creative design and urban planning.',
-        logo: 'https://static.wixstatic.com/media/4d76fa_85c506123858458bbddc73a0ff910cc4~mv2.jpg',
+        name: 'BCI',
+        fullName: 'Bar Council of India',
+        description: 'Approval for its legal programs.',
+        logo: 'https://static.wixstatic.com/media/4d76fa_b4b6e0c8ec2d4b84b19ea16dbcfd016a~mv2.jpg',
     },
     {
         id: 6,
-        name: 'INC',
-        fullName: 'Indian Nursing Council',
-        description: 'Approved for Nursing programs ensuring healthcare education excellence.',
+        name: 'INC & WBNC',
+        fullName: 'Indian Nursing Council & West Bengal Nursing Council',
+        description: 'Approved by the Indian Nursing Council and West Bengal Nursing Council for its nursing department.',
         logo: 'https://static.wixstatic.com/media/4d76fa_df762dfb25974f669d9704d2d5fd127e~mv2.jpg',
     },
     {
         id: 7,
-        name: 'WBNC',
-        fullName: 'West Bengal Nursing Council',
-        description: 'State-level recognition for Nursing education programs in West Bengal.',
-        logo: 'https://static.wixstatic.com/media/4d76fa_e3fdabfd4e4f4fcda0bc586777ea9596~mv2.jpg',
+        name: 'NAAC',
+        fullName: 'National Assessment and Accreditation Council',
+        description: 'The university has completed the Self Study Report (SSR) and IIQA stages; currently accredited or in the final certificate phase.',
+        logo: '🏅',
     },
+    {
+        id: 8,
+        name: 'NBA',
+        fullName: 'National Board of Accreditation',
+        description: 'Specific technical programs have historically held or are under NBA accreditation processes.',
+        logo: '📋',
+    },
+    {
+        id: 9,
+        name: 'AIU',
+        fullName: 'Association of Indian Universities',
+        description: 'TIU is a member, ensuring degree equivalence for higher studies and government jobs.',
+        logo: '🎓',
+    },
+    {
+        id: 10,
+        name: 'CIPU',
+        fullName: 'Confederation of Indian Private Universities',
+        description: 'Member of the Confederation of Indian Private Universities.',
+        logo: '🏛️',
+    },
+];
+
+const otherIdentifiers = [
+    { label: 'AISHE ID', value: 'U-0865' },
+    { label: 'NAD ID', value: 'NAD112732' },
+    { label: 'NGO DARPAN', value: 'WB/2019/0236617' },
 ];
 
 const InfiniteMarquee = ({ approvalBodies }) => {
@@ -213,7 +240,7 @@ const Approvals = () => {
                     <div className="absolute inset-0 bg-red-600/5 blur-[120px] pointer-events-none" />
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-10 px-10 relative z-10">
                         {[
-                            { label: 'Regulatory Bodies', value: '07', suffix: '+' },
+                            { label: 'Regulatory Bodies', value: '10', suffix: '+' },
                             { label: 'Global Ranking', value: 'Top', suffix: ' 5%' },
                             { label: 'Academic Programs', value: '45', suffix: '+' },
                             { label: 'Student Success', value: '98', suffix: '%' }
@@ -237,6 +264,33 @@ const Approvals = () => {
                         ))}
                     </div>
                 </div>
+
+                {/* Other Identifiers */}
+                <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    className="mb-40"
+                >
+                    <h3 className="text-2xl md:text-3xl font-bold text-center mb-10 tracking-tight">
+                        Other <span className="text-red-500">Identifiers</span>
+                    </h3>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        {otherIdentifiers.map((item, i) => (
+                            <motion.div
+                                key={item.label}
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ delay: i * 0.1 }}
+                                className="rounded-2xl border border-white/10 bg-white/[0.03] p-8 text-center"
+                            >
+                                <p className="text-gray-400 text-xs font-bold tracking-[0.2em] uppercase mb-3">{item.label}</p>
+                                <p className="text-2xl md:text-3xl font-black text-white">{item.value}</p>
+                            </motion.div>
+                        ))}
+                    </div>
+                </motion.div>
 
                 {/* Global recognition section */}
                 <motion.div

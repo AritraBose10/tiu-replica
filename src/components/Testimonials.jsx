@@ -214,45 +214,22 @@ const TestimonialCard = ({ testimonial }) => {
     );
 };
 
-// ─── Main Section ─────────────────────────────────────────────
+// ─── Main Section — Single Strip ──────────────────────────────
 const Testimonials = () => {
     const { data: allTestimonials } = useSanity(TESTIMONIALS_QUERY, null);
 
-    // Split testimonials into two rows for the marquee
-    const testimonialsRow1 = allTestimonials
-        ? allTestimonials.slice(0, Math.ceil(allTestimonials.length / 2))
-        : fallbackRow1;
-    const testimonialsRow2 = allTestimonials
-        ? allTestimonials.slice(Math.ceil(allTestimonials.length / 2))
-        : fallbackRow2;
+    const testimonials = allTestimonials && allTestimonials.length > 0
+        ? allTestimonials
+        : [...fallbackRow1, ...fallbackRow2];
 
     return (
-        <section className="py-24 bg-[#020205] relative overflow-hidden">
-            {/* Subtle grid */}
-            <div className="absolute inset-0 opacity-10">
-                <div
-                    className="absolute inset-0"
-                    style={{
-                        backgroundImage: 'linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px)',
-                        backgroundSize: '60px 60px',
-                    }}
-                />
-            </div>
-
-            {/* Floating orbs */}
-            <motion.div
-                animate={{ y: [0, -20, 0], x: [0, 15, 0] }}
-                transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
-                className="absolute top-[10%] right-[10%] w-[300px] h-[300px] bg-[#FF0000]/5 rounded-full blur-[100px]"
-            />
-            <motion.div
-                animate={{ y: [0, 25, 0], x: [0, -20, 0] }}
-                transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
-                className="absolute bottom-[10%] left-[5%] w-[250px] h-[250px] bg-purple-600/5 rounded-full blur-[100px]"
-            />
+        <section className="py-16 bg-[#020205] relative overflow-hidden">
+            {/* Fade edges */}
+            <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-[#020205] to-transparent z-20 pointer-events-none" />
+            <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-[#020205] to-transparent z-20 pointer-events-none" />
 
             {/* Header */}
-            <div className="max-w-7xl mx-auto px-4 mb-14 relative z-10">
+            <div className="max-w-7xl mx-auto px-4 mb-10 relative z-10">
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -268,57 +245,19 @@ const Testimonials = () => {
                         <GraduationCap className="w-4 h-4" />
                         Student Voices
                     </motion.span>
-                    <h2 className="text-4xl md:text-7xl font-black text-white mt-4">
+                    <h2 className="text-4xl md:text-6xl font-black text-white mt-4">
                         What Our{' '}
                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FF0000] via-pink-500 to-[#FF0000]">
                             Students
                         </span>{' '}
                         Say
                     </h2>
-                    <p className="text-gray-400 mt-4 max-w-2xl mx-auto text-lg">
-                        Hear from the brilliant minds who shaped their future at Techno India University.
-                    </p>
                 </motion.div>
             </div>
 
-            {/* Marquee Rows */}
-            <div className="relative z-10 space-y-4">
-                <MarqueeRow testimonials={testimonialsRow1} direction="left" speed={40} />
-                <MarqueeRow testimonials={testimonialsRow2} direction="right" speed={45} />
-            </div>
-
-            {/* Bottom stat bar */}
-            <div className="max-w-5xl mx-auto px-4 mt-16 relative z-10">
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    className="grid grid-cols-2 md:grid-cols-4 gap-6"
-                >
-                    {[
-                        { value: '4.8/5', label: 'Student Satisfaction' },
-                        { value: '95%', label: 'Would Recommend' },
-                        { value: '10,000+', label: 'Happy Alumni' },
-                        { value: '50+', label: 'Companies Hire From Us' },
-                    ].map((stat, i) => (
-                        <motion.div
-                            key={stat.label}
-                            initial={{ opacity: 0, y: 20, scale: 0.9 }}
-                            whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: i * 0.1, type: 'spring', stiffness: 100 }}
-                            whileHover={{ scale: 1.05, y: -3 }}
-                            className="text-center p-5 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 cursor-pointer group"
-                        >
-                            <p className="text-3xl md:text-4xl font-black bg-gradient-to-b from-white to-gray-500 bg-clip-text text-transparent mb-1">
-                                {stat.value}
-                            </p>
-                            <p className="text-gray-500 text-xs font-medium group-hover:text-[#FF0000] transition-colors">
-                                {stat.label}
-                            </p>
-                        </motion.div>
-                    ))}
-                </motion.div>
+            {/* Single marquee row */}
+            <div className="relative z-10">
+                <MarqueeRow testimonials={testimonials} direction="left" speed={50} />
             </div>
         </section>
     );
