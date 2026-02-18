@@ -80,7 +80,7 @@ app.get('/api/scrape-events', async (req, res) => {
 });
 
 // SPA Fallback - Serve index.html for any other route
-app.get('*', (req, res) => {
+app.get(/(.*)/, (req, res) => {
     res.sendFile(join(__dirname, 'dist', 'index.html'));
 });
 

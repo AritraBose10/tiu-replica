@@ -31,8 +31,8 @@ const Navbar = () => {
         <>
             <nav
                 className={`fixed top-4 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] max-w-6xl z-50 transition-all duration-500 rounded-2xl border h-14 overflow-visible ${scrolled
-                    ? 'bg-white/[0.08] backdrop-blur-2xl border-white/[0.1] shadow-[0_8px_32px_rgba(0,0,0,0.4)]'
-                    : 'bg-white/[0.04] backdrop-blur-xl border-white/[0.06]'
+                    ? 'bg-white/90 backdrop-blur-2xl border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.1)]'
+                    : 'bg-gradient-to-b from-white/40 via-white/20 to-white/10 backdrop-blur-xl border-white/20 shadow-[inset_0_0_20px_rgba(255,255,255,0.2)]'
                     }`}
                 style={{ WebkitBackdropFilter: scrolled ? 'blur(40px)' : 'blur(20px)' }}
             >

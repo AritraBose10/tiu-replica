@@ -1,5 +1,13 @@
 import React, { useState } from 'react';
-import { sanityClient } from '../../lib/sanityClient';
+import { createClient } from '@sanity/client';
+
+const uploadClient = createClient({
+    projectId: 'tqbzon1l',
+    dataset: 'production',
+    apiVersion: '2024-01-01',
+    useCdn: false, // We want fresh data for uploads
+    token: import.meta.env.VITE_SANITY_API_TOKEN, // Should be set in .env
+});
 
 /**
  * Reusable Media Uploader for Admin
@@ -33,7 +41,7 @@ const MediaUploader = ({
 
             if (showToast) showToast(`Uploading ${type}...`, 'info');
 
-            const asset = await sanityClient.assets.upload(assetType, file, {
+            const asset = await uploadClient.assets.upload(assetType, file, {
                 filename: file.name
             });
 
