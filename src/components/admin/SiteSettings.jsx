@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Save, Loader2, Upload, AlertCircle, Monitor, BookOpen, GraduationCap, LayoutTemplate, Briefcase } from 'lucide-react';
-import { useAuth } from '../../contexts/AuthContext';
+import { useAuth } from './AuthProvider';
 import { sanityClient } from '../../lib/sanityClient';
 import MediaUploader from './MediaUploader';
 
@@ -108,8 +108,8 @@ const SiteSettings = () => {
                         key={tab.id}
                         onClick={() => setActiveTab(tab.id)}
                         className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all ${activeTab === tab.id
-                                ? 'bg-red-600 text-white shadow-lg shadow-red-900/20'
-                                : 'text-gray-400 hover:text-white hover:bg-white/5'
+                            ? 'bg-red-600 text-white shadow-lg shadow-red-900/20'
+                            : 'text-gray-400 hover:text-white hover:bg-white/5'
                             }`}
                     >
                         <tab.icon className="w-4 h-4" />
