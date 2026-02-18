@@ -40,7 +40,7 @@ const SiteSettings = () => {
         try {
             // Save each setting individually
             for (const [key, value] of Object.entries(settings)) {
-                await fetch('/api/settings', {
+                const res = await fetch('/api/settings', {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',
@@ -48,6 +48,11 @@ const SiteSettings = () => {
                     },
                     body: JSON.stringify({ key, value })
                 });
+
+                if (!res.ok) {
+                    const errorData = await res.json().catch(() => ({}));
+                    throw new Error(errorData.error || `Server error: ${res.status}`);
+                }
             }
             showToast('Settings saved successfully!');
         } catch (err) {
