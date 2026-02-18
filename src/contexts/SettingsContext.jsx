@@ -17,11 +17,7 @@ export function SettingsProvider({ children }) {
                 const res = await fetch('/api/settings');
                 if (res.ok) {
                     const data = await res.json();
-                    const settingsObj = {};
-                    data.forEach(item => {
-                        settingsObj[item.key] = item.value;
-                    });
-                    setSettings(settingsObj);
+                    setSettings(data);
                 }
             } catch (err) {
                 console.error('Failed to load settings:', err);
