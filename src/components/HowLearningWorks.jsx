@@ -76,7 +76,7 @@ const HowLearningWorks = () => {
                     >
                         <div className="aspect-video rounded-3xl overflow-hidden shadow-2xl bg-black border-4 border-white ring-1 ring-gray-100">
                             <iframe
-                                src={getSetting('learning_video_url') || "https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&mute=1&controls=0&loop=1&playlist=dQw4w9WgXcQ"}
+                                src={getSetting('learning_video_url') || "https://www.youtube.com/embed/oOYWAudEu5E?autoplay=1&mute=1&controls=0&loop=1&playlist=oOYWAudEu5E"}
                                 title="How Learning Works at SoF"
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                 allowFullScreen
