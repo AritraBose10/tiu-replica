@@ -55,14 +55,6 @@ const WhatIsSoF = () => {
                                 src={sofImage}
                                 alt="Students collaborating in a modern classroom at School of the Future"
                                 className="w-full h-full object-cover"
-                                onError={(e) => {
-                                    // Fallback if image fails to load
-                                    if (e.target.src !== '/images/classroom-candid.jpg' && !e.target.src.includes('classroom-candid.jpg')) {
-                                        e.target.src = '/images/classroom-candid.jpg';
-                                    } else {
-                                        e.target.style.display = 'none';
-                                    }
-                                }}
                             />
                             {/* Fallback gradient overlay if no image */}
                             <div className="absolute inset-0 bg-gradient-to-tr from-black/10 to-transparent" />

@@ -90,7 +90,6 @@ const CampusLife = () => {
                                 src={item.imageSrc}
                                 alt={item.title}
                                 className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-300"
-                                onError={(e) => { e.target.style.display = 'none'; }}
                             />
 
                             {/* Overlay */}
