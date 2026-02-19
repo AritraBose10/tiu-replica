@@ -221,6 +221,49 @@ const SiteSettings = () => {
                                 />
                             </div>
                         </div>
+
+                        <div>
+                            <h3 className="text-xl font-bold text-white mb-4">Campus Life Assets</h3>
+                            <p className="text-gray-400 text-sm mb-6">Images for the homepage Campus Life grid.</p>
+                            <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
+                                <MediaUploader
+                                    label="Tech Fests & Hackathons"
+                                    value={settings.campus_tech_fests_image}
+                                    onChange={(val) => handleChange('campus_tech_fests_image', val)}
+                                    showToast={showToast}
+                                />
+                                <MediaUploader
+                                    label="Cultural Events"
+                                    value={settings.campus_cultural_events_image}
+                                    onChange={(val) => handleChange('campus_cultural_events_image', val)}
+                                    showToast={showToast}
+                                />
+                                <MediaUploader
+                                    label="Student Clubs"
+                                    value={settings.campus_student_clubs_image}
+                                    onChange={(val) => handleChange('campus_student_clubs_image', val)}
+                                    showToast={showToast}
+                                />
+                                <MediaUploader
+                                    label="Design Studios"
+                                    value={settings.campus_design_studios_image}
+                                    onChange={(val) => handleChange('campus_design_studios_image', val)}
+                                    showToast={showToast}
+                                />
+                                <MediaUploader
+                                    label="Workshops & Seminars"
+                                    value={settings.campus_workshops_image}
+                                    onChange={(val) => handleChange('campus_workshops_image', val)}
+                                    showToast={showToast}
+                                />
+                                <MediaUploader
+                                    label="Industry Exposure"
+                                    value={settings.campus_industry_exposure_image}
+                                    onChange={(val) => handleChange('campus_industry_exposure_image', val)}
+                                    showToast={showToast}
+                                />
+                            </div>
+                        </div>
                     </div>
                 )}
 

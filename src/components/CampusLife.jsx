@@ -1,53 +1,56 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Camera, Music, Users, Palette, BookOpen, Trophy } from 'lucide-react';
-
-const campusItems = [
-    {
-        icon: Trophy,
-        title: 'Tech Fests & Hackathons',
-        span: 'col-span-2 row-span-2',
-        gradient: 'from-[#FF0000]/20 to-orange-600/10',
-        imageSrc: 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=2070&auto=format&fit=crop',
-    },
-    {
-        icon: Music,
-        title: 'Cultural Events',
-        span: 'col-span-1 row-span-1',
-        gradient: 'from-purple-500/20 to-pink-600/10',
-        imageSrc: 'https://images.unsplash.com/photo-1514525253440-b393452eeb25?q=80&w=2074&auto=format&fit=crop',
-    },
-    {
-        icon: Users,
-        title: 'Student Clubs',
-        span: 'col-span-1 row-span-1',
-        gradient: 'from-blue-500/20 to-cyan-600/10',
-        imageSrc: 'https://images.unsplash.com/photo-1523580494863-6f3031224c94?q=80&w=2070&auto=format&fit=crop',
-    },
-    {
-        icon: Palette,
-        title: 'Design Studios',
-        span: 'col-span-1 row-span-1',
-        gradient: 'from-amber-500/20 to-yellow-600/10',
-        imageSrc: 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?q=80&w=2071&auto=format&fit=crop',
-    },
-    {
-        icon: BookOpen,
-        title: 'Workshops & Seminars',
-        span: 'col-span-1 row-span-1',
-        gradient: 'from-emerald-500/20 to-green-600/10',
-        imageSrc: 'https://images.unsplash.com/photo-1524178232363-1fb2b075b955?q=80&w=2070&auto=format&fit=crop',
-    },
-    {
-        icon: Camera,
-        title: 'Industry Exposure',
-        span: 'col-span-2 row-span-1',
-        gradient: 'from-indigo-500/20 to-violet-600/10',
-        imageSrc: 'https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2070&auto=format&fit=crop',
-    },
-];
+import { useSettings } from '../contexts/SettingsContext';
 
 const CampusLife = () => {
+    const { settings } = useSettings();
+
+    const campusItems = [
+        {
+            icon: Trophy,
+            title: 'Tech Fests & Hackathons',
+            span: 'col-span-2 row-span-2',
+            gradient: 'from-[#FF0000]/20 to-orange-600/10',
+            imageSrc: settings.campus_tech_fests_image || 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=2070&auto=format&fit=crop',
+        },
+        {
+            icon: Music,
+            title: 'Cultural Events',
+            span: 'col-span-1 row-span-1',
+            gradient: 'from-purple-500/20 to-pink-600/10',
+            imageSrc: settings.campus_cultural_events_image || 'https://images.unsplash.com/photo-1514525253440-b393452eeb25?q=80&w=2074&auto=format&fit=crop',
+        },
+        {
+            icon: Users,
+            title: 'Student Clubs',
+            span: 'col-span-1 row-span-1',
+            gradient: 'from-blue-500/20 to-cyan-600/10',
+            imageSrc: settings.campus_student_clubs_image || 'https://images.unsplash.com/photo-1523580494863-6f3031224c94?q=80&w=2070&auto=format&fit=crop',
+        },
+        {
+            icon: Palette,
+            title: 'Design Studios',
+            span: 'col-span-1 row-span-1',
+            gradient: 'from-amber-500/20 to-yellow-600/10',
+            imageSrc: settings.campus_design_studios_image || 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?q=80&w=2071&auto=format&fit=crop',
+        },
+        {
+            icon: BookOpen,
+            title: 'Workshops & Seminars',
+            span: 'col-span-1 row-span-1',
+            gradient: 'from-emerald-500/20 to-green-600/10',
+            imageSrc: settings.campus_workshops_image || 'https://images.unsplash.com/photo-1524178232363-1fb2b075b955?q=80&w=2070&auto=format&fit=crop',
+        },
+        {
+            icon: Camera,
+            title: 'Industry Exposure',
+            span: 'col-span-2 row-span-1',
+            gradient: 'from-indigo-500/20 to-violet-600/10',
+            imageSrc: settings.campus_industry_exposure_image || 'https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2070&auto=format&fit=crop',
+        },
+    ];
+
     return (
         <section className="py-20 px-0 bg-white overflow-hidden">
             <div className="w-[90%] md:w-[70%] mx-auto">

@@ -64,6 +64,7 @@ function App() {
           <Routes>
             {/* ── Admin Routes (no Navbar/Footer) ── */}
             <Route path="/admin" element={<AdminLogin />} />
+            <Route path="/admin/login" element={<Navigate to="/admin" replace />} />
             <Route path="/admin" element={<AdminGuard><AdminLayout /></AdminGuard>}>
               <Route path="dashboard" element={<AdminDashboard />} />
               <Route path="courses" element={<AdminCourses />} />
