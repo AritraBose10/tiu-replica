@@ -196,6 +196,31 @@ const SiteSettings = () => {
                                 />
                             </div>
                         </div>
+
+                        <div>
+                            <h3 className="text-xl font-bold text-white mb-4">Industry Partnership Section</h3>
+                            <p className="text-gray-400 text-sm mb-6">This section displays global technology leaders and certifications.</p>
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <MediaUploader
+                                    label="Section Background Image"
+                                    value={settings.admissions_google_ibm_bg}
+                                    onChange={(val) => handleChange('admissions_google_ibm_bg', val)}
+                                    showToast={showToast}
+                                />
+                                <MediaUploader
+                                    label="Google Cloud Logo"
+                                    value={settings.logo_google_cloud}
+                                    onChange={(val) => handleChange('logo_google_cloud', val)}
+                                    showToast={showToast}
+                                />
+                                <MediaUploader
+                                    label="IBM Logo"
+                                    value={settings.logo_ibm}
+                                    onChange={(val) => handleChange('logo_ibm', val)}
+                                    showToast={showToast}
+                                />
+                            </div>
+                        </div>
                     </div>
                 )}
 
@@ -314,22 +339,16 @@ const SiteSettings = () => {
                                         onChange={(val) => handleChange('admissions_why_sof_bg', val)}
                                         showToast={showToast}
                                     />
-                                </div>
-                                <MediaUploader
-                                    label="Google & IBM Section Background"
-                                    value={settings.admissions_google_ibm_bg}
-                                    onChange={(val) => handleChange('admissions_google_ibm_bg', val)}
-                                    showToast={showToast}
-                                />
-                                <div className="space-y-2">
-                                    <label className="block text-gray-400 text-sm">Campus Map URL (Google Maps Embed)</label>
-                                    <input
-                                        type="text"
-                                        value={settings.admissions_campus_map_url || ''}
-                                        onChange={(e) => handleChange('admissions_campus_map_url', e.target.value)}
-                                        className="w-full bg-white/5 border border-white/10 rounded-lg p-3 text-white focus:outline-none focus:border-red-500 transition-colors"
-                                        placeholder="https://www.google.com/maps/embed?..."
-                                    />
+                                    <div className="space-y-2">
+                                        <label className="block text-gray-400 text-sm">Campus Map URL (Google Maps Embed)</label>
+                                        <input
+                                            type="text"
+                                            value={settings.admissions_campus_map_url || ''}
+                                            onChange={(e) => handleChange('admissions_campus_map_url', e.target.value)}
+                                            className="w-full bg-white/5 border border-white/10 rounded-lg p-3 text-white focus:outline-none focus:border-red-500 transition-colors"
+                                            placeholder="https://www.google.com/maps/embed?..."
+                                        />
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -354,20 +373,6 @@ const SiteSettings = () => {
                                     label="Home Hero Video Loop"
                                     value={settings.hero_video}
                                     onChange={(val) => handleChange('hero_video', val)}
-                                    showToast={showToast}
-                                />
-                            </div>
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-                                <MediaUploader
-                                    label="Google Cloud Logo"
-                                    value={settings.logo_google_cloud}
-                                    onChange={(val) => handleChange('logo_google_cloud', val)}
-                                    showToast={showToast}
-                                />
-                                <MediaUploader
-                                    label="IBM Logo"
-                                    value={settings.logo_ibm}
-                                    onChange={(val) => handleChange('logo_ibm', val)}
                                     showToast={showToast}
                                 />
                             </div>
@@ -462,7 +467,7 @@ const SiteSettings = () => {
                         </div>
                     </div>
                 )}
-            </div >
+            </div>
 
             {toast && (
                 <div className={`fixed bottom-8 right-8 px-6 py-3 rounded-xl shadow-2xl flex items-center gap-3 animate-in fade-in slide-in-from-bottom-5 z-50 ${toast.type === 'error' ? 'bg-red-500 text-white' : 'bg-emerald-500 text-white'
@@ -471,7 +476,7 @@ const SiteSettings = () => {
                     <span className="font-medium">{toast.message}</span>
                 </div>
             )}
-        </div >
+        </div>
     );
 };
 
