@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Save, Loader2, Upload, AlertCircle, Monitor, BookOpen, GraduationCap, LayoutTemplate, Briefcase } from 'lucide-react';
+import { Save, Loader2, Upload, AlertCircle, Monitor, BookOpen, GraduationCap, LayoutTemplate, Briefcase, Sparkles } from 'lucide-react';
 import { useAuth } from './AuthProvider';
 import { sanityClient } from '../../lib/sanityClient';
 import MediaUploader from './MediaUploader';
@@ -69,6 +69,7 @@ const SiteSettings = () => {
 
     const tabs = [
         { id: 'home', label: 'Home Page', icon: Monitor },
+        { id: 'about', label: 'About SoF', icon: Sparkles },
         { id: 'student', label: 'Student Work', icon: Briefcase },
         { id: 'learning', label: 'Learning', icon: BookOpen },
         { id: 'admissions', label: 'Admissions', icon: GraduationCap },
@@ -161,15 +162,39 @@ const SiteSettings = () => {
                                 ))}
                             </div>
                         </div>
+                    </div>
+                )}
 
+                {/* --- ABOUT SOF TAB --- */}
+                {activeTab === 'about' && (
+                    <div className="space-y-8">
                         <div>
-                            <h3 className="text-xl font-bold text-white mb-4">"What Is SoF" Section</h3>
+                            <h3 className="text-xl font-bold text-white mb-4">Homepage Narrative Section</h3>
+                            <p className="text-gray-400 text-sm mb-6">This section appears on the homepage as "What is the School of the Future?"</p>
                             <MediaUploader
-                                label="Main Feature Image"
+                                label="What Is SoF Section Image"
                                 value={settings.what_is_sof_image}
                                 onChange={(val) => handleChange('what_is_sof_image', val)}
                                 showToast={showToast}
                             />
+                        </div>
+
+                        <div>
+                            <h3 className="text-xl font-bold text-white mb-4">About Page Assets</h3>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <MediaUploader
+                                    label="About Page Hero Background"
+                                    value={settings.about_hero_bg}
+                                    onChange={(val) => handleChange('about_hero_bg', val)}
+                                    showToast={showToast}
+                                />
+                                <MediaUploader
+                                    label="About Page Mission Image"
+                                    value={settings.about_campus_image}
+                                    onChange={(val) => handleChange('about_campus_image', val)}
+                                    showToast={showToast}
+                                />
+                            </div>
                         </div>
                     </div>
                 )}
@@ -350,13 +375,7 @@ const SiteSettings = () => {
 
                         <div>
                             <h3 className="text-xl font-bold text-white mb-4">Page Backgrounds</h3>
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                                <MediaUploader
-                                    label="About Page Hero"
-                                    value={settings.about_hero_bg}
-                                    onChange={(val) => handleChange('about_hero_bg', val)}
-                                    showToast={showToast}
-                                />
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <MediaUploader
                                     label="Events Page Hero"
                                     value={settings.events_hero_bg}
@@ -443,8 +462,7 @@ const SiteSettings = () => {
                         </div>
                     </div>
                 )}
-
-            </div>
+            </div >
 
             {toast && (
                 <div className={`fixed bottom-8 right-8 px-6 py-3 rounded-xl shadow-2xl flex items-center gap-3 animate-in fade-in slide-in-from-bottom-5 z-50 ${toast.type === 'error' ? 'bg-red-500 text-white' : 'bg-emerald-500 text-white'
@@ -453,7 +471,7 @@ const SiteSettings = () => {
                     <span className="font-medium">{toast.message}</span>
                 </div>
             )}
-        </div>
+        </div >
     );
 };
 
