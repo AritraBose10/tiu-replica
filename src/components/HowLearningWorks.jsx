@@ -80,7 +80,7 @@ const HowLearningWorks = () => {
                                 title="How Learning Works at SoF"
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                 allowFullScreen
-                                className="w-full h-full object-cover scale-150 pointer-events-none opacity-90"
+                                className="w-full h-full opacity-90"
                             />
                             {/* Overlay Gradient for integration */}
                             <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent pointer-events-none" />
