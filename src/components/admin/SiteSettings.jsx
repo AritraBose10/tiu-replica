@@ -409,12 +409,21 @@ const SiteSettings = () => {
                         <div>
                             <h3 className="text-xl font-bold text-white mb-4">Campus Life Gallery</h3>
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                                {[1, 2, 3, 4, 5, 6, 7, 8].map(num => (
+                                {[
+                                    { id: 1, label: 'Clubs: Tech Club Session' },
+                                    { id: 2, label: 'Hackathons: Annual Championship' },
+                                    { id: 3, label: 'Masterclasses: Expert-Led Series' },
+                                    { id: 4, label: 'Cultural Events: Annual Fest' },
+                                    { id: 5, label: 'Clubs: Design Showcase' },
+                                    { id: 6, label: 'Masterclasses: Industry Visit' },
+                                    { id: 7, label: 'Hackathons: Coding Competition' },
+                                    { id: 8, label: 'Cultural Events: Student Performance' }
+                                ].map(item => (
                                     <MediaUploader
-                                        key={num}
-                                        label={`Campus Life Image ${num}`}
-                                        value={settings[`campus_life_image_${num}`]}
-                                        onChange={(val) => handleChange(`campus_life_image_${num}`, val)}
+                                        key={item.id}
+                                        label={item.label}
+                                        value={settings[`campus_life_image_${item.id}`]}
+                                        onChange={(val) => handleChange(`campus_life_image_${item.id}`, val)}
                                         showToast={showToast}
                                     />
                                 ))}

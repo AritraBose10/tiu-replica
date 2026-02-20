@@ -119,7 +119,7 @@ const LogoMarquee = () => {
                         <img
                             src={recruiter.logo}
                             alt={recruiter.name}
-                            className="h-6 w-auto max-w-[100px] object-contain brightness-0 invert opacity-70"
+                            className="h-8 w-auto max-w-[120px] object-contain"
                         />
                     </div>
                 ))}
