@@ -393,6 +393,16 @@ const SiteSettings = () => {
                                         showToast={showToast}
                                     />
                                     <div className="space-y-2">
+                                        <label className="block text-gray-400 text-sm">Why SOF Video URL (YouTube embed or regular URL)</label>
+                                        <input
+                                            type="text"
+                                            value={settings.admissions_why_sof_video_url || ''}
+                                            onChange={(e) => handleChange('admissions_why_sof_video_url', e.target.value)}
+                                            className="w-full bg-white/5 border border-white/10 rounded-lg p-3 text-white focus:outline-none focus:border-red-500 transition-colors"
+                                            placeholder="https://www.youtube.com/embed/..."
+                                        />
+                                    </div>
+                                    <div className="space-y-2">
                                         <label className="block text-gray-400 text-sm">Campus Map URL (Google Maps Embed)</label>
                                         <input
                                             type="text"

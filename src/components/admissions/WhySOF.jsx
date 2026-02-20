@@ -166,7 +166,7 @@ const WhySOF = () => {
                         ) : (
                             <div className="relative aspect-[16/10] bg-black">
                                 <iframe
-                                    src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&rel=0"
+                                    src={(getSetting('admissions_why_sof_video_url') || getSetting('learning_video_url') || "https://www.youtube.com/embed/oOYWAudEu5E") + "?autoplay=1&rel=0"}
                                     title="School of the Future"
                                     className="w-full h-full"
                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
