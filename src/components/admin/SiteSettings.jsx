@@ -149,16 +149,26 @@ const SiteSettings = () => {
                         </div>
 
                         <div>
-                            <h3 className="text-xl font-bold text-white mb-4">3D Carousel Images</h3>
-                            <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+                            <h3 className="text-xl font-bold text-white mb-4">3D Carousel Content</h3>
+                            <div className="space-y-6">
                                 {[1, 2, 3, 4, 5].map(num => (
-                                    <MediaUploader
-                                        key={num}
-                                        label={`Carousel Image ${num}`}
-                                        value={settings[`home_carousel_img_${num}`]}
-                                        onChange={(val) => handleChange(`home_carousel_img_${num}`, val)}
-                                        showToast={showToast}
-                                    />
+                                    <div key={num} className="grid grid-cols-1 md:grid-cols-[150px_1fr] gap-6 p-4 bg-white/5 rounded-xl border border-white/10">
+                                        <MediaUploader
+                                            label={`Image ${num}`}
+                                            value={settings[`home_carousel_img_${num}`]}
+                                            onChange={(val) => handleChange(`home_carousel_img_${num}`, val)}
+                                            showToast={showToast}
+                                        />
+                                        <div className="space-y-2">
+                                            <label className="block text-gray-400 text-sm font-medium">Caption for Image {num}</label>
+                                            <textarea
+                                                value={settings[`home_carousel_caption_${num}`] || ''}
+                                                onChange={(e) => handleChange(`home_carousel_caption_${num}`, e.target.value)}
+                                                className="w-full bg-black/40 border border-white/10 rounded-lg p-3 text-white focus:outline-none focus:border-red-500 transition-colors h-24 resize-none"
+                                                placeholder="Enter a short description about this image..."
+                                            />
+                                        </div>
+                                    </div>
                                 ))}
                             </div>
                         </div>

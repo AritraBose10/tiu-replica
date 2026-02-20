@@ -1,7 +1,111 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, ArrowLeft, Sparkles, RotateCcw } from 'lucide-react';
+import { ArrowRight, ArrowLeft, Sparkles, RotateCcw, X } from 'lucide-react';
 import { Link } from 'react-router-dom';
+
+const AdmissionsFormWidget = () => {
+    const [isLoading, setIsLoading] = useState(true);
+    const [iframeHeight, setIframeHeight] = useState(520);
+
+    useEffect(() => {
+        const handleMessage = (event) => {
+            if (event.data && event.data.type === 'EE_WIDGET_LOADED') {
+                setIsLoading(false);
+            }
+            if (event.data && event.data.type === 'EE_WIDGET_HEIGHT') {
+                setIframeHeight(event.data.height);
+            }
+        };
+
+        window.addEventListener('message', handleMessage);
+        return () => window.removeEventListener('message', handleMessage);
+    }, []);
+
+    const widgetCode = `
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <style>
+                body { margin: 0; padding: 0; background: transparent; font-family: sans-serif; }
+                /* Custom scrollbar for iframe content */
+                ::-webkit-scrollbar { width: 6px; }
+                ::-webkit-scrollbar-track { background: transparent; }
+                ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.2); border-radius: 3px; }
+            </style>
+        </head>
+        <body>
+            <div class="ee-form-widget" id="ee-form-9"></div>
+            
+            <script>
+                function reportHeight() {
+                    var h = document.body.scrollHeight;
+                    window.parent.postMessage({ type: 'EE_WIDGET_HEIGHT', height: h }, '*');
+                }
+
+                window.addEventListener("DOMContentLoaded", function() {
+                    window.ee_form_widget_baseurl = "https://eeconfigstaticfiles.blob.core.windows.net/staticfiles/ee-form-widget/";
+                    
+                    if (!document.getElementById("__formWidgetCss")) {
+                        var e = document.createElement("link");
+                        e.id = "__formWidgetCss";
+                        e.rel = "stylesheet";
+                        e.href = window.ee_form_widget_baseurl + "css/stylesheet.min.css";
+                        e.type = "text/css";
+                        document.getElementsByTagName("head")[0].appendChild(e);
+                    }
+                    
+                    var t = document.createElement("script");
+                    t.type = "text/javascript";
+                    t.onload = async function() {
+                        var _eeFormWidget = new eeFormWidget();
+                        await _eeFormWidget.init("softiu", "form-9", "ee-form-9");
+                        // Notify parent that widget is loaded
+                        window.parent.postMessage({ type: 'EE_WIDGET_LOADED' }, '*');
+                        // Report height after a short delay for styles to settle
+                        setTimeout(reportHeight, 300);
+                        setTimeout(reportHeight, 1000);
+                    };
+                    t.src = window.ee_form_widget_baseurl + "js/eeFormWidget.min.js";
+                    document.getElementsByTagName("head")[0].appendChild(t);
+                });
+
+                // Also observe resize changes
+                if (window.ResizeObserver) {
+                    new ResizeObserver(reportHeight).observe(document.documentElement);
+                }
+            </script>
+        </body>
+        </html>
+    `;
+
+    return (
+        <div className="w-full max-w-md mx-auto bg-white rounded-3xl shadow-2xl relative flex flex-col transition-all duration-300" style={{ padding: '10px 5px', height: iframeHeight + 120 }}>
+            {/* Header */}
+            <div className="text-center pt-8 pb-4">
+                <h2 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-red-600 to-orange-500">Apply Now</h2>
+                <p className="text-gray-500 text-sm mt-2">Fill out the quick form below to proceed.</p>
+            </div>
+
+            {/* Real-time Loading spinner */}
+            {
+                isLoading && (
+                    <div className="absolute inset-x-0 bottom-0 top-[120px] flex items-center justify-center z-20 bg-white/80 backdrop-blur-sm rounded-b-3xl transition-opacity duration-300">
+                        <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-red-500"></div>
+                    </div>
+                )
+            }
+
+            <iframe
+                srcDoc={widgetCode}
+                title="Admissions Enquiry Form"
+                className={`w-full border-0 z-10 rounded-2xl transition-opacity duration-500 ${isLoading ? 'opacity-0' : 'opacity-100'}`}
+                style={{ backgroundColor: 'transparent', height: iframeHeight }}
+            />
+        </div>
+    );
+};
 
 const questions = [
     {
@@ -75,6 +179,7 @@ const ProgramQuiz = () => {
     const [step, setStep] = useState(0); // 0 = intro, 1-3 = questions, 4 = result
     const [answers, setAnswers] = useState([]);
     const [selectedOption, setSelectedOption] = useState(null);
+    const [showLeadForm, setShowLeadForm] = useState(false);
 
     const handleSelect = (option) => {
         setSelectedOption(option);
@@ -86,11 +191,18 @@ const ProgramQuiz = () => {
         setAnswers(newAnswers);
         setSelectedOption(null);
 
-        if (step >= questions.length) {
+        if (step === 2) {
+            setStep(3);
+            setShowLeadForm(true);
+        } else if (step >= questions.length) {
             setStep(4); // result
         } else {
             setStep(step + 1);
         }
+    };
+
+    const handleCloseLeadForm = () => {
+        setShowLeadForm(false);
     };
 
     const handleBack = () => {
@@ -204,8 +316,8 @@ const ProgramQuiz = () => {
                                         whileTap={{ scale: 0.98 }}
                                         onClick={() => handleSelect(option)}
                                         className={`text-left p-5 rounded-2xl border-2 transition-all duration-200 ${selectedOption === option
-                                                ? 'border-[#FF0000] bg-red-50 shadow-lg'
-                                                : 'border-gray-200 bg-white hover:border-gray-300'
+                                            ? 'border-[#FF0000] bg-red-50 shadow-lg'
+                                            : 'border-gray-200 bg-white hover:border-gray-300'
                                             }`}
                                     >
                                         <span className={`font-semibold text-sm ${selectedOption === option ? 'text-[#FF0000]' : 'text-gray-700'
@@ -223,8 +335,8 @@ const ProgramQuiz = () => {
                                     onClick={handleNext}
                                     disabled={!selectedOption}
                                     className={`inline-flex items-center gap-2 px-10 py-4 rounded-full font-bold text-lg transition-all ${selectedOption
-                                            ? 'bg-[#FF0000] text-white hover:bg-[#CC0000] cursor-pointer'
-                                            : 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                                        ? 'bg-[#FF0000] text-white hover:bg-[#CC0000] cursor-pointer'
+                                        : 'bg-gray-200 text-gray-400 cursor-not-allowed'
                                         }`}
                                 >
                                     {step === 3 ? 'See My Result' : 'Next'}
@@ -289,6 +401,34 @@ const ProgramQuiz = () => {
                     )}
                 </AnimatePresence>
             </div>
+
+            {/* Lead Gen Full-Page Modal */}
+            <AnimatePresence>
+                {showLeadForm && (
+                    <motion.div
+                        initial={{ opacity: 0, y: 50 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: 50 }}
+                        transition={{ type: "spring", damping: 25, stiffness: 200 }}
+                        className="fixed inset-0 z-50 bg-[#0a0a0f] overflow-y-auto"
+                    >
+                        {/* Close Button */}
+                        <div className="absolute top-4 right-4 md:top-8 md:right-8 z-[60]">
+                            <button
+                                onClick={handleCloseLeadForm}
+                                className="bg-white/10 hover:bg-red-500 text-white p-3 rounded-full backdrop-blur-md transition-all duration-300 hover:scale-110 shadow-xl border border-white/20"
+                                aria-label="Close and see results"
+                            >
+                                <X size={24} />
+                            </button>
+                        </div>
+
+                        <div className="min-h-screen relative flex items-center justify-center pt-20 pb-10">
+                            <AdmissionsFormWidget />
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </section>
     );
 };

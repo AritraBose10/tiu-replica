@@ -79,13 +79,10 @@ const WhySoF = () => {
                     </motion.div>
                 </div>
 
-                {/* Compact Grid Layout */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {/* Compact Flex Layout for Centered Rows */}
+                <div className="flex flex-wrap justify-center gap-4">
                     {differentiators.map((item, index) => {
                         const Icon = item.icon;
-                        // Spanning logic for the last 2 items on large screens to center them
-                        // Effectively making a 3-2 layout grid
-                        const isLastTwo = index >= 3;
 
                         return (
                             <motion.div
@@ -94,16 +91,10 @@ const WhySoF = () => {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
                                 transition={{ delay: index * 0.05, duration: 0.4 }}
-                                className={`group relative h-full ${index === 3 ? 'lg:col-start-1 lg:justify-self-end' : ''
-                                    } ${index === 4 ? 'lg:col-start-auto lg:justify-self-start' : ''
-                                    }`}
-                            // Note: The above classes are a trick to center the last 2 items in a 3-col grid? 
-                            // Actually, simpler to just use flex wrap for the container or accept the empty slot.
-                            // Let's try standard grid but maybe make the container flex for the last row? 
-                            // Easier: Just let them flow. 
+                                className="group relative w-full md:w-[calc(50%-0.5rem)] lg:w-[calc(33.333%-0.67rem)]"
                             >
                                 <div
-                                    className="relative h-full flex flex-col p-6 rounded-2xl bg-white/[0.02] border border-white/[0.06] transition-all duration-300 hover:bg-white/[0.04] hover:border-white/[0.1] hover:-translate-y-1"
+                                    className="relative h-full flex flex-col p-6 rounded-2xl bg-[#0a0a0c] border border-white/[0.06] shadow-xl transition-all duration-300 hover:bg-[#111115] hover:border-white/[0.1] hover:-translate-y-1"
                                 >
                                     {/* Hover sweep */}
                                     <div
@@ -113,34 +104,35 @@ const WhySoF = () => {
                                         }}
                                     />
 
-                                    <div className="flex justify-between items-start mb-4">
+                                    <div className="flex justify-between items-start mb-6">
                                         {/* Icon */}
                                         <div
-                                            className="w-10 h-10 rounded-lg flex items-center justify-center transition-all duration-300 group-hover:scale-110"
+                                            className="w-12 h-12 rounded-xl flex items-center justify-center transition-transform duration-300 group-hover:scale-110 shadow-lg"
                                             style={{
-                                                background: `${item.accent}12`,
-                                                border: `1px solid ${item.accent}25`,
+                                                background: `#000000`,
+                                                border: `1px solid ${item.accent}40`,
+                                                boxShadow: `inset 0 0 20px ${item.accent}10`
                                             }}
                                         >
-                                            <Icon className="w-5 h-5" style={{ color: item.accent }} />
+                                            <Icon className="w-6 h-6" style={{ color: item.accent }} />
                                         </div>
 
                                         {/* Number */}
-                                        <span className="text-white/[0.06] text-4xl font-black select-none group-hover:text-white/[0.1] transition-colors duration-300">
+                                        <span className="text-white/[0.04] text-5xl font-black select-none group-hover:text-white/[0.08] transition-colors duration-300">
                                             {item.number}
                                         </span>
                                     </div>
 
-                                    {/* Content */}
+                                    {/* Content (pushed to bottom if needed, but flex-col handles it) */}
                                     <div className="mt-auto">
-                                        <h3 className="text-white font-bold text-lg mb-2 group-hover:text-white transition-colors">
+                                        <h3 className="text-white font-bold text-lg md:text-xl mb-3 group-hover:text-white transition-colors">
                                             {item.title}
                                         </h3>
                                         <div
-                                            className="h-[1px] w-8 mb-3 opacity-50"
+                                            className="h-[2px] w-12 mb-4 opacity-70 rounded-full"
                                             style={{ background: item.accent }}
                                         />
-                                        <p className="text-gray-500 text-sm leading-relaxed group-hover:text-gray-400 transition-colors">
+                                        <p className="text-gray-400 text-sm leading-relaxed group-hover:text-gray-300 transition-colors">
                                             {item.description}
                                         </p>
                                     </div>
@@ -149,28 +141,7 @@ const WhySoF = () => {
                         );
                     })}
                 </div>
-
-                {/* Visual Connector Logic override for centering last 2 items
-                    We can wrap the last 2 items in a separate div if we want perfect centering,
-                    but a grid is robust. Let's stick to the grid for code simplicity.
-                    Alternatively, flex-wrap justify-center is better for 5 items (3 top, 2 bottom centered).
-                */}
             </div>
-
-            {/* Style override to use Flex for centering logic properly */}
-            <style>{`
-                @media (min-width: 1024px) {
-                    .max-w-7xl > .grid {
-                        display: flex;
-                        flex-wrap: wrap;
-                        justify-content: center;
-                    }
-                    .max-w-7xl > .grid > div {
-                        width: calc(33.333% - 11px); /* roughly 1/3 minus gap */
-                        flex-grow: 0;
-                    }
-                }
-            `}</style>
         </section>
     );
 };

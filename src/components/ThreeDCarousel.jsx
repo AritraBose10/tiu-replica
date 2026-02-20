@@ -10,23 +10,46 @@ const defaultImages = [
     "https://images.unsplash.com/photo-1541829070764-84a7d30dd3f3?q=80&w=2569&auto=format&fit=crop", // Campus
 ];
 
-const ThreeDCarousel = ({ images = defaultImages }) => {
-    // Ensure we have at least some images to display
-    const displayImages = images && images.length > 0 ? images : defaultImages;
-    const [currentIndex, setCurrentIndex] = useState(2 % displayImages.length);
+const defaultCaptions = [
+    "Experience the future of campus life at SOF with our state-of-the-art facilities.",
+    "Collaborative workspaces designed to foster innovation and teamwork.",
+    "Engage in hands-on learning with industry-standard equipment and cutting-edge labs.",
+    "Discover your potential in our vibrant, technology-driven research centers.",
+    "Join a thriving community of learners and shape tomorrow's digital landscape."
+];
+
+const ThreeDCarousel = ({ items = [] }) => {
+    // Helper to request appropriately sized images to prevent browser downsampling blur on huge files
+    const optimizeUrl = (url) => {
+        if (!url) return '';
+        if (url.includes('cdn.sanity.io')) {
+            return url + (url.includes('?') ? '&' : '?') + 'w=1200&q=80&fit=max&auto=format';
+        }
+        return url;
+    };
+
+    // Transform simple image strings to objects if necessary
+    const normalizedItems = (items && items.length > 0 ? items : defaultImages).map((item, index) => {
+        const defaultCaption = defaultCaptions[index % defaultCaptions.length];
+        const obj = typeof item === 'string' ? { url: item, caption: '' } : item;
+        const finalCaption = obj.caption && obj.caption.trim() !== '' ? obj.caption : defaultCaption;
+        return { ...obj, caption: finalCaption, url: optimizeUrl(obj.url) };
+    });
+
+    const [currentIndex, setCurrentIndex] = useState(2 % normalizedItems.length);
 
     const handleNext = () => {
-        setCurrentIndex((prev) => (prev + 1) % displayImages.length);
+        setCurrentIndex((prev) => (prev + 1) % normalizedItems.length);
     };
 
     // Auto-rotate
     useEffect(() => {
         const interval = setInterval(handleNext, 2500);
         return () => clearInterval(interval);
-    }, [displayImages.length]);
+    }, [normalizedItems.length]);
 
     const getStyle = (index) => {
-        const length = displayImages.length;
+        const length = normalizedItems.length;
         const diff = (index - currentIndex + length) % length;
 
         // Center item
@@ -99,30 +122,19 @@ const ThreeDCarousel = ({ images = defaultImages }) => {
 
     return (
         <div className="relative w-full h-[300px] flex items-center justify-center perspective-[1000px] overflow-visible">
-            {/* Tech Grid Background Lines */}
-            <div className="absolute inset-0 pointer-events-none opacity-20"
-                style={{
-                    background: `
-                        linear-gradient(to right, transparent 0%, rgba(255,0,0,0.2) 50%, transparent 100%) top/100% 1px no-repeat,
-                        linear-gradient(to right, transparent 0%, rgba(255,0,0,0.2) 50%, transparent 100%) bottom/100% 1px no-repeat,
-                        linear-gradient(to bottom, transparent 0%, rgba(255,0,0,0.1) 50%, transparent 100%) left/1px 100% no-repeat,
-                        linear-gradient(to bottom, transparent 0%, rgba(255,0,0,0.1) 50%, transparent 100%) right/1px 100% no-repeat
-                    `
-                }}
-            />
-
-            {displayImages.map((img, index) => {
+            {normalizedItems.map((item, index) => {
                 const style = getStyle(index);
+                const isCenter = style.zIndex === 10;
 
                 return (
                     <motion.div
                         key={index}
-                        className="absolute w-[450px] h-[260px] rounded-2xl overflow-hidden bg-black shadow-2xl backdrop-blur-sm group cursor-pointer"
+                        className="absolute w-[450px] h-[260px] rounded-2xl overflow-hidden bg-black shadow-2xl group cursor-pointer"
                         initial={false}
                         animate={style}
                         transition={{ duration: 0.4, ease: "easeInOut" }}
                         style={{
-                            boxShadow: style.zIndex === 10
+                            boxShadow: isCenter
                                 ? '0 0 50px rgba(255, 0, 0, 0.3), 0 0 20px rgba(255,0,0,0.2) inset'
                                 : '0 0 20px rgba(255, 0, 0, 0.1)',
                             transformStyle: 'preserve-3d',
@@ -131,19 +143,23 @@ const ThreeDCarousel = ({ images = defaultImages }) => {
                     >
                         {/* Image */}
                         <img
-                            src={img}
+                            src={item.url}
                             alt={`Slide ${index}`}
-                            className="w-full h-full object-cover filter brightness-90 group-hover:brightness-110 transition-all duration-500"
+                            className="w-full h-full object-cover transition-all duration-500 will-change-transform"
+                            style={{ WebkitBackfaceVisibility: 'hidden', WebkitTransform: 'translateZ(0) scale(1.0)', backfaceVisibility: 'hidden' }}
                         />
 
-                        {/* Red Tech Border Overlay */}
-                        <div className="absolute inset-0 border-[1px] border-red-500/30 rounded-2xl pointer-events-none"></div>
-
-                        {/* Scanline effect */}
-                        <div className="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(255,0,0,0.02),rgba(255,0,0,0.06))] z-10 bg-[length:100%_2px,3px_100%] pointer-events-none" />
+                        {/* Caption Overlay - Appears on hover for center image */}
+                        {isCenter && item.caption && (
+                            <div className="absolute inset-x-0 bottom-0 pt-24 pb-6 px-6 bg-gradient-to-t from-black/95 via-black/70 to-transparent translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out z-20 flex items-end">
+                                <p className="text-white text-sm font-medium leading-relaxed drop-shadow-lg">
+                                    {item.caption}
+                                </p>
+                            </div>
+                        )}
 
                         {/* Corner Accents (only for center) */}
-                        {style.zIndex === 10 && (
+                        {isCenter && (
                             <>
                                 <div className="absolute top-2 left-2 w-4 h-4 border-t-2 border-l-2 border-red-500 rounded-tl-md" />
                                 <div className="absolute top-2 right-2 w-4 h-4 border-t-2 border-r-2 border-red-500 rounded-tr-md" />

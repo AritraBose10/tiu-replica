@@ -1,5 +1,5 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ArrowRight, CheckCircle2 } from 'lucide-react';
 import { useSettings } from '../contexts/SettingsContext';
@@ -15,6 +15,20 @@ const highlights = [
 
 const GoogleIBMBanner = () => {
     const { getSetting } = useSettings();
+    const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+    const images = [
+        getSetting('admissions_google_ibm_bg') || "https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=2070&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=2070&auto=format&fit=crop" // Second image placeholder
+    ];
+
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setCurrentImageIndex((prev) => (prev + 1) % images.length);
+        }, 3500); // Change image every 3.5 seconds
+        return () => clearInterval(timer);
+    }, [images.length]);
+
     return (
         <section className="py-20 px-0 bg-gradient-to-br from-gray-50 to-white overflow-hidden">
             <div className="w-[90%] md:w-[70%] mx-auto">
@@ -84,7 +98,7 @@ const GoogleIBMBanner = () => {
                                 to="/courses"
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.98 }}
-                                className="inline-flex items-center gap-2 bg-[#FF0000] text-white px-8 py-4 rounded-full font-semibold hover:bg-[#CC0000] transition-colors"
+                                className="inline-flex items-center gap-2 bg-[#FF0000] text-white px-8 py-4 rounded-full font-semibold hover:bg-[#CC0000] transition-colors w-max"
                             >
                                 Explore Industry Programs
                                 <ArrowRight className="w-5 h-5" />
@@ -99,16 +113,23 @@ const GoogleIBMBanner = () => {
                         viewport={{ once: true }}
                         className="flex flex-col gap-4"
                     >
-                        {/* Main Image */}
+                        {/* Main Image Slider */}
                         <div className="flex-1 rounded-3xl overflow-hidden bg-gray-100 relative min-h-[280px]">
-                            <img
-                                src={getSetting('admissions_google_ibm_bg') || "https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=2070&auto=format&fit=crop"}
-                                alt="Students working with industry tools"
-                                className="w-full h-full object-cover"
-                            />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
-                            <div className="absolute bottom-4 left-4 right-4">
-                                <span className="bg-white/90 backdrop-blur-sm text-black text-xs font-bold px-4 py-2 rounded-full">
+                            <AnimatePresence mode="popLayout">
+                                <motion.img
+                                    key={currentImageIndex}
+                                    src={images[currentImageIndex]}
+                                    alt="Students working with industry tools"
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    exit={{ opacity: 0 }}
+                                    transition={{ duration: 1.2, ease: "easeInOut" }}
+                                    className="absolute inset-0 w-full h-full object-cover"
+                                />
+                            </AnimatePresence>
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent z-10" />
+                            <div className="absolute bottom-4 left-4 right-4 z-20">
+                                <span className="bg-white/90 backdrop-blur-sm text-black text-xs font-bold px-4 py-2 rounded-full shadow-lg">
                                     Real tools. Real frameworks. Real projects.
                                 </span>
                             </div>
@@ -117,9 +138,9 @@ const GoogleIBMBanner = () => {
                         {/* Bottom stats strip */}
                         <div className="grid grid-cols-3 gap-4">
                             {[
-                                { value: '10+', label: 'Industry Certifications' },
+                                { value: '10+', label: 'Certifications' },
                                 { value: '50+', label: 'Live Projects' },
-                                { value: '2', label: 'Global Tech Partners' },
+                                { value: '2', label: 'Tech Partners' },
                             ].map((stat, i) => (
                                 <motion.div
                                     key={i}
@@ -127,7 +148,7 @@ const GoogleIBMBanner = () => {
                                     whileInView={{ opacity: 1, y: 0 }}
                                     viewport={{ once: true }}
                                     transition={{ delay: 0.3 + i * 0.1 }}
-                                    className="bg-black rounded-2xl p-4 text-center"
+                                    className="bg-black rounded-2xl p-4 text-center z-10 relative"
                                 >
                                     <div className="text-2xl font-black text-[#FF0000]">{stat.value}</div>
                                     <div className="text-xs text-gray-400 font-medium mt-1">{stat.label}</div>

@@ -27,9 +27,7 @@ const PartnersCarousel = () => {
                 transition={{ duration: 0.6 }}
                 className="text-center mb-10"
             >
-                <span className="inline-block bg-gray-100 text-gray-700 px-4 py-2 rounded-full text-sm font-medium mb-4">
-                    Learn & Get Hired By The Best
-                </span>
+
                 <h2 className="text-3xl md:text-4xl font-bold text-black">
                     Our Industry & Placement Partners
                 </h2>

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
 import { Play, BookOpen, Wrench, Trophy, Users } from 'lucide-react';
 import { useSettings } from '../contexts/SettingsContext';
 
@@ -15,6 +15,8 @@ const experiences = [
 const HowLearningWorks = () => {
     const { getSetting } = useSettings();
     const [videoLoaded, setVideoLoaded] = useState(false);
+    const videoRef = useRef(null);
+    const isVideoInView = useInView(videoRef, { once: true, amount: 0.5 });
 
     const galleryImages = [
         { src: getSetting('learning_lab_image') || '/images/learning-lab.jpg', alt: 'Students in a modern computer lab' },
@@ -74,14 +76,20 @@ const HowLearningWorks = () => {
                         viewport={{ once: true }}
                         className="relative"
                     >
-                        <div className="aspect-video rounded-3xl overflow-hidden shadow-2xl bg-black border-4 border-white ring-1 ring-gray-100">
-                            <iframe
-                                src={getSetting('learning_video_url') || "https://www.youtube.com/embed/oOYWAudEu5E?autoplay=1&mute=1&controls=0&loop=1&playlist=oOYWAudEu5E"}
-                                title="How Learning Works at SoF"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                allowFullScreen
-                                className="w-full h-full opacity-90"
-                            />
+                        <div className="aspect-video rounded-3xl overflow-hidden shadow-2xl bg-black border-4 border-white ring-1 ring-gray-100 relative" ref={videoRef}>
+                            {isVideoInView ? (
+                                <iframe
+                                    src={(getSetting('learning_video_url') || "https://www.youtube.com/embed/oOYWAudEu5E") + "?autoplay=1&mute=1&controls=0&loop=1&playlist=oOYWAudEu5E&rel=0&modestbranding=1"}
+                                    title="How Learning Works at SoF"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowFullScreen
+                                    className="w-full h-full opacity-90 scale-100 pointer-events-none"
+                                />
+                            ) : (
+                                <div className="w-full h-full bg-black/80 flex items-center justify-center">
+                                    <Play className="w-12 h-12 text-white/50" />
+                                </div>
+                            )}
                             {/* Overlay Gradient for integration */}
                             <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent pointer-events-none" />
                         </div>

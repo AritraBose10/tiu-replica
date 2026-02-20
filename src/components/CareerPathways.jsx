@@ -6,38 +6,57 @@ const pathways = [
     {
         icon: Code,
         domain: 'Technology',
-        roles: 'AI Engineer, Cloud Architect, Full-Stack Dev',
+        roles: [
+            { name: 'AI Engineer', highlighted: true },
+            { name: 'Cloud Architect', highlighted: true },
+            { name: 'Full-Stack Dev', highlighted: false }
+        ],
         color: 'bg-blue-500',
         gradient: 'from-blue-500/20 to-blue-600/5',
         border: 'border-blue-500/20',
-        text: 'text-blue-400'
+        text: 'text-blue-400',
+        highlightColor: 'bg-blue-500/20 text-blue-300 border-blue-500/30'
     },
     {
         icon: Briefcase,
         domain: 'Business',
-        roles: 'Product Manager, Fintech Analyst, Consultant',
+        roles: [
+            { name: 'Product Manager', highlighted: true },
+            { name: 'Fintech Analyst', highlighted: true },
+            { name: 'Consultant', highlighted: false }
+        ],
         color: 'bg-amber-500',
         gradient: 'from-amber-500/20 to-amber-600/5',
         border: 'border-amber-500/20',
-        text: 'text-amber-400'
+        text: 'text-amber-400',
+        highlightColor: 'bg-amber-500/20 text-amber-300 border-amber-500/30'
     },
     {
         icon: Palette,
         domain: 'Creative',
-        roles: 'UX Designer, Game Dev, Motion Artist',
+        roles: [
+            { name: 'UX Designer', highlighted: true },
+            { name: 'Game Dev', highlighted: true },
+            { name: 'Motion Artist', highlighted: false }
+        ],
         color: 'bg-purple-500',
         gradient: 'from-purple-500/20 to-purple-600/5',
         border: 'border-purple-500/20',
-        text: 'text-purple-400'
+        text: 'text-purple-400',
+        highlightColor: 'bg-purple-500/20 text-purple-300 border-purple-500/30'
     },
     {
         icon: HeartPulse,
         domain: 'Healthcare',
-        roles: 'Bio-Tech Researcher, Clinical Data Scientist',
+        roles: [
+            { name: 'Clinical Data Scientist', highlighted: true },
+            { name: 'Bio-Tech Researcher', highlighted: true }
+        ],
         color: 'bg-emerald-500',
         gradient: 'from-emerald-500/20 to-emerald-600/5',
         border: 'border-emerald-500/20',
-        text: 'text-emerald-400'
+        text: 'text-emerald-400',
+        highlightColor: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30'
     },
 ];
 
@@ -121,9 +140,19 @@ const CareerPathways = () => {
                                         <ArrowUpRight className="w-4 h-4 text-white/20 group-hover:text-white/60 transition-colors" />
                                     </div>
                                     <h3 className="text-white font-bold text-lg mb-1">{path.domain}</h3>
-                                    <p className="text-gray-500 text-xs leading-relaxed group-hover:text-gray-400 transition-colors">
-                                        {path.roles}
-                                    </p>
+                                    <div className="flex flex-wrap gap-2 mt-auto">
+                                        {path.roles.map((role, rIndex) => (
+                                            <span
+                                                key={rIndex}
+                                                className={`text-xs px-2.5 py-1 rounded-md border ${role.highlighted
+                                                        ? path.highlightColor + ' font-bold shadow-sm'
+                                                        : 'text-gray-500 border-white/5 bg-white/5 font-medium'
+                                                    } transition-colors`}
+                                            >
+                                                {role.name}
+                                            </span>
+                                        ))}
+                                    </div>
                                 </div>
                             </motion.div>
                         ))}

@@ -219,10 +219,13 @@ const Hero = () => {
     const exteriorImg = getSetting('hero_wireframe_exterior');
     const interiorImg = getSetting('hero_wireframe_interior');
 
-    // Collect carousel images from settings
-    const carouselImages = [1, 2, 3, 4, 5]
-        .map(num => getSetting(`home_carousel_img_${num}`))
-        .filter(url => url && url.trim() !== '');
+    // Collect carousel images and captions from settings
+    const carouselItems = [1, 2, 3, 4, 5]
+        .map(num => ({
+            url: getSetting(`home_carousel_img_${num}`),
+            caption: getSetting(`home_carousel_caption_${num}`)
+        }))
+        .filter(item => item.url && item.url.trim() !== '');
 
     const containerVariants = {
         hidden: {},
@@ -313,12 +316,7 @@ const Hero = () => {
 
                 {/* ═══ 3D CAROUSEL ═══ */}
                 <div className="relative w-full max-w-[1200px] mx-auto mb-8 md:mb-12">
-                    <ThreeDCarousel images={carouselImages.length > 0 ? carouselImages : undefined} />
-                </div>
-
-                {/* ═══ METRICS BAR ═══ */}
-                <div className="relative z-20 mb-8 md:mb-10 scale-90 md:scale-100 origin-top">
-                    <MetricsBar />
+                    <ThreeDCarousel items={carouselItems.length > 0 ? carouselItems : undefined} />
                 </div>
 
                 {/* ── CTA Buttons ── */}
@@ -340,6 +338,7 @@ const Hero = () => {
                         <ArrowRight className="w-4 h-4" />
                     </Link>
                 </motion.div>
+
             </motion.div>
         </section >
     );

@@ -5,7 +5,7 @@ import { Clock, GraduationCap, ChevronRight, ArrowUpRight } from 'lucide-react';
 
 const categories = [
     { id: 'engineering', label: 'Engineering & Tech' },
-    { id: 'it_applied', label: 'IT & Applied Sciences' },
+    { id: 'it_applied', label: 'IT & Computer Applications' },
     { id: 'business', label: 'Business & Management' },
     { id: 'creative', label: 'Creative Arts & Design' },
     { id: 'health', label: 'Health & Allied Sciences' },
@@ -60,15 +60,6 @@ const courses = {
             eligibility: '10+2 with Science',
             badge: 'Bachelor',
         },
-        {
-            id: 6,
-            title: 'M.Sc in Data Science & AI',
-            subtitle: 'Advanced Specialization',
-            partner: 'Tech',
-            duration: '2 Years',
-            eligibility: 'Graduation',
-            badge: 'Master',
-        },
     ],
     business: [
         {
@@ -79,15 +70,6 @@ const courses = {
             duration: '3 Years',
             eligibility: '10+2 any stream',
             badge: 'Bachelor',
-        },
-        {
-            id: 8,
-            title: 'MBA Business Analytics & AI',
-            subtitle: 'Powered by IBM',
-            partner: 'IBM',
-            duration: '2 Years',
-            eligibility: 'Graduation',
-            badge: 'Master',
         },
     ],
     creative: [

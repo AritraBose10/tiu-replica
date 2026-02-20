@@ -19,7 +19,7 @@ const InputField = ({ icon: Icon, type, placeholder, value, onChange, name }) =>
     </div>
 );
 
-const AdmissionsForm = () => {
+const AdmissionsForm = ({ onSuccess }) => {
     const cardRef = useRef(null);
     const [status, setStatus] = useState('idle'); // idle, submitting, success
     const [formData, setFormData] = useState({
@@ -57,7 +57,12 @@ const AdmissionsForm = () => {
         e.preventDefault();
         setStatus('submitting');
         // Simulate API call
-        setTimeout(() => setStatus('success'), 2000);
+        setTimeout(() => {
+            setStatus('success');
+            if (onSuccess) {
+                setTimeout(onSuccess, 2000); // Trigger callback after showing success message for 2 seconds
+            }
+        }, 2000);
     };
 
     const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
