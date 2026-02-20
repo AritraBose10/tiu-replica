@@ -9,7 +9,7 @@ const WhatsAppButton = () => {
 
     return (
         <div
-            className="fixed z-[55] bottom-6 right-6 md:bottom-8 md:right-8"
+            className="fixed z-[55] bottom-24 right-6 md:bottom-28 md:right-8"
             style={{
                 /* On mobile, bump up above sticky apply bar */
                 marginBottom: 'env(safe-area-inset-bottom, 0px)',

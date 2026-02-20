@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Camera, X, ChevronLeft, ChevronRight } from 'lucide-react';
+import { useSettings } from '../../contexts/SettingsContext';
 
-const galleryImages = [
+const defaultGalleryImages = [
     {
         src: 'https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?q=80&w=2070&auto=format&fit=crop',
         alt: 'Tech Club Session',
@@ -74,8 +75,17 @@ const itemVariants = {
 };
 
 const CampusGallery = () => {
+    const { settings } = useSettings();
     const [activeCategory, setActiveCategory] = useState('All');
     const [lightboxIndex, setLightboxIndex] = useState(null);
+
+    const galleryImages = defaultGalleryImages.map((img, index) => {
+        const settingKey = `campus_life_image_${index + 1}`;
+        return {
+            ...img,
+            src: settings?.[settingKey] || img.src
+        };
+    });
 
     const filteredImages = activeCategory === 'All'
         ? galleryImages

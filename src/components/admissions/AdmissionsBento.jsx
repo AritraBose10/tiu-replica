@@ -23,7 +23,7 @@ const domains = [
     },
     {
         id: 'it-sciences',
-        title: 'IT & Applied Sciences',
+        title: 'IT & Computer Applications',
         icon: Monitor,
         color: 'from-purple-500/20 to-pink-500/20',
         border: 'border-purple-500/30',
@@ -208,7 +208,7 @@ const AdmissionsBento = () => {
                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-orange-500">
                             Apply for
                         </span>{' '}
-                        Right Now
+                        2026
                     </h2>
                     <p className="text-gray-400 text-lg max-w-2xl">
                         Admissions are open for the following programs for the 2026 intake across five schools.

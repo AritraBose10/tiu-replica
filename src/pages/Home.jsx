@@ -47,6 +47,9 @@ const Home = () => {
             {/* §6 — Industry Collaboration */}
             <GoogleIBMBanner />
 
+            {/* §13 — Accreditations */}
+            <ApprovalsSection />
+
             {/* §7 — How Learning Works */}
             <HowLearningWorks />
 
@@ -70,9 +73,6 @@ const Home = () => {
 
             {/* Testimonials Strip */}
             <Testimonials />
-
-            {/* §13 — Accreditations */}
-            <ApprovalsSection />
 
             {/* §14 — Admissions Snapshot */}
             <section className="py-24 bg-black relative overflow-hidden text-center text-white">

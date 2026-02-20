@@ -30,7 +30,7 @@ const StudentWork = () => {
         {
             id: 'visits',
             icon: Building,
-            title: 'Industry Venues',
+            title: 'Industry Visits',
             description: 'On-site exposure at Google, IBM & Microsoft campuses.',
             size: 'col-span-1 row-span-1',
             gradient: 'from-emerald-500 to-teal-500',

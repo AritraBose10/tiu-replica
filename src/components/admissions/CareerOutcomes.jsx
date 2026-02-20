@@ -5,15 +5,36 @@ import { TrendingUp, Building2, Handshake, ArrowUpRight } from 'lucide-react';
 
 /* ─── Data ─── */
 const packages = [
-    { label: 'Highest Package', value: 42, suffix: ' LPA', barWidth: 100, color: 'from-red-500 to-orange-500', glow: 'rgba(255,0,0,0.3)' },
-    { label: 'Average Package', value: 8.5, suffix: ' LPA', barWidth: 60, color: 'from-blue-500 to-cyan-500', glow: 'rgba(59,130,246,0.3)' },
-    { label: 'Median Package', value: 6, suffix: ' LPA', barWidth: 42, color: 'from-emerald-500 to-teal-500', glow: 'rgba(16,185,129,0.3)' },
+    { label: 'Highest Package', value: 2, suffix: ' Cr', barWidth: 100, color: 'from-red-500 to-orange-500', glow: 'rgba(255,0,0,0.3)' },
+    { label: 'Average Package', value: 12, suffix: ' LPA', barWidth: 60, color: 'from-blue-500 to-cyan-500', glow: 'rgba(59,130,246,0.3)' },
+    { label: 'Median Package', value: 8, suffix: ' LPA', barWidth: 42, color: 'from-emerald-500 to-teal-500', glow: 'rgba(16,185,129,0.3)' },
 ];
 
 const recruiters = [
-    'Google', 'IBM', 'Microsoft', 'Amazon', 'TCS',
-    'Infosys', 'Wipro', 'Accenture', 'Deloitte', 'Cognizant',
-    'HCL', 'Tech Mahindra', 'Capgemini', 'Oracle', 'SAP',
+    { name: 'Accenture', logo: '/assets/recruiters/Placement_Drive_Logos/Accenture.png' },
+    { name: 'Adani', logo: '/assets/recruiters/Placement_Drive_Logos/Adani.png' },
+    { name: 'Adobe', logo: '/assets/recruiters/Placement_Drive_Logos/Adobe.png' },
+    { name: 'Amazon', logo: '/assets/recruiters/Placement_Drive_Logos/Amazon.png' },
+    { name: 'Apple', logo: '/assets/recruiters/Placement_Drive_Logos/Apple.png' },
+    { name: 'Byjus', logo: '/assets/recruiters/Placement_Drive_Logos/Byjus.png' },
+    { name: 'Capgemini', logo: '/assets/recruiters/Placement_Drive_Logos/Capgemini.png' },
+    { name: 'Cisco', logo: '/assets/recruiters/Placement_Drive_Logos/Cisco.png' },
+    { name: 'Cognizant', logo: '/assets/recruiters/Placement_Drive_Logos/Cognizant.png' },
+    { name: 'Dell', logo: '/assets/recruiters/Placement_Drive_Logos/Dell.png' },
+    { name: 'Deloitte', logo: '/assets/recruiters/Placement_Drive_Logos/Deloitte.png' },
+    { name: 'Flipkart', logo: '/assets/recruiters/Placement_Drive_Logos/Flipkart.png' },
+    { name: 'Google', logo: '/assets/recruiters/Placement_Drive_Logos/Google.png' },
+    { name: 'HCL Technologies', logo: '/assets/recruiters/Placement_Drive_Logos/HCL_Technologies.png' },
+    { name: 'HDFC Bank', logo: '/assets/recruiters/Placement_Drive_Logos/HDFC Bank.png' },
+    { name: 'HP', logo: '/assets/recruiters/Placement_Drive_Logos/HP.png' },
+    { name: 'IBM', logo: '/assets/recruiters/Placement_Drive_Logos/IBM.png' },
+    { name: 'ICICI Bank', logo: '/assets/recruiters/Placement_Drive_Logos/ICICI Bank.png' },
+    { name: 'Infosys', logo: '/assets/recruiters/Placement_Drive_Logos/Infosys.png' },
+    { name: 'Intel', logo: '/assets/recruiters/Placement_Drive_Logos/Intel.png' },
+    { name: 'JPMorgan Chase', logo: '/assets/recruiters/Placement_Drive_Logos/JPMorgan Chase.png' },
+    { name: 'KPMG', logo: '/assets/recruiters/Placement_Drive_Logos/KPMG.png' },
+    { name: 'L&T', logo: '/assets/recruiters/Placement_Drive_Logos/L&T.png' },
+    { name: 'Lenovo', logo: '/assets/recruiters/Placement_Drive_Logos/Lenovo.png' },
 ];
 
 /* ─── Animated Counter ─── */
@@ -90,12 +111,16 @@ const LogoMarquee = () => {
                 animate={{ x: [0, -50 * recruiters.length] }}
                 transition={{ duration: 30, repeat: Infinity, ease: 'linear' }}
             >
-                {doubled.map((name, i) => (
+                {doubled.map((recruiter, i) => (
                     <div
                         key={i}
-                        className="flex-shrink-0 px-6 py-3 rounded-xl bg-white/[0.03] border border-white/10 hover:bg-white/[0.07] transition-colors duration-300"
+                        className="flex-shrink-0 flex items-center justify-center px-6 py-3 rounded-xl bg-white/[0.03] border border-white/10 hover:bg-white/[0.07] transition-colors duration-300 min-w-[120px]"
                     >
-                        <span className="text-gray-300 font-semibold text-sm tracking-wide">{name}</span>
+                        <img
+                            src={recruiter.logo}
+                            alt={recruiter.name}
+                            className="h-6 w-auto max-w-[100px] object-contain brightness-0 invert opacity-70"
+                        />
                     </div>
                 ))}
             </motion.div>

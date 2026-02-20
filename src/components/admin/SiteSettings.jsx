@@ -296,7 +296,7 @@ const SiteSettings = () => {
                                 showToast={showToast}
                             />
                             <MediaUploader
-                                label="Industry Venues"
+                                label="Industry Visits"
                                 value={settings.student_work_visits_image}
                                 onChange={(val) => handleChange('student_work_visits_image', val)}
                                 showToast={showToast}
@@ -405,11 +405,23 @@ const SiteSettings = () => {
                                 </div>
                             </div>
                         </div>
+
+                        <div>
+                            <h3 className="text-xl font-bold text-white mb-4">Campus Life Gallery</h3>
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                                {[1, 2, 3, 4, 5, 6, 7, 8].map(num => (
+                                    <MediaUploader
+                                        key={num}
+                                        label={`Campus Life Image ${num}`}
+                                        value={settings[`campus_life_image_${num}`]}
+                                        onChange={(val) => handleChange(`campus_life_image_${num}`, val)}
+                                        showToast={showToast}
+                                    />
+                                ))}
+                            </div>
+                        </div>
                     </div>
                 )}
-
-
-                {/* --- BRANDING TAB --- */}
                 {activeTab === 'branding' && (
                     <div className="space-y-8">
                         <div>
@@ -522,14 +534,16 @@ const SiteSettings = () => {
                 )}
             </div>
 
-            {toast && (
-                <div className={`fixed bottom-8 right-8 px-6 py-3 rounded-xl shadow-2xl flex items-center gap-3 animate-in fade-in slide-in-from-bottom-5 z-50 ${toast.type === 'error' ? 'bg-red-500 text-white' : 'bg-emerald-500 text-white'
-                    }`}>
-                    {toast.type === 'error' ? <AlertCircle className="w-5 h-5" /> : <Save className="w-5 h-5" />}
-                    <span className="font-medium">{toast.message}</span>
-                </div>
-            )}
-        </div>
+            {
+                toast && (
+                    <div className={`fixed bottom-8 right-8 px-6 py-3 rounded-xl shadow-2xl flex items-center gap-3 animate-in fade-in slide-in-from-bottom-5 z-50 ${toast.type === 'error' ? 'bg-red-500 text-white' : 'bg-emerald-500 text-white'
+                        }`}>
+                        {toast.type === 'error' ? <AlertCircle className="w-5 h-5" /> : <Save className="w-5 h-5" />}
+                        <span className="font-medium">{toast.message}</span>
+                    </div>
+                )
+            }
+        </div >
     );
 };
 
