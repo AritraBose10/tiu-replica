@@ -121,7 +121,18 @@ const MagneticCard = ({ children, className }) => {
 
 const Approvals = () => {
     const { data: sanityApprovals } = useSanity(APPROVALS_QUERY, null);
-    const approvalBodies = sanityApprovals && sanityApprovals.length > 0 ? sanityApprovals : fallbackApprovalBodies;
+
+    const correctLogos = fallbackApprovalBodies.reduce((acc, item) => {
+        acc[item.name] = item.logo;
+        return acc;
+    }, {});
+
+    const approvalBodies = sanityApprovals && sanityApprovals.length > 0
+        ? sanityApprovals.map(app => ({
+            ...app,
+            logo: correctLogos[app.name] || app.logoUrl || app.logo
+        }))
+        : fallbackApprovalBodies;
     const containerRef = useRef(null);
     const { scrollYProgress } = useScroll({
         target: containerRef,
