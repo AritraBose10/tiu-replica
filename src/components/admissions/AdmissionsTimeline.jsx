@@ -70,14 +70,14 @@ const AdmissionsTimeline = () => {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
                                 transition={{ delay: index * 0.1 }}
-                                className="relative group"
+                                className="relative group h-full"
                             >
                                 {/* Connector line */}
                                 {index < steps.length - 1 && (
                                     <div className="hidden md:block absolute top-10 left-[calc(50%+32px)] w-[calc(100%-32px)] h-px bg-gradient-to-r from-white/15 to-transparent z-0" />
                                 )}
 
-                                <div className="relative z-10 p-6 rounded-2xl bg-white/[0.03] border border-white/10 backdrop-blur-xl hover:border-white/20 hover:bg-white/[0.06] transition-all duration-300">
+                                <div className="relative h-full z-10 p-6 rounded-2xl bg-white/[0.03] border border-white/10 backdrop-blur-xl hover:border-white/20 hover:bg-white/[0.06] transition-all duration-300">
                                     {/* Step number */}
                                     <span className="absolute top-3 right-4 text-5xl font-black text-white/[0.04] group-hover:text-red-500/10 transition-colors select-none">
                                         {step.id}
