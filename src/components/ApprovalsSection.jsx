@@ -73,10 +73,12 @@ const ApprovalsSection = () => {
 
     // Use Sanity data but inject the strictly verified correct logo URLs
     const approvals = sanityApprovals?.length > 0
-        ? sanityApprovals.map(app => ({
-            ...app,
-            logo: correctLogos[app.name] || app.logoUrl // Fix broken Sanity data without losing other fields
-        }))
+        ? sanityApprovals
+            .filter(app => app.name !== 'ISO')
+            .map(app => ({
+                ...app,
+                logo: correctLogos[app.name] || app.logoUrl // Fix broken Sanity data without losing other fields
+            }))
         : approvalsData;
 
     return (
