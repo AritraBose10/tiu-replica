@@ -124,18 +124,9 @@ const Courses = () => {
     const { data: allCourses } = useSanity(COURSES_QUERY, coursesData);
     const [filteredCourses, setFilteredCourses] = useState(allCourses);
     const [searchTerm, setSearchTerm] = useState('');
-    const [activeTab, setActiveTab] = useState('All');
     const [degreeType, setDegreeType] = useState('UG'); // New State: UG or PG
-    const scrollContainerRef = useRef(null);
 
     const degreeTabs = ['UG', 'PG'];
-    const categoryTabs = ['All', 'School of Engineering & Technology', 'Information Technology & Applied Sciences', 'School of Business & Management', 'Creative Arts & Design', 'Health & Allied Sciences'];
-
-    const scroll = (offset) => {
-        if (scrollContainerRef.current) {
-            scrollContainerRef.current.scrollBy({ left: offset, behavior: 'smooth' });
-        }
-    };
 
     useEffect(() => {
         let results = allCourses;
@@ -143,12 +134,7 @@ const Courses = () => {
         // 1. Filter by Degree Level (UG/PG)
         results = results.filter(c => getDegreeLevel(c.title) === degreeType);
 
-        // 2. Filter by Category
-        if (activeTab !== 'All') {
-            results = results.filter(c => c.category.includes(activeTab));
-        }
-
-        // 3. Filter by Search
+        // 2. Filter by Search
         if (searchTerm) {
             results = results.filter(c =>
                 c.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -156,7 +142,7 @@ const Courses = () => {
             );
         }
         setFilteredCourses(results);
-    }, [searchTerm, activeTab, degreeType, allCourses]);
+    }, [searchTerm, degreeType, allCourses]);
 
     return (
         <div className="min-h-screen bg-[#020205] text-white relative overflow-x-hidden selection:bg-[#FF0000] selection:text-white">
@@ -221,7 +207,7 @@ const Courses = () => {
                     <div className="glass-panel bg-white/5 backdrop-blur-xl border border-white/10 p-6 rounded-3xl shadow-2xl space-y-6">
 
                         {/* Top Section: UG/PG Selector & Search */}
-                        <div className="flex flex-col md:flex-row justify-between items-center gap-4 border-b border-white/10 pb-6">
+                        <div className="flex flex-col md:flex-row justify-between items-center gap-4">
 
                             {/* Level 1: UG / PG Selector */}
                             <div className="inline-flex bg-black/20 p-1 rounded-full relative">
@@ -258,50 +244,7 @@ const Courses = () => {
                             </div>
                         </div>
 
-                        {/* Bottom Section: Categories with Scroll Arrows */}
-                        <div className="relative flex items-center gap-3">
-
-                            {/* Left Scroll Arrow */}
-                            <button
-                                onClick={() => scroll(-200)}
-                                className="p-2 rounded-full bg-white/5 border border-white/10 hover:bg-[#FF0000] hover:border-[#FF0000] hover:text-white text-gray-400 transition-all duration-300 flex-shrink-0"
-                            >
-                                <ChevronLeft className="w-5 h-5" />
-                            </button>
-
-                            {/* Level 2: Category Tabs */}
-                            <div
-                                ref={scrollContainerRef}
-                                className="flex gap-2 overflow-x-auto pb-2 md:pb-0 w-full scrollbar-hide scroll-smooth"
-                            >
-                                {categoryTabs.map((tab) => (
-                                    <button
-                                        key={tab}
-                                        onClick={() => setActiveTab(tab)}
-                                        className={`relative px-6 py-2.5 rounded-full text-sm font-bold whitespace-nowrap transition-all duration-300 flex-shrink-0 ${activeTab === tab ? 'text-white' : 'text-gray-400 hover:text-white hover:bg-white/5'
-                                            }`}
-                                    >
-                                        {activeTab === tab && (
-                                            <motion.div
-                                                layoutId="activePill"
-                                                className="absolute inset-0 bg-[#FF0000] rounded-full shadow-[0_0_15px_#FF0000]"
-                                                transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-                                            />
-                                        )}
-                                        <span className="relative z-10">{tab}</span>
-                                    </button>
-                                ))}
-                            </div>
-
-                            {/* Right Scroll Arrow */}
-                            <button
-                                onClick={() => scroll(200)}
-                                className="p-2 rounded-full bg-white/5 border border-white/10 hover:bg-[#FF0000] hover:border-[#FF0000] hover:text-white text-gray-400 transition-all duration-300 flex-shrink-0"
-                            >
-                                <ChevronRight className="w-5 h-5" />
-                            </button>
-
-                        </div>
+                        {/* Sub-Header Area Removed */}
                     </div>
                 </div>
 
