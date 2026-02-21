@@ -483,6 +483,12 @@ const SiteSettings = () => {
                                     onChange={(val) => handleChange('faq_bg_image', val)}
                                     showToast={showToast}
                                 />
+                                <MediaUploader
+                                    label="FAQ Section Side Image"
+                                    value={settings.faq_side_image}
+                                    onChange={(val) => handleChange('faq_side_image', val)}
+                                    showToast={showToast}
+                                />
                             </div>
                         </div>
                     </div>

@@ -44,6 +44,7 @@ const FAQSection = ({ customFaqs }) => {
     };
 
     const bgImage = getSetting('faq_bg_image');
+    const sideImage = getSetting('faq_side_image') || "https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=2070&auto=format&fit=crop";
 
     return (
         <section
@@ -65,7 +66,7 @@ const FAQSection = ({ customFaqs }) => {
                             <div className="absolute inset-0 border-4 border-[#FF0000] rounded-2xl transform translate-x-4 translate-y-4" />
                             <div className="relative rounded-2xl overflow-hidden">
                                 <img
-                                    src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=2070&auto=format&fit=crop"
+                                    src={sideImage}
                                     alt="Students"
                                     className="w-full h-[400px] object-cover"
                                 />
