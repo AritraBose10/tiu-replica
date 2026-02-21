@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Award, BookOpen, Cloud, Shield } from 'lucide-react';
@@ -15,6 +15,19 @@ const certifications = [
 
 const GoogleIBMDark = () => {
     const { getSetting } = useSettings();
+    const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+    const images = [
+        getSetting('admissions_google_ibm_bg') || "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=2071&auto=format&fit=crop",
+        getSetting('admissions_google_ibm_bg_2') || "https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=2070&auto=format&fit=crop"
+    ];
+
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setCurrentImageIndex((prev) => (prev + 1) % images.length);
+        }, 5000); // Crossfade every 5 seconds
+        return () => clearInterval(timer);
+    }, [images.length]);
 
     return (
         <section className="py-24 px-4 bg-[#020205] relative overflow-hidden">
@@ -100,12 +113,19 @@ const GoogleIBMDark = () => {
                             <div className="absolute right-0 top-0 bottom-0 w-2 bg-gradient-to-b from-red-600 via-orange-500 to-red-600 z-10" />
 
                             {/* Student image */}
-                            <div className="absolute inset-0">
-                                <img
-                                    src={getSetting('admissions_google_ibm_bg') || "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=2071&auto=format&fit=crop"}
-                                    alt="Students collaborating"
-                                    className="w-full h-full object-cover"
-                                />
+                            <div className="absolute inset-0 overflow-hidden bg-black">
+                                <AnimatePresence mode="wait">
+                                    <motion.img
+                                        key={currentImageIndex}
+                                        src={images[currentImageIndex]}
+                                        initial={{ opacity: 0, scale: 1.05 }}
+                                        animate={{ opacity: 1, scale: 1 }}
+                                        exit={{ opacity: 0 }}
+                                        transition={{ duration: 1.2, ease: "easeInOut" }}
+                                        alt="Students collaborating"
+                                        className="absolute inset-0 w-full h-full object-cover"
+                                    />
+                                </AnimatePresence>
                                 {/* Gradient fades */}
                                 <div className="absolute inset-0 bg-gradient-to-r from-[#020205] via-[#020205]/60 to-transparent" />
                                 <div className="absolute inset-0 bg-gradient-to-t from-[#020205]/80 via-transparent to-[#020205]/40" />
