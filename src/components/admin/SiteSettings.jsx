@@ -210,11 +210,17 @@ const SiteSettings = () => {
                         <div>
                             <h3 className="text-xl font-bold text-white mb-4">Industry Partnership Section</h3>
                             <p className="text-gray-400 text-sm mb-6">This section displays global technology leaders and certifications.</p>
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <MediaUploader
-                                    label="Section Background Image"
+                                    label="Section Background Image 1"
                                     value={settings.admissions_google_ibm_bg}
                                     onChange={(val) => handleChange('admissions_google_ibm_bg', val)}
+                                    showToast={showToast}
+                                />
+                                <MediaUploader
+                                    label="Section Background Image 2"
+                                    value={settings.admissions_google_ibm_bg_2}
+                                    onChange={(val) => handleChange('admissions_google_ibm_bg_2', val)}
                                     showToast={showToast}
                                 />
                                 <MediaUploader
