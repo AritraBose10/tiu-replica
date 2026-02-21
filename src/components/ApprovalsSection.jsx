@@ -9,7 +9,6 @@ const approvalsData = [
     { name: 'AIU', fullName: 'Association of Indian Universities', logo: '/assets/approvals/aiu.png' },
     { name: 'NIRF', fullName: 'National Institutional Ranking Framework', logo: 'https://upload.wikimedia.org/wikipedia/en/5/52/National_Institutional_Ranking_Framework_logo.png' },
     { name: 'NAAC', fullName: 'National Assessment and Accreditation Council', logo: '/assets/approvals/naac.png' },
-    { name: 'ISO', fullName: 'ISO 9001:2015 Certified', logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/ISO_Logo_%28Red_square%29.svg/120px-ISO_Logo_%28Red_square%29.svg.png' },
 ];
 
 const ApprovalCard = ({ approval, index }) => (

@@ -128,10 +128,12 @@ const Approvals = () => {
     }, {});
 
     const approvalBodies = sanityApprovals && sanityApprovals.length > 0
-        ? sanityApprovals.map(app => ({
-            ...app,
-            logo: correctLogos[app.name] || app.logoUrl || app.logo
-        }))
+        ? sanityApprovals
+            .filter(app => app.name !== 'ISO')
+            .map(app => ({
+                ...app,
+                logo: correctLogos[app.name] || app.logoUrl || app.logo
+            }))
         : fallbackApprovalBodies;
     const containerRef = useRef(null);
     const { scrollYProgress } = useScroll({
