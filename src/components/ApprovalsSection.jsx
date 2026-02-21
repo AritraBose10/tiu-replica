@@ -63,7 +63,23 @@ const ApprovalCard = ({ approval, index }) => (
 );
 
 const ApprovalsSection = () => {
-    const approvals = approvalsData;
+    // Attempting to use Sanity data, but overriding logos with trusted fallback to fix the broken image issue.
+    const { data: sanityApprovals } = useSanity(APPROVALS_QUERY, []);
+
+    // Create a dictionary of the correct logos from our reliable static array
+    const correctLogos = approvalsData.reduce((acc, item) => {
+        acc[item.name] = item.logo;
+        return acc;
+    }, {});
+
+    // Use Sanity data but inject the strictly verified correct logo URLs
+    const approvals = sanityApprovals?.length > 0
+        ? sanityApprovals.map(app => ({
+            ...app,
+            logo: correctLogos[app.name] || app.logoUrl // Fix broken Sanity data without losing other fields
+        }))
+        : approvalsData;
+
     return (
         <section className="py-24 bg-[#020205] relative overflow-hidden">
             {/* Ambient background effects */}
