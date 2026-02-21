@@ -46,7 +46,6 @@ const cardVariants = {
 
 const WhySOF = () => {
     const { getSetting } = useSettings();
-    const [isPlaying, setIsPlaying] = useState(false);
 
     return (
         <section className="py-24 px-4 bg-[#020205] relative overflow-hidden">
@@ -123,63 +122,15 @@ const WhySOF = () => {
                         transition={{ duration: 0.7, ease: 'easeOut' }}
                         className="relative rounded-3xl overflow-hidden group"
                     >
-                        {!isPlaying ? (
-                            <>
-                                {/* Poster Image */}
-                                <div className="relative aspect-[16/10]">
-                                    <img
-                                        src={getSetting('admissions_why_sof_bg') || "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=2070&auto=format&fit=crop"}
-                                        alt="School of the Future"
-                                        className="w-full h-full object-cover"
-                                    />
-                                    {/* Gradient overlay */}
-                                    <div className="absolute inset-0 bg-gradient-to-t from-[#020205] via-transparent to-[#020205]/30" />
-
-                                    {/* Play Button */}
-                                    <button
-                                        onClick={() => setIsPlaying(true)}
-                                        className="absolute inset-0 flex items-center justify-center"
-                                    >
-                                        <motion.div
-                                            className="w-20 h-20 rounded-full bg-red-600 flex items-center justify-center shadow-[0_0_40px_rgba(255,0,0,0.4)] group-hover:shadow-[0_0_60px_rgba(255,0,0,0.6)] transition-shadow"
-                                            whileHover={{ scale: 1.1 }}
-                                            whileTap={{ scale: 0.95 }}
-                                        >
-                                            <Play className="w-8 h-8 text-white ml-1" fill="white" />
-                                        </motion.div>
-                                    </button>
-
-                                    {/* Caption */}
-                                    <div className="absolute bottom-6 left-6 right-6">
-                                        <p className="text-white font-semibold text-lg">
-                                            Watch: The Future of Education
-                                        </p>
-                                        <p className="text-gray-400 text-sm mt-1">
-                                            3 min · See how we're redefining learning
-                                        </p>
-                                    </div>
-                                </div>
-
-                                {/* Decorative border */}
-                                <div className="absolute inset-0 rounded-3xl border border-white/10 pointer-events-none" />
-                            </>
-                        ) : (
-                            <div className="relative aspect-[16/10] bg-black">
-                                <iframe
-                                    src={(getSetting('admissions_why_sof_video_url') || getSetting('learning_video_url') || "https://www.youtube.com/embed/oOYWAudEu5E") + "?autoplay=1&rel=0"}
-                                    title="School of the Future"
-                                    className="w-full h-full"
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                    allowFullScreen
-                                />
-                                <button
-                                    onClick={() => setIsPlaying(false)}
-                                    className="absolute top-4 right-4 w-10 h-10 rounded-full bg-black/60 backdrop-blur-md flex items-center justify-center text-white hover:bg-black/80 transition-colors z-20"
-                                >
-                                    <X className="w-5 h-5" />
-                                </button>
-                            </div>
-                        )}
+                        <div className="relative aspect-[16/10] bg-black">
+                            <iframe
+                                src={(getSetting('admissions_why_sof_video_url') || getSetting('learning_video_url') || "https://www.youtube.com/embed/oOYWAudEu5E") + "?autoplay=1&mute=1&rel=0"}
+                                title="School of the Future"
+                                className="w-full h-full"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowFullScreen
+                            />
+                        </div>
                     </motion.div>
                 </div>
             </div>
