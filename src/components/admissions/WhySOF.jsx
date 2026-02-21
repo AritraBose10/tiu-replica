@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import React, { useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
 import { Cpu, Users, Briefcase, BrainCircuit, Play, X } from 'lucide-react';
 import { useSettings } from '../../contexts/SettingsContext';
 
@@ -46,6 +46,8 @@ const cardVariants = {
 
 const WhySOF = () => {
     const { getSetting } = useSettings();
+    const videoRef = useRef(null);
+    const isInView = useInView(videoRef, { once: true, amount: 0.3 });
 
     return (
         <section className="py-24 px-4 bg-[#020205] relative overflow-hidden">
@@ -116,6 +118,7 @@ const WhySOF = () => {
 
                     {/* Right: Video Section */}
                     <motion.div
+                        ref={videoRef}
                         initial={{ opacity: 0, scale: 0.95 }}
                         whileInView={{ opacity: 1, scale: 1 }}
                         viewport={{ once: true }}
@@ -123,13 +126,15 @@ const WhySOF = () => {
                         className="relative rounded-3xl overflow-hidden group"
                     >
                         <div className="relative aspect-[16/10] bg-black">
-                            <iframe
-                                src={(getSetting('admissions_why_sof_video_url') || getSetting('learning_video_url') || "https://www.youtube.com/embed/oOYWAudEu5E") + "?autoplay=1&mute=1&rel=0"}
-                                title="School of the Future"
-                                className="w-full h-full"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                allowFullScreen
-                            />
+                            {isInView && (
+                                <iframe
+                                    src={(getSetting('admissions_why_sof_video_url') || getSetting('learning_video_url') || "https://www.youtube.com/embed/oOYWAudEu5E") + "?autoplay=1&mute=1&rel=0"}
+                                    title="School of the Future"
+                                    className="w-full h-full"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowFullScreen
+                                />
+                            )}
                         </div>
                     </motion.div>
                 </div>
