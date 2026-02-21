@@ -51,7 +51,7 @@ const fallbackApprovalBodies = [
         name: 'NAAC',
         fullName: 'National Assessment and Accreditation Council',
         description: 'The university has completed the Self Study Report (SSR) and IIQA stages; currently accredited or in the final certificate phase.',
-        logo: '🏅',
+        logo: '/assets/approvals/naac.png',
     },
     {
         id: 8,
@@ -65,7 +65,7 @@ const fallbackApprovalBodies = [
         name: 'AIU',
         fullName: 'Association of Indian Universities',
         description: 'TIU is a member, ensuring degree equivalence for higher studies and government jobs.',
-        logo: '🎓',
+        logo: '/assets/approvals/aiu.png',
     },
     {
         id: 10,

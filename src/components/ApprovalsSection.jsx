@@ -6,9 +6,9 @@ import { APPROVALS_QUERY } from '../lib/queries';
 const approvalsData = [
     { name: 'UGC', fullName: 'University Grants Commission', logo: 'https://upload.wikimedia.org/wikipedia/en/4/4e/UGC_India_Logo.png' },
     { name: 'AICTE', fullName: 'All India Council for Technical Education', logo: 'https://upload.wikimedia.org/wikipedia/en/e/eb/All_India_Council_for_Technical_Education_logo.png' },
-    { name: 'AIU', fullName: 'Association of Indian Universities', logo: 'https://upload.wikimedia.org/wikipedia/en/5/53/Association_of_Indian_Universities_Logo.svg' },
+    { name: 'AIU', fullName: 'Association of Indian Universities', logo: '/assets/approvals/aiu.png' },
     { name: 'NIRF', fullName: 'National Institutional Ranking Framework', logo: 'https://upload.wikimedia.org/wikipedia/en/5/52/National_Institutional_Ranking_Framework_logo.png' },
-    { name: 'NAAC', fullName: 'National Assessment and Accreditation Council', logo: '🏅' },
+    { name: 'NAAC', fullName: 'National Assessment and Accreditation Council', logo: '/assets/approvals/naac.png' },
     { name: 'ISO', fullName: 'ISO 9001:2015 Certified', logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/ISO_Logo_%28Red_square%29.svg/120px-ISO_Logo_%28Red_square%29.svg.png' },
 ];
 
@@ -30,7 +30,7 @@ const ApprovalCard = ({ approval, index }) => (
 
             {/* Logo */}
             <div className="relative w-16 h-16 rounded-[1rem] bg-white p-2.5 flex items-center justify-center group-hover:scale-110 transition-transform duration-500 shadow-md">
-                {approval.logo && approval.logo.startsWith('http') ? (
+                {approval.logo && (approval.logo.startsWith('http') || approval.logo.startsWith('/')) ? (
                     <img
                         src={approval.logo}
                         alt={approval.name}
