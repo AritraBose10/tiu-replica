@@ -106,7 +106,7 @@ const DegreeRecognition = () => {
                     >
                         <div className="relative rounded-3xl bg-gradient-to-br from-white/[0.05] to-white/[0.02] border border-white/10 p-10 md:p-14 text-center">
                             {/* Central emblem */}
-                            <div className="w-24 h-24 mx-auto mb-6 flex items-center justify-center p-3">
+                            <div className="w-40 h-40 mx-auto mb-6 flex items-center justify-center p-3">
                                 <img src={logo} alt="Techno India University" className="w-full h-full object-contain" />
                             </div>
                             <h3 className="text-2xl font-bold text-white mb-2">Techno India University</h3>
