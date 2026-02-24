@@ -95,35 +95,40 @@ const ContactInfoCard = ({ icon: Icon, title, value, href, subtitle, index }) =>
     </motion.a>
 );
 
+const EE_BASE_URL = "https://eeconfigstaticfiles.blob.core.windows.net/staticfiles/ee-form-widget/";
+
+const initEEWidget = async () => {
+    if (window.eeFormWidget) {
+        const widget = new window.eeFormWidget();
+        await widget.init("softiu", "form-9", "ee-form-9");
+    }
+};
+
 const EEFormWidget = () => {
     React.useEffect(() => {
-        const baseUrl = "https://eeconfigstaticfiles.blob.core.windows.net/staticfiles/ee-form-widget/";
-
         // Inject CSS if not already present
         if (!document.getElementById("__formWidgetCss")) {
             const link = document.createElement("link");
             link.id = "__formWidgetCss";
             link.rel = "stylesheet";
-            link.href = baseUrl + "css/stylesheet.min.css";
+            link.href = EE_BASE_URL + "css/stylesheet.min.css";
             link.type = "text/css";
-            document.getElementsByTagName("head")[0].appendChild(link);
+            document.head.appendChild(link);
         }
 
-        // Inject JS and init widget
-        const script = document.createElement("script");
-        script.type = "text/javascript";
-        script.onload = async function () {
-            window._eeFormWidget = new window.eeFormWidget();
-            await window._eeFormWidget.init("softiu", "form-9", "ee-form-9");
-        };
-        script.src = baseUrl + "js/eeFormWidget.min.js";
-        document.getElementsByTagName("head")[0].appendChild(script);
+        // If script already loaded, init directly
+        if (window.eeFormWidget) {
+            initEEWidget();
+            return;
+        }
 
-        return () => {
-            // cleanup script on unmount
-            const existingScript = document.querySelector(`script[src="${baseUrl}js/eeFormWidget.min.js"]`);
-            if (existingScript) existingScript.remove();
-        };
+        // Otherwise load script then init
+        const script = document.createElement("script");
+        script.id = "__formWidgetJs";
+        script.type = "text/javascript";
+        script.src = EE_BASE_URL + "js/eeFormWidget.min.js";
+        script.onload = initEEWidget;
+        document.head.appendChild(script);
     }, []);
 
     return (
