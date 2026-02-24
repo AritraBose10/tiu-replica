@@ -480,12 +480,13 @@ const About = () => {
                             Join thousands of students who are shaping their future at Techno India University.
                         </p>
                         <motion.div
-                            whileHover={{ scale: 1.05, boxShadow: "0 0 60px rgba(255,0,0,0.6)" }}
+                            className="inline-flex"
+                            whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
                         >
                             <Link
                                 to="/admissions"
-                                className="inline-flex items-center gap-3 bg-gradient-to-r from-[#FF0000] to-[#CC0000] text-white px-12 py-6 rounded-full font-bold text-xl shadow-[0_0_40px_rgba(255,0,0,0.5)] border border-white/10"
+                                className="inline-flex items-center gap-3 bg-gradient-to-r from-[#FF0000] to-[#CC0000] text-white px-12 py-6 rounded-full font-bold text-xl shadow-[0_0_40px_rgba(255,0,0,0.5)] hover:shadow-[0_0_60px_rgba(255,0,0,0.6)] border border-white/10 transition-shadow duration-300"
                             >
                                 Apply for Admissions
                                 <motion.span
