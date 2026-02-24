@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Award, Shield, BadgeCheck, Globe, ArrowRight } from 'lucide-react';
-import logo from '../../assets/tiulogo.png';
+import logo from '../../assets/tiulogo.jpg';
 
 const recognitions = [
     {
