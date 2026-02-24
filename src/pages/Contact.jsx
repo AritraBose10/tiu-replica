@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { motion, useScroll, useTransform, useInView } from 'framer-motion';
 import { Phone, Mail, MapPin, Clock, Users, Award, Building, ChevronRight, Sparkles, ArrowUpRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
