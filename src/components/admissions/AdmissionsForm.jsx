@@ -100,7 +100,7 @@ const AdmissionsForm = () => {
 
                     <div className="flex flex-col gap-3 mb-8">
                         <a
-                            href="https://wa.me/919876543210?text=Hi%2C%20I%20want%20the%20SoF%20course%20brochure"
+                            href="https://wa.me/916292090138?text=Hi%2C%20I%20want%20the%20SoF%20course%20brochure"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="flex items-center gap-3 px-6 py-4 rounded-2xl bg-green-500/10 border border-green-500/20 text-green-400 font-semibold hover:bg-green-500/20 transition-all"
