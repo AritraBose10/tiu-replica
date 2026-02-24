@@ -23,11 +23,11 @@ const WhatsAppButton = () => {
 
                 @media (max-width: 768px) {
                     .kraya-floating-chat-icon {
-                        bottom: 130px !important;
+                        bottom: 80px !important;
                         z-index: 70 !important;
                     }
                     .kraya-floating-chat-box {
-                        bottom: 200px !important;
+                        bottom: 150px !important;
                     }
                 }
             `;

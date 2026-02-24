@@ -104,51 +104,6 @@ const LeadMagnetBanner = () => {
                 )}
             </AnimatePresence>
 
-            {/* Mobile banner (bottom toast) */}
-            <AnimatePresence>
-                {visible && !showModal && (
-                    <motion.div
-                        initial={{ y: 100, opacity: 0 }}
-                        animate={{ y: 0, opacity: 1 }}
-                        exit={{ y: 100, opacity: 0 }}
-                        transition={{ type: 'spring', stiffness: 200, damping: 25 }}
-                        className="fixed z-[55] bottom-16 left-4 right-4 md:hidden rounded-xl overflow-hidden shadow-2xl"
-                        style={{
-                            background: 'linear-gradient(145deg, #1a1a1a 0%, #0d0d0d 100%)',
-                            border: '1px solid rgba(255,255,255,0.1)',
-                        }}
-                    >
-                        <div className="flex items-center gap-3 p-3">
-                            <span className="text-2xl flex-shrink-0">🎓</span>
-                            <div className="flex-1 min-w-0">
-                                <p className="text-white font-bold text-xs">FREE: AI Career Guide 2026</p>
-                                <p className="text-gray-400 text-[10px]">Your roadmap to top AI careers</p>
-                            </div>
-                            <button
-                                onClick={() => {
-                                    setVisible(false);
-                                    setShowModal(true);
-                                }}
-                                className="flex-shrink-0 px-3 py-1.5 rounded-lg font-bold text-[10px] 
-                                           tracking-wider uppercase text-white"
-                                style={{
-                                    background: 'linear-gradient(135deg, #FF0000, #CC0000)',
-                                }}
-                            >
-                                Get
-                            </button>
-                            <button
-                                onClick={dismiss}
-                                className="flex-shrink-0 text-gray-500 hover:text-white text-xs p-1"
-                                aria-label="Dismiss"
-                            >
-                                ✕
-                            </button>
-                        </div>
-                    </motion.div>
-                )}
-            </AnimatePresence>
-
             {/* Modal form */}
             <AnimatePresence>
                 {showModal && (
