@@ -1,6 +1,6 @@
-import React, { useState, useRef } from 'react';
-import { motion, useScroll, useTransform, useInView, AnimatePresence } from 'framer-motion';
-import { Phone, Mail, MapPin, Send, Clock, Users, Award, Building, ChevronRight, Sparkles, ArrowUpRight, CheckCircle } from 'lucide-react';
+import React, { useRef } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { Phone, Mail, MapPin, Clock, Users, Award, Building, ChevronRight, Sparkles, ArrowUpRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useSettings } from '../contexts/SettingsContext';
 
@@ -95,29 +95,53 @@ const ContactInfoCard = ({ icon: Icon, title, value, href, subtitle, index }) =>
     </motion.a>
 );
 
+const EEFormWidget = () => {
+    React.useEffect(() => {
+        const baseUrl = "https://eeconfigstaticfiles.blob.core.windows.net/staticfiles/ee-form-widget/";
+
+        // Inject CSS if not already present
+        if (!document.getElementById("__formWidgetCss")) {
+            const link = document.createElement("link");
+            link.id = "__formWidgetCss";
+            link.rel = "stylesheet";
+            link.href = baseUrl + "css/stylesheet.min.css";
+            link.type = "text/css";
+            document.getElementsByTagName("head")[0].appendChild(link);
+        }
+
+        // Inject JS and init widget
+        const script = document.createElement("script");
+        script.type = "text/javascript";
+        script.onload = async function () {
+            window._eeFormWidget = new window.eeFormWidget();
+            await window._eeFormWidget.init("softiu", "form-9", "ee-form-9");
+        };
+        script.src = baseUrl + "js/eeFormWidget.min.js";
+        document.getElementsByTagName("head")[0].appendChild(script);
+
+        return () => {
+            // cleanup script on unmount
+            const existingScript = document.querySelector(`script[src="${baseUrl}js/eeFormWidget.min.js"]`);
+            if (existingScript) existingScript.remove();
+        };
+    }, []);
+
+    return (
+        <div className="relative rounded-3xl overflow-hidden">
+            <div className="absolute inset-0 bg-[#0a0a12]/90 backdrop-blur-xl border border-white/[0.06] rounded-3xl" />
+            <div className="relative p-8 md:p-10">
+                <div id="ee-form-9" />
+            </div>
+        </div>
+    );
+};
+
 const Contact = () => {
     const { getSetting } = useSettings();
     const heroRef = useRef(null);
     const { scrollYProgress } = useScroll({ target: heroRef, offset: ['start start', 'end start'] });
     const heroY = useTransform(scrollYProgress, [0, 1], [0, 150]);
     const heroOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
-
-    const [formData, setFormData] = useState({
-        firstName: '', lastName: '', email: '', phone: '', message: ''
-    });
-    const [submitted, setSubmitted] = useState(false);
-    const [focusedField, setFocusedField] = useState(null);
-
-    const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
-    };
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        setSubmitted(true);
-        setTimeout(() => setSubmitted(false), 4000);
-        setFormData({ firstName: '', lastName: '', email: '', phone: '', message: '' });
-    };
 
     const particles = Array.from({ length: 12 }, (_, i) => ({
         delay: i * 0.5,
@@ -241,131 +265,7 @@ const Contact = () => {
                             transition={{ duration: 0.7 }}
                             className="relative"
                         >
-                            <div className="relative rounded-3xl overflow-hidden">
-                                <div className="absolute inset-0 bg-[#0a0a12]/90 backdrop-blur-xl border border-white/[0.06] rounded-3xl" />
-                                <div className="relative p-8 md:p-10">
-                                    <AnimatePresence mode="wait">
-                                        {submitted ? (
-                                            <motion.div
-                                                key="success"
-                                                initial={{ opacity: 0, scale: 0.8 }}
-                                                animate={{ opacity: 1, scale: 1 }}
-                                                exit={{ opacity: 0, scale: 0.8 }}
-                                                className="flex flex-col items-center justify-center py-16 text-center"
-                                            >
-                                                <div className="w-20 h-20 rounded-full bg-green-500/20 border border-green-500/30 flex items-center justify-center mb-6">
-                                                    <CheckCircle className="w-10 h-10 text-green-400" />
-                                                </div>
-                                                <h3 className="text-2xl font-bold text-white mb-2">Message Sent!</h3>
-                                                <p className="text-gray-400">We'll get back to you within 24 hours.</p>
-                                            </motion.div>
-                                        ) : (
-                                            <motion.form
-                                                key="form"
-                                                initial={{ opacity: 0 }}
-                                                animate={{ opacity: 1 }}
-                                                exit={{ opacity: 0 }}
-                                                onSubmit={handleSubmit}
-                                                className="space-y-6"
-                                            >
-                                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                                                    {[
-                                                        { name: 'firstName', label: 'First Name', type: 'text', required: true },
-                                                        { name: 'lastName', label: 'Last Name', type: 'text', required: false },
-                                                    ].map((field) => (
-                                                        <div key={field.name} className="relative">
-                                                            <label className="block text-gray-400 text-sm font-medium mb-2">
-                                                                {field.label} {field.required && <span className="text-red-400">*</span>}
-                                                            </label>
-                                                            <input
-                                                                type={field.type}
-                                                                name={field.name}
-                                                                value={formData[field.name]}
-                                                                onChange={handleChange}
-                                                                onFocus={() => setFocusedField(field.name)}
-                                                                onBlur={() => setFocusedField(null)}
-                                                                required={field.required}
-                                                                className={`w-full px-4 py-3 rounded-xl bg-white/[0.04] border text-white placeholder-gray-600 outline-none transition-all duration-300 ${focusedField === field.name
-                                                                    ? 'border-red-500/50 shadow-[0_0_20px_rgba(239,68,68,0.1)]'
-                                                                    : 'border-white/[0.08] hover:border-white/[0.15]'
-                                                                    }`}
-                                                                placeholder={field.label}
-                                                            />
-                                                        </div>
-                                                    ))}
-                                                </div>
-
-                                                <div className="relative">
-                                                    <label className="block text-gray-400 text-sm font-medium mb-2">
-                                                        Email <span className="text-red-400">*</span>
-                                                    </label>
-                                                    <input
-                                                        type="email"
-                                                        name="email"
-                                                        value={formData.email}
-                                                        onChange={handleChange}
-                                                        onFocus={() => setFocusedField('email')}
-                                                        onBlur={() => setFocusedField(null)}
-                                                        required
-                                                        className={`w-full px-4 py-3 rounded-xl bg-white/[0.04] border text-white placeholder-gray-600 outline-none transition-all duration-300 ${focusedField === 'email'
-                                                            ? 'border-red-500/50 shadow-[0_0_20px_rgba(239,68,68,0.1)]'
-                                                            : 'border-white/[0.08] hover:border-white/[0.15]'
-                                                            }`}
-                                                        placeholder="your@email.com"
-                                                    />
-                                                </div>
-
-                                                <div className="relative">
-                                                    <label className="block text-gray-400 text-sm font-medium mb-2">Phone</label>
-                                                    <input
-                                                        type="tel"
-                                                        name="phone"
-                                                        value={formData.phone}
-                                                        onChange={handleChange}
-                                                        onFocus={() => setFocusedField('phone')}
-                                                        onBlur={() => setFocusedField(null)}
-                                                        className={`w-full px-4 py-3 rounded-xl bg-white/[0.04] border text-white placeholder-gray-600 outline-none transition-all duration-300 ${focusedField === 'phone'
-                                                            ? 'border-red-500/50 shadow-[0_0_20px_rgba(239,68,68,0.1)]'
-                                                            : 'border-white/[0.08] hover:border-white/[0.15]'
-                                                            }`}
-                                                        placeholder="+91 XXXXX XXXXX"
-                                                    />
-                                                </div>
-
-                                                <div className="relative">
-                                                    <label className="block text-gray-400 text-sm font-medium mb-2">
-                                                        Message <span className="text-red-400">*</span>
-                                                    </label>
-                                                    <textarea
-                                                        name="message"
-                                                        value={formData.message}
-                                                        onChange={handleChange}
-                                                        onFocus={() => setFocusedField('message')}
-                                                        onBlur={() => setFocusedField(null)}
-                                                        required
-                                                        rows={5}
-                                                        className={`w-full px-4 py-3 rounded-xl bg-white/[0.04] border text-white placeholder-gray-600 outline-none transition-all duration-300 resize-none ${focusedField === 'message'
-                                                            ? 'border-red-500/50 shadow-[0_0_20px_rgba(239,68,68,0.1)]'
-                                                            : 'border-white/[0.08] hover:border-white/[0.15]'
-                                                            }`}
-                                                        placeholder="How can we help you?"
-                                                    />
-                                                </div>
-
-                                                <motion.button
-                                                    type="submit"
-                                                    whileHover={{ scale: 1.02 }}
-                                                    whileTap={{ scale: 0.98 }}
-                                                    className="w-full py-4 rounded-xl bg-gradient-to-r from-red-600 to-red-500 text-white font-semibold text-lg flex items-center justify-center gap-3 shadow-[0_0_30px_rgba(239,68,68,0.25)] hover:shadow-[0_0_40px_rgba(239,68,68,0.35)] transition-shadow duration-300"
-                                                >
-                                                    <Send className="w-5 h-5" />
-                                                    Send Message
-                                                </motion.button>
-                                            </motion.form>
-                                        )}
-                                    </AnimatePresence>
-                                </div>
-                            </div>
+                            <EEFormWidget />
                         </motion.div>
 
                         {/* Map + Address */}
