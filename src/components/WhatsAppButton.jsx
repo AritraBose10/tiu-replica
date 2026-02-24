@@ -11,15 +11,17 @@ const WhatsAppButton = () => {
             appUrl: "https://api.kraya-ai.com"
         };
 
-        // Inject CSS to push widget above sticky Apply bar on mobile
+        // Inject CSS to push widget above sticky Apply bar on mobile + hide text label
         if (!document.getElementById('__krayaPositionFix')) {
             const style = document.createElement('style');
             style.id = '__krayaPositionFix';
             style.textContent = `
+                /* Hide "WhatsApp Us" text label on all screen sizes */
+                .kraya-floating-chat-icon .kraya-floating-whatsapp-container {
+                    display: none !important;
+                }
+
                 @media (max-width: 768px) {
-                    .kraya-floating-whatsapp-container {
-                        bottom: 80px !important;
-                    }
                     .kraya-floating-chat-icon {
                         bottom: 80px !important;
                         z-index: 70 !important;
