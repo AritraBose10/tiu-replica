@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Award, Shield, BadgeCheck, Globe, ArrowRight } from 'lucide-react';
-import logo from '../../assets/tiulogo.jpg';
+import logo from '../../assets/tiulogo.png';
 
 const recognitions = [
     {
@@ -110,7 +110,7 @@ const DegreeRecognition = () => {
                                 <img src={logo} alt="Techno India University" className="w-full h-full object-contain" style={{ filter: 'brightness(0) invert(1)' }} />
                             </div>
                             <h3 className="text-2xl font-bold text-white mb-2">Techno India University</h3>
-                            <p className="text-gray-400 text-sm mb-6">Established by West Bengal State Legislature</p>
+
 
                             <div className="flex flex-wrap gap-3 justify-center">
                                 <span className="px-4 py-2 rounded-full bg-emerald-600/10 border border-emerald-600/20 text-emerald-400 text-sm font-semibold">
