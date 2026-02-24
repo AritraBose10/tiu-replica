@@ -5,22 +5,17 @@ const WhatsAppButton = () => {
         window.chatWidgetConfig = {
             whatsappNumber: "916292090138",
             welcomeMessage: "Hey 👋,\nHow can we help you?",
-            buttonText: "Chat on Whatsapp",
+            buttonText: "",          // empty = no text label, icon only
             profileName: "Kraya AI",
             profileImageUrl: "https://api.kraya-ai.com/images/kraya-logo.png",
             appUrl: "https://api.kraya-ai.com"
         };
 
-        // Inject CSS to push widget above sticky Apply bar on mobile + hide text label
+        // Inject CSS to push widget above sticky Apply bar on mobile
         if (!document.getElementById('__krayaPositionFix')) {
             const style = document.createElement('style');
             style.id = '__krayaPositionFix';
             style.textContent = `
-                /* Hide "WhatsApp Us" text label on all screen sizes */
-                .kraya-floating-chat-icon .kraya-floating-whatsapp-container {
-                    display: none !important;
-                }
-
                 @media (max-width: 768px) {
                     .kraya-floating-chat-icon {
                         bottom: 80px !important;
