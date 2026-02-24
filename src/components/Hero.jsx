@@ -292,7 +292,7 @@ const Hero = () => {
 
                 {/* ── Partner Logos ── */}
                 <motion.div
-                    className="flex items-center justify-center gap-6 mb-8 md:mb-10"
+                    className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6 mb-8 md:mb-10 flex-wrap"
                     variants={fadeUp}
                 >
                     <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white/[0.04] border border-white/10 hover:bg-white/[0.07] transition-all duration-300">
@@ -303,7 +303,7 @@ const Hero = () => {
                             className="h-5 object-contain opacity-80 hover:opacity-100 transition-opacity"
                         />
                     </div>
-                    <div className="w-px h-6 bg-white/10" />
+                    <div className="hidden sm:block w-px h-6 bg-white/10" />
                     <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white/[0.04] border border-white/10 hover:bg-white/[0.07] transition-all duration-300">
                         <span className="text-white/40 text-[10px] font-semibold uppercase tracking-widest whitespace-nowrap">In collaboration with</span>
                         <img
