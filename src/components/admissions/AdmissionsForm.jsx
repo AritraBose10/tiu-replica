@@ -1,97 +1,89 @@
-import React, { useRef, useState } from 'react';
-import { motion, useMotionValue, useTransform, useSpring } from 'framer-motion';
-import { Send, CheckCircle, User, Mail, Phone, BookOpen, MessageSquare } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 
-const InputField = ({ icon: Icon, type, placeholder, value, onChange, name }) => (
-    <div className="relative group mb-6">
-        <div className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-red-500 transition-colors">
-            <Icon className="w-5 h-5" />
-        </div>
-        <input
-            type={type}
-            name={name}
-            value={value}
-            onChange={onChange}
-            placeholder={placeholder}
-            className="w-full bg-white/5 border border-white/10 rounded-xl px-12 py-4 text-white placeholder-gray-500 focus:outline-none focus:border-red-500/50 focus:bg-white/10 transition-all duration-300 backdrop-blur-sm"
-        />
-        <div className="absolute bottom-0 left-0 h-[1px] w-0 bg-red-500 group-focus-within:w-full transition-all duration-500" />
-    </div>
-);
+const EEFormWidget = () => {
+    const [isLoading, setIsLoading] = useState(true);
+    const [iframeHeight, setIframeHeight] = useState(520);
 
-const AdmissionsForm = ({ onSuccess }) => {
-    const cardRef = useRef(null);
-    const [status, setStatus] = useState('idle'); // idle, submitting, success
-    const [formData, setFormData] = useState({
-        name: '', email: '', phone: '', program: '', message: ''
-    });
+    useEffect(() => {
+        const handleMessage = (event) => {
+            if (event.data && event.data.type === 'EE_WIDGET_LOADED') setIsLoading(false);
+            if (event.data && event.data.type === 'EE_WIDGET_HEIGHT') setIframeHeight(event.data.height);
+        };
+        window.addEventListener('message', handleMessage);
+        return () => window.removeEventListener('message', handleMessage);
+    }, []);
 
-    // 3D Tilt Effect
-    const x = useMotionValue(0);
-    const y = useMotionValue(0);
-
-    const mouseX = useSpring(x, { stiffness: 150, damping: 20 });
-    const mouseY = useSpring(y, { stiffness: 150, damping: 20 });
-
-    const rotateX = useTransform(mouseY, [-0.5, 0.5], [10, -10]);
-    const rotateY = useTransform(mouseX, [-0.5, 0.5], [-10, 10]);
-
-    const handleMouseMove = (e) => {
-        const rect = cardRef.current.getBoundingClientRect();
-        const width = rect.width;
-        const height = rect.height;
-        const mouseXVal = e.clientX - rect.left;
-        const mouseYVal = e.clientY - rect.top;
-        const xPct = mouseXVal / width - 0.5;
-        const yPct = mouseYVal / height - 0.5;
-        x.set(xPct);
-        y.set(yPct);
-    };
-
-    const handleMouseLeave = () => {
-        x.set(0);
-        y.set(0);
-    };
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        setStatus('submitting');
-        // Simulate API call
-        setTimeout(() => {
-            setStatus('success');
-            if (onSuccess) {
-                setTimeout(onSuccess, 2000); // Trigger callback after showing success message for 2 seconds
-            }
-        }, 2000);
-    };
-
-    const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
+    const widgetCode = `
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <style>
+                body { margin: 0; padding: 0; background: transparent; font-family: sans-serif; }
+                ::-webkit-scrollbar { width: 6px; }
+                ::-webkit-scrollbar-track { background: transparent; }
+                ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 3px; }
+            </style>
+        </head>
+        <body>
+            <div class="ee-form-widget" id="ee-form-9"></div>
+            <script>
+                function reportHeight() {
+                    var h = document.body.scrollHeight;
+                    window.parent.postMessage({ type: 'EE_WIDGET_HEIGHT', height: h }, '*');
+                }
+                window.addEventListener("DOMContentLoaded", function() {
+                    window.ee_form_widget_baseurl = "https://eeconfigstaticfiles.blob.core.windows.net/staticfiles/ee-form-widget/";
+                    if (!document.getElementById("__formWidgetCss")) {
+                        var e = document.createElement("link");
+                        e.id = "__formWidgetCss";
+                        e.rel = "stylesheet";
+                        e.href = window.ee_form_widget_baseurl + "css/stylesheet.min.css";
+                        e.type = "text/css";
+                        document.getElementsByTagName("head")[0].appendChild(e);
+                    }
+                    var t = document.createElement("script");
+                    t.type = "text/javascript";
+                    t.onload = async function() {
+                        var _eeFormWidget = new eeFormWidget();
+                        await _eeFormWidget.init("softiu", "form-9", "ee-form-9");
+                        window.parent.postMessage({ type: 'EE_WIDGET_LOADED' }, '*');
+                        setTimeout(reportHeight, 300);
+                        setTimeout(reportHeight, 1000);
+                    };
+                    t.src = window.ee_form_widget_baseurl + "js/eeFormWidget.min.js";
+                    document.getElementsByTagName("head")[0].appendChild(t);
+                });
+                if (window.ResizeObserver) {
+                    new ResizeObserver(reportHeight).observe(document.documentElement);
+                }
+            <\/script>
+        </body>
+        </html>
+    `;
 
     return (
-        <section className="py-24 px-4 bg-[#0a0a0f] relative overflow-hidden flex items-center justify-center min-h-screen">
-            {/* Background Particles (Simulated with simple dots) */}
-            <div className="absolute inset-0 pointer-events-none">
-                {[...Array(20)].map((_, i) => (
-                    <motion.div
-                        key={i}
-                        className="absolute w-1 h-1 bg-white/20 rounded-full"
-                        initial={{
-                            x: Math.random() * window.innerWidth,
-                            y: Math.random() * window.innerHeight
-                        }}
-                        animate={{
-                            y: [null, Math.random() * window.innerHeight],
-                            opacity: [0, 1, 0]
-                        }}
-                        transition={{
-                            duration: Math.random() * 10 + 10,
-                            repeat: Infinity,
-                            ease: "linear"
-                        }}
-                    />
-                ))}
-            </div>
+        <div className="relative bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl shadow-2xl" style={{ padding: '10px 5px', height: iframeHeight + 40 }}>
+            {isLoading && (
+                <div className="absolute inset-0 flex items-center justify-center z-20 bg-black/20 backdrop-blur-sm rounded-3xl">
+                    <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-red-500" />
+                </div>
+            )}
+            <iframe
+                srcDoc={widgetCode}
+                title="Admissions Enquiry Form"
+                className={`w-full border-0 z-10 rounded-2xl transition-opacity duration-500 ${isLoading ? 'opacity-0' : 'opacity-100'}`}
+                style={{ backgroundColor: 'transparent', height: iframeHeight }}
+            />
+        </div>
+    );
+};
 
+const AdmissionsForm = () => {
+    return (
+        <section className="py-24 px-4 bg-[#0a0a0f] relative overflow-hidden flex items-center justify-center min-h-screen">
             <div className="container mx-auto max-w-6xl grid md:grid-cols-2 gap-12 items-center relative z-10">
                 {/* Left Text */}
                 <div>
@@ -113,7 +105,7 @@ const AdmissionsForm = ({ onSuccess }) => {
                             rel="noopener noreferrer"
                             className="flex items-center gap-3 px-6 py-4 rounded-2xl bg-green-500/10 border border-green-500/20 text-green-400 font-semibold hover:bg-green-500/20 transition-all"
                         >
-                            📱 Get Course List & Brochure on WhatsApp
+                            📱 Get Course List &amp; Brochure on WhatsApp
                         </a>
                         <a
                             href="#"
@@ -135,84 +127,14 @@ const AdmissionsForm = ({ onSuccess }) => {
                     </div>
                 </div>
 
-                {/* Right Form Card */}
+                {/* Right: EE Form Widget */}
                 <motion.div
-                    ref={cardRef}
-                    onMouseMove={handleMouseMove}
-                    onMouseLeave={handleMouseLeave}
-                    style={{
-                        rotateX,
-                        rotateY,
-                        transformStyle: "preserve-3d",
-                    }}
-                    className="relative perspective-1000"
+                    initial={{ opacity: 0, x: 40 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.7 }}
                 >
-                    <div className="relative bg-black/40 backdrop-blur-xl border border-white/10 rounded-3xl p-8 md:p-10 shadow-2xl transform-style-3d">
-                        {/* Glossy Reflection */}
-                        <div className="absolute inset-0 rounded-3xl bg-gradient-to-tr from-white/10 to-transparent pointer-events-none" />
-
-                        {status === 'success' ? (
-                            <motion.div
-                                initial={{ opacity: 0, scale: 0.8 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                className="flex flex-col items-center justify-center py-20 text-center"
-                            >
-                                <div className="w-20 h-20 bg-green-500/20 text-green-500 rounded-full flex items-center justify-center mb-6">
-                                    <CheckCircle className="w-10 h-10" />
-                                </div>
-                                <h3 className="text-3xl font-bold text-white mb-2">Application Sent!</h3>
-                                <p className="text-gray-400">Check your email for further instructions.</p>
-                            </motion.div>
-                        ) : (
-                            <form onSubmit={handleSubmit}>
-                                <h3 className="text-2xl font-bold text-white mb-8">Quick Enquiry</h3>
-
-                                <InputField icon={User} type="text" name="name" placeholder="Full Name" value={formData.name} onChange={handleChange} />
-                                <InputField icon={Mail} type="email" name="email" placeholder="Email Address" value={formData.email} onChange={handleChange} />
-                                <div className="grid grid-cols-2 gap-4">
-                                    <InputField icon={Phone} type="tel" name="phone" placeholder="Phone" value={formData.phone} onChange={handleChange} />
-                                    <div className="relative group mb-6">
-                                        <div className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
-                                            <BookOpen className="w-5 h-5" />
-                                        </div>
-                                        <select
-                                            name="program"
-                                            value={formData.program}
-                                            onChange={handleChange}
-                                            className="w-full bg-white/5 border border-white/10 rounded-xl px-12 py-4 text-white focus:outline-none focus:border-red-500/50 appearance-none cursor-pointer"
-                                        >
-                                            <option value="" className="text-black">Select Program</option>
-                                            <option value="btech" className="text-black">B.Tech CSE</option>
-                                            <option value="bca" className="text-black">BCA</option>
-                                            <option value="mba" className="text-black">MBA</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div className="flex items-start gap-3 mb-6">
-                                    <input
-                                        type="checkbox"
-                                        id="whatsapp-optin"
-                                        className="mt-1 w-4 h-4 accent-red-500 bg-white/10 border-white/20 rounded"
-                                        defaultChecked
-                                    />
-                                    <label htmlFor="whatsapp-optin" className="text-gray-400 text-sm">
-                                        I agree to receive updates on WhatsApp
-                                    </label>
-                                </div>
-
-                                <button
-                                    type="submit"
-                                    disabled={status === 'submitting'}
-                                    className="w-full bg-gradient-to-r from-red-600 to-orange-600 text-white font-bold py-4 rounded-xl hover:shadow-lg hover:shadow-red-500/30 transition-all flex items-center justify-center gap-2 transform active:scale-95 disabled:opacity-50"
-                                >
-                                    {status === 'submitting' ? 'Sending...' : (
-                                        <>Apply for Admissions 2026 <Send className="w-4 h-4" /></>
-                                    )}
-                                </button>
-                            </form>
-                        )}
-                    </div>
+                    <EEFormWidget />
                 </motion.div>
             </div>
         </section>
