@@ -118,7 +118,7 @@ const WhatIsSoF = () => {
                             className="relative group perspective-1000"
                         >
                             {/* Main Image Container */}
-                            <div className="relative rounded-[2rem] overflow-hidden bg-black border border-white/10 aspect-[4/3] lg:aspect-auto lg:h-[600px] transform rotate-y-[-5deg] rotate-x-[2deg] group-hover:rotate-y-0 group-hover:rotate-x-0 transition-transform duration-700 ease-out shadow-2xl shadow-red-500/10">
+                            <div className="relative rounded-[2rem] overflow-hidden bg-black border border-white/10 aspect-[4/3] lg:aspect-auto lg:h-[600px] shadow-2xl shadow-red-500/10">
                                 <img
                                     src={sofImage}
                                     alt="School of the Future Campus"
