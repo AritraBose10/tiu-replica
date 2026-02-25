@@ -3,7 +3,6 @@ import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { Quote, Star, GraduationCap } from 'lucide-react';
 import { getDriveImageUrl } from '../utils/driveImage';
 
-const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:3001';
 
 // ─── Marquee Row ──────────────────────────────────────────────
 const MarqueeRow = ({ testimonials, direction = 'left', speed = 35 }) => {
@@ -135,7 +134,7 @@ const Testimonials = () => {
     const [testimonials, setTestimonials] = useState([]);
 
     useEffect(() => {
-        fetch(`${API_BASE}/api/testimonials`)
+        fetch('/api/testimonials')
             .then(r => r.json())
             .then(data => {
                 if (Array.isArray(data) && data.length > 0) setTestimonials(data);
