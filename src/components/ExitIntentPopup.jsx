@@ -1,10 +1,98 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
+// ExtraEdge widget embedded in an iframe (same technique as AdmissionsHero)
+const BrochureFormWidget = () => {
+    const [isLoading, setIsLoading] = useState(true);
+    const [iframeHeight, setIframeHeight] = useState(480);
+
+    useEffect(() => {
+        const handleMessage = (event) => {
+            if (event.data && event.data.type === 'EE_WIDGET_LOADED') {
+                setIsLoading(false);
+            }
+            if (event.data && event.data.type === 'EE_WIDGET_HEIGHT') {
+                setIframeHeight(event.data.height);
+            }
+        };
+        window.addEventListener('message', handleMessage);
+        return () => window.removeEventListener('message', handleMessage);
+    }, []);
+
+    const widgetCode = `
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <style>
+                body { margin: 0; padding: 0; background: transparent; font-family: sans-serif; }
+                ::-webkit-scrollbar { width: 6px; }
+                ::-webkit-scrollbar-track { background: transparent; }
+                ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.2); border-radius: 3px; }
+            </style>
+        </head>
+        <body>
+            <div class="ee-form-widget" id="ee-form-9"></div>
+
+            <script>
+                function reportHeight() {
+                    var h = document.body.scrollHeight;
+                    window.parent.postMessage({ type: 'EE_WIDGET_HEIGHT', height: h }, '*');
+                }
+
+                window.addEventListener("DOMContentLoaded", function() {
+                    window.ee_form_widget_baseurl = "https://eeconfigstaticfiles.blob.core.windows.net/staticfiles/ee-form-widget/";
+
+                    if (!document.getElementById("__formWidgetCss")) {
+                        var e = document.createElement("link");
+                        e.id = "__formWidgetCss";
+                        e.rel = "stylesheet";
+                        e.href = window.ee_form_widget_baseurl + "css/stylesheet.min.css";
+                        e.type = "text/css";
+                        document.getElementsByTagName("head")[0].appendChild(e);
+                    }
+
+                    var t = document.createElement("script");
+                    t.type = "text/javascript";
+                    t.onload = async function() {
+                        var _eeFormWidget = new eeFormWidget();
+                        await _eeFormWidget.init("softiu", "form-9", "ee-form-9");
+                        window.parent.postMessage({ type: 'EE_WIDGET_LOADED' }, '*');
+                        setTimeout(reportHeight, 300);
+                        setTimeout(reportHeight, 1000);
+                    };
+                    t.src = window.ee_form_widget_baseurl + "js/eeFormWidget.min.js";
+                    document.getElementsByTagName("head")[0].appendChild(t);
+                });
+
+                if (window.ResizeObserver) {
+                    new ResizeObserver(reportHeight).observe(document.documentElement);
+                }
+            <\/script>
+        </body>
+        </html>
+    `;
+
+    return (
+        <div className="relative w-full" style={{ height: iframeHeight + 20 }}>
+            {isLoading && (
+                <div className="absolute inset-0 flex items-center justify-center z-20 bg-black/10 rounded-xl">
+                    <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-red-500" />
+                </div>
+            )}
+            <iframe
+                srcDoc={widgetCode}
+                title="Download Brochure Form"
+                className={`w-full border-0 rounded-xl transition-opacity duration-500 ${isLoading ? 'opacity-0' : 'opacity-100'}`}
+                style={{ height: iframeHeight, backgroundColor: 'transparent' }}
+            />
+        </div>
+    );
+};
+
 const ExitIntentPopup = () => {
     const [show, setShow] = useState(false);
-    const [submitted, setSubmitted] = useState(false);
-    const [form, setForm] = useState({ name: '', email: '', phone: '' });
 
     const triggerPopup = useCallback(() => {
         if (sessionStorage.getItem('exitPopupShown')) return;
@@ -31,18 +119,6 @@ const ExitIntentPopup = () => {
             clearTimeout(timer);
         };
     }, [triggerPopup]);
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        // TODO: Connect to backend API
-        console.log('Brochure download lead:', form);
-        setSubmitted(true);
-        setTimeout(() => setShow(false), 2500);
-    };
-
-    const handleChange = (e) => {
-        setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-    };
 
     return (
         <AnimatePresence>
@@ -74,17 +150,13 @@ const ExitIntentPopup = () => {
                         {/* Top red accent bar */}
                         <div
                             className="h-1 w-full"
-                            style={{
-                                background: 'linear-gradient(90deg, #FF0000, #CC0000)',
-                            }}
+                            style={{ background: 'linear-gradient(90deg, #FF0000, #CC0000)' }}
                         />
 
                         {/* Close button */}
                         <button
                             onClick={() => setShow(false)}
-                            className="absolute top-4 right-4 w-8 h-8 rounded-full 
-                                       flex items-center justify-center text-gray-400 
-                                       hover:text-white hover:bg-white/10 transition-colors"
+                            className="absolute top-4 right-4 w-8 h-8 rounded-full flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/10 transition-colors z-10"
                             aria-label="Close popup"
                         >
                             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -92,97 +164,9 @@ const ExitIntentPopup = () => {
                             </svg>
                         </button>
 
-                        <div className="p-8">
-                            {!submitted ? (
-                                <>
-                                    {/* Icon */}
-                                    <div
-                                        className="w-14 h-14 rounded-xl flex items-center justify-center mb-5 mx-auto"
-                                        style={{
-                                            background: 'rgba(255,0,0,0.1)',
-                                            border: '1px solid rgba(255,0,0,0.2)',
-                                        }}
-                                    >
-                                        <svg className="w-7 h-7 text-[#FF0000]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
-                                                d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                                        </svg>
-                                    </div>
-
-                                    <h2 className="text-2xl font-bold text-white text-center mb-2">
-                                        Download Our Brochure
-                                    </h2>
-                                    <p className="text-gray-400 text-center text-sm mb-6">
-                                        Get the complete guide to programs, campus life &amp; placements
-                                    </p>
-
-                                    <form onSubmit={handleSubmit} className="space-y-3">
-                                        <input
-                                            type="text"
-                                            name="name"
-                                            placeholder="Full Name"
-                                            required
-                                            value={form.name}
-                                            onChange={handleChange}
-                                            className="w-full px-4 py-3 rounded-lg text-sm text-white placeholder-gray-500 outline-none transition-colors focus:ring-1 focus:ring-[#FF0000]/50"
-                                            style={{
-                                                background: 'rgba(255,255,255,0.05)',
-                                                border: '1px solid rgba(255,255,255,0.1)',
-                                            }}
-                                        />
-                                        <input
-                                            type="email"
-                                            name="email"
-                                            placeholder="Email Address"
-                                            required
-                                            value={form.email}
-                                            onChange={handleChange}
-                                            className="w-full px-4 py-3 rounded-lg text-sm text-white placeholder-gray-500 outline-none transition-colors focus:ring-1 focus:ring-[#FF0000]/50"
-                                            style={{
-                                                background: 'rgba(255,255,255,0.05)',
-                                                border: '1px solid rgba(255,255,255,0.1)',
-                                            }}
-                                        />
-                                        <input
-                                            type="tel"
-                                            name="phone"
-                                            placeholder="Phone Number"
-                                            required
-                                            value={form.phone}
-                                            onChange={handleChange}
-                                            className="w-full px-4 py-3 rounded-lg text-sm text-white placeholder-gray-500 outline-none transition-colors focus:ring-1 focus:ring-[#FF0000]/50"
-                                            style={{
-                                                background: 'rgba(255,255,255,0.05)',
-                                                border: '1px solid rgba(255,255,255,0.1)',
-                                            }}
-                                        />
-                                        <button
-                                            type="submit"
-                                            className="w-full py-3 rounded-lg font-bold text-sm tracking-wider uppercase text-white transition-all duration-200 hover:brightness-110"
-                                            style={{
-                                                background: 'linear-gradient(135deg, #FF0000, #CC0000)',
-                                                boxShadow: '0 4px 20px rgba(255,0,0,0.3)',
-                                            }}
-                                        >
-                                            Download Brochure
-                                        </button>
-                                    </form>
-
-                                    <p className="text-gray-600 text-[11px] text-center mt-4">
-                                        We respect your privacy. No spam, ever.
-                                    </p>
-                                </>
-                            ) : (
-                                <div className="text-center py-6">
-                                    <div className="w-16 h-16 bg-green-500/10 rounded-full flex items-center justify-center mx-auto mb-4 border border-green-500/20">
-                                        <svg className="w-8 h-8 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                                        </svg>
-                                    </div>
-                                    <h3 className="text-xl font-bold text-white mb-1">Thank You!</h3>
-                                    <p className="text-gray-400 text-sm">Your brochure download will begin shortly.</p>
-                                </div>
-                            )}
+                        <div className="p-4">
+                            {/* ExtraEdge Form Widget */}
+                            <BrochureFormWidget />
                         </div>
                     </motion.div>
                 </motion.div>

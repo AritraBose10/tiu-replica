@@ -3,6 +3,7 @@ import { useAuth } from './AuthProvider';
 import { Search, Plus, Pencil, Trash2, Inbox, X, Check, AlertCircle, ImageIcon } from 'lucide-react';
 import { sanityClient } from '../../lib/sanityClient';
 import MediaUploader from './MediaUploader';
+import { getDriveImageUrl } from '../../utils/driveImage';
 
 /**
  * Reusable CRUD admin page with premium UI.
@@ -221,7 +222,7 @@ export default function CrudPage({ title, endpoint, columns, fields, idField = '
                                                 {formData[f.key] && (
                                                     <div style={{ marginTop: 8, padding: 10, background: 'rgba(255,255,255,0.03)', borderRadius: 8, border: '1px solid rgba(255,255,255,0.08)', display: 'flex', alignItems: 'center', gap: 10 }}>
                                                         <img
-                                                            src={formData[f.key]}
+                                                            src={getDriveImageUrl(formData[f.key])}
                                                             alt="Preview"
                                                             style={{ width: 48, height: 48, objectFit: 'contain', borderRadius: 6, background: '#fff' }}
                                                             onError={(e) => { e.target.style.display = 'none'; }}
@@ -258,7 +259,7 @@ export default function CrudPage({ title, endpoint, columns, fields, idField = '
                                                 {formData[f.key] && (
                                                     <div style={{ marginTop: 10, display: 'flex', alignItems: 'center', gap: 10, padding: 10, background: 'rgba(255,255,255,0.03)', borderRadius: 8, border: '1px solid rgba(255,255,255,0.08)' }}>
                                                         <img
-                                                            src={formData[f.key]}
+                                                            src={getDriveImageUrl(formData[f.key])}
                                                             alt="Preview"
                                                             style={{ width: 48, height: 48, borderRadius: '50%', objectFit: 'cover', border: '2px solid rgba(255,0,0,0.3)', background: '#111' }}
                                                             onError={(e) => { e.target.style.display = 'none'; }}

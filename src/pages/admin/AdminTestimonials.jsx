@@ -1,4 +1,5 @@
 import CrudPage from '../../components/admin/CrudPage';
+import { getDriveImageUrl } from '../../utils/driveImage';
 
 const columns = [
     {
@@ -6,7 +7,7 @@ const columns = [
         label: 'Photo',
         render: (v) => v ? (
             <img
-                src={v}
+                src={getDriveImageUrl(v, 80)}
                 alt="student"
                 style={{
                     width: 40, height: 40, borderRadius: '50%', objectFit: 'cover',
