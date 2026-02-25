@@ -230,6 +230,43 @@ export default function CrudPage({ title, endpoint, columns, fields, idField = '
                                                     </div>
                                                 )}
                                             </div>
+                                        ) : f.type === 'image_combined' ? (
+                                            <div>
+                                                {/* URL / Drive link */}
+                                                <input
+                                                    type="text"
+                                                    value={formData[f.key] ?? ''}
+                                                    onChange={(e) => setFormData(prev => ({ ...prev, [f.key]: e.target.value }))}
+                                                    placeholder={f.placeholder || 'Paste image URL or Google Drive link…'}
+                                                />
+                                                {/* Divider */}
+                                                <div style={{ display: 'flex', alignItems: 'center', gap: 10, margin: '10px 0' }}>
+                                                    <div style={{ flex: 1, height: 1, background: 'rgba(255,255,255,0.08)' }} />
+                                                    <span style={{ fontSize: 11, color: '#555', textTransform: 'uppercase', letterSpacing: 1 }}>or upload a file</span>
+                                                    <div style={{ flex: 1, height: 1, background: 'rgba(255,255,255,0.08)' }} />
+                                                </div>
+                                                {/* File upload */}
+                                                <MediaUploader
+                                                    type="image"
+                                                    value={formData[f.key]}
+                                                    onChange={(url) => setFormData(prev => ({ ...prev, [f.key]: url }))}
+                                                    onUploadStart={() => setSaving(true)}
+                                                    onUploadEnd={() => setSaving(false)}
+                                                    showToast={showToast}
+                                                />
+                                                {/* Preview */}
+                                                {formData[f.key] && (
+                                                    <div style={{ marginTop: 10, display: 'flex', alignItems: 'center', gap: 10, padding: 10, background: 'rgba(255,255,255,0.03)', borderRadius: 8, border: '1px solid rgba(255,255,255,0.08)' }}>
+                                                        <img
+                                                            src={formData[f.key]}
+                                                            alt="Preview"
+                                                            style={{ width: 48, height: 48, borderRadius: '50%', objectFit: 'cover', border: '2px solid rgba(255,0,0,0.3)', background: '#111' }}
+                                                            onError={(e) => { e.target.style.display = 'none'; }}
+                                                        />
+                                                        <span style={{ fontSize: 12, color: '#888' }}>Photo preview</span>
+                                                    </div>
+                                                )}
+                                            </div>
                                         ) : f.type === 'image' || f.type === 'video' ? (
                                             <MediaUploader
                                                 type={f.type}

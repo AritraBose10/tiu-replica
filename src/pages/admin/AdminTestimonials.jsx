@@ -55,9 +55,9 @@ const fields = [
     { key: 'rating', label: 'Rating (1–5)', type: 'number' },
     {
         key: 'image',
-        label: 'Student Photo (paste URL or Google Drive link)',
-        type: 'image_url',
-        placeholder: 'https://drive.google.com/uc?export=view&id=...'
+        label: 'Student Photo',
+        type: 'image_combined',
+        placeholder: 'Paste a URL or Google Drive link…'
     },
     { key: 'company', label: 'Label / Company (e.g. School of the Future)', type: 'text' },
     { key: 'row_num', label: 'Display Row (1, 2 or 3)', type: 'number' },
