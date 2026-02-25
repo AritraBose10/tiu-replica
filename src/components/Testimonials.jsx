@@ -28,7 +28,7 @@ const MarqueeRow = ({ testimonials, direction = 'left', speed = 35 }) => {
             <motion.div
                 key={contentWidth}
                 ref={containerRef}
-                className="flex gap-6 w-max"
+                className="flex gap-6 w-max items-start py-8 px-4"
                 animate={{
                     x: direction === 'left' ? [0, -contentWidth] : [-contentWidth, 0],
                 }}
@@ -51,12 +51,14 @@ const MarqueeRow = ({ testimonials, direction = 'left', speed = 35 }) => {
 
 // ─── 3D Tilt Testimonial Card ─────────────────────────────────
 const TestimonialCard = ({ testimonial }) => {
+    const [isHovered, setIsHovered] = useState(false);
+
     const x = useMotionValue(0);
     const y = useMotionValue(0);
     const mouseX = useSpring(x, { stiffness: 500, damping: 100 });
     const mouseY = useSpring(y, { stiffness: 500, damping: 100 });
-    const rotateX = useTransform(mouseY, [-0.5, 0.5], ['8deg', '-8deg']);
-    const rotateY = useTransform(mouseX, [-0.5, 0.5], ['-8deg', '8deg']);
+    const rotateX = useTransform(mouseY, [-0.5, 0.5], ['5deg', '-5deg']);
+    const rotateY = useTransform(mouseX, [-0.5, 0.5], ['-5deg', '5deg']);
 
     const handleMouse = (e) => {
         const rect = e.currentTarget.getBoundingClientRect();
@@ -67,20 +69,24 @@ const TestimonialCard = ({ testimonial }) => {
     const handleMouseLeave = () => {
         x.set(0);
         y.set(0);
+        setIsHovered(false);
     };
 
     return (
         <motion.div
+            layout
             onMouseMove={handleMouse}
+            onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={handleMouseLeave}
             style={{ rotateX, rotateY, transformStyle: 'preserve-3d' }}
             className="group relative flex-shrink-0 w-[380px] cursor-pointer"
         >
             {/* Hover glow */}
-            <div className="absolute -inset-0.5 bg-gradient-to-br from-[#FF0000] to-purple-600 opacity-0 group-hover:opacity-30 blur-xl transition-opacity duration-500 rounded-3xl" />
+            <motion.div layout className="absolute -inset-0.5 bg-gradient-to-br from-[#FF0000] to-purple-600 opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-500 rounded-3xl" />
 
-            <div
-                className="relative bg-[#0a0a12]/90 backdrop-blur-xl border border-white/10 rounded-3xl p-7 h-full group-hover:border-[#FF0000]/30 transition-colors duration-500 overflow-hidden"
+            <motion.div
+                layout
+                className="relative bg-[#0a0a12]/90 backdrop-blur-xl border border-white/10 rounded-3xl p-7 h-full group-hover:border-[#FF0000]/30 transition-colors duration-500 overflow-hidden flex flex-col"
                 style={{ transform: 'translateZ(20px)' }}
             >
                 {/* Background gradient mesh */}
@@ -92,19 +98,28 @@ const TestimonialCard = ({ testimonial }) => {
                 </div>
 
                 {/* Stars */}
-                <div className="flex gap-1 mb-4 relative z-10" style={{ transform: 'translateZ(30px)' }}>
+                <motion.div layout className="flex gap-1 mb-4 relative z-10" style={{ transform: 'translateZ(30px)' }}>
                     {Array.from({ length: testimonial.rating }).map((_, i) => (
-                        <Star key={i} className="w-4 h-4 text-yellow-400 fill-yellow-400" />
+                        <Star key={i} className="w-4 h-4 text-yellow-500 fill-yellow-500" />
                     ))}
-                </div>
+                </motion.div>
 
                 {/* Quote text */}
-                <p className="text-gray-300 text-sm leading-relaxed mb-6 relative z-10 line-clamp-4" style={{ transform: 'translateZ(25px)' }}>
-                    "{testimonial.quote}"
-                </p>
+                <motion.div
+                    layout
+                    className="relative z-10 flex-1 mb-6"
+                    style={{ transform: 'translateZ(25px)' }}
+                >
+                    <motion.p
+                        layout
+                        className={`text-gray-300 text-sm leading-relaxed transition-colors duration-300 ${isHovered ? 'text-white' : 'line-clamp-4'}`}
+                    >
+                        "{testimonial.quote}"
+                    </motion.p>
+                </motion.div>
 
                 {/* Profile */}
-                <div className="flex items-center gap-3 pt-4 border-t border-white/5 relative z-10" style={{ transform: 'translateZ(30px)' }}>
+                <motion.div layout className="flex items-center gap-3 pt-4 border-t border-white/5 relative z-10 mt-auto" style={{ transform: 'translateZ(30px)' }}>
                     <div className="relative">
                         <img
                             src={getDriveImageUrl(testimonial.image)}
@@ -123,8 +138,8 @@ const TestimonialCard = ({ testimonial }) => {
                     <span className="text-[10px] font-bold uppercase tracking-wider text-gray-500 bg-white/5 px-2.5 py-1 rounded-full border border-white/5 flex-shrink-0">
                         {testimonial.company}
                     </span>
-                </div>
-            </div>
+                </motion.div>
+            </motion.div>
         </motion.div>
     );
 };
