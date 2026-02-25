@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { Quote, Star, GraduationCap } from 'lucide-react';
+import { getDriveImageUrl } from '../utils/driveImage';
 
 const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:3001';
 
@@ -13,11 +14,11 @@ const MarqueeRow = ({ testimonials, direction = 'left', speed = 35 }) => {
     const items = [...testimonials, ...testimonials];
 
     useEffect(() => {
-        if (containerRef.current) {
-            // Width of one set of items
+        if (containerRef.current && items.length > 0) {
+            // Re-measure whenever items change (e.g. after async API load)
             setContentWidth(containerRef.current.scrollWidth / 2);
         }
-    }, []);
+    }, [items.length]);
 
     return (
         <div className="overflow-hidden relative py-4">
@@ -26,6 +27,7 @@ const MarqueeRow = ({ testimonials, direction = 'left', speed = 35 }) => {
             <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-[#020205] to-transparent z-10 pointer-events-none" />
 
             <motion.div
+                key={contentWidth}
                 ref={containerRef}
                 className="flex gap-6 w-max"
                 animate={{
@@ -106,9 +108,10 @@ const TestimonialCard = ({ testimonial }) => {
                 <div className="flex items-center gap-3 pt-4 border-t border-white/5 relative z-10" style={{ transform: 'translateZ(30px)' }}>
                     <div className="relative">
                         <img
-                            src={testimonial.image}
+                            src={getDriveImageUrl(testimonial.image)}
                             alt={testimonial.name}
                             className="w-11 h-11 rounded-full object-cover border-2 border-white/10 group-hover:border-[#FF0000]/40 transition-colors duration-300"
+                            onError={(e) => { e.target.style.display = 'none'; }}
                         />
                         <div className="absolute -bottom-0.5 -right-0.5 w-4 h-4 bg-emerald-500 rounded-full border-2 border-[#0a0a12]" />
                     </div>
