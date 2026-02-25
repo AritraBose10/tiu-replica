@@ -129,12 +129,20 @@ const TestimonialCard = ({ testimonial }) => {
                         />
                         <div className="absolute -bottom-0.5 -right-0.5 w-4 h-4 bg-emerald-500 rounded-full border-2 border-[#0a0a12]" />
                     </div>
-                    <div className="flex-1 min-w-0">
-                        <p className="text-white font-semibold text-sm group-hover:text-[#FF0000] transition-colors duration-300 truncate">
+                    <motion.div layout className="flex-1 min-w-0">
+                        <motion.p
+                            layout
+                            className={`text-white font-semibold text-sm group-hover:text-[#FF0000] transition-colors duration-300 ${isHovered ? '' : 'truncate'}`}
+                        >
                             {testimonial.name}
-                        </p>
-                        <p className="text-gray-500 text-xs truncate">{testimonial.course}</p>
-                    </div>
+                        </motion.p>
+                        <motion.p
+                            layout
+                            className={`text-gray-500 text-xs ${isHovered ? 'mt-1' : 'truncate'}`}
+                        >
+                            {testimonial.course}
+                        </motion.p>
+                    </motion.div>
                     <span className="text-[10px] font-bold uppercase tracking-wider text-gray-500 bg-white/5 px-2.5 py-1 rounded-full border border-white/5 flex-shrink-0">
                         {testimonial.company}
                     </span>
