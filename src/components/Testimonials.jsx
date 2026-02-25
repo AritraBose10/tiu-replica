@@ -107,7 +107,7 @@ const TestimonialCard = ({ testimonial }) => {
                 <div className="flex items-center gap-3 pt-4 border-t border-white/5 relative z-10" style={{ transform: 'translateZ(30px)' }}>
                     <div className="relative">
                         <img
-                            src={getDriveImageUrl(testimonial.image)}
+                            src={testimonial.image}
                             alt={testimonial.name}
                             className="w-11 h-11 rounded-full object-cover border-2 border-white/10 group-hover:border-[#FF0000]/40 transition-colors duration-300"
                             onError={(e) => { e.target.style.display = 'none'; }}
