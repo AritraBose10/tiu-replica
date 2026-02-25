@@ -1,95 +1,8 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
-import { Quote, Star, GraduationCap, Sparkles } from 'lucide-react';
-import { useSanity } from '../hooks/useSanity';
-import { TESTIMONIALS_QUERY } from '../lib/queries';
+import { Quote, Star, GraduationCap } from 'lucide-react';
 
-// ─── Fallback Testimonials ───────────────────────────────────────
-const fallbackRow1 = [
-    {
-        name: 'Aarav Sharma',
-        course: 'B.Tech CSE, Batch 2024',
-        quote: 'TIU transformed my career trajectory. The AI/ML lab and mentorship from professors helped me land a role at Google right after graduation.',
-        rating: 5,
-        image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face',
-        company: 'Google',
-    },
-    {
-        name: 'Priya Patel',
-        course: 'MBA, Batch 2023',
-        quote: 'The industry exposure at TIU is unmatched. From internships at top MNCs to a vibrant campus life, every moment here was invaluable.',
-        rating: 5,
-        image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop&crop=face',
-        company: 'Microsoft',
-    },
-    {
-        name: 'Rohit Das',
-        course: 'B.Tech ECE, Batch 2025',
-        quote: 'The robotics club and the IoT lab gave me hands-on experience that no textbook could. I built my first startup prototype here.',
-        rating: 5,
-        image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&crop=face',
-        company: 'Startup Founder',
-    },
-    {
-        name: 'Ananya Roy',
-        course: 'B.Sc Data Science, Batch 2024',
-        quote: 'TIU\'s data science program is world-class. The curriculum is constantly updated and the placement cell worked tirelessly for us.',
-        rating: 5,
-        image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face',
-        company: 'Amazon',
-    },
-    {
-        name: 'Vikram Singh',
-        course: 'M.Tech AI, Batch 2023',
-        quote: 'Publishing two research papers during my M.Tech was possible because of the incredible faculty support and state-of-the-art labs.',
-        rating: 5,
-        image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
-        company: 'DeepMind',
-    },
-];
-
-const fallbackRow2 = [
-    {
-        name: 'Sneha Mukherjee',
-        course: 'BBA, Batch 2024',
-        quote: 'The entrepreneurship incubator at TIU helped me launch my e-commerce brand while still in college. The mentorship ecosystem is phenomenal.',
-        rating: 5,
-        image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&h=150&fit=crop&crop=face',
-        company: 'Founder, ShopEase',
-    },
-    {
-        name: 'Arjun Nair',
-        course: 'B.Tech CSE, Batch 2025',
-        quote: 'The hackathon culture here is electrifying. I\'ve won 3 national hackathons and the coding community is incredibly supportive.',
-        rating: 5,
-        image: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150&h=150&fit=crop&crop=face',
-        company: 'Flipkart',
-    },
-    {
-        name: 'Diya Ghosh',
-        course: 'M.Sc Biotechnology, Batch 2023',
-        quote: 'TIU\'s biotech labs are equipped with the latest instruments. My research on gene editing was recognized at an international conference.',
-        rating: 5,
-        image: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&h=150&fit=crop&crop=face',
-        company: 'Biocon',
-    },
-    {
-        name: 'Kabir Ahmed',
-        course: 'B.Tech Mechanical, Batch 2024',
-        quote: 'From Formula Student racing to industry internships in Germany, TIU gave me global exposure I never imagined possible.',
-        rating: 5,
-        image: 'https://images.unsplash.com/photo-1519345182560-3f2917c472ef?w=150&h=150&fit=crop&crop=face',
-        company: 'Bosch',
-    },
-    {
-        name: 'Riya Chatterjee',
-        course: 'B.Tech IT, Batch 2025',
-        quote: 'The Google and IBM certification programs integrated into the curriculum gave me an edge that no other university offers.',
-        rating: 5,
-        image: 'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=150&h=150&fit=crop&crop=face',
-        company: 'IBM',
-    },
-];
+const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:3001';
 
 // ─── Marquee Row ──────────────────────────────────────────────
 const MarqueeRow = ({ testimonials, direction = 'left', speed = 35 }) => {
@@ -216,11 +129,16 @@ const TestimonialCard = ({ testimonial }) => {
 
 // ─── Main Section — Single Strip ──────────────────────────────
 const Testimonials = () => {
-    const { data: allTestimonials } = useSanity(TESTIMONIALS_QUERY, null);
+    const [testimonials, setTestimonials] = useState([]);
 
-    const testimonials = allTestimonials && allTestimonials.length > 0
-        ? allTestimonials
-        : [...fallbackRow1, ...fallbackRow2];
+    useEffect(() => {
+        fetch(`${API_BASE}/api/testimonials`)
+            .then(r => r.json())
+            .then(data => {
+                if (Array.isArray(data) && data.length > 0) setTestimonials(data);
+            })
+            .catch(() => { });
+    }, []);
 
     return (
         <section className="py-16 bg-[#020205] relative overflow-hidden">
