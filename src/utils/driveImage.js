@@ -36,6 +36,6 @@ export function getDriveImageUrl(url, size = 300) {
 
     if (!fileId) return url; // can't parse — return original
 
-    // Use the thumbnail endpoint which is CORS-friendly and doesn't redirect
-    return `https://drive.google.com/thumbnail?id=${fileId}&sz=w${size}`;
+    // Return direct lh3.googleusercontent.com URL which guarantees CORS headers and no redirects
+    return `https://lh3.googleusercontent.com/d/${fileId}=w${size}`;
 }
