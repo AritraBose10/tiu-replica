@@ -12,7 +12,7 @@ const highlights = [
 
 const CampusLocation = () => {
     return (
-        <section className="py-24 px-4 bg-[#020205] relative overflow-hidden">
+        <section className="py-12 md:py-24 px-4 bg-[#020205] relative overflow-hidden">
             {/* Background */}
             <div className="absolute inset-0 pointer-events-none">
                 <div className="absolute bottom-0 left-1/4 w-[40vw] h-[30vw] bg-blue-600/5 rounded-full blur-[180px]" />

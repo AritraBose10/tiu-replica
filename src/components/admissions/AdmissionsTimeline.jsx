@@ -31,7 +31,7 @@ const steps = [
 
 const AdmissionsTimeline = () => {
     return (
-        <section className="py-20 px-4 bg-[#020205] relative overflow-hidden">
+        <section className="py-10 md:py-20 px-4 bg-[#020205] relative overflow-hidden">
             {/* Background glow */}
             <div className="absolute inset-0 pointer-events-none">
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[50vw] h-[30vw] bg-red-600/5 rounded-full blur-[160px]" />

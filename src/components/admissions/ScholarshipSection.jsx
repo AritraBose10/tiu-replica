@@ -76,7 +76,7 @@ const cardVariants = {
 
 const ScholarshipSection = () => {
     return (
-        <section className="py-24 px-4 bg-[#020205] relative overflow-hidden">
+        <section className="py-12 md:py-24 px-4 bg-[#020205] relative overflow-hidden">
             {/* Background */}
             <div className="absolute inset-0 pointer-events-none">
                 <div className="absolute top-1/4 -left-[10%] w-[40vw] h-[40vw] bg-amber-600/5 rounded-full blur-[150px]" />

@@ -30,7 +30,7 @@ const GoogleIBMDark = () => {
     }, [images.length]);
 
     return (
-        <section className="py-24 px-4 bg-[#020205] relative overflow-hidden">
+        <section className="py-12 md:py-24 px-4 bg-[#020205] relative overflow-hidden">
             {/* Background glow */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60vw] h-[60vw] bg-red-600/5 rounded-full blur-[200px] pointer-events-none" />
 

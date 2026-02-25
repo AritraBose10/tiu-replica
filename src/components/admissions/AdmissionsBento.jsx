@@ -189,7 +189,7 @@ const AdmissionsBento = () => {
     );
 
     return (
-        <section className="py-24 px-4 bg-[#020205] relative z-10 overflow-hidden">
+        <section className="py-12 md:py-24 px-4 bg-[#020205] relative z-10 overflow-hidden">
             {/* Background accent */}
             <div className="absolute top-1/3 -right-[10%] w-[40vw] h-[40vw] bg-red-600/5 rounded-full blur-[200px] pointer-events-none" />
 

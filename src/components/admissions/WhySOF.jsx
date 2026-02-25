@@ -50,7 +50,7 @@ const WhySOF = () => {
     const isInView = useInView(videoRef, { once: true, amount: 0.3 });
 
     return (
-        <section className="py-24 px-4 bg-[#020205] relative overflow-hidden">
+        <section className="py-12 md:py-24 px-4 bg-[#020205] relative overflow-hidden">
             {/* Background accents */}
             <div className="absolute top-0 right-0 w-[40vw] h-[40vw] bg-red-600/5 rounded-full blur-[150px] pointer-events-none" />
             <div className="absolute bottom-0 left-0 w-[30vw] h-[30vw] bg-blue-600/5 rounded-full blur-[120px] pointer-events-none" />
