@@ -133,7 +133,6 @@ const AdmissionsHero = () => {
                     muted
                     loop
                     playsInline
-                    poster="https://images.unsplash.com/photo-1562774053-701939374585?q=80&w=2086&auto=format&fit=crop"
                     className="w-full h-full object-cover"
                 >
                     <source
