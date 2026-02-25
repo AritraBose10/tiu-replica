@@ -102,16 +102,7 @@ const EligibilitySection = () => {
                     })}
                 </motion.div>
 
-                {/* Bottom note */}
-                <motion.p
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.4 }}
-                    className="text-center text-gray-500 text-sm mt-10"
-                >
-                    No entrance exam is required for most programs. Admission is through academic counselling and merit review.
-                </motion.p>
+
             </div>
         </section>
     );
