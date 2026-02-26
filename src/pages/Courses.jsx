@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { motion, AnimatePresence, useMotionValue, useTransform, useSpring } from 'framer-motion';
 import { Search, Filter, Sparkles, ArrowUpRight, Zap, Code, Database, Palette, Microscope, ChevronLeft, ChevronRight } from 'lucide-react';
 import coursesData from '../data/mock_courses.json';
 import { useSanity } from '../hooks/useSanity';
 import { COURSES_QUERY } from '../lib/queries';
 import SEO from '../components/SEO';
-
+import SchemaInjector from '../components/SchemaInjector';
 // --- 3D Tilt Card Component ---
 const TiltCard = ({ course, index }) => {
     const x = useMotionValue(0);
@@ -128,6 +128,45 @@ const Courses = () => {
 
     const degreeTabs = ['UG', 'PG'];
 
+    // Build Course ItemList schema from course data
+    const courseSchema = useMemo(() => {
+        if (!allCourses || allCourses.length === 0) return null;
+        return {
+            "@context": "https://schema.org",
+            "@type": "ItemList",
+            "name": "Programs at Techno India University — School of the Future",
+            "itemListElement": allCourses.map((course, i) => ({
+                "@type": "ListItem",
+                "position": i + 1,
+                "item": {
+                    "@type": "Course",
+                    "name": course.title,
+                    "description": course.description,
+                    "url": `https://www.technoindiauniversity.ai/courses`,
+                    "provider": {
+                        "@type": "CollegeOrUniversity",
+                        "name": "Techno India University",
+                        "sameAs": "https://www.technoindiauniversity.ai"
+                    },
+                    "hasCourseInstance": {
+                        "@type": "CourseInstance",
+                        "courseMode": "onsite",
+                        "location": {
+                            "@type": "Place",
+                            "name": "Techno India University, Kolkata",
+                            "address": {
+                                "@type": "PostalAddress",
+                                "addressLocality": "Kolkata",
+                                "addressRegion": "West Bengal",
+                                "addressCountry": "IN"
+                            }
+                        }
+                    }
+                }
+            }))
+        };
+    }, [allCourses]);
+
     useEffect(() => {
         let results = allCourses;
 
@@ -150,6 +189,7 @@ const Courses = () => {
                 title="Future-Ready Programs After 12th & Graduation | School of the Future"
                 description="Explore UG, PG & PhD programs in AI, Data Science, Business Analytics, Design, Media & Allied Health at the School of the Future."
             />
+            <SchemaInjector schema={courseSchema} />
 
             {/* Background Ambience */}
             <div className="fixed inset-0 pointer-events-none">

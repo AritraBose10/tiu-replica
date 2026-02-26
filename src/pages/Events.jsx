@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Calendar, MapPin, Clock, Users, ArrowUpRight, Search, Filter, Sparkles, ChevronRight, Tag } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -7,6 +7,7 @@ import { useSanity } from '../hooks/useSanity';
 import { useSettings } from '../contexts/SettingsContext';
 import { EVENTS_QUERY } from '../lib/queries';
 import SEO from '../components/SEO';
+import SchemaInjector from '../components/SchemaInjector';
 
 // ─── Mock Data ───────────────────────────────────────────────
 const CATEGORIES = ['All', 'Technical', 'Cultural', 'Workshop', 'Seminar', 'Sports'];
@@ -303,12 +304,51 @@ const Events = () => {
 
     const featuredEvents = eventsData.filter((e) => e.featured);
 
+    // Build Event ItemList schema from event data
+    const eventSchema = useMemo(() => {
+        if (!eventsData || eventsData.length === 0) return null;
+        return {
+            "@context": "https://schema.org",
+            "@type": "ItemList",
+            "name": "Events at Techno India University — School of the Future",
+            "itemListElement": eventsData.map((event, i) => ({
+                "@type": "ListItem",
+                "position": i + 1,
+                "item": {
+                    "@type": "Event",
+                    "name": event.title,
+                    "description": event.description || event.title,
+                    "startDate": event.date,
+                    "eventStatus": "https://schema.org/EventScheduled",
+                    "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+                    "location": {
+                        "@type": "Place",
+                        "name": event.location || "Techno India University",
+                        "address": {
+                            "@type": "PostalAddress",
+                            "addressLocality": "Kolkata",
+                            "addressCountry": "IN"
+                        }
+                    },
+                    "organizer": {
+                        "@type": "CollegeOrUniversity",
+                        "name": "Techno India University",
+                        "url": "https://www.technoindiauniversity.ai"
+                    },
+                    "url": event.link || "https://www.technoindiauniversity.ai/events",
+                    ...(event.image ? { "image": event.image } : {})
+                }
+            }))
+        };
+    }, [eventsData]);
+
     return (
         <div className="min-h-screen bg-[#020205] text-white overflow-x-hidden selection:bg-[#FF0000] selection:text-white">
             <SEO
                 title="Events & Happenings | School of the Future"
                 description="Discover tech fests, workshops, hackathons, cultural events and seminars at the School of the Future, Techno India University."
             />
+            <SchemaInjector schema={eventSchema} />
             <FloatingBackground />
 
             {/* ═══ HERO ═══ */}
