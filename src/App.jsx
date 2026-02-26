@@ -11,6 +11,7 @@ import Admissions from './pages/Admissions';
 import Approvals from './pages/Approvals';
 import Events from './pages/Events';
 import SearchPage from './pages/SearchPage';
+import BreadcrumbSchema from './components/BreadcrumbSchema';
 import EventScraperDemo from './components/EventScraperDemo';
 import { AnimatePresence } from 'framer-motion';
 
@@ -84,6 +85,7 @@ function App() {
             <Route path="/*" element={
               <div className="flex flex-col min-h-screen font-sans antialiased text-gray-900 bg-white">
                 <Navbar />
+                <BreadcrumbSchema />
                 <main className="flex-grow">
                   <Routes>
                     <Route path="/" element={<Home />} />
