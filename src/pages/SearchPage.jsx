@@ -132,8 +132,8 @@ const SearchPage = () => {
     return (
         <div className="min-h-screen bg-[#020205] text-white relative overflow-x-hidden selection:bg-[#FF0000] selection:text-white">
             <SEO
-                title={activeQuery ? `Search: ${activeQuery} | School of the Future` : 'Search | School of the Future'}
-                description="Search programs, events, and pages at the School of the Future, Techno India University."
+                title={activeQuery ? `Search Results for "${activeQuery}" — Programs, Events & More | Techno India University` : 'Search Programs, Events & Pages | School of the Future — Techno India University'}
+                description="Search across all programs, courses, events, and pages at the School of the Future, Techno India University, Kolkata."
             />
 
             {/* Background */}
@@ -152,9 +152,9 @@ const SearchPage = () => {
                             Search Everything
                         </span>
                         <h1 className="text-4xl md:text-6xl font-black mb-8">
-                            What are you{' '}
+                            Search Programs, Events & More at{' '}
                             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FF0000] to-pink-500">
-                                looking for?
+                                School of the Future
                             </span>
                         </h1>
                     </motion.div>
@@ -207,10 +207,10 @@ const SearchPage = () => {
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
                         >
-                            <p className="text-gray-400 text-sm mb-6">
+                            <h2 className="text-gray-400 text-sm mb-6">
                                 {results.length} result{results.length !== 1 ? 's' : ''} for{' '}
                                 <span className="text-white font-semibold">"{activeQuery}"</span>
-                            </p>
+                            </h2>
 
                             {results.length > 0 ? (
                                 <div className="space-y-3">
@@ -238,9 +238,27 @@ const SearchPage = () => {
                         <motion.div
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
-                            className="text-center py-12"
+                            className="py-12"
                         >
-                            <p className="text-gray-500 text-sm">Try searching for <span className="text-gray-300">"AI"</span>, <span className="text-gray-300">"Data Science"</span>, or <span className="text-gray-300">"admissions"</span></p>
+                            <p className="text-gray-500 text-sm text-center mb-10">Try searching for <span className="text-gray-300">"AI"</span>, <span className="text-gray-300">"Data Science"</span>, or <span className="text-gray-300">"admissions"</span></p>
+
+                            {/* Quick Links for SEO internal linking */}
+                            <h2 className="text-white font-semibold text-lg mb-4">Quick Links</h2>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                {pages.map((page) => (
+                                    <Link
+                                        key={page.url}
+                                        to={page.url}
+                                        className="group flex items-center gap-3 p-4 rounded-xl bg-white/5 border border-white/10 hover:border-[#FF0000]/30 transition-all duration-300"
+                                    >
+                                        <ArrowUpRight className="w-4 h-4 text-gray-600 group-hover:text-[#FF0000] transition-colors flex-shrink-0" />
+                                        <div>
+                                            <h3 className="text-white text-sm font-medium group-hover:text-[#FF0000] transition-colors">{page.title}</h3>
+                                            <p className="text-gray-500 text-xs mt-0.5 line-clamp-1">{page.description}</p>
+                                        </div>
+                                    </Link>
+                                ))}
+                            </div>
                         </motion.div>
                     )}
                 </AnimatePresence>
