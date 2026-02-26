@@ -10,6 +10,7 @@ import FAQ from './pages/FAQ';
 import Admissions from './pages/Admissions';
 import Approvals from './pages/Approvals';
 import Events from './pages/Events';
+import SearchPage from './pages/SearchPage';
 import EventScraperDemo from './components/EventScraperDemo';
 import { AnimatePresence } from 'framer-motion';
 
@@ -93,6 +94,7 @@ function App() {
                     <Route path="/faq" element={<FAQ />} />
                     <Route path="/approvals" element={<Approvals />} />
                     <Route path="/events" element={<Events />} />
+                    <Route path="/search" element={<SearchPage />} />
                     <Route path="/events-demo" element={<EventScraperDemo />} />
                     <Route path="*" element={<NotFound />} />
                   </Routes>
