@@ -37,7 +37,7 @@ const ThankYou = () => {
                 >
                     <Link to="/">
                         <img
-                            src="/image.png"
+                            src="/logo.png"
                             alt="School of the Future"
                             className="h-16 md:h-20 mx-auto object-contain hover:opacity-80 transition-opacity"
                         />
