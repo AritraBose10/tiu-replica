@@ -44,7 +44,7 @@ const FAQSection = ({ customFaqs }) => {
     };
 
     const bgImage = getSetting('faq_bg_image');
-    const sideImage = getSetting('faq_side_image') || "https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=2070&auto=format&fit=crop";
+    const sideImage = getSetting('faq_side_image') || "";
 
     return (
         <section

@@ -18,8 +18,8 @@ const GoogleIBMDark = () => {
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
     const images = [
-        getSetting('admissions_google_ibm_bg') || "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=2071&auto=format&fit=crop",
-        getSetting('admissions_google_ibm_bg_2') || "https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=2070&auto=format&fit=crop"
+        getSetting('admissions_google_ibm_bg') || "",
+        getSetting('admissions_google_ibm_bg_2') || ""
     ];
 
     useEffect(() => {

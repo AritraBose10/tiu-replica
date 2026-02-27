@@ -9,33 +9,33 @@ const SIDE_COLS_FAR = 4;
 const SIDE_ROWS_FAR = 4;
 
 const CENTER_IMG =
-    'https://images.unsplash.com/photo-1562774053-701939374585?q=80&w=2086&auto=format&fit=crop';
+    '';
 
 const SIDE_PANELS = [
     {
         id: 'far-left',
-        src: 'https://images.unsplash.com/photo-1564981797816-1043664bf78d?q=80&w=2074&auto=format&fit=crop',
+        src: '',
         alt: 'University Hall',
         side: 'left',
         far: true,
     },
     {
         id: 'near-left',
-        src: 'https://images.unsplash.com/photo-1607237138185-eedd9c632b0b?q=80&w=2070&auto=format&fit=crop',
+        src: '',
         alt: 'Campus Architecture',
         side: 'left',
         far: false,
     },
     {
         id: 'near-right',
-        src: 'https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?q=80&w=2070&auto=format&fit=crop',
+        src: '',
         alt: 'Student Life',
         side: 'right',
         far: false,
     },
     {
         id: 'far-right',
-        src: 'https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=2070&auto=format&fit=crop',
+        src: '',
         alt: 'Graduation Day',
         side: 'right',
         far: true,

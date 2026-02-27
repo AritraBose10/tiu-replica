@@ -3,11 +3,11 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 const defaultImages = [
-    "https://images.unsplash.com/photo-1562774053-701939374585?q=80&w=2572&auto=format&fit=crop", // Modern white building
-    "https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2669&auto=format&fit=crop", // Modern office
-    "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2670&auto=format&fit=crop", // Students collab
-    "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=2670&auto=format&fit=crop", // Lab/Tech
-    "https://images.unsplash.com/photo-1541829070764-84a7d30dd3f3?q=80&w=2569&auto=format&fit=crop", // Campus
+    "",
+    "",
+    "",
+    "",
+    ""
 ];
 
 const defaultCaptions = [

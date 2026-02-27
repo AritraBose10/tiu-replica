@@ -21,7 +21,7 @@ const fallbackEventsData = [
         time: '9:00 AM – 8:00 PM',
         location: 'Main Auditorium & Tech Block',
         category: 'Technical',
-        image: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=2070&auto=format&fit=crop',
+        image: '',
         attendees: 2500,
         featured: true,
         status: 'upcoming',
@@ -34,7 +34,7 @@ const fallbackEventsData = [
         time: '10:00 AM – 4:00 PM',
         location: 'CS Lab 301',
         category: 'Workshop',
-        image: 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?q=80&w=2070&auto=format&fit=crop',
+        image: '',
         attendees: 120,
         featured: false,
         status: 'upcoming',
@@ -47,7 +47,7 @@ const fallbackEventsData = [
         time: '11:00 AM – 10:00 PM',
         location: 'Open Air Theatre & Central Ground',
         category: 'Cultural',
-        image: 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=2070&auto=format&fit=crop',
+        image: '',
         attendees: 5000,
         featured: true,
         status: 'upcoming',
@@ -60,7 +60,7 @@ const fallbackEventsData = [
         time: '3:00 PM – 5:00 PM',
         location: 'Seminar Hall A',
         category: 'Seminar',
-        image: 'https://images.unsplash.com/photo-1475721027785-f74eccf877e2?q=80&w=2070&auto=format&fit=crop',
+        image: '',
         attendees: 300,
         featured: false,
         status: 'ongoing',
@@ -73,7 +73,7 @@ const fallbackEventsData = [
         time: '10:00 AM (Start)',
         location: 'Innovation Hub',
         category: 'Technical',
-        image: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=2070&auto=format&fit=crop',
+        image: '',
         attendees: 500,
         featured: false,
         status: 'upcoming',
@@ -86,7 +86,7 @@ const fallbackEventsData = [
         time: '8:00 AM – 6:00 PM',
         location: 'Sports Complex',
         category: 'Sports',
-        image: 'https://images.unsplash.com/photo-1461896836934-bd45ba6343ce?q=80&w=2070&auto=format&fit=crop',
+        image: '',
         attendees: 3000,
         featured: false,
         status: 'upcoming',
@@ -99,7 +99,7 @@ const fallbackEventsData = [
         time: '9:30 AM – 5:30 PM',
         location: 'Tech Block Room 204',
         category: 'Workshop',
-        image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop',
+        image: '',
         attendees: 80,
         featured: false,
         status: 'upcoming',
@@ -112,7 +112,7 @@ const fallbackEventsData = [
         time: '10:00 AM – 3:00 PM',
         location: 'Conference Center',
         category: 'Seminar',
-        image: 'https://images.unsplash.com/photo-1532619675605-1ede6c2ed2b0?q=80&w=2070&auto=format&fit=crop',
+        image: '',
         attendees: 200,
         featured: false,
         status: 'upcoming',
@@ -356,7 +356,7 @@ const Events = () => {
                 {/* Background image */}
                 <div className="absolute inset-0 z-0">
                     <img
-                        src={getSetting('events_bg') || "https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=2070&auto=format&fit=crop"}
+                        src={getSetting('events_bg') || ""}
                         alt="Events"
                         className="w-full h-full object-cover"
                     />

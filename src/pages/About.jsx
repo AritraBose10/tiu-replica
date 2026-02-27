@@ -149,8 +149,8 @@ const FloatingBackground = () => (
 // --- Main About Page ---
 const About = () => {
     const { getSetting } = useSettings();
-    const heroBg = getSetting('about_hero_bg', 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=2070&auto=format&fit=crop');
-    const campusImg = getSetting('about_campus_image', 'https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=2070&auto=format&fit=crop');
+    const heroBg = getSetting('about_hero_bg', '');
+    const campusImg = getSetting('about_campus_image', '');
 
     const { scrollYProgress } = useScroll();
     const y = useTransform(scrollYProgress, [0, 1], [0, -150]);

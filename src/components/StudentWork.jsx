@@ -16,7 +16,7 @@ const StudentWork = () => {
             description: 'Real applications built using industry tools like React, Node.js & Python.',
             size: 'col-span-1 md:col-span-2 row-span-2', // Large Feature
             gradient: 'from-blue-600 to-indigo-600',
-            image: getSetting('student_work_coding_image') || "https://images.unsplash.com/photo-1571171637578-41bc2dd41cd2?q=80&w=3540&auto=format&fit=crop"
+            image: getSetting('student_work_coding_image') || ""
         },
         {
             id: 'hackathon',
@@ -25,7 +25,7 @@ const StudentWork = () => {
             description: 'National winners at Smart India Hackathon & more.',
             size: 'col-span-1 row-span-1',
             gradient: 'from-amber-500 to-orange-500',
-            image: getSetting('student_work_hackathon_image') || "https://images.unsplash.com/photo-1504384308090-c54be3855485?q=80&w=2669&auto=format&fit=crop"
+            image: getSetting('student_work_hackathon_image') || ""
         },
         {
             id: 'visits',
@@ -34,7 +34,7 @@ const StudentWork = () => {
             description: 'On-site exposure at Google, IBM & Microsoft campuses.',
             size: 'col-span-1 row-span-1',
             gradient: 'from-emerald-500 to-teal-500',
-            image: getSetting('student_work_visits_image') || "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=2664&auto=format&fit=crop"
+            image: getSetting('student_work_visits_image') || ""
         },
         {
             id: 'startup',
@@ -43,7 +43,7 @@ const StudentWork = () => {
             description: '3 student startups funded in 2024 alone.',
             size: 'col-span-1 md:col-span-2 row-span-1', // Wide
             gradient: 'from-purple-600 to-pink-600',
-            image: getSetting('student_work_startup_image') || "https://images.unsplash.com/photo-1559136555-9303baea8ebd?q=80&w=2670&auto=format&fit=crop"
+            image: getSetting('student_work_startup_image') || ""
         },
         {
             id: 'research',
@@ -52,7 +52,7 @@ const StudentWork = () => {
             description: 'Papers in IEEE & Springer conferences.',
             size: 'col-span-1 row-span-1',
             gradient: 'from-cyan-500 to-blue-500',
-            image: getSetting('student_work_research_image') || "https://images.unsplash.com/photo-1532094349884-543bc11b234d?q=80&w=2670&auto=format&fit=crop"
+            image: getSetting('student_work_research_image') || ""
         },
         {
             id: 'community',
@@ -61,7 +61,7 @@ const StudentWork = () => {
             description: 'Leading GDSC and other tech clubs.',
             size: 'col-span-1 row-span-1',
             gradient: 'from-rose-500 to-red-500',
-            image: getSetting('student_work_community_image') || "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=2668&auto=format&fit=crop"
+            image: getSetting('student_work_community_image') || ""
         },
     ];
 
