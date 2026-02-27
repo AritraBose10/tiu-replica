@@ -27,9 +27,9 @@ export const routeMeta = {
     changefreq: 'weekly',
     priority: 0.9
   },
-  '/google-ibm-course': { // Included as requested in spec
-    title: 'Future-Ready Programs After 12th & Graduation | School of the Future',
-    description: 'Explore UG, PG & PhD programs in AI, Data Science, Business Analytics, Design, Media & Allied Health at the School of the Future.',
+  '/google-ibm-course': {
+    title: 'Google Cloud & IBM Powered Courses | School of the Future',
+    description: 'Explore industry-powered degree programs co-designed with Google Cloud & IBM. Embedded certifications, live projects, and guaranteed internships at Techno India University.',
     changefreq: 'weekly',
     priority: 0.9
   },

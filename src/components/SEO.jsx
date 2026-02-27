@@ -22,6 +22,16 @@ const SEO = ({ title, description, schema }) => {
             metaDescription.setAttribute('content', description);
         }
 
+        // Set Canonical Tag
+        let canonicalLink = document.querySelector('link[rel="canonical"]');
+        if (!canonicalLink) {
+            canonicalLink = document.createElement('link');
+            canonicalLink.setAttribute('rel', 'canonical');
+            document.head.appendChild(canonicalLink);
+        }
+        // Automatically inject the clean URL without query parameters
+        canonicalLink.setAttribute('href', `https://www.technoindiauniversity.ai${window.location.pathname}`);
+
         // Set JSON-LD structured data
         let scriptTag = document.querySelector('script[data-seo-schema]');
         if (schema) {
