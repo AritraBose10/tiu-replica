@@ -95,7 +95,7 @@ const GoogleIBMBanner = () => {
                         {/* CTA */}
                         <div className="mt-8">
                             <MotionLink
-                                to="/courses"
+                                to="/google-ibm-course"
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.98 }}
                                 className="inline-flex items-center gap-2 bg-[#FF0000] text-white px-8 py-4 rounded-full font-semibold hover:bg-[#CC0000] transition-colors w-max"

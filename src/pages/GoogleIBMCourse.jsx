@@ -75,11 +75,12 @@ const GoogleIBMCourse = () => {
         return () => clearInterval(timer);
     }, [images.length]);
 
-    // Course schema for SEO
+    // Course schema for SEO — individual Course types for rich results
     const courseSchema = useMemo(() => ({
         "@context": "https://schema.org",
         "@type": "ItemList",
-        "name": "Google Cloud & IBM Powered Programs at School of the Future",
+        "name": "Google Cloud & IBM Certification Courses at School of the Future",
+        "numberOfItems": googleIBMCourses.length,
         "itemListElement": googleIBMCourses.map((course, i) => ({
             "@type": "ListItem",
             "position": i + 1,
@@ -88,10 +89,30 @@ const GoogleIBMCourse = () => {
                 "name": course.title,
                 "description": course.description,
                 "url": "https://www.technoindiauniversity.ai/google-ibm-course",
+                "courseCode": course.id,
+                "educationalCredentialAwarded": "Bachelor's / Master's Degree + Industry Certifications",
                 "provider": {
                     "@type": "CollegeOrUniversity",
                     "name": "Techno India University",
+                    "url": "https://www.technoindiauniversity.ai",
                     "sameAs": "https://www.technoindiauniversity.ai"
+                },
+                "hasCourseInstance": {
+                    "@type": "CourseInstance",
+                    "courseMode": "onsite",
+                    "courseWorkload": "PT40H",
+                    "location": {
+                        "@type": "Place",
+                        "name": "Techno India University, Kolkata",
+                        "address": {
+                            "@type": "PostalAddress",
+                            "streetAddress": "EM-4, Sector V, Salt Lake",
+                            "addressLocality": "Kolkata",
+                            "addressRegion": "West Bengal",
+                            "postalCode": "700091",
+                            "addressCountry": "IN"
+                        }
+                    }
                 }
             }
         }))
@@ -107,7 +128,7 @@ const GoogleIBMCourse = () => {
     return (
         <div className="min-h-screen bg-[#020205] text-white overflow-x-hidden selection:bg-[#FF0000] selection:text-white">
             <SEO
-                title="Google Cloud & IBM Powered Courses | School of the Future"
+                title="Google Cloud & IBM Certification Courses | School of the Future, Techno India University"
                 description="Explore industry-powered degree programs co-designed with Google Cloud & IBM. Embedded certifications, live projects, and guaranteed internships at Techno India University."
             />
             <SchemaInjector schema={courseSchema} />
@@ -162,9 +183,9 @@ const GoogleIBMCourse = () => {
                             transition={{ ...fadeUp.transition, delay: 0.2 }}
                             className="text-4xl sm:text-5xl md:text-7xl font-black leading-[1.1] mb-6"
                         >
-                            <span className="text-white">Industry-Powered Degrees </span>
+                            <span className="text-white">Google Cloud & IBM Certification Courses </span>
                             <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-orange-500">
-                                that Build Careers
+                                for Future-Ready Careers
                             </span>
                         </motion.h1>
 
