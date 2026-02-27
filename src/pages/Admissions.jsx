@@ -16,6 +16,8 @@ import CampusLocation from '../components/admissions/CampusLocation';
 import AdmissionsStats from '../components/admissions/AdmissionsStats';
 import FAQSection from '../components/FAQSection';
 import AdmissionsForm from '../components/admissions/AdmissionsForm';
+import SEO from '../components/SEO';
+import SchemaInjector from '../components/SchemaInjector';
 
 /* ─── Admissions-Specific FAQs (from admission.md §14) ─── */
 const admissionsFaqs = [
@@ -75,8 +77,6 @@ const FloatingCTA = () => {
     );
 };
 
-import SEO from '../components/SEO';
-import SchemaInjector from '../components/SchemaInjector';
 
 const admissionsFaqSchema = {
     "@context": "https://schema.org",

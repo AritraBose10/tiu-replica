@@ -35,7 +35,7 @@ export function SettingsProvider({ children }) {
      * @param {any} fallback - The value to return if the key is missing or empty.
      * @returns {any} - The setting value or fallback.
      */
-    const getSetting = (key, fallback = '') => {
+    const getSetting = (key, fallback = null) => {
         return settings[key] || fallback;
     };
 

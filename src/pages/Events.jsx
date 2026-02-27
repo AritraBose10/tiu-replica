@@ -355,11 +355,13 @@ const Events = () => {
             <section className="relative min-h-[70vh] flex items-center justify-center overflow-hidden">
                 {/* Background image */}
                 <div className="absolute inset-0 z-0">
-                    <img
-                        src={getSetting('events_bg') || ""}
-                        alt="Events"
-                        className="w-full h-full object-cover"
-                    />
+                    {getSetting('events_bg') && (
+                        <img
+                            src={getSetting('events_bg')}
+                            alt="Events"
+                            className="w-full h-full object-cover"
+                        />
+                    )}
                     <div className="absolute inset-0 bg-gradient-to-t from-[#020205] via-[#020205]/80 to-[#020205]/50" />
                 </div>
 

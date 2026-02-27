@@ -18,9 +18,9 @@ const GoogleIBMDark = () => {
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
     const images = [
-        getSetting('admissions_google_ibm_bg') || "",
-        getSetting('admissions_google_ibm_bg_2') || ""
-    ];
+        getSetting('admissions_google_ibm_bg') || null,
+        getSetting('admissions_google_ibm_bg_2') || null
+    ].filter(Boolean);
 
     useEffect(() => {
         const timer = setInterval(() => {

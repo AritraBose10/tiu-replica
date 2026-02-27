@@ -1,5 +1,3 @@
-import { useEffect } from 'react';
-
 /**
  * SchemaInjector — Injects a JSON-LD structured data block into the <head>.
  * Automatically cleans up on unmount / re-render.

@@ -34,7 +34,7 @@ const LeadMagnetBanner = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log('Lead magnet submission:', form);
+        // TODO: Wire up to actual submission endpoint
         setSubmitted(true);
         setTimeout(() => dismiss(), 2500);
     };
