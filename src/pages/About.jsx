@@ -173,8 +173,8 @@ const About = () => {
     return (
         <div className="min-h-screen bg-[#020205] text-white overflow-x-hidden selection:bg-[#FF0000] selection:text-white">
             <SEO
-                title="Why Choose the School of the Future? | SoF"
-                description="Discover how industry-powered learning, projects and future-focused curriculum make SoF different from traditional colleges."
+                title="About School Of The Future | Legacy of Innovation & Learning"
+                description="Discover the School of the Future’s mission and vision. Backed by seasoned industry experts and academic leaders, 15,000+ students and global partners drive innovation-led education."
             />
             <FloatingBackground />
 
