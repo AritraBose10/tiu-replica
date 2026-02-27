@@ -92,7 +92,7 @@ export function AppShell() {
                     <Route path="/courses" element={<Courses />} />
                     <Route path="/about" element={<About />} />
                     <Route path="/admissions" element={<Admissions />} />
-                    <Route path="/google-ibm-course" element={<GoogleIBMCourse />} />
+                    <Route path="/cloud-ai-certification-courses-kolkata" element={<GoogleIBMCourse />} />
                     <Route path="/contact" element={<Contact />} />
                     <Route path="/faq" element={<FAQ />} />
                     <Route path="/approvals" element={<Approvals />} />

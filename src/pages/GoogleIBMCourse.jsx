@@ -88,7 +88,7 @@ const GoogleIBMCourse = () => {
                 "@type": "Course",
                 "name": course.title,
                 "description": course.description,
-                "url": "https://www.technoindiauniversity.ai/google-ibm-course",
+                "url": "https://www.technoindiauniversity.ai/cloud-ai-certification-courses-kolkata",
                 "courseCode": course.id,
                 "educationalCredentialAwarded": "Bachelor's / Master's Degree + Industry Certifications",
                 "provider": {

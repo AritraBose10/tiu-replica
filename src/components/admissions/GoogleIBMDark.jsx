@@ -97,7 +97,7 @@ const GoogleIBMDark = () => {
                             </div>
 
                             <MotionLink
-                                to="/google-ibm-course"
+                                to="/cloud-ai-certification-courses-kolkata"
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.98 }}
                                 className="inline-flex items-center gap-2 bg-gradient-to-r from-red-600 to-red-500 text-white px-8 py-4 rounded-full font-semibold shadow-[0_0_30px_rgba(255,0,0,0.3)] hover:shadow-[0_0_50px_rgba(255,0,0,0.4)] transition-shadow"

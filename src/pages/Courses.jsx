@@ -241,7 +241,7 @@ const Courses = () => {
                             Explore our wide range of industry-aligned programs designed to launch your career in the digital age.
                         </p>
                         <Link
-                            to="/google-ibm-course"
+                            to="/cloud-ai-certification-courses-kolkata"
                             className="inline-flex items-center gap-2 mt-6 px-6 py-3 rounded-full bg-white/5 border border-white/10 text-white text-sm font-semibold hover:bg-white/10 hover:border-red-500/30 transition-all group"
                         >
                             <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Google_Cloud_logo.svg" alt="Google Cloud" className="h-4" />

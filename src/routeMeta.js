@@ -27,7 +27,7 @@ export const routeMeta = {
     changefreq: 'weekly',
     priority: 0.9
   },
-  '/google-ibm-course': {
+  '/cloud-ai-certification-courses-kolkata': {
     title: 'Google Cloud & IBM Certification Courses | School of the Future, Techno India University',
     description: 'Explore industry-powered degree programs co-designed with Google Cloud & IBM. Embedded certifications, live projects, and guaranteed internships at Techno India University.',
     changefreq: 'weekly',
