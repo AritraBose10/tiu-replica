@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import AdmissionsHero from '../components/admissions/AdmissionsHero';
@@ -126,6 +126,28 @@ const admissionsEventSchema = {
 };
 
 const Admissions = () => {
+    // Google Ads gtag — only on admissions page
+    useEffect(() => {
+        const script = document.createElement('script');
+        script.src = 'https://www.googletagmanager.com/gtag/js?id=AW-16943685502';
+        script.async = true;
+        document.head.appendChild(script);
+
+        const inlineScript = document.createElement('script');
+        inlineScript.textContent = `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'AW-16943685502');
+        `;
+        document.head.appendChild(inlineScript);
+
+        return () => {
+            document.head.removeChild(script);
+            document.head.removeChild(inlineScript);
+        };
+    }, []);
+
     return (
         <div className="bg-[#020205] min-h-screen text-white">
             <SEO

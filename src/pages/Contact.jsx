@@ -127,14 +127,14 @@ const EEFormWidget = () => {
             </style>
         </head>
         <body>
-            <div class="ee-form-widget" id="ee-form-9"></div>
+            <div class="ee-form-widget" id="ee-form-8"></div>
             <script>
                 function reportHeight() {
                     var h = document.body.scrollHeight;
                     window.parent.postMessage({ type: 'EE_WIDGET_HEIGHT', height: h }, '*');
                 }
                 window.addEventListener("DOMContentLoaded", function() {
-                    window.ee_form_widget_baseurl = "https://eeconfigstaticfiles.blob.core.windows.net/staticfiles/ee-form-widget/";
+                    window.ee_form_widget_baseurl ="https://eeconfigstaticfiles.blob.core.windows.net/staticfiles/ee-form-widget/";// "https://eewidget.extraaedge.com/";
                     if (!document.getElementById("__formWidgetCss")) {
                         var e = document.createElement("link");
                         e.id = "__formWidgetCss";
@@ -147,8 +147,10 @@ const EEFormWidget = () => {
                     t.type = "text/javascript";
                     t.onload = async function() {
                         var _eeFormWidget = new eeFormWidget();
-                        await _eeFormWidget.init("softiu", "form-9", "ee-form-9");
+                        await _eeFormWidget.init("softiu", "form-8", "ee-form-8");
+                        // Notify parent that widget is loaded
                         window.parent.postMessage({ type: 'EE_WIDGET_LOADED' }, '*');
+                        // Report height after a short delay for styles to settle
                         setTimeout(reportHeight, 300);
                         setTimeout(reportHeight, 1000);
                     };

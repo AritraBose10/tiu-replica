@@ -28,7 +28,7 @@ const EEFormWidget = () => {
             </style>
         </head>
         <body>
-            <div class="ee-form-widget" id="ee-form-9"></div>
+            <div class="ee-form-widget" id="ee-form-8"></div>
             <script>
                 function reportHeight() {
                     var h = document.body.scrollHeight;
@@ -48,7 +48,7 @@ const EEFormWidget = () => {
                     t.type = "text/javascript";
                     t.onload = async function() {
                         var _eeFormWidget = new eeFormWidget();
-                        await _eeFormWidget.init("softiu", "form-9", "ee-form-9");
+                        await _eeFormWidget.init("softiu", "form-8", "ee-form-8");
                         window.parent.postMessage({ type: 'EE_WIDGET_LOADED' }, '*');
                         setTimeout(reportHeight, 300);
                         setTimeout(reportHeight, 1000);
