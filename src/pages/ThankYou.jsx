@@ -1,10 +1,37 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { CheckCircle, ArrowRight, Phone, Mail } from 'lucide-react';
 import SEO from '../components/SEO';
 
 const ThankYou = () => {
+    // Inject Google Ads mapping and Conversion snippet
+    useEffect(() => {
+        // 1. Base Google Ads gtag script
+        const tagScript = document.createElement('script');
+        tagScript.src = 'https://www.googletagmanager.com/gtag/js?id=AW-16943685502';
+        tagScript.async = true;
+        document.head.appendChild(tagScript);
+
+        // 2. Base config & Conversion event snippet
+        const inlineScript = document.createElement('script');
+        inlineScript.text = `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'AW-16943685502');
+            
+            // Lead Form conversion event
+            gtag('event', 'conversion', {'send_to': 'AW-16943685502/7xJnCK78mrkaEP6-sI8_'});
+        `;
+        document.head.appendChild(inlineScript);
+
+        return () => {
+            document.head.removeChild(tagScript);
+            document.head.removeChild(inlineScript);
+        };
+    }, []);
+
     return (
         <div className="min-h-screen bg-[#020205] relative overflow-hidden flex flex-col items-center justify-center px-4">
             <SEO
