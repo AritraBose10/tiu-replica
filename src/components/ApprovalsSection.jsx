@@ -7,7 +7,6 @@ const approvalsData = [
     { name: 'UGC', fullName: 'University Grants Commission', logo: 'https://upload.wikimedia.org/wikipedia/en/4/4e/UGC_India_Logo.png' },
     { name: 'AICTE', fullName: 'All India Council for Technical Education', logo: 'https://upload.wikimedia.org/wikipedia/en/e/eb/All_India_Council_for_Technical_Education_logo.png' },
     { name: 'AIU', fullName: 'Association of Indian Universities', logo: '/assets/approvals/aiu.png' },
-    { name: 'NIRF', fullName: 'National Institutional Ranking Framework', logo: 'https://upload.wikimedia.org/wikipedia/en/5/52/National_Institutional_Ranking_Framework_logo.png' },
     { name: 'NAAC', fullName: 'National Assessment and Accreditation Council', logo: '/assets/approvals/naac.png' },
 ];
 
@@ -74,7 +73,7 @@ const ApprovalsSection = () => {
     // Use Sanity data but inject the strictly verified correct logo URLs
     const approvals = sanityApprovals?.length > 0
         ? sanityApprovals
-            .filter(app => app.name !== 'ISO')
+            .filter(app => app.name !== 'ISO' && app.name !== 'NIRF')
             .map(app => ({
                 ...app,
                 logo: correctLogos[app.name] || app.logoUrl // Fix broken Sanity data without losing other fields
