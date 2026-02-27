@@ -345,8 +345,8 @@ const Events = () => {
     return (
         <div className="min-h-screen bg-[#020205] text-white overflow-x-hidden selection:bg-[#FF0000] selection:text-white">
             <SEO
-                title="Events & Happenings | School of the Future"
-                description="Discover tech fests, workshops, hackathons, cultural events and seminars at the School of the Future, Techno India University."
+                title="What’s Happening at School Of The Future | Events And Workshops"
+                description="Browse School Of The Future’s event calendar featuring workshops, tech summits, cultural fests, industry collaborations, and student activities."
             />
             <SchemaInjector schema={eventSchema} />
             <FloatingBackground />

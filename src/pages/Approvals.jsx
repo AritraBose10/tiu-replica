@@ -1,4 +1,5 @@
 import React, { useRef, useEffect } from 'react';
+import SEO from '../components/SEO';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useSanity } from '../hooks/useSanity';
 import { APPROVALS_QUERY } from '../lib/queries';
@@ -145,6 +146,10 @@ const Approvals = () => {
 
     return (
         <div ref={containerRef} className="min-h-screen bg-[#050505] text-white pt-32 pb-20 relative overflow-hidden font-sans">
+            <SEO
+                title="SOF Accreditation & Approvals | UGC, NAAC, AICTE"
+                description="School Of The Future is accredited by UGC, NAAC, AICTE & AIU. Discover our regulatory approvals, rankings and commitment to quality education."
+            />
             {/* Circuit Grid Background */}
             <div
                 className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none"

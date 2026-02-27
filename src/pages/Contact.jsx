@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import SEO from '../components/SEO';
 import { motion, useScroll, useTransform, useInView } from 'framer-motion';
 import { Phone, Mail, MapPin, Clock, Users, Award, Building, ChevronRight, Sparkles, ArrowUpRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -195,6 +196,10 @@ const Contact = () => {
 
     return (
         <div className="min-h-screen bg-[#020205] text-white overflow-hidden relative selection:bg-red-500/30">
+            <SEO
+                title="Contact School Of The Future | Admissions & Campus Visit"
+                description="Reach School Of The Future for admissions, program queries and application guidance. Call 08062642222 or email for quick assistance.."
+            />
             {/* Background Ambience (Matched to Courses Page) */}
             <div className="fixed inset-0 pointer-events-none">
                 <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-[#FF0000]/5 rounded-full blur-[150px] animate-pulse" />
