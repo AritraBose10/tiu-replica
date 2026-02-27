@@ -12,7 +12,6 @@ import Approvals from './pages/Approvals';
 import Events from './pages/Events';
 import SearchPage from './pages/SearchPage';
 import BreadcrumbSchema from './components/BreadcrumbSchema';
-import SectorVPage from './pages/SectorVPage';
 import EventScraperDemo from './components/EventScraperDemo';
 import { AnimatePresence } from 'framer-motion';
 
@@ -98,7 +97,6 @@ function App() {
                     <Route path="/approvals" element={<Approvals />} />
                     <Route path="/events" element={<Events />} />
                     <Route path="/search" element={<SearchPage />} />
-                    <Route path="/salt-lake-sector-v" element={<SectorVPage />} />
                     <Route path="/events-demo" element={<EventScraperDemo />} />
                     <Route path="*" element={<NotFound />} />
                   </Routes>

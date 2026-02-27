@@ -50,10 +50,4 @@
         <changefreq>monthly</changefreq>
         <priority>0.5</priority>
     </url>
-    <url>
-        <loc>https://www.technoindiauniversity.ai/salt-lake-sector-v</loc>
-        <lastmod>2026-02-26T00:00:00+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
 </urlset>

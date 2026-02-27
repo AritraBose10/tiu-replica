@@ -14,7 +14,6 @@ const ROUTE_LABELS = {
     '/approvals': 'Approvals & Accreditations',
     '/events': 'Events & Happenings',
     '/search': 'Search',
-    '/salt-lake-sector-v': 'Salt Lake Sector V Campus',
 };
 
 const SITE_URL = 'https://www.technoindiauniversity.ai';
