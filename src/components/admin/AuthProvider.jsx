@@ -3,7 +3,7 @@ import { useState, useEffect, createContext, useContext } from 'react';
 const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
-    const [token, setToken] = useState(() => localStorage.getItem('cms_token'));
+    const [token, setToken] = useState(() => typeof window !== 'undefined' ? localStorage.getItem('cms_token') : null);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {

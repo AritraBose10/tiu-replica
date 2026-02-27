@@ -57,9 +57,8 @@ const NotFound = () => (
   </div>
 );
 
-function App() {
+export function AppShell() {
   return (
-    <Router>
       <SettingsProvider>
         <AuthProvider>
           <ScrollToTop />
@@ -111,6 +110,13 @@ function App() {
           </Routes>
         </AuthProvider>
       </SettingsProvider>
+  );
+}
+
+function App() {
+  return (
+    <Router>
+      <AppShell />
     </Router>
   );
 }
