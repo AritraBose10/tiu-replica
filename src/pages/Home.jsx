@@ -24,8 +24,8 @@ const Home = () => {
     return (
         <div className="bg-white">
             <SEO
-                title="School of the Future | Future-Ready Degrees | Techno India University"
-                description="Industry-powered programs in AI, Data, Cloud, Design & Business. Powered by Google Cloud & IBM. Degrees by Techno India University."
+                title="Apply For Future-Ready Industry Courses with Google & IBM | School Of The Future"
+                description="Study AI, Cloud, CSE, Business, Design & more at School of the Future's innovative Google & IBM-powered UG, PG & Ph.D. programs. Real projects, certifications, 500+ hiring partners. Admissions 2026 open."
             />
             {/* §1 — Hero */}
             <Hero />
