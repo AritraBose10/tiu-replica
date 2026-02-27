@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react';
+import { useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
 
 /**
@@ -9,6 +9,7 @@ const ROUTE_LABELS = {
     '/courses': 'Programs & Courses',
     '/about': 'About Us',
     '/admissions': 'Admissions',
+    '/cloud-ai-certification-courses-kolkata': 'Google Cloud & IBM Certification Courses',
     '/contact': 'Contact',
     '/faq': 'FAQ',
     '/approvals': 'Approvals & Accreditations',
@@ -19,11 +20,8 @@ const ROUTE_LABELS = {
 const SITE_URL = 'https://www.technoindiauniversity.ai';
 
 /**
- * BreadcrumbSchema — Injects a BreadcrumbList JSON-LD schema
- * into <head> based on the current route.
- *
- * Always generates: Home → Current Page
- * Placed once in the layout so every page gets breadcrumbs.
+ * BreadcrumbSchema — Renders a BreadcrumbList JSON-LD schema
+ * as an inline <script> so it's included in SSR/prerender output.
  */
 const BreadcrumbSchema = () => {
     const { pathname } = useLocation();
@@ -59,21 +57,15 @@ const BreadcrumbSchema = () => {
         };
     }, [pathname]);
 
-    useEffect(() => {
-        if (!schema) return;
+    if (!schema) return null;
 
-        const script = document.createElement('script');
-        script.type = 'application/ld+json';
-        script.textContent = JSON.stringify(schema);
-        script.setAttribute('data-breadcrumb-schema', 'true');
-        document.head.appendChild(script);
-
-        return () => {
-            document.head.removeChild(script);
-        };
-    }, [schema]);
-
-    return null;
+    return (
+        <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+        />
+    );
 };
 
 export default BreadcrumbSchema;
+

@@ -32,25 +32,11 @@ const SEO = ({ title, description, schema }) => {
         // Automatically inject the clean URL without query parameters
         canonicalLink.setAttribute('href', `https://www.technoindiauniversity.ai${window.location.pathname}`);
 
-        // Set JSON-LD structured data
-        let scriptTag = document.querySelector('script[data-seo-schema]');
-        if (schema) {
-            if (!scriptTag) {
-                scriptTag = document.createElement('script');
-                scriptTag.setAttribute('type', 'application/ld+json');
-                scriptTag.setAttribute('data-seo-schema', 'true');
-                document.head.appendChild(scriptTag);
-            }
-            scriptTag.textContent = JSON.stringify(schema);
-        }
-
         // Cleanup on unmount
         return () => {
-            if (scriptTag) {
-                scriptTag.remove();
-            }
+            // No cleanup needed for canonical/meta created once per route during dev
         };
-    }, [title, description, schema]);
+    }, [title, description]);
 
     return null;
 };

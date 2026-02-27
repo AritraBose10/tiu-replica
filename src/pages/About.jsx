@@ -3,6 +3,7 @@ import { motion, useScroll, useTransform, useMotionValue, useSpring, AnimatePres
 import { Lightbulb, Users, Globe, Rocket, Award, Building, ChevronRight, Play, Sparkles, ArrowUpRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import SEO from '../components/SEO';
+import SchemaInjector from '../components/SchemaInjector';
 import { useSettings } from '../contexts/SettingsContext';
 
 // --- Animated Counter Component ---
@@ -176,6 +177,30 @@ const About = () => {
                 title="About School Of The Future | Legacy of Innovation & Learning"
                 description="Discover the School of the Future’s mission and vision. Backed by seasoned industry experts and academic leaders, 15,000+ students and global partners drive innovation-led education."
             />
+            <SchemaInjector schema={{
+                "@context": "https://schema.org",
+                "@type": "CollegeOrUniversity",
+                "name": "School of the Future — Techno India University",
+                "alternateName": "SoF TIU",
+                "url": "https://www.technoindiauniversity.ai",
+                "logo": "https://www.technoindiauniversity.ai/image.png",
+                "description": "School of the Future is a future-focused academic school under Techno India University offering Google Cloud & IBM-powered programs in AI, Cloud, Data Science, Business, Design and Allied Health Sciences.",
+                "foundingDate": "2001",
+                "address": {
+                    "@type": "PostalAddress",
+                    "streetAddress": "EM-4, Sector V, Salt Lake",
+                    "addressLocality": "Kolkata",
+                    "addressRegion": "West Bengal",
+                    "postalCode": "700091",
+                    "addressCountry": "IN"
+                },
+                "telephone": "+91-8062642222",
+                "hasCredential": [
+                    { "@type": "EducationalOccupationalCredential", "credentialCategory": "UGC Recognition" },
+                    { "@type": "EducationalOccupationalCredential", "credentialCategory": "NAAC Accreditation" },
+                    { "@type": "EducationalOccupationalCredential", "credentialCategory": "AICTE Approval" }
+                ]
+            }} />
             <FloatingBackground />
 
             {/* === HERO SECTION === */}

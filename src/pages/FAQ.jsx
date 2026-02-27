@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { useSanity } from '../hooks/useSanity';
 import { FAQS_QUERY } from '../lib/queries';
 import SEO from '../components/SEO';
+import SchemaInjector from '../components/SchemaInjector';
 
 const fallbackFAQData = [
     { id: 1, question: 'What is the School of the Future?', answer: 'The School of the Future is a future-focused academic school that offers industry-powered undergraduate, postgraduate and doctoral programs designed for emerging careers in technology, business, design and applied sciences.' },
@@ -126,8 +127,8 @@ const FAQ = () => {
             <SEO
                 title="FAQs | School of the Future | Techno India University"
                 description="Find answers to frequently asked questions about admissions, programs, fees, scholarships, and campus life at the School of the Future."
-                schema={faqSchema}
             />
+            <SchemaInjector schema={faqSchema} />
             {/* Red Ambient Glow */}
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-red-900/10 rounded-full blur-[120px] pointer-events-none" />
             <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-orange-900/5 rounded-full blur-[100px] pointer-events-none" />

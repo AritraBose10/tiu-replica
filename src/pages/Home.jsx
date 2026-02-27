@@ -19,6 +19,46 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ArrowRight, MessageCircle } from 'lucide-react';
 import SEO from '../components/SEO';
+import SchemaInjector from '../components/SchemaInjector';
+
+const eduOrgSchema = {
+    "@context": "https://schema.org",
+    "@type": "CollegeOrUniversity",
+    "name": "School of the Future — Techno India University",
+    "alternateName": "SoF TIU",
+    "url": "https://www.technoindiauniversity.ai",
+    "logo": "https://www.technoindiauniversity.ai/image.png",
+    "description": "School of the Future is a future-focused academic school under Techno India University offering Google Cloud & IBM-powered UG, PG & Ph.D. programs in AI, Cloud Computing, Data Science, Business, Design and Allied Health Sciences.",
+    "foundingDate": "2001",
+    "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "EM-4, Sector V, Salt Lake",
+        "addressLocality": "Kolkata",
+        "addressRegion": "West Bengal",
+        "postalCode": "700091",
+        "addressCountry": "IN"
+    },
+    "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": "22.5726",
+        "longitude": "88.4312"
+    },
+    "telephone": "+91-8062642222",
+    "sameAs": [
+        "https://www.facebook.com/technoindiauniversity",
+        "https://www.instagram.com/technoindiauniversity",
+        "https://www.linkedin.com/school/techno-india-university"
+    ],
+    "parentOrganization": {
+        "@type": "Organization",
+        "name": "Techno India Group"
+    },
+    "hasCredential": [
+        { "@type": "EducationalOccupationalCredential", "credentialCategory": "UGC Recognition" },
+        { "@type": "EducationalOccupationalCredential", "credentialCategory": "NAAC Accreditation" },
+        { "@type": "EducationalOccupationalCredential", "credentialCategory": "AICTE Approval" }
+    ]
+};
 
 const Home = () => {
     return (
@@ -27,6 +67,7 @@ const Home = () => {
                 title="Apply For Future-Ready Industry Courses with Google & IBM | School Of The Future"
                 description="Study AI, Cloud, CSE, Business, Design & more at School of the Future's innovative Google & IBM-powered UG, PG & Ph.D. programs. Real projects, certifications, 500+ hiring partners. Admissions 2026 open."
             />
+            <SchemaInjector schema={eduOrgSchema} />
             {/* §1 — Hero */}
             <Hero />
 

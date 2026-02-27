@@ -8,21 +8,14 @@ import { useEffect } from 'react';
  *   <SchemaInjector schema={{ "@context": "https://schema.org", ... }} />
  */
 const SchemaInjector = ({ schema }) => {
-    useEffect(() => {
-        if (!schema) return;
+    if (!schema) return null;
 
-        const script = document.createElement('script');
-        script.type = 'application/ld+json';
-        script.textContent = JSON.stringify(schema);
-        script.setAttribute('data-schema-injector', 'true');
-        document.head.appendChild(script);
-
-        return () => {
-            document.head.removeChild(script);
-        };
-    }, [JSON.stringify(schema)]);
-
-    return null;
+    return (
+        <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+        />
+    );
 };
 
 export default SchemaInjector;

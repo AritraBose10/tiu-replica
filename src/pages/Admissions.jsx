@@ -76,6 +76,54 @@ const FloatingCTA = () => {
 };
 
 import SEO from '../components/SEO';
+import SchemaInjector from '../components/SchemaInjector';
+
+const admissionsFaqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": admissionsFaqs.map(faq => ({
+        "@type": "Question",
+        "name": faq.question,
+        "acceptedAnswer": {
+            "@type": "Answer",
+            "text": faq.answer
+        }
+    }))
+};
+
+const admissionsEventSchema = {
+    "@context": "https://schema.org",
+    "@type": "Event",
+    "name": "School of the Future — Admissions 2026",
+    "description": "Admissions are now open for 2026 intake at School of the Future, Techno India University. Apply for Google Cloud & IBM-powered degree programs in AI, Data Science, Cloud Computing, Business, Design and more.",
+    "startDate": "2026-01-15",
+    "endDate": "2026-06-30",
+    "eventStatus": "https://schema.org/EventScheduled",
+    "eventAttendanceMode": "https://schema.org/MixedEventAttendanceMode",
+    "location": {
+        "@type": "Place",
+        "name": "Techno India University — School of the Future",
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "EM-4, Sector V, Salt Lake",
+            "addressLocality": "Kolkata",
+            "addressRegion": "West Bengal",
+            "postalCode": "700091",
+            "addressCountry": "IN"
+        }
+    },
+    "organizer": {
+        "@type": "CollegeOrUniversity",
+        "name": "Techno India University",
+        "url": "https://www.technoindiauniversity.ai"
+    },
+    "offers": {
+        "@type": "Offer",
+        "url": "https://www.technoindiauniversity.ai/admissions",
+        "availability": "https://schema.org/InStock",
+        "validFrom": "2026-01-15"
+    }
+};
 
 const Admissions = () => {
     return (
@@ -84,6 +132,8 @@ const Admissions = () => {
                 title="School Of The Future Admissions 2026 | Apply for Future-Ready Degrees"
                 description="Admissions open for 2026 at School Of The Future. Google & IBM-powered programs, strong placements, scholarships and industry internships. Apply today."
             />
+            <SchemaInjector schema={admissionsFaqSchema} />
+            <SchemaInjector schema={admissionsEventSchema} />
             {/* §1. Hero — Video Overlay + Form Widget */}
             <AdmissionsHero />
 
