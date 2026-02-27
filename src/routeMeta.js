@@ -1,5 +1,5 @@
 export const HOSTNAME = 'https://www.technoindiauniversity.ai';
-export const EXCLUDED_ROUTES = ['/admin', '/events-demo'];
+export const EXCLUDED_ROUTES = ['/admin', '/events-demo', '/thank-you'];
 
 // Titles and descriptions are exact duplicates from each page's <SEO /> component
 export const routeMeta = {
