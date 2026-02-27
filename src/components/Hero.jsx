@@ -287,7 +287,7 @@ const Hero = () => {
                     className="text-center text-gray-400 text-sm md:text-base max-w-2xl mx-auto mb-5 md:mb-6 leading-relaxed"
                     variants={fadeUp}
                 >
-                    Industry-powered UG, PG &amp; Ph.D programs at Techno India University, Kolkata
+                    Industry-powered UG, PG &amp; Ph.D programs at Techno India University, West Bengal
                 </motion.p>
 
                 {/* ── Partner Logos ── */}

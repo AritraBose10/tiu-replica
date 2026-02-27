@@ -83,7 +83,7 @@ const WhatIsSoF = () => {
                                 </span>
                             </h2>
                             <p className="text-gray-400 text-lg md:text-xl leading-relaxed max-w-xl">
-                                We're not just a school in Kolkata; we're an innovation hub. Strong academics meet industry-powered curriculum, equipping you for careers that don't even exist yet.
+                                We're not just a school; we're an innovation hub. Strong academics meet industry-powered curriculum, equipping you for careers that don't even exist yet.
                             </p>
                         </motion.div>
 

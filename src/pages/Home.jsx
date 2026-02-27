@@ -133,7 +133,7 @@ const Home = () => {
                         viewport={{ once: true }}
                     >
                         <h2 className="text-4xl md:text-6xl font-black mb-6">
-                            Your Journey to the Future in Kolkata{' '}
+                            Your Journey to the Future{' '}
                             <span className="bg-[#FF0000] px-4 py-1">Starts Here</span>
                         </h2>
                         <p className="text-xl text-gray-400 mb-10 max-w-2xl mx-auto">
