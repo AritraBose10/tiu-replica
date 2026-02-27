@@ -4,8 +4,8 @@ export const EXCLUDED_ROUTES = ['/admin', '/events-demo'];
 // Titles and descriptions are exact duplicates from each page's <SEO /> component
 export const routeMeta = {
   '/': {
-    title: 'Apply For Future-Ready Industry Courses with Google & IBM | School Of The Future',
-    description: "Study AI, Cloud, CSE, Business, Design & more at School of the Future's innovative Google & IBM-powered UG, PG & Ph.D. programs. Real projects, certifications, 500+ hiring partners. Admissions 2026 open.",
+    title: 'Future-Ready Industry Courses in Kolkata with Google & IBM | School Of The Future',
+    description: "Study AI, Cloud, CSE, Business, Design & more at School of the Future, Kolkata. Google & IBM-powered UG, PG & Ph.D. programs with real projects, certifications, 500+ hiring partners. Admissions 2026 open.",
     changefreq: 'daily',
     priority: 1.0
   },

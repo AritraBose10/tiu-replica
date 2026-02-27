@@ -28,7 +28,7 @@ const eduOrgSchema = {
     "alternateName": "SoF TIU",
     "url": "https://www.technoindiauniversity.ai",
     "logo": "https://www.technoindiauniversity.ai/image.png",
-    "description": "School of the Future is a future-focused academic school under Techno India University offering Google Cloud & IBM-powered UG, PG & Ph.D. programs in AI, Cloud Computing, Data Science, Business, Design and Allied Health Sciences.",
+    "description": "School of the Future is a future-focused academic school under Techno India University, Kolkata offering Google Cloud & IBM-powered UG, PG & Ph.D. programs in AI, Cloud Computing, Data Science, Business, Design and Allied Health Sciences.",
     "foundingDate": "2001",
     "address": {
         "@type": "PostalAddress",
@@ -64,8 +64,8 @@ const Home = () => {
     return (
         <div className="bg-white">
             <SEO
-                title="Apply For Future-Ready Industry Courses with Google & IBM | School Of The Future"
-                description="Study AI, Cloud, CSE, Business, Design & more at School of the Future's innovative Google & IBM-powered UG, PG & Ph.D. programs. Real projects, certifications, 500+ hiring partners. Admissions 2026 open."
+                title="Future-Ready Industry Courses in Kolkata with Google & IBM | School Of The Future"
+                description="Study AI, Cloud, CSE, Business, Design & more at School of the Future, Kolkata. Google & IBM-powered UG, PG & Ph.D. programs with real projects, certifications, 500+ hiring partners. Admissions 2026 open."
             />
             <SchemaInjector schema={eduOrgSchema} />
             {/* §1 — Hero */}
@@ -133,7 +133,7 @@ const Home = () => {
                         viewport={{ once: true }}
                     >
                         <h2 className="text-4xl md:text-6xl font-black mb-6">
-                            Your Journey to the Future{' '}
+                            Your Journey to the Future in Kolkata{' '}
                             <span className="bg-[#FF0000] px-4 py-1">Starts Here</span>
                         </h2>
                         <p className="text-xl text-gray-400 mb-10 max-w-2xl mx-auto">
