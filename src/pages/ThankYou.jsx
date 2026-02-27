@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { CheckCircle, ArrowRight, Phone, Mail } from 'lucide-react';
 import SEO from '../components/SEO';
+import logo1 from '../assets/logo1.png';
 
 const ThankYou = () => {
     // Inject Google Ads mapping and Conversion snippet
@@ -64,7 +65,7 @@ const ThankYou = () => {
                 >
                     <Link to="/">
                         <img
-                            src="/logo1.png"
+                            src={logo1}
                             alt="School of the Future"
                             className="h-16 md:h-20 mx-auto object-contain hover:opacity-80 transition-opacity"
                         />
