@@ -67,7 +67,7 @@ const ThankYou = () => {
                         <img
                             src={logo1}
                             alt="School of the Future"
-                            className="h-16 md:h-20 mx-auto object-contain hover:opacity-80 transition-opacity"
+                            className="h-24 md:h-32 mx-auto object-contain hover:opacity-80 transition-opacity"
                         />
                     </Link>
                 </motion.div>
