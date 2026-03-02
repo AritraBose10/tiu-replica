@@ -58,9 +58,9 @@ async function prerender() {
       // Replace <title>
       html = html.replace(/<title>[^<]*<\/title>/, `<title>${meta.title}</title>`);
 
-      // Replace <meta name="description">
+      // Replace <meta name="description"> — handles multi-line tags and apostrophes in content
       html = html.replace(
-        /<meta\s+name=["']description["']\s+content=["'][^"']*["']\s*\/?>/i,
+        /<meta\s+name=["']description["']\s*[\s\S]*?content=["']([\s\S]*?)["']\s*\/?>/i,
         `<meta name="description" content="${meta.description.replace(/"/g, '&quot;')}" />`
       );
 
