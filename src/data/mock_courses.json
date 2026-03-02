@@ -4,202 +4,376 @@
         "title": "B.Tech Computer Science & Engineering (CSE)",
         "description": "Comprehensive program covering core CS fundamentals, algorithms, and software engineering. Powered by Google Cloud.",
         "category": "School of Engineering & Technology",
-        "link": "#"
+        "link": "#",
+        "careerPaths": [
+            "Software Engineer",
+            "Cloud Architect",
+            "DevOps Lead",
+            "Full-Stack Developer"
+        ]
     },
     {
         "id": "btech-cse-ai-ml",
         "title": "B.Tech CSE – AI/ML",
         "description": "Specialized curriculum focused on Artificial Intelligence and Machine Learning technologies. Powered by Google Cloud.",
         "category": "School of Engineering & Technology",
-        "link": "#"
+        "link": "#",
+        "careerPaths": [
+            "AI Engineer",
+            "ML Researcher",
+            "Data Scientist",
+            "NLP Specialist"
+        ]
     },
     {
         "id": "btech-cse-data-science",
         "title": "B.Tech CSE – Data Science",
         "description": "Learn to analyze and interpret complex data to solve real-world problems. Powered by Google Cloud.",
         "category": "School of Engineering & Technology",
-        "link": "#"
+        "link": "#",
+        "careerPaths": [
+            "Data Scientist",
+            "Analytics Engineer",
+            "BI Developer",
+            "Data Architect"
+        ]
     },
     {
         "id": "btech-cse-cloud",
         "title": "B.Tech CSE – Cloud Computing",
         "description": "Master cloud infrastructure and deployment strategies. Powered by Google Cloud.",
         "category": "School of Engineering & Technology",
-        "link": "#"
+        "link": "#",
+        "careerPaths": [
+            "Cloud Architect",
+            "SRE Engineer",
+            "Platform Engineer",
+            "Cloud Security Analyst"
+        ]
     },
     {
         "id": "mtech-cse-ai-ml",
         "title": "M.Tech CSE – AI/ML",
         "description": "Advanced postgraduate program for deep research in AI and Machine Learning.",
         "category": "School of Engineering & Technology",
-        "link": "#"
+        "link": "#",
+        "careerPaths": [
+            "AI Research Scientist",
+            "ML Lead",
+            "Deep Learning Engineer",
+            "Computer Vision Engineer"
+        ]
     },
     {
         "id": "bca-data-science-ai",
         "title": "BCA with Data Science & AI",
         "description": "Industry-aligned Bachelor of Computer Applications integrating Data Science and AI concepts. Powered by IBM.",
         "category": "Information Technology & Applied Sciences",
-        "link": "#"
+        "link": "#",
+        "careerPaths": [
+            "Data Analyst",
+            "Junior Data Scientist",
+            "AI Developer",
+            "Business Intelligence Analyst"
+        ]
     },
     {
         "id": "bsc-data-analytics-gen-ai",
         "title": "B.Sc (H) Data Analytics & Generative AI",
         "description": "Cutting-edge program focusing on data analytics and generative AI models. Powered by IBM.",
         "category": "Information Technology & Applied Sciences",
-        "link": "#"
+        "link": "#",
+        "careerPaths": [
+            "GenAI Developer",
+            "Prompt Engineer",
+            "Data Analyst",
+            "AI Product Manager"
+        ]
     },
     {
         "id": "bsc-cyber-security",
         "title": "B.Sc (H) Cyber Security & Ethical Hacking",
         "description": "Learn to protect digital assets and networks from cyber threats. Powered by IBM.",
         "category": "Information Technology & Applied Sciences",
-        "link": "#"
+        "link": "#",
+        "careerPaths": [
+            "Security Analyst",
+            "Penetration Tester",
+            "SOC Analyst",
+            "Cybersecurity Consultant"
+        ]
     },
     {
         "id": "msc-data-science-ai",
         "title": "M.Sc in Data Science & AI",
         "description": "Master's program designed to provide advanced knowledge in data science and artificial intelligence.",
         "category": "Information Technology & Applied Sciences",
-        "link": "#"
+        "link": "#",
+        "careerPaths": [
+            "Senior Data Scientist",
+            "ML Engineer",
+            "Research Scientist",
+            "Analytics Lead"
+        ]
     },
     {
         "id": "phd-ai",
         "title": "Ph.D in AI",
         "description": "Doctoral program for researching and developing novel AI theories and applications.",
         "category": "Information Technology & Applied Sciences",
-        "link": "#"
+        "link": "#",
+        "careerPaths": [
+            "AI Research Professor",
+            "Chief Scientist",
+            "R&D Director",
+            "AI Lab Lead"
+        ]
     },
     {
         "id": "bba-business-analytics",
         "title": "BBA Business Analytics & AI",
         "description": "Combine business management skills with data analytics and AI insights. Powered by IBM.",
         "category": "School of Business & Management",
-        "link": "#"
+        "link": "#",
+        "careerPaths": [
+            "Business Analyst",
+            "Product Manager",
+            "Growth Strategist",
+            "Fintech Analyst"
+        ]
     },
     {
         "id": "mba-business-analytics",
         "title": "MBA Business Analytics & AI",
         "description": "Advanced business administration program with a focus on analytics-driven decision making. Powered by IBM.",
         "category": "School of Business & Management",
-        "link": "#"
+        "link": "#",
+        "careerPaths": [
+            "Strategy Consultant",
+            "VP Analytics",
+            "Product Director",
+            "Data-Driven CEO"
+        ]
     },
     {
         "id": "bba-hotel-hospitality",
         "title": "BBA Hotel & Hospitality Management",
         "description": "Prepare for a career in the dynamic hospitality industry with management training.",
         "category": "School of Business & Management",
-        "link": "#"
+        "link": "#",
+        "careerPaths": [
+            "Hotel Manager",
+            "F&B Director",
+            "Revenue Manager",
+            "Hospitality Consultant"
+        ]
     },
     {
         "id": "executive-mba",
         "title": "Executive MBA",
         "description": "Tailored for working professionals looking to accelerate their career growth.",
         "category": "School of Business & Management",
-        "link": "#"
+        "link": "#",
+        "careerPaths": [
+            "C-Suite Executive",
+            "VP Operations",
+            "Managing Director",
+            "Entrepreneur"
+        ]
     },
     {
         "id": "bdes-visual-comm",
         "title": "B.Des Visual Communication & Digital Design",
         "description": "Explore visual storytelling and digital design principles for modern media.",
         "category": "Creative Arts & Design",
-        "link": "#"
+        "link": "#",
+        "careerPaths": [
+            "Brand Designer",
+            "Art Director",
+            "UX Designer",
+            "Creative Lead"
+        ]
     },
     {
         "id": "bdes-game-art",
         "title": "B.Des Game Art & Design",
         "description": "Design immersive game environments, characters, and assets.",
         "category": "Creative Arts & Design",
-        "link": "#"
+        "link": "#",
+        "careerPaths": [
+            "Game Artist",
+            "3D Modeler",
+            "Concept Artist",
+            "Environment Designer"
+        ]
     },
     {
         "id": "bdes-digital-product",
         "title": "B.Des Digital Product Design",
         "description": "Focus on user experience and interface design for digital products.",
         "category": "Creative Arts & Design",
-        "link": "#"
+        "link": "#",
+        "careerPaths": [
+            "UX/UI Designer",
+            "Product Designer",
+            "Interaction Designer",
+            "Design Strategist"
+        ]
     },
     {
         "id": "mdes-advertising",
         "title": "M.Des Advertising, Design & Digital Communication",
         "description": "Advanced design studies focusing on advertising strategies and digital communication.",
         "category": "Creative Arts & Design",
-        "link": "#"
+        "link": "#",
+        "careerPaths": [
+            "Creative Director",
+            "Ad Strategist",
+            "Brand Manager",
+            "Digital Marketing Lead"
+        ]
     },
     {
         "id": "bsc-sound-engineering",
         "title": "B.Sc (H) in Sound Engineering",
         "description": "Technical program covering audio recording, mixing, and sound design.",
         "category": "Creative Arts & Design",
-        "link": "#"
+        "link": "#",
+        "careerPaths": [
+            "Sound Engineer",
+            "Audio Producer",
+            "Mixing Engineer",
+            "Studio Manager"
+        ]
     },
     {
         "id": "bsc-game-development",
         "title": "B.Sc (H) in Game Development",
         "description": "Learn game programming and development using industry-standard engines.",
         "category": "Creative Arts & Design",
-        "link": "#"
+        "link": "#",
+        "careerPaths": [
+            "Game Developer",
+            "Unity Engineer",
+            "Gameplay Programmer",
+            "Technical Designer"
+        ]
     },
     {
         "id": "bsc-filmmaking",
         "title": "B.Sc (H) in Filmmaking",
         "description": "Comprehensive course on film production, direction, and editing.",
         "category": "Creative Arts & Design",
-        "link": "#"
+        "link": "#",
+        "careerPaths": [
+            "Film Director",
+            "Cinematographer",
+            "Editor",
+            "Documentary Filmmaker"
+        ]
     },
     {
         "id": "bsc-vfx-animation",
         "title": "B.Sc (H) in Visual Effects & Animation",
         "description": "Master the art of VFX and animation for film, TV, and games.",
         "category": "Creative Arts & Design",
-        "link": "#"
+        "link": "#",
+        "careerPaths": [
+            "VFX Artist",
+            "3D Animator",
+            "Motion Graphics Designer",
+            "Compositing Artist"
+        ]
     },
     {
         "id": "bsc-cardiovascular",
         "title": "B.Sc (H) Cardiovascular Technology",
         "description": "Specialized training in cardiovascular diagnostic and therapeutic procedures.",
         "category": "Health & Allied Sciences",
-        "link": "#"
+        "link": "#",
+        "careerPaths": [
+            "Cardiovascular Technologist",
+            "Cardiac Sonographer",
+            "Cath Lab Technician",
+            "Clinical Specialist"
+        ]
     },
     {
         "id": "bsc-anesthesia",
         "title": "B.Sc (H) Anesthesia and Operation Theater Technology",
         "description": "Prepare for a vital role in surgical teams managing anesthesia and OT equipment.",
         "category": "Health & Allied Sciences",
-        "link": "#"
+        "link": "#",
+        "careerPaths": [
+            "Anesthesia Technologist",
+            "OT Technician",
+            "Perfusionist",
+            "Clinical Coordinator"
+        ]
     },
     {
         "id": "bmlt",
         "title": "Bachelor of Medical Laboratory Technology (BMLT)",
         "description": "Learn to perform clinical laboratory tests for disease diagnosis and treatment.",
         "category": "Health & Allied Sciences",
-        "link": "#"
+        "link": "#",
+        "careerPaths": [
+            "Lab Technologist",
+            "Pathology Analyst",
+            "Research Technician",
+            "Quality Control Officer"
+        ]
     },
     {
         "id": "mmlt",
         "title": "Master of Medical Laboratory Technology (MMLT)",
         "description": "Advanced studies in medical laboratory sciences and technology.",
         "category": "Health & Allied Sciences",
-        "link": "#"
+        "link": "#",
+        "careerPaths": [
+            "Senior Lab Scientist",
+            "Lab Director",
+            "Clinical Researcher",
+            "Biotech Consultant"
+        ]
     },
     {
         "id": "bmrit",
         "title": "Bachelor of Medical Radiology & Imaging Technology (BMRIT)",
         "description": "Focus on medical imaging techniques like X-ray, CT, and MRI.",
         "category": "Health & Allied Sciences",
-        "link": "#"
+        "link": "#",
+        "careerPaths": [
+            "Radiologic Technologist",
+            "MRI Technician",
+            "CT Scan Specialist",
+            "Imaging Physicist"
+        ]
     },
     {
         "id": "bpt",
         "title": "Bachelor of Physiotherapy (BPT)",
         "description": "Learn physical therapy techniques to help patients recover movement and manage pain.",
         "category": "Health & Allied Sciences",
-        "link": "#"
+        "link": "#",
+        "careerPaths": [
+            "Physiotherapist",
+            "Sports Rehab Specialist",
+            "Orthopedic PT",
+            "Clinic Owner"
+        ]
     },
     {
         "id": "mpt",
         "title": "Master of Physiotherapy (MPT)",
         "description": "Advanced specialization in physiotherapy practices and research.",
         "category": "Health & Allied Sciences",
-        "link": "#"
+        "link": "#",
+        "careerPaths": [
+            "Senior Physiotherapist",
+            "Neuro Rehab Specialist",
+            "PT Professor",
+            "Research Lead"
+        ]
     }
 ]

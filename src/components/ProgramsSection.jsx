@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { Clock, GraduationCap, ChevronRight, ArrowUpRight } from 'lucide-react';
+import { Clock, GraduationCap, ChevronRight, ChevronLeft, ArrowUpRight, Sparkles, Briefcase } from 'lucide-react';
 
 const categories = [
     { id: 'engineering', label: 'Engineering & Tech' },
@@ -114,6 +114,152 @@ const courses = {
     ],
 };
 
+// Career paths lookup by title keyword
+const careerPathsMap = {
+    'Computer Science': ['Software Engineer', 'Cloud Architect', 'DevOps Lead', 'Full-Stack Developer'],
+    'AI': ['AI Engineer', 'ML Researcher', 'Data Scientist', 'NLP Specialist'],
+    'Cloud': ['Cloud Architect', 'SRE Engineer', 'Platform Engineer', 'Cloud Security Analyst'],
+    'BCA': ['Data Analyst', 'Junior Data Scientist', 'AI Developer', 'BI Analyst'],
+    'Cyber': ['Security Analyst', 'Penetration Tester', 'SOC Analyst', 'Cybersecurity Consultant'],
+    'BBA Business': ['Business Analyst', 'Product Manager', 'Growth Strategist', 'Fintech Analyst'],
+    'Visual Communication': ['Brand Designer', 'Art Director', 'UX Designer', 'Creative Lead'],
+    'Game Development': ['Game Developer', 'Unity Engineer', 'Gameplay Programmer', 'Technical Designer'],
+    'Cardiovascular': ['Cardiovascular Technologist', 'Cardiac Sonographer', 'Cath Lab Technician', 'Clinical Specialist'],
+    'Physiotherapy': ['Physiotherapist', 'Sports Rehab Specialist', 'Orthopedic PT', 'Clinic Owner'],
+};
+
+const getCareerPaths = (title) => {
+    if (!title) return ['Industry Professional', 'Specialist', 'Researcher'];
+    for (const [key, paths] of Object.entries(careerPathsMap)) {
+        if (title.includes(key)) return paths;
+    }
+    return ['Industry Professional', 'Specialist', 'Consultant', 'Entrepreneur'];
+};
+
+// --- Flip Card for Homepage ---
+const ProgramFlipCard = ({ course, index }) => {
+    const [flipped, setFlipped] = useState(false);
+
+    return (
+        <motion.div
+            key={course.id}
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            transition={{ duration: 0.4, delay: index * 0.1 }}
+            className="flip-card"
+            style={{ width: 'calc(33.333% - 22px)', minWidth: '280px', flexGrow: 0, height: '320px' }}
+        >
+            <div className={`flip-card-inner ${flipped ? 'flipped' : ''}`}>
+                {/* ===== FRONT FACE ===== */}
+                <div className="flip-card-front group relative bg-[#11111f] rounded-3xl p-1 overflow-hidden">
+                    {/* Hover Gradient Border */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+
+                    <div className="relative bg-[#0a0a1a] h-full rounded-[20px] p-8 overflow-hidden transition-transform duration-300 group-hover:-translate-y-1 flex flex-col justify-between">
+                        {/* Badge */}
+                        <div>
+                            <div className="flex justify-between items-start mb-6">
+                                <span className="bg-white/5 text-white/90 text-[10px] font-bold px-3 py-1.5 rounded-lg border border-white/10 uppercase tracking-wide">
+                                    {course.badge}
+                                </span>
+                                <motion.button
+                                    whileHover={{ scale: 1.1 }}
+                                    whileTap={{ scale: 0.95 }}
+                                    onClick={(e) => { e.stopPropagation(); setFlipped(true); }}
+                                    className="w-10 h-10 bg-[#FF0000] rounded-full flex items-center justify-center cursor-pointer hover:shadow-[0_0_15px_rgba(255,0,0,0.5)] transition-shadow duration-300"
+                                >
+                                    <ArrowUpRight className="w-5 h-5 text-white" />
+                                </motion.button>
+                            </div>
+
+                            {/* Title */}
+                            <div className="mb-8">
+                                <h3 className="text-2xl font-bold text-white mb-2 leading-tight group-hover:text-[#FF0000] transition-colors">
+                                    {course.title}
+                                </h3>
+                                <p className="text-gray-400 text-sm font-medium">
+                                    {course.subtitle}
+                                </p>
+                            </div>
+                        </div>
+
+                        {/* Details */}
+                        <div className="grid grid-cols-2 gap-4 pt-6 border-t border-white/5">
+                            <div className="space-y-1">
+                                <div className="flex items-center gap-2 text-gray-500 text-xs uppercase tracking-wider font-bold">
+                                    <Clock className="w-3 h-3" />
+                                    Duration
+                                </div>
+                                <p className="text-white font-semibold">{course.duration}</p>
+                            </div>
+                            <div className="space-y-1">
+                                <div className="flex items-center gap-2 text-gray-500 text-xs uppercase tracking-wider font-bold">
+                                    <GraduationCap className="w-3 h-3" />
+                                    Eligibility
+                                </div>
+                                <p className="text-white font-semibold">{course.eligibility}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {/* ===== BACK FACE ===== */}
+                <div className="flip-card-back bg-[#11111f] rounded-3xl p-1">
+                    <div className="relative bg-[#0a0a1a] h-full rounded-[20px] p-8 overflow-hidden flex flex-col justify-between">
+                        {/* Accent glow */}
+                        <div className="absolute top-0 right-0 w-40 h-40 bg-[#FF0000]/10 rounded-full blur-3xl pointer-events-none" />
+                        <div className="absolute bottom-0 left-0 w-32 h-32 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
+
+                        {/* Header + Chips */}
+                        <div className="relative z-10">
+                            <span className="inline-flex items-center gap-2 bg-[#FF0000]/10 text-[#FF0000] text-[10px] font-bold px-3 py-1.5 rounded-lg border border-[#FF0000]/20 uppercase tracking-widest mb-4">
+                                <Sparkles className="w-3 h-3" />
+                                Career Outcomes
+                            </span>
+                            <h3 className="text-lg font-black text-white mb-1 leading-tight">
+                                Where This Takes You
+                            </h3>
+                            <p className="text-gray-500 text-xs mb-5 truncate">
+                                {course.title}
+                            </p>
+
+                            {/* Career Path Chips */}
+                            <div className="flex flex-wrap gap-2">
+                                {getCareerPaths(course.title).map((path, i) => (
+                                    <motion.span
+                                        key={i}
+                                        initial={{ opacity: 0, scale: 0.8 }}
+                                        animate={flipped ? { opacity: 1, scale: 1 } : {}}
+                                        transition={{ delay: 0.2 + i * 0.1, duration: 0.3 }}
+                                        className="inline-flex items-center gap-1.5 bg-white/5 text-white text-xs font-semibold px-3 py-2 rounded-lg border border-white/10 hover:bg-[#FF0000]/10 hover:border-[#FF0000]/30 hover:text-[#FF0000] transition-all duration-300"
+                                    >
+                                        <Briefcase className="w-3 h-3 text-gray-500" />
+                                        {path}
+                                    </motion.span>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Back Button */}
+                        <div className="relative z-10 pt-4 border-t border-white/5">
+                            <motion.button
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                                onClick={(e) => { e.stopPropagation(); setFlipped(false); }}
+                                className="flex items-center gap-2 px-4 py-2 bg-white/5 rounded-full text-white text-xs font-bold border border-white/10 hover:bg-white/10 transition-all duration-300"
+                            >
+                                <ChevronLeft className="w-4 h-4" />
+                                Back to Program
+                            </motion.button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </motion.div>
+    );
+};
+
 const ProgramsSection = () => {
     const [activeCategory, setActiveCategory] = useState('engineering');
 
@@ -173,61 +319,7 @@ const ProgramsSection = () => {
                 >
                     <AnimatePresence mode='wait'>
                         {courses[activeCategory]?.map((course, index) => (
-                            <motion.div
-                                key={course.id}
-                                initial={{ opacity: 0, y: 30 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                exit={{ opacity: 0, scale: 0.95 }}
-                                transition={{ duration: 0.4, delay: index * 0.1 }}
-                                className="group relative bg-[#11111f] rounded-3xl p-1 overflow-hidden"
-                                style={{ width: 'calc(33.333% - 22px)', minWidth: '280px', flexGrow: 0 }}
-                            >
-                                {/* Hover Gradient Border */}
-                                <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-                                <div className="relative bg-[#0a0a1a] h-full rounded-[20px] p-8 overflow-hidden transition-transform duration-300 group-hover:-translate-y-1">
-                                    {/* Badge */}
-                                    <div className="flex justify-between items-start mb-6">
-                                        <span className="bg-white/5 text-white/90 text-[10px] font-bold px-3 py-1.5 rounded-lg border border-white/10 uppercase tracking-wide">
-                                            {course.badge}
-                                        </span>
-                                        <motion.div
-                                            whileHover={{ scale: 1.1, rotate: 45 }}
-                                            className="w-10 h-10 bg-[#FF0000] rounded-full flex items-center justify-center cursor-pointer"
-                                        >
-                                            <ArrowUpRight className="w-5 h-5 text-white" />
-                                        </motion.div>
-                                    </div>
-
-                                    {/* Title */}
-                                    <div className="mb-8">
-                                        <h3 className="text-2xl font-bold text-white mb-2 leading-tight group-hover:text-[#FF0000] transition-colors">
-                                            {course.title}
-                                        </h3>
-                                        <p className="text-gray-400 text-sm font-medium">
-                                            {course.subtitle}
-                                        </p>
-                                    </div>
-
-                                    {/* Details */}
-                                    <div className="grid grid-cols-2 gap-4 pt-6 border-t border-white/5">
-                                        <div className="space-y-1">
-                                            <div className="flex items-center gap-2 text-gray-500 text-xs uppercase tracking-wider font-bold">
-                                                <Clock className="w-3 h-3" />
-                                                Duration
-                                            </div>
-                                            <p className="text-white font-semibold">{course.duration}</p>
-                                        </div>
-                                        <div className="space-y-1">
-                                            <div className="flex items-center gap-2 text-gray-500 text-xs uppercase tracking-wider font-bold">
-                                                <GraduationCap className="w-3 h-3" />
-                                                Eligibility
-                                            </div>
-                                            <p className="text-white font-semibold">{course.eligibility}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </motion.div>
+                            <ProgramFlipCard key={course.id} course={course} index={index} />
                         ))}
                     </AnimatePresence>
                 </motion.div>

@@ -1,44 +1,68 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
-import { motion, AnimatePresence, useMotionValue, useTransform, useSpring } from 'framer-motion';
-import { Search, Filter, Sparkles, ArrowUpRight, Zap, Code, Database, Palette, Microscope, ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Search, Filter, Sparkles, ArrowUpRight, Zap, Code, Database, Palette, Microscope, ChevronLeft, ChevronRight, ArrowRight, Briefcase } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import coursesData from '../data/mock_courses.json';
 import { useSanity } from '../hooks/useSanity';
 import { COURSES_QUERY } from '../lib/queries';
 import SEO from '../components/SEO';
 import SchemaInjector from '../components/SchemaInjector';
-// --- 3D Tilt Card Component ---
-const TiltCard = ({ course, index }) => {
-    const x = useMotionValue(0);
-    const y = useMotionValue(0);
 
-    const mouseX = useSpring(x, { stiffness: 500, damping: 100 });
-    const mouseY = useSpring(y, { stiffness: 500, damping: 100 });
+// Career paths lookup — merged into course objects client-side
+// so chips show regardless of whether data comes from Sanity or mock JSON.
+const careerPathsMap = {
+    'Computer Science': ['Software Engineer', 'Cloud Architect', 'DevOps Lead', 'Full-Stack Developer'],
+    'AI': ['AI Engineer', 'ML Researcher', 'Data Scientist', 'NLP Specialist'],
+    'Data Science': ['Data Scientist', 'Analytics Engineer', 'BI Developer', 'Data Architect'],
+    'Cloud': ['Cloud Architect', 'SRE Engineer', 'Platform Engineer', 'Cloud Security Analyst'],
+    'M.Tech': ['AI Research Scientist', 'ML Lead', 'Deep Learning Engineer', 'Computer Vision Engineer'],
+    'BCA': ['Data Analyst', 'Junior Data Scientist', 'AI Developer', 'BI Analyst'],
+    'Data Analytics': ['GenAI Developer', 'Prompt Engineer', 'Data Analyst', 'AI Product Manager'],
+    'Cyber': ['Security Analyst', 'Penetration Tester', 'SOC Analyst', 'Cybersecurity Consultant'],
+    'M.Sc': ['Senior Data Scientist', 'ML Engineer', 'Research Scientist', 'Analytics Lead'],
+    'Ph.D': ['AI Research Professor', 'Chief Scientist', 'R&D Director', 'AI Lab Lead'],
+    'BBA Business': ['Business Analyst', 'Product Manager', 'Growth Strategist', 'Fintech Analyst'],
+    'MBA Business': ['Strategy Consultant', 'VP Analytics', 'Product Director', 'Data-Driven CEO'],
+    'Hotel': ['Hotel Manager', 'F&B Director', 'Revenue Manager', 'Hospitality Consultant'],
+    'Executive MBA': ['C-Suite Executive', 'VP Operations', 'Managing Director', 'Entrepreneur'],
+    'Visual Communication': ['Brand Designer', 'Art Director', 'UX Designer', 'Creative Lead'],
+    'Game Art': ['Game Artist', '3D Modeler', 'Concept Artist', 'Environment Designer'],
+    'Product Design': ['UX/UI Designer', 'Product Designer', 'Interaction Designer', 'Design Strategist'],
+    'Advertising': ['Creative Director', 'Ad Strategist', 'Brand Manager', 'Digital Marketing Lead'],
+    'Sound': ['Sound Engineer', 'Audio Producer', 'Mixing Engineer', 'Studio Manager'],
+    'Game Development': ['Game Developer', 'Unity Engineer', 'Gameplay Programmer', 'Technical Designer'],
+    'Gaming': ['Game Developer', 'Unity Engineer', 'Gameplay Programmer', 'Technical Designer'],
+    'Filmmaking': ['Film Director', 'Cinematographer', 'Editor', 'Documentary Filmmaker'],
+    'Visual Effects': ['VFX Artist', '3D Animator', 'Motion Graphics Designer', 'Compositing Artist'],
+    'VFX': ['VFX Artist', '3D Animator', 'Motion Graphics Designer', 'Compositing Artist'],
+    'Cardiovascular': ['Cardiovascular Technologist', 'Cardiac Sonographer', 'Cath Lab Technician', 'Clinical Specialist'],
+    'Anesthesia': ['Anesthesia Technologist', 'OT Technician', 'Perfusionist', 'Clinical Coordinator'],
+    'BMLT': ['Lab Technologist', 'Pathology Analyst', 'Research Technician', 'QC Officer'],
+    'Medical Lab': ['Lab Technologist', 'Pathology Analyst', 'Research Technician', 'QC Officer'],
+    'MMLT': ['Senior Lab Scientist', 'Lab Director', 'Clinical Researcher', 'Biotech Consultant'],
+    'BMRIT': ['Radiologic Technologist', 'MRI Technician', 'CT Scan Specialist', 'Imaging Physicist'],
+    'Radiology': ['Radiologic Technologist', 'MRI Technician', 'CT Scan Specialist', 'Imaging Physicist'],
+    'Physiotherapy': ['Physiotherapist', 'Sports Rehab Specialist', 'Orthopedic PT', 'Clinic Owner'],
+    'UX': ['UX/UI Designer', 'Product Designer', 'Interaction Designer', 'Design Strategist'],
+};
 
-    const rotateX = useTransform(mouseY, [-0.5, 0.5], ["17.5deg", "-17.5deg"]);
-    const rotateY = useTransform(mouseX, [-0.5, 0.5], ["-17.5deg", "17.5deg"]);
-
-    const handleMouseMove = (e) => {
-        const rect = e.currentTarget.getBoundingClientRect();
-        const width = rect.width;
-        const height = rect.height;
-        const mouseX = e.clientX - rect.left;
-        const mouseY = e.clientY - rect.top;
-        const xPct = mouseX / width - 0.5;
-        const yPct = mouseY / height - 0.5;
-        x.set(xPct);
-        y.set(yPct);
-    };
-
-    const handleMouseLeave = () => {
-        x.set(0);
-        y.set(0);
-    };
+/** Match a course title to career paths from the lookup map */
+const getCareerPaths = (title) => {
+    if (!title) return ['Industry Professional', 'Specialist', 'Researcher'];
+    for (const [key, paths] of Object.entries(careerPathsMap)) {
+        if (title.includes(key)) return paths;
+    }
+    return ['Industry Professional', 'Specialist', 'Consultant', 'Entrepreneur'];
+};
+// --- 3D Flip Card Component ---
+const FlipCard = ({ course, index }) => {
+    const [flipped, setFlipped] = useState(false);
 
     const getIcon = (cat) => {
         if (cat.includes('Engineering')) return <Code className="w-6 h-6" />;
         if (cat.includes('Data') || cat.includes('Computer')) return <Database className="w-6 h-6" />;
         if (cat.includes('Design')) return <Palette className="w-6 h-6" />;
+        if (cat.includes('Health')) return <Microscope className="w-6 h-6" />;
         return <Zap className="w-6 h-6" />;
     };
 
@@ -47,62 +71,110 @@ const TiltCard = ({ course, index }) => {
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: index * 0.1 }}
-            style={{
-                rotateX,
-                rotateY,
-                transformStyle: "preserve-3d",
-            }}
-            onMouseMove={handleMouseMove}
-            onMouseLeave={handleMouseLeave}
-            className="relative h-[420px] w-full rounded-3xl bg-gradient-to-br from-[#1a1a2e] to-[#0f0f1a] border border-white/10 p-1 group perspective-1000 cursor-pointer"
+            className="flip-card h-[420px] w-full cursor-pointer"
         >
-            {/* Neon Glow Background */}
-            <div
-                className="absolute inset-0 bg-gradient-to-br from-[#FF0000]/20 to-blue-500/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                style={{ transform: "translateZ(-50px)" }}
-            />
+            <div className={`flip-card-inner ${flipped ? 'flipped' : ''}`}>
+                {/* ===== FRONT FACE ===== */}
+                <div className="flip-card-front rounded-3xl bg-gradient-to-br from-[#1a1a2e] to-[#0f0f1a] border border-white/10 p-1 group">
+                    {/* Neon Glow Background */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-[#FF0000]/20 to-blue-500/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
 
-            <div className="relative h-full w-full bg-[#0a0a0f] rounded-[22px] overflow-hidden p-8 flex flex-col justify-between" style={{ transform: "translateZ(20px)" }}>
+                    <div className="relative h-full w-full bg-[#0a0a0f] rounded-[22px] overflow-hidden p-8 flex flex-col justify-between">
+                        {/* Top Section */}
+                        <div>
+                            <div className="flex justify-between items-start mb-6">
+                                <span className="bg-white/5 text-white/80 text-xs font-bold px-3 py-1.5 rounded-lg border border-white/10 flex items-center gap-2">
+                                    {getIcon(course.category)}
+                                    {course.category}
+                                </span>
+                                {course.title.includes('Google') && (
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Google_Cloud_logo.svg" alt="Google Cloud" className="h-5 opacity-80 grayscale group-hover:grayscale-0 transition-all" />
+                                )}
+                                {course.title.includes('IBM') && (
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg" alt="IBM" className="h-8 opacity-80 group-hover:opacity-100 transition-opacity" />
+                                )}
+                            </div>
 
-                {/* Top Section */}
-                <div>
-                    <div className="flex justify-between items-start mb-6">
-                        <span className="bg-white/5 text-white/80 text-xs font-bold px-3 py-1.5 rounded-lg border border-white/10 flex items-center gap-2">
-                            {getIcon(course.category)}
-                            {course.category}
-                        </span>
-                        {course.title.includes('Google') && (
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Google_Cloud_logo.svg" alt="Google Cloud" className="h-5 opacity-80 grayscale group-hover:grayscale-0 transition-all" />
-                        )}
-                        {course.title.includes('IBM') && (
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg" alt="IBM" className="h-8 opacity-80 group-hover:opacity-100 transition-opacity" />
-                        )}
-                    </div>
+                            <h3 className="text-2xl font-black text-white mb-4 leading-tight group-hover:text-[#FF0000] transition-colors duration-300">
+                                {course.title}
+                            </h3>
 
-                    <h3 className="text-2xl font-black text-white mb-4 leading-tight group-hover:text-[#FF0000] transition-colors duration-300">
-                        {course.title}
-                    </h3>
-
-                    <p className="text-gray-400 text-sm line-clamp-3 leading-relaxed group-hover:text-gray-300 transition-colors">
-                        {course.description}
-                    </p>
-                </div>
-
-                {/* Bottom Section */}
-                <div className="relative pt-6 border-t border-white/5">
-                    <div className="flex justify-between items-center">
-                        <div className="text-white/60 text-sm">
-                            <span className="block text-xs uppercase tracking-wider text-[#FF0000] font-bold mb-0.5">Duration</span>
-                            4 Years
+                            <p className="text-gray-400 text-sm line-clamp-3 leading-relaxed group-hover:text-gray-300 transition-colors">
+                                {course.description}
+                            </p>
                         </div>
 
-                        <motion.button
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                            className="w-12 h-12 bg-white/5 rounded-full flex items-center justify-center text-white border border-white/10 group-hover:bg-[#FF0000] group-hover:border-[#FF0000] transition-all duration-300"
-                        >
-                            <ArrowUpRight className="w-5 h-5 group-hover:rotate-45 transition-transform duration-300" />
-                        </motion.button>
+                        {/* Bottom Section */}
+                        <div className="relative pt-6 border-t border-white/5">
+                            <div className="flex justify-between items-center">
+                                <div className="text-white/60 text-sm">
+                                    <span className="block text-xs uppercase tracking-wider text-[#FF0000] font-bold mb-0.5">Duration</span>
+                                    4 Years
+                                </div>
+
+                                <motion.button
+                                    whileHover={{ scale: 1.05 }}
+                                    whileTap={{ scale: 0.95 }}
+                                    onClick={(e) => { e.stopPropagation(); setFlipped(true); }}
+                                    className="flex items-center gap-2 px-4 py-2.5 bg-white/5 rounded-full text-white text-xs font-bold border border-white/10 hover:bg-[#FF0000] hover:border-[#FF0000] transition-all duration-300"
+                                >
+                                    Career Paths
+                                    <ArrowUpRight className="w-4 h-4" />
+                                </motion.button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {/* ===== BACK FACE ===== */}
+                <div className="flip-card-back rounded-3xl bg-gradient-to-br from-[#1a1a2e] to-[#0f0f1a] border border-white/10 p-1">
+                    <div className="relative h-full w-full bg-[#0a0a0f] rounded-[22px] overflow-hidden p-8 flex flex-col justify-between">
+                        {/* Accent glow */}
+                        <div className="absolute top-0 right-0 w-40 h-40 bg-[#FF0000]/10 rounded-full blur-3xl pointer-events-none" />
+                        <div className="absolute bottom-0 left-0 w-32 h-32 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
+
+                        {/* Header */}
+                        <div className="relative z-10">
+                            <span className="inline-flex items-center gap-2 bg-[#FF0000]/10 text-[#FF0000] text-[10px] font-bold px-3 py-1.5 rounded-lg border border-[#FF0000]/20 uppercase tracking-widest mb-4">
+                                <Sparkles className="w-3 h-3" />
+                                Career Outcomes
+                            </span>
+                            <h3 className="text-xl font-black text-white mb-2 leading-tight">
+                                Where This Takes You
+                            </h3>
+                            <p className="text-gray-500 text-xs mb-6">
+                                {course.title}
+                            </p>
+
+                            {/* Career Path Chips */}
+                            <div className="flex flex-wrap gap-3">
+                                {getCareerPaths(course.title).map((path, i) => (
+                                    <motion.span
+                                        key={i}
+                                        initial={{ opacity: 0, scale: 0.8 }}
+                                        animate={flipped ? { opacity: 1, scale: 1 } : {}}
+                                        transition={{ delay: 0.2 + i * 0.1, duration: 0.3 }}
+                                        className="inline-flex items-center gap-2 bg-white/5 text-white text-sm font-semibold px-4 py-2.5 rounded-xl border border-white/10 hover:bg-[#FF0000]/10 hover:border-[#FF0000]/30 hover:text-[#FF0000] transition-all duration-300"
+                                    >
+                                        <Briefcase className="w-3.5 h-3.5 text-gray-500" />
+                                        {path}
+                                    </motion.span>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Back Button */}
+                        <div className="relative z-10 pt-6 border-t border-white/5">
+                            <motion.button
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                                onClick={(e) => { e.stopPropagation(); setFlipped(false); }}
+                                className="flex items-center gap-2 px-4 py-2.5 bg-white/5 rounded-full text-white text-xs font-bold border border-white/10 hover:bg-white/10 transition-all duration-300"
+                            >
+                                <ChevronLeft className="w-4 h-4" />
+                                Back to Program
+                            </motion.button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -311,7 +383,7 @@ const Courses = () => {
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                     <AnimatePresence mode='popLayout'>
                         {filteredCourses.map((course, index) => (
-                            <TiltCard key={course.id} course={course} index={index} />
+                            <FlipCard key={course.id} course={course} index={index} />
                         ))}
                     </AnimatePresence>
                 </div>
