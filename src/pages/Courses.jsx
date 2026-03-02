@@ -161,6 +161,14 @@ const Courses = () => {
                                 "addressRegion": "West Bengal",
                                 "addressCountry": "IN"
                             }
+                        },
+                        "offers": {
+                            "@type": "Offer",
+                            "category": "Paid",
+                            "priceCurrency": "INR",
+                            "price": "0",
+                            "url": "https://www.technoindiauniversity.ai/admissions",
+                            "availability": "https://schema.org/InStock"
                         }
                     }
                 }
