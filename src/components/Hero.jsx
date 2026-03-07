@@ -325,7 +325,7 @@ const Hero = () => {
                     variants={fadeUp}
                 >
                     <Link
-                        to="/admissions"
+                        to="/apply"
                         className="bg-[#FF0000] text-white px-8 py-3.5 rounded-full font-bold text-sm uppercase tracking-widest hover:bg-[#CC0000] transition-all duration-300 hover:shadow-[0_0_30px_rgba(255,0,0,0.4)] hover:scale-105"
                     >
                         Apply for 2026

@@ -678,7 +678,7 @@ const Events = () => {
                                 whileTap={{ scale: 0.95 }}
                             >
                                 <Link
-                                    to="/admissions"
+                                    to="/apply"
                                     className="inline-flex items-center gap-3 bg-white/5 backdrop-blur-md text-white px-10 py-5 rounded-full font-bold text-lg border border-white/20"
                                 >
                                     Apply Now

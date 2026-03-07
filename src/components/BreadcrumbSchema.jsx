@@ -8,7 +8,7 @@ const ROUTE_LABELS = {
     '/': 'Home',
     '/courses': 'Programs & Courses',
     '/about': 'About Us',
-    '/admissions': 'Admissions',
+    '/apply': 'Admissions',
     '/cloud-ai-certification-courses-kolkata': 'Google Cloud & IBM Certification Courses',
     '/contact': 'Contact',
     '/faq': 'FAQ',

@@ -31,7 +31,7 @@ const ScholarshipsStrip = () => {
                     </div>
 
                     <Link
-                        to="/admissions#scholarships"
+                        to="/apply#scholarships"
                         className="inline-flex items-center gap-2 bg-[#FF0000] text-white px-8 py-4 rounded-full font-bold text-sm hover:bg-[#CC0000] transition-all duration-300 hover:scale-105 whitespace-nowrap flex-shrink-0"
                     >
                         Explore Scholarships & Fees

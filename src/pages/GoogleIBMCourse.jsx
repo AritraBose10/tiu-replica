@@ -117,7 +117,7 @@ const GoogleIBMCourse = () => {
                         "category": "Paid",
                         "priceCurrency": "INR",
                         "price": "0",
-                        "url": "https://www.technoindiauniversity.ai/admissions",
+                        "url": "https://www.technoindiauniversity.ai/apply",
                         "availability": "https://schema.org/InStock"
                     }
                 }
@@ -211,7 +211,7 @@ const GoogleIBMCourse = () => {
                             className="flex flex-col sm:flex-row gap-4"
                         >
                             <MotionLink
-                                to="/admissions"
+                                to="/apply"
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.98 }}
                                 className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-red-600 to-red-500 text-white px-8 py-4 rounded-full font-semibold shadow-[0_0_30px_rgba(255,0,0,0.3)] hover:shadow-[0_0_50px_rgba(255,0,0,0.4)] transition-shadow"
@@ -398,7 +398,7 @@ const GoogleIBMCourse = () => {
                                     <div className="flex justify-between items-center pt-4 border-t border-white/5">
                                         <span className="text-xs text-red-500 font-bold uppercase tracking-wider">4 Years</span>
                                         <Link
-                                            to="/admissions"
+                                            to="/apply"
                                             className="text-sm font-semibold text-white hover:text-red-500 transition-colors flex items-center gap-1"
                                         >
                                             Apply <ArrowRight className="w-4 h-4" />
@@ -432,7 +432,7 @@ const GoogleIBMCourse = () => {
 
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
                             <MotionLink
-                                to="/admissions"
+                                to="/apply"
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.98 }}
                                 className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-red-600 to-red-500 text-white px-10 py-4 rounded-full font-bold text-lg shadow-[0_0_40px_rgba(255,0,0,0.3)] hover:shadow-[0_0_60px_rgba(255,0,0,0.4)] transition-shadow"

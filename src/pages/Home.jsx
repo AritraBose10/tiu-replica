@@ -141,14 +141,14 @@ const Home = () => {
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
                             <Link
-                                to="/admissions"
+                                to="/apply"
                                 className="inline-flex items-center justify-center gap-2 bg-[#FF0000] text-white px-10 py-5 rounded-full font-bold text-lg hover:bg-[#CC0000] transition-all duration-300 hover:shadow-2xl hover:scale-105"
                             >
                                 Explore Admissions 2026
                                 <ArrowRight className="w-5 h-5" />
                             </Link>
                             <a
-                                href="https://wa.me/916292090138?text=Hi,%20I'd%20like%20the%20program%20brochure"
+                                href="https://wa.me/916292233351?text=Hi,%20I'd%20like%20the%20program%20brochure"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="inline-flex items-center justify-center gap-2 bg-white/10 text-white px-10 py-5 rounded-full font-bold text-lg hover:bg-white/20 transition-all duration-300 border border-white/20"

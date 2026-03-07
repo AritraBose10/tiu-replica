@@ -33,7 +33,7 @@ const StickyApplyButton = () => {
                         }}
                     >
                         <Link
-                            to="/admissions"
+                            to="/apply"
                             className="block w-full text-center py-3 rounded-lg font-bold text-sm tracking-widest uppercase text-white transition-all duration-200"
                             style={{
                                 background: 'linear-gradient(135deg, #FF0000, #CC0000)',

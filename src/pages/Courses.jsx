@@ -239,7 +239,7 @@ const Courses = () => {
                             "category": "Paid",
                             "priceCurrency": "INR",
                             "price": "0",
-                            "url": "https://www.technoindiauniversity.ai/admissions",
+                            "url": "https://www.technoindiauniversity.ai/apply",
                             "availability": "https://schema.org/InStock"
                         }
                     }

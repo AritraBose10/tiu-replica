@@ -9,7 +9,7 @@ All programs include embedded Google Cloud and IBM certifications. Curriculum is
 - [Home](https://www.technoindiauniversity.ai/): Overview of programs, industry partnerships, campus highlights, and admissions for 2026
 - [Courses](https://www.technoindiauniversity.ai/courses): Full catalog of UG, PG, and PhD programs across Engineering, Data Science, Business, Design, Media, and Allied Health
 - [About](https://www.technoindiauniversity.ai/about): Mission, vision, leadership team, 15,000+ students, and legacy of innovation-led education
-- [Admissions 2026](https://www.technoindiauniversity.ai/admissions): Application process, fees, scholarships, deadlines, and how to apply for Google & IBM-powered programs
+- [Admissions 2026](https://www.technoindiauniversity.ai/apply): Application process, fees, scholarships, deadlines, and how to apply for Google & IBM-powered programs
 - [Google & IBM Certification Courses](https://www.technoindiauniversity.ai/cloud-ai-certification-courses-kolkata): Degree programs with embedded Google Cloud and IBM certifications, live projects, and guaranteed internships
 - [Accreditations & Approvals](https://www.technoindiauniversity.ai/approvals): UGC, NAAC, AICTE, and AIU accreditation details and regulatory compliance
 - [Events](https://www.technoindiauniversity.ai/events): Workshops, tech summits, cultural fests, industry collaborations, and student activities

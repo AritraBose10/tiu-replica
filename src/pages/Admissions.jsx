@@ -119,7 +119,7 @@ const admissionsEventSchema = {
     },
     "offers": {
         "@type": "Offer",
-        "url": "https://www.technoindiauniversity.ai/admissions",
+        "url": "https://www.technoindiauniversity.ai/apply",
         "availability": "https://schema.org/InStock",
         "validFrom": "2026-01-15"
     }

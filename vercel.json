@@ -1,4 +1,11 @@
 {
+    "redirects": [
+        {
+            "source": "/admissions",
+            "destination": "/apply",
+            "permanent": true
+        }
+    ],
     "rewrites": [
         {
             "source": "/api/(.*)",

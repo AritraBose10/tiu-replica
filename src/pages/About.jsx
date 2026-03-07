@@ -297,7 +297,7 @@ const About = () => {
                                 whileTap={{ scale: 0.95 }}
                             >
                                 <Link
-                                    to="/admissions"
+                                    to="/apply"
                                     className="bg-gradient-to-r from-[#FF0000] to-[#CC0000] text-white px-10 py-5 rounded-full font-bold flex items-center gap-2 shadow-[0_0_30px_rgba(255,0,0,0.4)] border border-white/10"
                                 >
                                     <Sparkles className="w-5 h-5" />
@@ -510,7 +510,7 @@ const About = () => {
                             whileTap={{ scale: 0.95 }}
                         >
                             <Link
-                                to="/admissions"
+                                to="/apply"
                                 className="inline-flex items-center gap-3 bg-gradient-to-r from-[#FF0000] to-[#CC0000] text-white px-12 py-6 rounded-full font-bold text-xl shadow-[0_0_40px_rgba(255,0,0,0.5)] hover:shadow-[0_0_60px_rgba(255,0,0,0.6)] border border-white/10 transition-shadow duration-300"
                             >
                                 Apply for Admissions

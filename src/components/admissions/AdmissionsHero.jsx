@@ -186,7 +186,7 @@ const AdmissionsHero = () => {
                             </span>
                             <div className="absolute inset-0 bg-gradient-to-r from-red-500 to-orange-500 opacity-0 group-hover:opacity-10 transition-opacity" />
                         </a>
-                        <a href="https://wa.me/916292090138?text=Hi%2C%20I%20want%20the%20SoF%20course%20brochure" target="_blank" rel="noopener noreferrer" className="px-8 py-4 rounded-full border border-green-500/30 bg-green-500/10 text-green-400 font-medium hover:bg-green-500/20 transition-all flex items-center gap-2">
+                        <a href="https://wa.me/916292233351?text=Hi%2C%20I%20want%20the%20SoF%20course%20brochure" target="_blank" rel="noopener noreferrer" className="px-8 py-4 rounded-full border border-green-500/30 bg-green-500/10 text-green-400 font-medium hover:bg-green-500/20 transition-all flex items-center gap-2">
                             📱 Get Brochure on WhatsApp
                         </a>
                     </motion.div>

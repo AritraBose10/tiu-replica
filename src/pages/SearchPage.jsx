@@ -81,7 +81,7 @@ const SearchPage = () => {
     // Static pages for search
     const pages = [
         { title: 'About Us', description: 'Learn about Techno India University, our vision, mission, and the School of the Future initiative.', url: '/about' },
-        { title: 'Admissions', description: 'Apply now for future-ready programs. Scholarships, eligibility criteria, and application process.', url: '/admissions' },
+        { title: 'Admissions', description: 'Apply now for future-ready programs. Scholarships, eligibility criteria, and application process.', url: '/apply' },
         { title: 'Contact', description: 'Get in touch with Techno India University. Campus location, phone, email, and directions.', url: '/contact' },
         { title: 'FAQ', description: 'Frequently asked questions about programs, admissions, fees, campus life, and placements.', url: '/faq' },
         { title: 'Approvals & Accreditations', description: 'UGC, AICTE, NAAC approvals and recognitions for Techno India University.', url: '/approvals' },

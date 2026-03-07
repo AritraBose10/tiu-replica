@@ -21,7 +21,7 @@ export const routeMeta = {
     changefreq: 'monthly',
     priority: 0.8
   },
-  '/admissions': {
+  '/apply': {
     title: 'School Of The Future Admissions 2026 | Apply for Future-Ready Degrees',
     description: 'Admissions open for 2026 at School Of The Future. Google & IBM-powered programs, strong placements, scholarships and industry internships. Apply today.',
     changefreq: 'weekly',

@@ -361,7 +361,7 @@ async function seed() {
             { name: 'Home', path: '/' },
             { name: 'About Us', path: '/about' },
             { name: 'Contact', path: '/contact' },
-            { name: 'Admissions', path: '/admissions' },
+            { name: 'Admissions', path: '/apply' },
             { name: 'Approvals', path: '/approvals' },
             { name: 'Events', path: '/events' },
             { name: 'FAQ', path: '/faq' },
