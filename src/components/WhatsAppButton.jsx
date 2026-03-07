@@ -1,20 +1,45 @@
-import { MessageCircle } from 'lucide-react';
+import { useEffect } from 'react';
 
 const WhatsAppButton = () => {
-    return (
-        <a
-            href="https://wa.me/916292233351?text=Hi%2C%20I%20want%20to%20know%20more%20about%20SoF%20programs"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Chat on WhatsApp"
-            className="fixed bottom-6 right-6 z-50 flex items-center justify-center w-14 h-14 rounded-full bg-[#25D366] text-white shadow-[0_4px_20px_rgba(37,211,102,0.4)] hover:shadow-[0_4px_30px_rgba(37,211,102,0.6)] hover:scale-110 transition-all duration-300"
-            style={{ bottom: '100px' }}
-        >
-            <svg viewBox="0 0 32 32" fill="currentColor" className="w-7 h-7">
-                <path d="M16.004 2.667c-7.364 0-13.337 5.973-13.337 13.333 0 2.347.613 4.64 1.78 6.66L2.667 29.333l6.86-1.8a13.28 13.28 0 006.477 1.667c7.36 0 13.33-5.973 13.33-13.333S23.363 2.667 16.003 2.667zm0 24.4a11.04 11.04 0 01-5.63-1.54l-.4-.24-4.17 1.093 1.114-4.067-.263-.42A11.01 11.01 0 014.93 16c0-6.1 4.967-11.067 11.073-11.067S27.07 9.9 27.07 16 22.107 27.067 16.004 27.067zm6.07-8.287c-.334-.167-1.97-.973-2.277-1.083-.307-.113-.53-.167-.753.167-.223.333-.867 1.083-1.063 1.307-.197.223-.393.25-.727.083-.333-.167-1.41-.52-2.687-1.657-.993-.883-1.663-1.977-1.86-2.31-.193-.333-.02-.513.147-.68.15-.15.333-.39.5-.583.167-.197.223-.333.333-.557.113-.223.057-.417-.027-.583-.083-.167-.753-1.817-1.033-2.487-.273-.653-.55-.563-.753-.573l-.643-.01c-.223 0-.583.083-.89.417-.307.333-1.17 1.143-1.17 2.787s1.197 3.233 1.363 3.457c.167.223 2.357 3.597 5.71 5.043.797.347 1.42.553 1.903.707.8.253 1.527.217 2.103.133.64-.097 1.97-.807 2.25-1.587.277-.78.277-1.45.193-1.587-.083-.14-.307-.223-.64-.39z" />
-            </svg>
-        </a>
-    );
+    useEffect(() => {
+        window.chatWidgetConfig = {
+            whatsappNumber: "916292090138",
+            welcomeMessage: "Hey 👋,\nHow can we help you?",
+            buttonText: "",          // empty = no text label, icon only
+            profileName: "School of the Future",
+            profileImageUrl: "https://api.kraya-ai.com/images/kraya-logo.png",
+            appUrl: "https://api.kraya-ai.com"
+        };
+
+        // Inject CSS to push widget above sticky Apply bar on mobile
+        if (!document.getElementById('__krayaPositionFix')) {
+            const style = document.createElement('style');
+            style.id = '__krayaPositionFix';
+            style.textContent = `
+                @media (max-width: 768px) {
+                    .kraya-floating-chat-icon {
+                        bottom: 80px !important;
+                        z-index: 70 !important;
+                    }
+                    .kraya-floating-chat-box {
+                        bottom: 150px !important;
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+        }
+
+        // Avoid loading twice
+        if (document.getElementById('__krayaChatWidget')) return;
+
+        const script = document.createElement('script');
+        script.id = '__krayaChatWidget';
+        script.src = "https://api.kraya-ai.com/widget/chat.js?v=1771933931284";
+        script.async = true;
+        document.head.appendChild(script);
+    }, []);
+
+    return null;
 };
 
 export default WhatsAppButton;
