@@ -23,7 +23,7 @@ const ThankYou = () => {
             gtag('config', 'AW-340383729');
             
             // Lead Form conversion event
-            gtag('event', 'conversion', {'send_to': 'AW-340383729/7xJnCK78mrkaEP6-sI8_'});
+            gtag('event', 'conversion', {'send_to': 'AW-340383729/TC1qCODg5LIZEPGvp6IB'});
         `;
         document.head.appendChild(inlineScript);
 
