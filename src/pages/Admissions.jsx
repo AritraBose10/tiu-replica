@@ -129,7 +129,7 @@ const Admissions = () => {
     // Google Ads gtag — only on admissions page
     useEffect(() => {
         const script = document.createElement('script');
-        script.src = 'https://www.googletagmanager.com/gtag/js?id=AW-16943685502';
+        script.src = 'https://www.googletagmanager.com/gtag/js?id=AW-340383729';
         script.async = true;
         document.head.appendChild(script);
 
@@ -138,7 +138,7 @@ const Admissions = () => {
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', 'AW-16943685502');
+            gtag('config', 'AW-340383729');
         `;
         document.head.appendChild(inlineScript);
 

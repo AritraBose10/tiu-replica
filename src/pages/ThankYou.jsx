@@ -10,7 +10,7 @@ const ThankYou = () => {
     useEffect(() => {
         // 1. Base Google Ads gtag script
         const tagScript = document.createElement('script');
-        tagScript.src = 'https://www.googletagmanager.com/gtag/js?id=AW-16943685502';
+        tagScript.src = 'https://www.googletagmanager.com/gtag/js?id=AW-340383729';
         tagScript.async = true;
         document.head.appendChild(tagScript);
 
@@ -20,10 +20,10 @@ const ThankYou = () => {
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', 'AW-16943685502');
+            gtag('config', 'AW-340383729');
             
             // Lead Form conversion event
-            gtag('event', 'conversion', {'send_to': 'AW-16943685502/7xJnCK78mrkaEP6-sI8_'});
+            gtag('event', 'conversion', {'send_to': 'AW-340383729/7xJnCK78mrkaEP6-sI8_'});
         `;
         document.head.appendChild(inlineScript);
 
