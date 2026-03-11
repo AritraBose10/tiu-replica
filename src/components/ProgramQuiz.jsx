@@ -133,7 +133,7 @@ const questions = [
             { label: 'AI Engineer, Cloud Architect, Data Scientist', tags: ['tech'] },
             { label: 'Business Analyst, Product Manager, Consultant', tags: ['business'] },
             { label: 'UX Designer, Filmmaker, Game Developer', tags: ['creative'] },
-            { label: 'Physiotherapist, Radiology Tech, Clinical Specialist', tags: ['health'] },
+            { label: 'Nurse, Lab Technologist, Cardiovascular Specialist', tags: ['health'] },
         ],
     },
 ];
@@ -142,7 +142,7 @@ const results = {
     tech: {
         domain: 'Technology & Artificial Intelligence',
         tagline: 'Build careers in AI, data and cloud — not just degrees.',
-        programs: 'B.Tech CSE | B.Sc Data Analytics & Gen AI | BCA AI | M.Tech / Ph.D in AI',
+        programs: 'B.Tech CSE-AI/ML | BCA with Data Science and AI | BSc (H) Cyber Security | M.Tech CSE AI/ML',
         badge: 'Powered by Google Cloud & IBM',
         color: 'from-blue-600 to-cyan-500',
         link: '/courses?category=engineering',
@@ -150,7 +150,7 @@ const results = {
     business: {
         domain: 'Business, Analytics & Management',
         tagline: 'Where business decisions are driven by data and intelligence.',
-        programs: 'BBA Business Analytics | MBA Analytics & AI | Executive MBA',
+        programs: 'BBA Business Analytics | MBA | BSc (H) Hotel and Hospital Management',
         badge: 'Powered by IBM',
         color: 'from-amber-500 to-orange-500',
         link: '/courses?category=management',
@@ -158,7 +158,7 @@ const results = {
     creative: {
         domain: 'Design, Media & Creative Technology',
         tagline: 'Turn creativity into real careers — not just portfolios.',
-        programs: 'B.Des | Filmmaking | Game Development | VFX & Animation',
+        programs: 'B. Des Visual Communication | BSC (H) in Game Development | BSC (H) in Filmmaking | BSC (H) in Visual Effects & Animation',
         badge: '',
         color: 'from-purple-600 to-pink-500',
         link: '/courses?category=design',
@@ -166,7 +166,7 @@ const results = {
     health: {
         domain: 'Health & Allied Sciences',
         tagline: 'Skill-focused healthcare education aligned with real hospitals.',
-        programs: 'Cardiovascular Tech | OT & Anesthesia | BPT / MPT | Radiology',
+        programs: 'Bsc (H) Cardiovascular Technology | Bsc (H) Anesthesia and Operation Theater Technology | Bsc (H) Microbiology | Bsc (H) Biotechnology',
         badge: '',
         color: 'from-emerald-500 to-teal-500',
         link: '/courses?category=health',

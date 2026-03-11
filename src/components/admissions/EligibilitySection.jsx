@@ -16,7 +16,7 @@ const profiles = [
     {
         icon: Languages,
         title: 'Graduates Seeking PG Programs',
-        description: 'Degree holders looking for M.Tech, MBA, M.Sc, M.Des or Ph.D programs.',
+        description: 'Degree holders looking for M.Tech, MBA, M.Sc, or M.Des programs.',
     },
     {
         icon: Users,

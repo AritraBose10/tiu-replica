@@ -5,13 +5,13 @@ export const EXCLUDED_ROUTES = ['/admin', '/events-demo', '/thank-you'];
 export const routeMeta = {
   '/': {
     title: 'Future-Ready Industry Courses in Kolkata with Google & IBM | School Of The Future',
-    description: "Study AI, Cloud, CSE, Business, Design & more at School of the Future, Kolkata. Google & IBM-powered UG, PG & Ph.D. programs with real projects, certifications, 500+ hiring partners. Admissions 2026 open.",
+    description: "Study AI, Cloud, CSE, Business, Design & more at School of the Future, Kolkata. Google & IBM-powered UG & PG programs with real projects, certifications, 500+ hiring partners. Admissions 2026 open.",
     changefreq: 'daily',
     priority: 1.0
   },
   '/courses': {
     title: 'Future-Ready Programs After 12th & Graduation | School of the Future',
-    description: 'Explore UG, PG & PhD programs in AI, Data Science, Business Analytics, Design, Media & Allied Health at the School of the Future.',
+    description: 'Explore UG & PG programs in AI, Data Science, Business Analytics, Design, Media & Allied Health at the School of the Future.',
     changefreq: 'weekly',
     priority: 0.9
   },

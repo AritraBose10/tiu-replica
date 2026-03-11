@@ -28,7 +28,7 @@ const eduOrgSchema = {
     "alternateName": "SoF TIU",
     "url": "https://www.technoindiauniversity.ai",
     "logo": "https://www.technoindiauniversity.ai/image.png",
-    "description": "School of the Future is a future-focused academic school under Techno India University, Kolkata offering Google Cloud & IBM-powered UG, PG & Ph.D. programs in AI, Cloud Computing, Data Science, Business, Design and Allied Health Sciences.",
+    "description": "School of the Future is a future-focused academic school under Techno India University, Kolkata offering Google Cloud & IBM-powered UG & PG programs in AI, Cloud Computing, Data Science, Business, Design and Allied Health Sciences.",
     "foundingDate": "2001",
     "address": {
         "@type": "PostalAddress",
@@ -65,7 +65,7 @@ const Home = () => {
         <div className="bg-white">
             <SEO
                 title="Future-Ready Industry Courses in Kolkata with Google & IBM | School Of The Future"
-                description="Study AI, Cloud, CSE, Business, Design & more at School of the Future, Kolkata. Google & IBM-powered UG, PG & Ph.D. programs with real projects, certifications, 500+ hiring partners. Admissions 2026 open."
+                description="Study AI, Cloud, CSE, Business, Design & more at School of the Future, Kolkata. Google & IBM-powered UG & PG programs with real projects, certifications, 500+ hiring partners. Admissions 2026 open."
             />
             <SchemaInjector schema={eduOrgSchema} />
             {/* §1 — Hero */}

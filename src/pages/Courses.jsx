@@ -3,7 +3,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Search, Filter, Sparkles, ArrowUpRight, Zap, Code, Database, Palette, Microscope, ChevronLeft, ChevronRight, ArrowRight, Briefcase } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import coursesData from '../data/mock_courses.json';
-import { useSanity } from '../hooks/useSanity';
 import { COURSES_QUERY } from '../lib/queries';
 import SEO from '../components/SEO';
 import SchemaInjector from '../components/SchemaInjector';
@@ -20,7 +19,6 @@ const careerPathsMap = {
     'Data Analytics': ['GenAI Developer', 'Prompt Engineer', 'Data Analyst', 'AI Product Manager'],
     'Cyber': ['Security Analyst', 'Penetration Tester', 'SOC Analyst', 'Cybersecurity Consultant'],
     'M.Sc': ['Senior Data Scientist', 'ML Engineer', 'Research Scientist', 'Analytics Lead'],
-    'Ph.D': ['AI Research Professor', 'Chief Scientist', 'R&D Director', 'AI Lab Lead'],
     'BBA Business': ['Business Analyst', 'Product Manager', 'Growth Strategist', 'Fintech Analyst'],
     'MBA Business': ['Strategy Consultant', 'VP Analytics', 'Product Director', 'Data-Driven CEO'],
     'Hotel': ['Hotel Manager', 'F&B Director', 'Revenue Manager', 'Hospitality Consultant'],
@@ -41,10 +39,17 @@ const careerPathsMap = {
     'Medical Lab': ['Lab Technologist', 'Pathology Analyst', 'Research Technician', 'QC Officer'],
     'MMLT': ['Senior Lab Scientist', 'Lab Director', 'Clinical Researcher', 'Biotech Consultant'],
     'BMRIT': ['Radiologic Technologist', 'MRI Technician', 'CT Scan Specialist', 'Imaging Physicist'],
-    'Radiology': ['Radiologic Technologist', 'MRI Technician', 'CT Scan Specialist', 'Imaging Physicist'],
-    'Physiotherapy': ['Physiotherapist', 'Sports Rehab Specialist', 'Orthopedic PT', 'Clinic Owner'],
     'UX': ['UX/UI Designer', 'Product Designer', 'Interaction Designer', 'Design Strategist'],
+    'Agriculture': ['Agronomist', 'Farm Manager', 'Agriculture Consultant', 'Research Scientist'],
+    'LLB': ['Corporate Advocate', 'Legal Consultant', 'Litigator', 'Compliance Officer'],
+    'Nursing': ['Nurse', 'Clinical Specialist', 'Nurse Educator', 'Hospital Administrator'],
+    'LL.B': ['Advocate', 'Corporate Lawyer', 'Legal Consultant', 'Judicial Officer'],
+    'B.Com': ['Accountant', 'Financial Analyst', 'Tax Consultant', 'Audit Associate'],
+    'Media Science': ['Journalist', 'Public Relations Officer', 'Digital Content Creator', 'Media Planner'],
+    'Microbiology': ['Biotechnologist', 'Microbiologist', 'Quality Control Analyst', 'Research Technician'],
+    'Biotechnology': ['Biotechnologist', 'Microbiologist', 'Quality Control Analyst', 'Research Technician'],
 };
+
 
 /** Match a course title to career paths from the lookup map */
 const getCareerPaths = (title) => {
@@ -60,9 +65,10 @@ const FlipCard = ({ course, index }) => {
 
     const getIcon = (cat) => {
         if (cat.includes('Engineering')) return <Code className="w-6 h-6" />;
-        if (cat.includes('Data') || cat.includes('Computer')) return <Database className="w-6 h-6" />;
-        if (cat.includes('Design')) return <Palette className="w-6 h-6" />;
-        if (cat.includes('Health')) return <Microscope className="w-6 h-6" />;
+        if (cat.includes('Data') || cat.includes('Computer') || cat.includes('Technology')) return <Database className="w-6 h-6" />;
+        if (cat.includes('Design') || cat.includes('Arts')) return <Palette className="w-6 h-6" />;
+        if (cat.includes('Health') || cat.includes('Science')) return <Microscope className="w-6 h-6" />;
+        if (cat.includes('Law')) return <Briefcase className="w-6 h-6" />;
         return <Zap className="w-6 h-6" />;
     };
 
@@ -82,16 +88,16 @@ const FlipCard = ({ course, index }) => {
                     <div className="relative h-full w-full bg-[#0a0a0f] rounded-[22px] overflow-hidden p-8 flex flex-col justify-between">
                         {/* Top Section */}
                         <div>
-                            <div className="flex justify-between items-start mb-6">
-                                <span className="bg-white/5 text-white/80 text-xs font-bold px-3 py-1.5 rounded-lg border border-white/10 flex items-center gap-2">
-                                    {getIcon(course.category)}
-                                    {course.category}
+                            <div className="flex justify-between items-start mb-6 gap-3">
+                                <span className="bg-white/5 text-white/80 text-[11px] leading-tight font-bold px-3 py-2 rounded-lg border border-white/10 flex items-start gap-2 max-w-[70%]">
+                                    <div className="shrink-0 opacity-80 mt-0.5">{getIcon(course.category)}</div>
+                                    <span className="break-words">{course.category}</span>
                                 </span>
-                                {course.title.includes('Google') && (
-                                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Google_Cloud_logo.svg" alt="Google Cloud" className="h-5 opacity-80 grayscale group-hover:grayscale-0 transition-all" />
+                                {course.title.toLowerCase().includes('google') && (
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Google_Cloud_logo.svg" alt="Google Cloud" className="h-[18px] w-auto object-contain shrink-0 opacity-80 grayscale group-hover:grayscale-0 transition-all mt-1.5" />
                                 )}
-                                {course.title.includes('IBM') && (
-                                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg" alt="IBM" className="h-8 opacity-80 group-hover:opacity-100 transition-opacity" />
+                                {course.title.toLowerCase().includes('ibm') && (
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg" alt="IBM" className="h-[18px] w-auto object-contain shrink-0 opacity-80 group-hover:opacity-100 transition-opacity mt-1.5" />
                                 )}
                             </div>
 
@@ -109,7 +115,7 @@ const FlipCard = ({ course, index }) => {
                             <div className="flex justify-between items-center">
                                 <div className="text-white/60 text-sm">
                                     <span className="block text-xs uppercase tracking-wider text-[#FF0000] font-bold mb-0.5">Duration</span>
-                                    4 Years
+                                    {course.duration || '4 Years'}
                                 </div>
 
                                 <motion.button
@@ -184,8 +190,8 @@ const FlipCard = ({ course, index }) => {
 
 // --- Helper to determine degree level ---
 const getDegreeLevel = (title) => {
-    const ugKeywords = ['B.Tech', 'BCA', 'BBA', 'B.Des', 'B.Sc', 'Bachelor'];
-    const pgKeywords = ['M.Tech', 'MBA', 'MCA', 'M.Sc', 'Master', 'Ph.D'];
+    const ugKeywords = ['B.Tech', 'BCA', 'BBA', 'B.Des', 'B.Sc', 'Bsc', 'Bachelor', 'LL.B', 'B.Com'];
+    const pgKeywords = ['M.Tech', 'MBA', 'MCA', 'M.Sc', 'M.Des', 'Master'];
 
     if (ugKeywords.some(keyword => title.includes(keyword))) return 'UG';
     if (pgKeywords.some(keyword => title.includes(keyword))) return 'PG';
@@ -194,7 +200,7 @@ const getDegreeLevel = (title) => {
 
 // --- Main Page Component ---
 const Courses = () => {
-    const { data: allCourses } = useSanity(COURSES_QUERY, coursesData);
+    const allCourses = coursesData;
     const [filteredCourses, setFilteredCourses] = useState(allCourses);
     const [searchTerm, setSearchTerm] = useState('');
     const [degreeType, setDegreeType] = useState('UG'); // New State: UG or PG
@@ -268,7 +274,7 @@ const Courses = () => {
         <div className="min-h-screen bg-[#020205] text-white relative overflow-x-hidden selection:bg-[#FF0000] selection:text-white">
             <SEO
                 title="Future-Ready Programs After 12th & Graduation | School of the Future"
-                description="Explore UG, PG & PhD programs in AI, Data Science, Business Analytics, Design, Media & Allied Health at the School of the Future."
+                description="Explore UG & PG programs in AI, Data Science, Business Analytics, Design, Media & Allied Health at the School of the Future."
             />
             <SchemaInjector schema={courseSchema} />
 

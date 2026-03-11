@@ -39,7 +39,7 @@ const admissionsFaqs = [
     {
         id: 4,
         question: 'What programs are available for 2026 intake?',
-        answer: 'We offer 35+ programs across five schools — Engineering & Technology, IT & Applied Sciences, Business & Management, Creative Arts & Design, and Health & Allied Sciences. Programs include B.Tech, BCA, BBA, B.Des, B.Sc, MBA, M.Tech, M.Des, and Ph.D.',
+        answer: 'We offer 29 programs across six schools — Engineering & Technology, IT & Applied Sciences, Business & Management, Creative Arts & Design, Health & Allied Sciences, and School of Law. Programs include B.Tech, BCA, BBA, B.Des, B.Sc, MBA, M.Tech, M.Des, and LL.B.',
     },
     {
         id: 5,

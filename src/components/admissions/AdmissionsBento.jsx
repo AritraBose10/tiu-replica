@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronDown, Cpu, BarChart3, Palette, HeartPulse, Monitor, ArrowRight } from 'lucide-react';
+import { ChevronDown, Cpu, BarChart3, Palette, HeartPulse, Monitor, ArrowRight, Scale } from 'lucide-react';
 
-/* ─── Program Data (from programs.md) ─── */
+/* ─── Program Data ─── */
 const domains = [
     {
         id: 'engineering',
@@ -12,18 +12,18 @@ const domains = [
         border: 'border-blue-500/30',
         accent: 'text-blue-400',
         glow: 'bg-blue-500/10',
-        gridClass: 'md:col-span-2', // Removed row-span-2
+        gridClass: 'md:col-span-2',
         programs: [
-            { name: 'B.Tech Computer Science & Engineering (CSE)', badge: 'Powered by Google Cloud' },
-            { name: 'B.Tech CSE – AI/ML', badge: 'Powered by Google Cloud' },
-            { name: 'B.Tech CSE – Data Science', badge: 'Powered by Google Cloud' },
-            { name: 'B.Tech CSE – Cloud Computing', badge: 'Powered by Google Cloud' },
-            { name: 'M.Tech CSE – AI/ML', badge: null },
+            { name: 'B.Tech CSE-AI/ML', badge: 'Powered by GOOGLE' },
+            { name: 'B.Tech CSE-Data Science', badge: 'Powered by GOOGLE' },
+            { name: 'B.Tech CSE-Cloud Computing', badge: 'Powered by GOOGLE' },
+            { name: 'M.Tech CSE AI/ML', badge: null },
+            { name: 'M.Tech CSE', badge: null },
         ],
     },
     {
         id: 'it-sciences',
-        title: 'IT & Computer Applications',
+        title: 'IT & Applied Sciences',
         icon: Monitor,
         color: 'from-purple-500/20 to-pink-500/20',
         border: 'border-purple-500/30',
@@ -31,16 +31,15 @@ const domains = [
         glow: 'bg-purple-500/10',
         gridClass: 'md:col-span-1',
         programs: [
-            { name: 'BCA with Data Science & AI', badge: 'Powered by IBM' },
-            { name: 'B.Sc (H) Data Analytics & Generative AI', badge: 'Powered by IBM' },
-            { name: 'B.Sc (H) Cyber Security & Ethical Hacking', badge: 'Powered by IBM' },
-            { name: 'M.Sc in Data Science & AI', badge: null },
-            { name: 'Ph.D in AI', badge: null },
+            { name: 'BCA with Data Science and AI', badge: 'Powered by IBM' },
+            { name: 'BSc (H) Cyber Security and Ethical Hacking', badge: 'Powered by IBM' },
+            { name: 'BSc (H) Data Analytics and Generative AI', badge: 'Powered by IBM' },
+            { name: 'Bsc Agriculture', badge: null },
         ],
     },
     {
         id: 'business',
-        title: 'Business & Management',
+        title: 'School of Business & Management',
         icon: BarChart3,
         color: 'from-amber-500/20 to-orange-500/20',
         border: 'border-amber-500/30',
@@ -48,10 +47,10 @@ const domains = [
         glow: 'bg-amber-500/10',
         gridClass: 'md:col-span-1',
         programs: [
-            { name: 'BBA Business Analytics & AI', badge: 'Powered by IBM' },
-            { name: 'MBA Business Analytics & AI', badge: 'Powered by IBM' },
-            { name: 'BBA Hotel & Hospitality Management', badge: null },
-            { name: 'Executive MBA', badge: 'For Working Professionals' },
+            { name: 'BSc (H) Hotel and Hospital Management', badge: null },
+            { name: 'BBA Business Analytics', badge: 'Powered by IBM' },
+            { name: 'MBA', badge: 'Powered by IBM' },
+            { name: 'Working Professional MBA', badge: null },
         ],
     },
     {
@@ -64,14 +63,14 @@ const domains = [
         glow: 'bg-rose-500/10',
         gridClass: 'md:col-span-2',
         programs: [
-            { name: 'B.Des Visual Communication & Digital Design', badge: null },
-            { name: 'B.Des Game Art & Design', badge: null },
-            { name: 'B.Des Digital Product Design', badge: null },
-            { name: 'M.Des Advertising, Design & Digital Communication', badge: null },
-            { name: 'B.Sc (H) in Sound Engineering', badge: null },
-            { name: 'B.Sc (H) in Game Development', badge: null },
-            { name: 'B.Sc (H) in Filmmaking', badge: null },
-            { name: 'B.Sc (H) in Visual Effects & Animation', badge: null },
+            { name: 'B. Des Visual Communication & Digital Design', badge: null },
+            { name: 'B. Des Game Art & Design', badge: null },
+            { name: 'B. Des Digital Product Design', badge: null },
+            { name: 'M.Des in Advertising, design and digital communications', badge: null },
+            { name: 'BSC (H) in Sound Engineering', badge: null },
+            { name: 'BSC (H) in Game Development', badge: null },
+            { name: 'BSC (H) in Filmmaking', badge: null },
+            { name: 'BSC (H) in Visual Effects & Animation', badge: null },
         ],
     },
     {
@@ -82,15 +81,27 @@ const domains = [
         border: 'border-emerald-500/30',
         accent: 'text-emerald-400',
         glow: 'bg-emerald-500/10',
-        gridClass: 'md:col-span-1', // Moved to last column naturally
+        gridClass: 'md:col-span-1',
         programs: [
-            { name: 'B.Sc (H) Cardiovascular Technology', badge: null },
-            { name: 'B.Sc (H) Anesthesia and Operation Theater Technology', badge: null },
-            { name: 'Bachelor of Medical Laboratory Technology (BMLT)', badge: null },
-            { name: 'Master of Medical Laboratory Technology (MMLT)', badge: null },
-            { name: 'Bachelor of Medical Radiology & Imaging Technology (BMRIT)', badge: null },
-            { name: 'Bachelor of Physiotherapy (BPT)', badge: null },
-            { name: 'Master of Physiotherapy (MPT)', badge: null },
+            { name: 'Bsc (H) Cardiovascular Technology', badge: null },
+            { name: 'Bsc (H) Anesthesia and Operation Theater Technology', badge: null },
+            { name: 'Bsc (H) Microbiology', badge: null },
+            { name: 'Bsc (H) Biotechnology', badge: null },
+        ],
+    },
+    {
+        id: 'law',
+        title: 'School of Law',
+        icon: Scale,
+        color: 'from-indigo-500/20 to-blue-500/20',
+        border: 'border-indigo-500/30',
+        accent: 'text-indigo-400',
+        glow: 'bg-indigo-500/10',
+        gridClass: 'md:col-span-1',
+        programs: [
+            { name: 'LL.B', badge: null },
+            { name: 'B.B.A. LL.B', badge: null },
+            { name: 'B.Com. LL.B', badge: null },
         ],
     },
 ];
@@ -176,7 +187,7 @@ const AdmissionsBento = () => {
 
     // Split domains into two columns for independent height flow
     const leftCol = domains.filter(d => ['engineering', 'business', 'health'].includes(d.id));
-    const rightCol = domains.filter(d => ['it-sciences', 'creative'].includes(d.id));
+    const rightCol = domains.filter(d => ['it-sciences', 'creative', 'law'].includes(d.id));
 
     const renderCard = (domain, i) => (
         <BentoCard

@@ -5,18 +5,19 @@ import { Clock, GraduationCap, ChevronRight, ChevronLeft, ArrowUpRight, Sparkles
 
 const categories = [
     { id: 'engineering', label: 'Engineering & Tech' },
-    { id: 'it_applied', label: 'IT & Computer Applications' },
+    { id: 'it_applied', label: 'IT & Applied Sciences' },
     { id: 'business', label: 'Business & Management' },
     { id: 'creative', label: 'Creative Arts & Design' },
     { id: 'health', label: 'Health & Allied Sciences' },
+    { id: 'law', label: 'School of Law' },
 ];
 
 const courses = {
     engineering: [
         {
             id: 1,
-            title: 'B.Tech in Computer Science & Engineering',
-            subtitle: 'Powered by Google Cloud',
+            title: 'B.Tech CSE-AI/ML',
+            subtitle: 'Powered by GOOGLE',
             partner: 'Google',
             duration: '4 Years',
             eligibility: '10+2 with PCM',
@@ -24,8 +25,8 @@ const courses = {
         },
         {
             id: 2,
-            title: 'B.Tech CSE - AI & Machine Learning',
-            subtitle: 'Powered by Google Cloud',
+            title: 'B.Tech CSE-Data Science',
+            subtitle: 'Powered by GOOGLE',
             partner: 'Google',
             duration: '4 Years',
             eligibility: '10+2 with PCM',
@@ -33,30 +34,39 @@ const courses = {
         },
         {
             id: 3,
-            title: 'B.Tech CSE - Cloud Computing',
-            subtitle: 'Powered by Google Cloud',
-            partner: 'Google',
-            duration: '4 Years',
-            eligibility: '10+2 with PCM',
-            badge: 'Bachelor',
+            title: 'M.Tech CSE AI/ML',
+            subtitle: 'Advanced Research Focus',
+            partner: 'Tech',
+            duration: '2 Years',
+            eligibility: 'B.Tech/BE in relevant field',
+            badge: 'Master',
         },
     ],
     it_applied: [
         {
             id: 4,
-            title: 'BCA with Data Science & AI',
+            title: 'BCA with Data Science and AI',
             subtitle: 'Powered by IBM',
             partner: 'IBM',
-            duration: '3 Years',
+            duration: '4 Years',
             eligibility: '10+2 any stream',
             badge: 'Bachelor',
         },
         {
             id: 5,
-            title: 'B.Sc (H) Cyber Security',
+            title: 'BSc (H) Cyber Security and Ethical Hacking',
             subtitle: 'Powered by IBM',
             partner: 'IBM',
-            duration: '3 Years',
+            duration: '4 Years',
+            eligibility: '10+2 with Science',
+            badge: 'Bachelor',
+        },
+        {
+            id: 6,
+            title: 'Bsc Agriculture',
+            subtitle: 'Modern Agricultural Sciences',
+            partner: 'AgriTech',
+            duration: '4 Years',
             eligibility: '10+2 with Science',
             badge: 'Bachelor',
         },
@@ -64,18 +74,36 @@ const courses = {
     business: [
         {
             id: 7,
-            title: 'BBA Business Analytics & AI',
+            title: 'BBA Business Analytics',
             subtitle: 'Powered by IBM',
             partner: 'IBM',
-            duration: '3 Years',
+            duration: '4 Years',
+            eligibility: '10+2 any stream',
+            badge: 'Bachelor',
+        },
+        {
+            id: 8,
+            title: 'MBA',
+            subtitle: 'Powered by IBM',
+            partner: 'IBM',
+            duration: '2 Years',
+            eligibility: 'Graduation in any stream',
+            badge: 'Master',
+        },
+        {
+            id: 9,
+            title: 'BSc (H) Hotel and Hospital Management',
+            subtitle: 'Hospitality & Management',
+            partner: 'Hospitality',
+            duration: '4 Years',
             eligibility: '10+2 any stream',
             badge: 'Bachelor',
         },
     ],
     creative: [
         {
-            id: 9,
-            title: 'B.Des Visual Communication',
+            id: 10,
+            title: 'B. Des Visual Communication & Digital Design',
             subtitle: 'Digital Design Focus',
             partner: 'Design',
             duration: '4 Years',
@@ -83,19 +111,28 @@ const courses = {
             badge: 'Bachelor',
         },
         {
-            id: 10,
-            title: 'B.Sc (H) Game Development',
+            id: 11,
+            title: 'BSC (H) in Game Development',
             subtitle: 'Unity & Unreal Engine',
             partner: 'Gaming',
-            duration: '3 Years',
-            eligibility: '10+2 with Science',
+            duration: '4 Years',
+            eligibility: '10+2 any stream',
+            badge: 'Bachelor',
+        },
+        {
+            id: 12,
+            title: 'BSC (H) in Filmmaking',
+            subtitle: 'Production & Direction',
+            partner: 'Film',
+            duration: '4 Years',
+            eligibility: '10+2 any stream',
             badge: 'Bachelor',
         },
     ],
     health: [
         {
-            id: 11,
-            title: 'B.Sc (H) Cardiovascular Tech',
+            id: 13,
+            title: 'Bsc (H) Cardiovascular Technology',
             subtitle: 'Medical Specialization',
             partner: 'Health',
             duration: '4 Years',
@@ -103,12 +140,41 @@ const courses = {
             badge: 'Bachelor',
         },
         {
-            id: 12,
-            title: 'Bachelor of Physiotherapy',
+            id: 14,
+            title: 'Bsc (H) Anesthesia and Operation Theater Technology',
             subtitle: 'Clinical Practice',
             partner: 'Health',
-            duration: '4.5 Years',
+            duration: '4 Years',
             eligibility: '10+2 with PCB',
+            badge: 'Bachelor',
+        },
+        {
+            id: 15,
+            title: 'Bsc (H) Microbiology',
+            subtitle: 'Diagnostics & Testing',
+            partner: 'Health',
+            duration: '4 Years',
+            eligibility: '10+2 with Science',
+            badge: 'Bachelor',
+        },
+    ],
+    law: [
+        {
+            id: 16,
+            title: 'B.B.A. LL.B',
+            subtitle: 'Integrated Law & Business',
+            partner: 'Law',
+            duration: '5 Years',
+            eligibility: '10+2 any stream',
+            badge: 'Integrated',
+        },
+        {
+            id: 17,
+            title: 'LL.B',
+            subtitle: 'Legislative Law',
+            partner: 'Law',
+            duration: '3 Years',
+            eligibility: 'Graduation in any stream',
             badge: 'Bachelor',
         },
     ],
@@ -120,12 +186,19 @@ const careerPathsMap = {
     'AI': ['AI Engineer', 'ML Researcher', 'Data Scientist', 'NLP Specialist'],
     'Cloud': ['Cloud Architect', 'SRE Engineer', 'Platform Engineer', 'Cloud Security Analyst'],
     'BCA': ['Data Analyst', 'Junior Data Scientist', 'AI Developer', 'BI Analyst'],
-    'Cyber': ['Security Analyst', 'Penetration Tester', 'SOC Analyst', 'Cybersecurity Consultant'],
-    'BBA Business': ['Business Analyst', 'Product Manager', 'Growth Strategist', 'Fintech Analyst'],
+    'Cyber': ['Security Analyst', 'Penetration Tester', 'SOC Analyst', 'Cyber Security Consultant'],
+    'Agriculture': ['Agronomist', 'Agri-Tech Specialist', 'Research Scientist', 'Farm Manager'],
+    'BBA': ['Business Analyst', 'Product Manager', 'Growth Strategist', 'Fintech Analyst'],
+    'MBA': ['Corporate Strategist', 'Management Consultant', 'Operations Head', 'Financial Manager'],
+    'Hotel': ['Hotel Manager', 'Hospitality Operations', 'Event Manager', 'Guest Experience Lead'],
     'Visual Communication': ['Brand Designer', 'Art Director', 'UX Designer', 'Creative Lead'],
-    'Game Development': ['Game Developer', 'Unity Engineer', 'Gameplay Programmer', 'Technical Designer'],
+    'Game': ['Game Developer', 'Unity Engineer', 'Gameplay Programmer', 'Technical Designer'],
+    'Filmmaking': ['Film Director', 'Cinematographer', 'Video Editor', 'Production Manager'],
     'Cardiovascular': ['Cardiovascular Technologist', 'Cardiac Sonographer', 'Cath Lab Technician', 'Clinical Specialist'],
-    'Physiotherapy': ['Physiotherapist', 'Sports Rehab Specialist', 'Orthopedic PT', 'Clinic Owner'],
+    'Nursing': ['Clinical Nurse', 'Healthcare Administrator', 'Public Health Nurse', 'Nurse Educator'],
+    'Medical Lab': ['Clinical Laboratory Scientist', 'Pathology Assistant', 'Medical Technologist', 'Research Associate'],
+    'LL.B': ['Corporate Advocate', 'Legal Consultant', 'Litigator', 'Compliance Officer'],
+    'Law': ['Corporate Advocate', 'Legal Consultant', 'Litigator', 'Compliance Officer'],
 };
 
 const getCareerPaths = (title) => {
@@ -159,15 +232,22 @@ const ProgramFlipCard = ({ course, index }) => {
                     <div className="relative bg-[#0a0a1a] h-full rounded-[20px] p-8 overflow-hidden transition-transform duration-300 group-hover:-translate-y-1 flex flex-col justify-between">
                         {/* Badge */}
                         <div>
-                            <div className="flex justify-between items-start mb-6">
-                                <span className="bg-white/5 text-white/90 text-[10px] font-bold px-3 py-1.5 rounded-lg border border-white/10 uppercase tracking-wide">
+                            <div className="flex justify-between items-start mb-6 gap-3">
+                                <span className="bg-white/5 text-white/90 text-[10px] font-bold px-3 py-1.5 rounded-lg border border-white/10 uppercase tracking-wide whitespace-nowrap">
                                     {course.badge}
                                 </span>
+                                {course.subtitle?.toLowerCase().includes('google') && (
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Google_Cloud_logo.svg" alt="Google Cloud" className="h-[14px] w-auto object-contain shrink-0 opacity-80 grayscale group-hover:grayscale-0 transition-all mt-1" />
+                                )}
+                                {course.subtitle?.toLowerCase().includes('ibm') && (
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg" alt="IBM" className="h-[14px] w-auto object-contain shrink-0 opacity-80 group-hover:opacity-100 transition-opacity mt-1.5" />
+                                )}
+                                <div className="flex-1" />
                                 <motion.button
                                     whileHover={{ scale: 1.1 }}
                                     whileTap={{ scale: 0.95 }}
                                     onClick={(e) => { e.stopPropagation(); setFlipped(true); }}
-                                    className="w-10 h-10 bg-[#FF0000] rounded-full flex items-center justify-center cursor-pointer hover:shadow-[0_0_15px_rgba(255,0,0,0.5)] transition-shadow duration-300"
+                                    className="w-10 h-10 shrink-0 bg-[#FF0000] rounded-full flex items-center justify-center cursor-pointer hover:shadow-[0_0_15px_rgba(255,0,0,0.5)] transition-shadow duration-300"
                                 >
                                     <ArrowUpRight className="w-5 h-5 text-white" />
                                 </motion.button>
