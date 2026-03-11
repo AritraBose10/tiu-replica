@@ -129,7 +129,7 @@ const ThreeDCarousel = ({ items = [] }) => {
                 return (
                     <motion.div
                         key={index}
-                        className="absolute w-[450px] h-[260px] rounded-2xl overflow-hidden bg-black shadow-2xl group cursor-pointer"
+                        className="absolute w-[90vw] max-w-[450px] h-[55vw] sm:h-[260px] rounded-2xl overflow-hidden bg-black shadow-2xl group cursor-pointer"
                         initial={false}
                         animate={style}
                         transition={{ duration: 0.4, ease: "easeInOut" }}
