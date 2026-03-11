@@ -11,7 +11,7 @@ const recognitions = [
     },
     {
         icon: Shield,
-        title: 'NAAC / NBA (Applied)',
+        title: 'NAAC',
         description: 'Quality assurance frameworks being pursued for continuous institutional improvement.',
     },
     {
