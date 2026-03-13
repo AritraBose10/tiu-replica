@@ -199,8 +199,8 @@ const Contact = () => {
     return (
         <div className="min-h-screen bg-[#020205] text-white overflow-hidden relative selection:bg-red-500/30">
             <SEO
-                title="Contact School Of The Future | Admissions & Campus Visit"
-                description="Reach School Of The Future for admissions, program queries and application guidance. Call 08062642222 or email for quick assistance.."
+                title="Contact Techno India University | Admissions & Campus Visit"
+                description="Reach Techno India University’s School Of The Future for admissions, program queries and application guidance. Call 08062642222 or email for quick assistance.."
             />
             {/* Background Ambience (Matched to Courses Page) */}
             <div className="fixed inset-0 pointer-events-none">

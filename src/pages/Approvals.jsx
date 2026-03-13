@@ -147,8 +147,8 @@ const Approvals = () => {
     return (
         <div ref={containerRef} className="min-h-screen bg-[#050505] text-white pt-32 pb-20 relative overflow-hidden font-sans">
             <SEO
-                title="SOF Accreditation & Approvals | UGC, NAAC, AICTE"
-                description="School Of The Future is accredited by UGC, NAAC, AICTE & AIU. Discover our regulatory approvals, rankings and commitment to quality education."
+                title="Accreditation & Approvals | UGC, NAAC, AICTE"
+                description="Techno India University’s School Of The Future is accredited by UGC, NAAC, AICTE & AIU. Discover our regulatory approvals, rankings and commitment to quality education."
             />
             {/* Circuit Grid Background */}
             <div

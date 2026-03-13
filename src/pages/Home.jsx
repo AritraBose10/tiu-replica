@@ -64,8 +64,8 @@ const Home = () => {
     return (
         <div className="bg-white">
             <SEO
-                title="Future-Ready Industry Courses in Kolkata with Google & IBM | School Of The Future"
-                description="Study AI, Cloud, CSE, Business, Design & more at School of the Future, Kolkata. Google & IBM-powered UG & PG programs with real projects, certifications, 500+ hiring partners. Admissions 2026 open."
+                title="AI Courses with Google Cloud & IBM Integration | B.Tech, MBA & PhD Programs | Top Engineering College Kolkata"
+                description="Join career-focused AI programs at Techno India University in CSE, AI, Cloud, MBA, and M.Tech with Google and IBM certifications embedded in the curriculum. Enjoy 90%+ eligible placements with recruiters, including Google, IBM, TCS, and Amazon."
             />
             <SchemaInjector schema={eduOrgSchema} />
             {/* §1 — Hero */}

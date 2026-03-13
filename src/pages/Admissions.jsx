@@ -151,8 +151,8 @@ const Admissions = () => {
     return (
         <div className="bg-[#020205] min-h-screen text-white">
             <SEO
-                title="School Of The Future Admissions 2026 | Apply for Future-Ready Degrees"
-                description="Admissions open for 2026 at School Of The Future. Google & IBM-powered programs, strong placements, scholarships and industry internships. Apply today."
+                title="Admission Open for AI-Powered Degrees in Engineering, Design, MBA & More Under Techno India University"
+                description="Admissions open for 2026 at Techno India University’s School of the Future, the best engineering college. Explore Google- and IBM-powered programs, strong placements, scholarships, and industry internships. Apply today."
             />
             <SchemaInjector schema={admissionsFaqSchema} />
             <SchemaInjector schema={admissionsEventSchema} />

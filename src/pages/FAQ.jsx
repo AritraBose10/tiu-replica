@@ -108,18 +108,39 @@ const FAQ = () => {
         setOpenId(openId === id ? null : id);
     };
 
-    // Generate FAQPage JSON-LD schema
+    // Static FAQ Schema provided by user
     const faqSchema = {
-        '@context': 'https://schema.org',
-        '@type': 'FAQPage',
-        mainEntity: FAQData.map((item) => ({
-            '@type': 'Question',
-            name: item.question,
-            acceptedAnswer: {
-                '@type': 'Answer',
-                text: item.answer,
-            },
-        })),
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [{
+            "@type": "Question",
+            "name": "How are emerging technologies integrated into learning?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Our curriculum is designed in collaboration with Google and IBM to incorporate the latest technologies including AI, Machine Learning, Cloud Computing, and Cybersecurity. Students work on real-world projects and gain industry certifications."
+            }
+        }, {
+            "@type": "Question",
+            "name": "What career paths can graduates pursue?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Graduates can pursue careers as Software Engineers, Data Scientists, AI/ML Engineers, Cloud Architects, UI/UX Designers, Digital Marketers, and more. Our placement cell connects students with top tech companies."
+            }
+        }, {
+            "@type": "Question",
+            "name": "What are the eligibility criteria and admission requirements?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Eligibility varies by program. Engineering courses require 10+2 with PCM, while other programs accept students from any stream. Apply through our online portal and complete the document submission process."
+            }
+        }, {
+            "@type": "Question",
+            "name": "How is the teaching and learning approach structured?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "We follow a blended learning approach combining classroom instruction, hands-on labs, industry projects, and internships. Faculty includes industry experts and certified Google/IBM trainers."
+            }
+        }]
     };
 
     return (

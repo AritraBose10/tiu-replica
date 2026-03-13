@@ -174,8 +174,8 @@ const About = () => {
     return (
         <div className="min-h-screen bg-[#020205] text-white overflow-x-hidden selection:bg-[#FF0000] selection:text-white">
             <SEO
-                title="About School Of The Future | Legacy of Innovation & Learning"
-                description="Discover the School of the Future’s mission and vision. Backed by seasoned industry experts and academic leaders, 15,000+ students and global partners drive innovation-led education."
+                title="About Techno India University’s School Of The Future | Best Engineering College In Kolkata | Best AI Institute Kolkata"
+                description="Discover the mission and vision of Techno India University’s School of the Future, a leading engineering college. Backed by seasoned industry experts and academic leaders, 15,000+ students and global partners drive innovation-led AI education."
             />
             <SchemaInjector schema={{
                 "@context": "https://schema.org",
