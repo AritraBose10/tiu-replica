@@ -8,6 +8,11 @@ import logo1 from '../assets/logo1.png';
 const ThankYou = () => {
     // Inject Google Ads mapping and Conversion snippet
     useEffect(() => {
+        // --- Meta Pixel Lead Event ---
+        if (typeof window.fbq === 'function') {
+            window.fbq('track', 'Lead');
+        }
+
         // 1. Base Google Ads gtag script
         const tagScript = document.createElement('script');
         tagScript.src = 'https://www.googletagmanager.com/gtag/js?id=AW-340383729';
