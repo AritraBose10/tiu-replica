@@ -1,60 +1,59 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Camera, X, ChevronLeft, ChevronRight } from 'lucide-react';
-import { useSettings } from '../../contexts/SettingsContext';
 
 const defaultGalleryImages = [
     {
-        src: '',
+        src: '/assets/images/techclubsession.jpg',
         alt: 'Tech Club Session',
         caption: 'Technology & Innovation Club',
         category: 'Clubs',
         span: 'col-span-2 row-span-2',
     },
     {
-        src: '',
+        src: '/assets/images/hackathonwin.jpg',
         alt: 'Hackathon Event',
         caption: 'Annual Hackathon Championship',
         category: 'Hackathons',
         span: 'col-span-1 row-span-1',
     },
     {
-        src: '',
+        src: '/assets/images/masterclass.jpeg',
         alt: 'Industry Masterclass',
         caption: 'Expert-Led Masterclass Series',
         category: 'Masterclasses',
         span: 'col-span-1 row-span-1',
     },
     {
-        src: '',
+        src: '/assets/images/swarakriti.jpg',
         alt: 'Cultural Festival',
         caption: 'Annual Cultural Fest',
         category: 'Cultural Events',
         span: 'col-span-1 row-span-1',
     },
     {
-        src: '',
+        src: '/assets/images/images.jpg',
         alt: 'Design Showcase',
         caption: 'Student Design Exhibition',
         category: 'Clubs',
         span: 'col-span-1 row-span-2',
     },
     {
-        src: '',
+        src: '/assets/images/google2.jpg',
         alt: 'Industry Visit',
         caption: 'Google Cloud Campus Visit',
         category: 'Masterclasses',
         span: 'col-span-1 row-span-1',
     },
     {
-        src: '',
+        src: '/assets/images/hackathon1.jpg',
         alt: 'Coding Competition',
         caption: '24-Hour Code Sprint',
         category: 'Hackathons',
         span: 'col-span-1 row-span-1',
     },
     {
-        src: '',
+        src: '/assets/images/Cultural.jpg',
         alt: 'Student Performance',
         caption: 'Music & Creative Night',
         category: 'Cultural Events',
@@ -75,21 +74,12 @@ const itemVariants = {
 };
 
 const CampusGallery = () => {
-    const { settings } = useSettings();
     const [activeCategory, setActiveCategory] = useState('All');
     const [lightboxIndex, setLightboxIndex] = useState(null);
 
-    const galleryImages = defaultGalleryImages.map((img, index) => {
-        const settingKey = `campus_life_image_${index + 1}`;
-        return {
-            ...img,
-            src: settings?.[settingKey] || img.src
-        };
-    });
-
     const filteredImages = activeCategory === 'All'
-        ? galleryImages
-        : galleryImages.filter(img => img.category === activeCategory);
+        ? defaultGalleryImages
+        : defaultGalleryImages.filter(img => img.category === activeCategory);
 
     const openLightbox = (index) => setLightboxIndex(index);
     const closeLightbox = () => setLightboxIndex(null);

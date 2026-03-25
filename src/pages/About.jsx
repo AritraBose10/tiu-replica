@@ -4,7 +4,6 @@ import { Lightbulb, Users, Globe, Rocket, Award, Building, ChevronRight, Play, S
 import { Link } from 'react-router-dom';
 import SEO from '../components/SEO';
 import SchemaInjector from '../components/SchemaInjector';
-import { useSettings } from '../contexts/SettingsContext';
 
 // --- Animated Counter Component ---
 const AnimatedCounter = ({ value, suffix = '' }) => {
@@ -149,9 +148,8 @@ const FloatingBackground = () => (
 
 // --- Main About Page ---
 const About = () => {
-    const { getSetting } = useSettings();
-    const heroBg = getSetting('about_hero_bg', '');
-    const campusImg = getSetting('about_campus_image', '');
+    const heroBg = '';
+    const campusImg = '/assets/images/campus.jpg';
 
     const { scrollYProgress } = useScroll();
     const y = useTransform(scrollYProgress, [0, 1], [0, -150]);
