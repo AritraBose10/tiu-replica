@@ -145,6 +145,8 @@ const ThreeDCarousel = ({ items = [] }) => {
                         <img
                             src={item.url}
                             alt={`Slide ${index}`}
+                            loading={index === 0 ? 'eager' : 'lazy'}
+                            fetchPriority={index === 0 ? 'high' : 'auto'}
                             className="w-full h-full object-cover transition-all duration-500 will-change-transform"
                             style={{ WebkitBackfaceVisibility: 'hidden', WebkitTransform: 'translateZ(0) scale(1.0)', backfaceVisibility: 'hidden' }}
                         />
