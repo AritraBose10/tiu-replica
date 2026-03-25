@@ -219,13 +219,14 @@ const Hero = () => {
     const exteriorImg = getSetting('hero_wireframe_exterior');
     const interiorImg = getSetting('hero_wireframe_interior');
 
-    // Collect carousel images and captions from settings
-    const carouselItems = [1, 2, 3, 4, 5]
-        .map(num => ({
-            url: getSetting(`home_carousel_img_${num}`),
-            caption: getSetting(`home_carousel_caption_${num}`)
-        }))
-        .filter(item => item.url && item.url.trim() !== '');
+    // Use local carousel images
+    const carouselItems = [
+        { url: '/assets/images/c1.jpg', caption: getSetting('home_carousel_caption_1') },
+        { url: '/assets/images/c2.jpg', caption: getSetting('home_carousel_caption_2') },
+        { url: '/assets/images/c3.jpg', caption: getSetting('home_carousel_caption_3') },
+        { url: '/assets/images/c4.jpg', caption: getSetting('home_carousel_caption_4') },
+        { url: '/assets/images/c5.jpg', caption: getSetting('home_carousel_caption_5') },
+    ];
 
     const containerVariants = {
         hidden: {},
@@ -316,7 +317,7 @@ const Hero = () => {
 
                 {/* ═══ 3D CAROUSEL ═══ */}
                 <div className="relative w-full max-w-[1200px] mx-auto mb-8 md:mb-12">
-                    <ThreeDCarousel items={carouselItems.length > 0 ? carouselItems : undefined} />
+                    <ThreeDCarousel items={carouselItems} />
                 </div>
 
                 {/* ── CTA Buttons ── */}

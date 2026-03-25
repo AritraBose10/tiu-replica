@@ -16,34 +16,7 @@ const StudentWork = () => {
             description: 'Real applications built using industry tools like React, Node.js & Python.',
             size: 'col-span-1 md:col-span-2 row-span-2', // Large Feature
             gradient: 'from-blue-600 to-indigo-600',
-            image: getSetting('student_work_coding_image') || null
-        },
-        {
-            id: 'hackathon',
-            icon: Trophy,
-            title: 'Hackathon Wins',
-            description: 'National winners at Smart India Hackathon & more.',
-            size: 'col-span-1 row-span-1',
-            gradient: 'from-amber-500 to-orange-500',
-            image: getSetting('student_work_hackathon_image') || null
-        },
-        {
-            id: 'visits',
-            icon: Building,
-            title: 'Industry Visits',
-            description: 'On-site exposure at Google, IBM & Microsoft campuses.',
-            size: 'col-span-1 row-span-1',
-            gradient: 'from-emerald-500 to-teal-500',
-            image: getSetting('student_work_visits_image') || null
-        },
-        {
-            id: 'startup',
-            icon: Lightbulb,
-            title: 'Startup Incubation',
-            description: '3 student startups funded in 2024 alone.',
-            size: 'col-span-1 md:col-span-2 row-span-1', // Wide
-            gradient: 'from-purple-600 to-pink-600',
-            image: getSetting('student_work_startup_image') || null
+            image: "/assets/images/livecodingprojects.jpg"
         },
         {
             id: 'research',
@@ -52,7 +25,34 @@ const StudentWork = () => {
             description: 'Papers in IEEE & Springer conferences.',
             size: 'col-span-1 row-span-1',
             gradient: 'from-cyan-500 to-blue-500',
-            image: getSetting('student_work_research_image') || null
+            image: "/assets/images/svyasa.jpeg"
+        },
+        {
+            id: 'visits',
+            icon: Building,
+            title: 'Industry Visits',
+            description: 'On-site exposure at Google, IBM & Microsoft campuses.',
+            size: 'col-span-1 row-span-1',
+            gradient: 'from-emerald-500 to-teal-500',
+            image: "/assets/images/google2.jpg"
+        },
+        {
+            id: 'startup',
+            icon: Lightbulb,
+            title: 'Startup Incubation',
+            description: '3 student startups funded in 2024 alone.',
+            size: 'col-span-1 md:col-span-2 row-span-1', // Wide
+            gradient: 'from-purple-600 to-pink-600',
+            image: "/assets/images/startup.jpg"
+        },
+        {
+            id: 'hackathon',
+            icon: Trophy,
+            title: 'Hackathon Wins',
+            description: 'National winners at Smart India Hackathon & more.',
+            size: 'col-span-1 row-span-1',
+            gradient: 'from-amber-500 to-orange-500',
+            image: "/assets/images/hackathon1.jpg"
         },
         {
             id: 'community',
@@ -61,7 +61,7 @@ const StudentWork = () => {
             description: 'Leading GDSC and other tech clubs.',
             size: 'col-span-1 row-span-1',
             gradient: 'from-rose-500 to-red-500',
-            image: getSetting('student_work_community_image') || null
+            image: "/assets/images/techcommunities.jpg"
         },
     ];
 

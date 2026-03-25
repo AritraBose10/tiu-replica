@@ -1,9 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Plus, Minus } from 'lucide-react';
-import { useSanity } from '../hooks/useSanity';
-import { useSettings } from '../contexts/SettingsContext';
-import { FAQS_QUERY } from '../lib/queries';
 
 const fallbackFaqs = [
     {
@@ -34,17 +31,15 @@ const fallbackFaqs = [
 ];
 
 const FAQSection = ({ customFaqs }) => {
-    const { getSetting } = useSettings();
-    const { data: sanityFaqs } = useSanity(FAQS_QUERY, fallbackFaqs);
-    const faqs = customFaqs || sanityFaqs;
+    const faqs = customFaqs || fallbackFaqs;
     const [openId, setOpenId] = useState(null);
 
     const toggleFAQ = (id) => {
         setOpenId(openId === id ? null : id);
     };
 
-    const bgImage = getSetting('faq_bg_image');
-    const sideImage = getSetting('faq_side_image') || null;
+    const bgImage = null;
+    const sideImage = '/assets/images/FAQ.JPG';
 
     return (
         <section

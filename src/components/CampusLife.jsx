@@ -1,10 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Camera, Music, Users, Palette, BookOpen, Trophy } from 'lucide-react';
-import { useSettings } from '../contexts/SettingsContext';
-
 const CampusLife = () => {
-    const { settings } = useSettings();
 
     const campusItems = [
         {
@@ -12,42 +9,42 @@ const CampusLife = () => {
             title: 'Tech Fests & Hackathons',
             span: 'col-span-2 row-span-2',
             gradient: 'from-[#FF0000]/20 to-orange-600/10',
-            imageSrc: settings.campus_tech_fests_image || '',
+            imageSrc: '/assets/images/TechFests.JPG',
         },
         {
             icon: Music,
             title: 'Cultural Events',
             span: 'col-span-1 row-span-1',
             gradient: 'from-purple-500/20 to-pink-600/10',
-            imageSrc: settings.campus_cultural_events_image || '',
+            imageSrc: '/assets/images/Cultural.jpg',
         },
         {
             icon: Users,
             title: 'Student Clubs',
             span: 'col-span-1 row-span-1',
             gradient: 'from-blue-500/20 to-cyan-600/10',
-            imageSrc: settings.campus_student_clubs_image || '',
+            imageSrc: '/assets/images/Student.jpg',
         },
         {
             icon: Palette,
             title: 'Design Studios',
             span: 'col-span-1 row-span-1',
             gradient: 'from-amber-500/20 to-yellow-600/10',
-            imageSrc: settings.campus_design_studios_image || '',
+            imageSrc: '/assets/images/design.jpg',
         },
         {
             icon: BookOpen,
             title: 'Workshops & Seminars',
             span: 'col-span-1 row-span-1',
             gradient: 'from-emerald-500/20 to-green-600/10',
-            imageSrc: settings.campus_workshops_image || '',
+            imageSrc: '/assets/images/seminar.jpg',
         },
         {
             icon: Camera,
             title: 'Industry Exposure',
             span: 'col-span-2 row-span-1',
             gradient: 'from-indigo-500/20 to-violet-600/10',
-            imageSrc: settings.campus_industry_exposure_image || '',
+            imageSrc: '/assets/images/industryexposure.jpg',
         },
     ];
 

@@ -19,10 +19,10 @@ const HowLearningWorks = () => {
     const isVideoInView = useInView(videoRef, { once: true, amount: 0.5 });
 
     const galleryImages = [
-        { src: getSetting('learning_lab_image') || '/images/learning-lab.jpg', alt: 'Students in a modern computer lab' },
-        { src: getSetting('learning_collab_image') || '/images/learning-collab.jpg', alt: 'Collaborative project work' },
-        { src: getSetting('learning_mentor_image') || '/images/learning-mentor.jpg', alt: 'Faculty mentoring students' },
-        { src: getSetting('learning_hackathon_image') || '/images/learning-hackathon.jpg', alt: 'Hackathon in progress' },
+        { src: '/assets/images/f1.jpg', alt: 'Students in a modern computer lab' },
+        { src: '/assets/images/f2.jpg', alt: 'Collaborative project work' },
+        { src: '/assets/images/f3.jpg', alt: 'Faculty mentoring students' },
+        { src: '/assets/images/f4.jpg', alt: 'Hackathon in progress' },
     ];
 
     return (

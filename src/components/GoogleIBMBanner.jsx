@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ArrowRight, CheckCircle2 } from 'lucide-react';
@@ -18,9 +18,9 @@ const GoogleIBMBanner = () => {
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
     const images = [
-        getSetting('admissions_google_ibm_bg') || null,
-        getSetting('admissions_google_ibm_bg_2') || null
-    ].filter(Boolean);
+        '/assets/images/ibmasmi.jpg',
+        '/assets/images/google.jpg',
+    ];
 
     useEffect(() => {
         const timer = setInterval(() => {

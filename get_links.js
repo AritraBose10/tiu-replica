@@ -1,22 +1,21 @@
-const fs = require('fs');
+import { createClient } from '@sanity/client';
 
-async function search(query) {
-    const res = await fetch(`https://commons.wikimedia.org/w/api.php?action=query&format=json&prop=imageinfo&iiprop=url&generator=search&gsrsearch=${encodeURIComponent(query)}&gsrnamespace=6&gsrlimit=1`);
-    const data = await res.json();
-    if (data.query && data.query.pages) {
-        const pages = data.query.pages;
-        for (let id in pages) {
-            console.log(`${query}: ${pages[id].imageinfo[0].url}`);
-            return;
-        }
+const sanityClient = createClient({
+    projectId: 'tqbzon1l',
+    dataset: 'production',
+    apiVersion: '2024-01-01',
+    useCdn: false,
+    token: 'sk884XyJXAgUxYTwFq0OcDdRdi89z7CkCAXoybqSxL7xwPsX4FXiSQZt7yu74OuD31TufZA9qc7af29Jjbyl0weMxjuuyOeQmyQcZlGkHmJbXuewJUBI0NIs1I69frFEwk8QIDjZUUcbbBT3YuUbOm8fCrqQ715ZYcqCpjbMz2wLXWuJSwYf'
+});
+
+async function run() {
+    try {
+        console.log("Fetching images...");
+        const result = await sanityClient.fetch('*[_type == "sanity.imageAsset"]{url, originalFilename}');
+        console.log("Success! Found " + result.length + " assets.");
+        console.log(result.slice(0, 3));
+    } catch (e) {
+        console.error("Error:", e.message);
     }
-    console.log(`${query}: Not found`);
 }
-
-async function main() {
-    await search("University Grants Commission (India) logo");
-    await search("Association of Indian Universities logo");
-    await search("NIRF logo");
-    await search("National Assessment and Accreditation Council logo");
-}
-main();
+run();

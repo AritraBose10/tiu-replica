@@ -36,7 +36,7 @@ const AnimatedCounter = ({ end, duration = 2, suffix = '' }) => {
 
 const WhatIsSoF = () => {
     const { getSetting } = useSettings();
-    const sofImage = getSetting('what_is_sof_image', '/images/classroom-candid.jpg');
+    const sofImage = getSetting('what_is_sof_image') || '/assets/images/sec2.jpeg';
 
     const stats = [
         { label: "Industry Partners", value: 50, suffix: "+" },

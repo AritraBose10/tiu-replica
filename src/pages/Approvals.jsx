@@ -59,7 +59,7 @@ const fallbackApprovalBodies = [
         name: 'NBA',
         fullName: 'National Board of Accreditation',
         description: 'Specific technical programs have historically held or are under NBA accreditation processes.',
-        logo: '📋',
+        logo: 'https://upload.wikimedia.org/wikipedia/en/thumb/0/0b/NBA_logo_India.png/220px-NBA_logo_India.png',
     },
     {
         id: 9,
@@ -73,7 +73,7 @@ const fallbackApprovalBodies = [
         name: 'CIPU',
         fullName: 'Confederation of Indian Private Universities',
         description: 'Member of the Confederation of Indian Private Universities.',
-        logo: '🏛️',
+        logo: 'https://images.unsplash.com/photo-1541339907198-e08756ebafe1?q=80&w=2070&auto=format&fit=crop',
     },
 ];
 
