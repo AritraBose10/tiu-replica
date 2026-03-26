@@ -25,7 +25,7 @@ const StudentWork = () => {
             description: 'Papers in IEEE & Springer conferences.',
             size: 'col-span-1 row-span-1',
             gradient: 'from-cyan-500 to-blue-500',
-            image: "/assets/images/svyasa.jpeg"
+            image: "/assets/images/hackathon1.jpg"
         },
         {
             id: 'visits',
@@ -52,7 +52,7 @@ const StudentWork = () => {
             description: 'National winners at Smart India Hackathon & more.',
             size: 'col-span-1 row-span-1',
             gradient: 'from-amber-500 to-orange-500',
-            image: "/assets/images/hackathon1.jpg"
+            image: "/assets/images/svyasa.jpeg"
         },
         {
             id: 'community',
