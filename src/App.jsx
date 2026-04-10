@@ -54,6 +54,20 @@ const ScrollToTop = () => {
   return null;
 }
 
+// Engagement widgets — suppressed on certain pages
+const EngagementWidgets = () => {
+  const { pathname } = useLocation();
+  if (pathname === '/ai-event') return null;
+  return (
+    <>
+      <StickyApplyButton />
+      <WhatsAppButton />
+      <ExitIntentPopup />
+      <LeadMagnetBanner />
+    </>
+  );
+};
+
 const NotFound = () => (
   <div className="pt-20 min-h-screen bg-gray-50 flex items-center justify-center">
     <h1 className="text-4xl font-bold text-gray-800">404 - Page Not Found</h1>
@@ -108,10 +122,7 @@ export function AppShell() {
                 </Routes>
               </main>
               <Footer />
-              <StickyApplyButton />
-              <WhatsAppButton />
-              <ExitIntentPopup />
-              <LeadMagnetBanner />
+              <EngagementWidgets />
             </div>
           } />
         </Routes>
