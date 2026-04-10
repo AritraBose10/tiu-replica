@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { motion } from 'framer-motion';
 import {
     Sparkles, ChevronRight, ArrowUpRight, Check, Brain, Zap,
@@ -109,128 +108,7 @@ const SpecialItem = ({ text, index }) => (
     </motion.div>
 );
 
-// ─── Registration Form ────────────────────────────────────────────────────────
-const RegistrationForm = () => {
-    const [form, setForm] = useState({
-        name: '', mobile: '', email: '', school: '',
-        board: '', stream: '', city: '', preferredCourse: ''
-    });
-    const [submitted, setSubmitted] = useState(false);
-    const [loading, setLoading] = useState(false);
-
-    const streams = ['Science (PCM)', 'Science (PCB)', 'Commerce', 'Arts / Humanities', 'Other'];
-    const courses = [
-        'B.Tech / B.E.', 'BCA', 'B.Sc (Computer Science)', 'BBA / BMS',
-        'B.Des (Design)', 'B.Sc (Data Science / AI)', 'Other'
-    ];
-
-    const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        setLoading(true);
-        // Simulate submission
-        await new Promise(r => setTimeout(r, 1200));
-        setLoading(false);
-        setSubmitted(true);
-    };
-
-    if (submitted) {
-        return (
-            <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                className="text-center py-16"
-            >
-                <motion.div
-                    animate={{ rotate: [0, 10, -10, 0] }}
-                    transition={{ duration: 1.5, repeat: Infinity }}
-                    className="inline-block mb-6"
-                >
-                    <Sparkles className="w-16 h-16 text-[#FF0000]" />
-                </motion.div>
-                <h3 className="text-3xl font-black text-white mb-3">Seat Booked!</h3>
-                <p className="text-gray-400 max-w-sm mx-auto">
-                    We have received your registration. We will reach out to you with the workshop details shortly.
-                </p>
-            </motion.div>
-        );
-    }
-
-    return (
-        <form onSubmit={handleSubmit} className="space-y-5">
-            <div className="grid md:grid-cols-2 gap-5">
-                {[
-                    { label: 'Student Name', name: 'name', type: 'text', placeholder: 'Your full name' },
-                    { label: 'Mobile Number', name: 'mobile', type: 'tel', placeholder: '+91 XXXXX XXXXX' },
-                    { label: 'Email ID', name: 'email', type: 'email', placeholder: 'you@email.com' },
-                    { label: 'Current School', name: 'school', type: 'text', placeholder: 'School name' },
-                    { label: 'Board', name: 'board', type: 'text', placeholder: 'CBSE / ICSE / State Board' },
-                    { label: 'City', name: 'city', type: 'text', placeholder: 'Your city' },
-                ].map(({ label, name, type, placeholder }) => (
-                    <div key={name}>
-                        <label className="block text-xs font-semibold uppercase tracking-widest text-gray-500 mb-2">{label}</label>
-                        <input
-                            type={type}
-                            name={name}
-                            value={form[name]}
-                            onChange={handleChange}
-                            placeholder={placeholder}
-                            required
-                            className="w-full px-4 py-3.5 bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl text-white placeholder-gray-600 focus:outline-none focus:border-[#FF0000]/50 focus:shadow-[0_0_20px_rgba(255,0,0,0.1)] transition-all text-sm"
-                        />
-                    </div>
-                ))}
-
-                <div>
-                    <label className="block text-xs font-semibold uppercase tracking-widest text-gray-500 mb-2">Class 12 Stream</label>
-                    <select
-                        name="stream"
-                        value={form.stream}
-                        onChange={handleChange}
-                        required
-                        className="w-full px-4 py-3.5 bg-[#1a1a1a] border border-white/10 rounded-xl text-white focus:outline-none focus:border-[#FF0000]/50 focus:shadow-[0_0_20px_rgba(255,0,0,0.1)] transition-all text-sm appearance-none"
-                    >
-                        <option value="" disabled>Select stream</option>
-                        {streams.map(s => <option key={s} value={s}>{s}</option>)}
-                    </select>
-                </div>
-
-                <div>
-                    <label className="block text-xs font-semibold uppercase tracking-widest text-gray-500 mb-2">Preferred Course After Class 12</label>
-                    <select
-                        name="preferredCourse"
-                        value={form.preferredCourse}
-                        onChange={handleChange}
-                        required
-                        className="w-full px-4 py-3.5 bg-[#1a1a1a] border border-white/10 rounded-xl text-white focus:outline-none focus:border-[#FF0000]/50 focus:shadow-[0_0_20px_rgba(255,0,0,0.1)] transition-all text-sm appearance-none"
-                    >
-                        <option value="" disabled>Select course</option>
-                        {courses.map(c => <option key={c} value={c}>{c}</option>)}
-                    </select>
-                </div>
-            </div>
-
-            <motion.button
-                type="submit"
-                disabled={loading}
-                whileHover={{ scale: 1.02, boxShadow: '0 0 40px rgba(255,0,0,0.5)' }}
-                whileTap={{ scale: 0.98 }}
-                className="w-full flex items-center justify-center gap-3 bg-gradient-to-r from-[#FF0000] to-[#CC0000] text-white py-5 rounded-xl font-bold text-lg shadow-[0_0_30px_rgba(255,0,0,0.3)] border border-white/10 transition-all duration-300 disabled:opacity-70"
-            >
-                {loading ? (
-                    <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                ) : (
-                    <>
-                        <Zap className="w-5 h-5" />
-                        Book My Seat
-                        <ChevronRight className="w-5 h-5" />
-                    </>
-                )}
-            </motion.button>
-        </form>
-    );
-};
+const FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSfvDuLQN7Aq-1oIGeteYicyc50Ta6UOIgmqYVECaO9ROLniJg/viewform?usp=sharing&ouid=100476780291117363807';
 
 // ─── Main Page ────────────────────────────────────────────────────────────────
 const AIEvent = () => {
@@ -387,7 +265,7 @@ const AIEvent = () => {
                             className="flex flex-wrap gap-4 justify-center"
                         >
                             <motion.a
-                                href="#register"
+                                href={FORM_URL} target="_blank" rel="noopener noreferrer"
                                 whileHover={{ scale: 1.05, boxShadow: '0 0 50px rgba(255,0,0,0.6)' }}
                                 whileTap={{ scale: 0.95 }}
                                 className="inline-flex items-center gap-3 bg-gradient-to-r from-[#FF0000] to-[#CC0000] text-white px-10 py-5 rounded-full font-bold text-lg shadow-[0_0_30px_rgba(255,0,0,0.4)] border border-white/10"
@@ -673,45 +551,47 @@ const AIEvent = () => {
                 </div>
             </section>
 
-            {/* ═══ SECTION 7 — REGISTRATION FORM ═══ */}
-            <section id="register" className="py-28 px-4 bg-gradient-to-b from-[#020205] via-[#050510] to-[#020205] relative">
+            {/* ═══ SECTION 7 — REGISTER CTA ═══ */}
+            <section className="py-28 px-4 bg-[#111111] relative overflow-hidden">
                 <motion.div
-                    animate={{ scale: [1, 1.1, 1], opacity: [0.1, 0.2, 0.1] }}
+                    animate={{ scale: [1, 1.1, 1], opacity: [0.1, 0.25, 0.1] }}
                     transition={{ duration: 5, repeat: Infinity }}
                     className="absolute top-0 right-0 w-[400px] h-[400px] bg-[#FF0000]/10 rounded-full blur-[120px]"
                 />
                 <motion.div
                     animate={{ scale: [1, 1.15, 1], opacity: [0.05, 0.15, 0.05] }}
                     transition={{ duration: 7, repeat: Infinity, delay: 1 }}
-                    className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-blue-600/10 rounded-full blur-[100px]"
+                    className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-[#FF0000]/5 rounded-full blur-[100px]"
                 />
 
-                <div className="max-w-3xl mx-auto relative z-10">
+                <div className="max-w-2xl mx-auto relative z-10 text-center">
                     <motion.div
-                        initial={{ opacity: 0, y: 30 }}
+                        initial={{ opacity: 0, y: 40 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        className="text-center mb-12"
+                        transition={{ duration: 0.7 }}
                     >
                         <SectionLabel>Registration</SectionLabel>
                         <h2 className="text-4xl md:text-6xl font-black text-white mt-2 mb-4">
                             Register for the{' '}
                             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FF0000] to-pink-500">Workshop</span>
                         </h2>
-                        <p className="text-gray-400">Fill in your details and we will confirm your seat.</p>
-                    </motion.div>
+                        <p className="text-gray-500 mb-10">
+                            Click below to fill in your details and confirm your seat.
+                        </p>
 
-                    <motion.div
-                        initial={{ opacity: 0, y: 40 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.7 }}
-                        className="relative"
-                    >
-                        <div className="absolute -inset-0.5 bg-gradient-to-br from-[#FF0000]/30 to-purple-600/30 rounded-3xl blur-xl opacity-50" />
-                        <div className="relative bg-[#1a1a1a]/90 backdrop-blur-xl border border-white/10 rounded-3xl p-8 md:p-12">
-                            <RegistrationForm />
-                        </div>
+                        <motion.a
+                            href={FORM_URL}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            whileHover={{ scale: 1.05, boxShadow: '0 0 50px rgba(255,0,0,0.5)' }}
+                            whileTap={{ scale: 0.97 }}
+                            className="inline-flex items-center gap-3 bg-gradient-to-r from-[#FF0000] to-[#CC0000] text-white px-12 py-5 rounded-full font-bold text-lg shadow-[0_0_30px_rgba(255,0,0,0.35)] border border-white/10"
+                        >
+                            <Zap className="w-5 h-5" />
+                            Book My Seat
+                            <ArrowUpRight className="w-5 h-5" />
+                        </motion.a>
                     </motion.div>
                 </div>
             </section>
@@ -750,7 +630,7 @@ const AIEvent = () => {
                         </div>
 
                         <motion.a
-                            href="#register"
+                            href={FORM_URL} target="_blank" rel="noopener noreferrer"
                             whileHover={{ scale: 1.05, boxShadow: '0 0 60px rgba(255,0,0,0.6)' }}
                             whileTap={{ scale: 0.95 }}
                             className="inline-flex items-center gap-3 bg-gradient-to-r from-[#FF0000] to-[#CC0000] text-white px-12 py-6 rounded-full font-bold text-xl shadow-[0_0_40px_rgba(255,0,0,0.5)] border border-white/10 transition-shadow duration-300"
