@@ -13,6 +13,7 @@ import Events from './pages/Events';
 import SearchPage from './pages/SearchPage';
 import GoogleIBMCourse from './pages/GoogleIBMCourse';
 import ThankYou from './pages/ThankYou';
+import AIEvent from './pages/AIEvent';
 import BreadcrumbSchema from './components/BreadcrumbSchema';
 import EventScraperDemo from './components/EventScraperDemo';
 import { AnimatePresence } from 'framer-motion';
@@ -102,6 +103,7 @@ export function AppShell() {
                   <Route path="/search" element={<SearchPage />} />
                   <Route path="/events-demo" element={<EventScraperDemo />} />
                   <Route path="/thank-you" element={<ThankYou />} />
+                  <Route path="/ai-event" element={<AIEvent />} />
                   <Route path="*" element={<NotFound />} />
                 </Routes>
               </main>
