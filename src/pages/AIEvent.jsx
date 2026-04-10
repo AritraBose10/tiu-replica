@@ -284,8 +284,8 @@ const AIEvent = () => {
             <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
                 {/* Large BG text */}
                 <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                    <span className="text-[16vw] font-black text-white/[0.025] tracking-tighter select-none leading-none">
-                        AI
+                    <span className="text-[13vw] font-black text-white/[0.025] tracking-tighter select-none leading-none text-center">
+                        PROMPT
                     </span>
                 </div>
 
@@ -303,63 +303,79 @@ const AIEvent = () => {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.9, type: 'spring' }}
                     >
+                        {/* Badge */}
                         <motion.span
                             initial={{ opacity: 0, scale: 0.8 }}
                             animate={{ opacity: 1, scale: 1 }}
-                            transition={{ delay: 0.3 }}
-                            className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md px-6 py-2.5 rounded-full text-sm font-semibold mb-8 border border-white/20 shadow-lg"
+                            transition={{ delay: 0.15 }}
+                            className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md px-5 py-2 rounded-full text-sm font-semibold mb-6 border border-white/20 shadow-lg"
                         >
                             <Brain className="w-4 h-4 text-[#FF0000]" />
-                            Workshop for Class 12 Students
+                            For Class 12 Students
                             <Sparkles className="w-4 h-4 text-yellow-400" />
                         </motion.span>
 
-                        <h1 className="text-5xl md:text-7xl font-black mb-6 leading-tight">
+                        {/* Hook line */}
+                        <motion.p
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.3 }}
+                            className="text-base md:text-lg text-gray-500 font-medium tracking-wide mb-5"
+                        >
+                            Still waiting for college admissions?
+                        </motion.p>
+
+                        {/* Main heading — workshop name */}
+                        <h1 className="font-black leading-[1.05] mb-8">
                             <motion.span
-                                initial={{ opacity: 0, y: 30 }}
+                                initial={{ opacity: 0, y: 40 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.4 }}
-                                className="block text-white"
+                                transition={{ delay: 0.45 }}
+                                className="block text-white text-4xl md:text-6xl mb-2"
                             >
-                                Still waiting for
+                                Workshop on
                             </motion.span>
                             <motion.span
-                                initial={{ opacity: 0, scale: 0.6 }}
+                                initial={{ opacity: 0, scale: 0.85 }}
                                 animate={{ opacity: 1, scale: 1 }}
-                                transition={{ delay: 0.6, type: 'spring', stiffness: 100 }}
-                                className="relative inline-block"
+                                transition={{ delay: 0.6, type: 'spring', stiffness: 90 }}
+                                className="relative inline-block text-5xl md:text-8xl"
                             >
-                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FF0000] via-pink-500 to-[#FF0000]">
-                                    college admissions?
+                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FF0000] via-pink-400 to-[#FF0000]">
+                                    AI & Prompt
                                 </span>
                                 <motion.div
                                     initial={{ scaleX: 0 }}
                                     animate={{ scaleX: 1 }}
-                                    transition={{ duration: 0.8, delay: 1 }}
+                                    transition={{ duration: 0.9, delay: 1.1 }}
                                     className="absolute -bottom-2 left-0 w-full h-1.5 bg-gradient-to-r from-[#FF0000] to-pink-500 origin-left rounded-full"
                                 />
                             </motion.span>
+                            <motion.span
+                                initial={{ opacity: 0, y: 40 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.75 }}
+                                className="block text-white text-4xl md:text-6xl mt-2"
+                            >
+                                Engineering
+                            </motion.span>
                         </h1>
 
+                        {/* Subheadline */}
                         <motion.p
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
-                            transition={{ delay: 0.8 }}
-                            className="text-xl text-gray-400 max-w-2xl mx-auto mb-4"
+                            transition={{ delay: 0.9 }}
+                            className="text-lg text-gray-400 max-w-xl mx-auto mb-3"
                         >
-                            Start learning AI before college begins. Join our{' '}
-                            <span className="relative inline-block">
-                                <span className="relative z-10 text-white font-bold px-1">Workshop on AI and Prompt Engineering</span>
-                                <span className="absolute inset-0 bg-[#FF0000]/15 rounded-md border border-[#FF0000]/25" />
-                            </span>
-                            {' '}made specially for Class 12 students.
+                            Start learning AI before college begins — made specially for Class 12 students.
                         </motion.p>
 
                         <motion.p
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
-                            transition={{ delay: 0.9 }}
-                            className="text-sm text-gray-500 mb-10"
+                            transition={{ delay: 1.0 }}
+                            className="text-sm text-gray-600 mb-10"
                         >
                             Limited seats. Early registration is strongly recommended.
                         </motion.p>
@@ -575,31 +591,15 @@ const AIEvent = () => {
                             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FF0000] to-pink-500">Details</span>
                         </h2>
 
-                        {/* Workshop name highlight */}
-                        <motion.div
-                            initial={{ opacity: 0, scale: 0.95 }}
-                            whileInView={{ opacity: 1, scale: 1 }}
+                        <motion.p
+                            initial={{ opacity: 0 }}
+                            whileInView={{ opacity: 1 }}
                             viewport={{ once: true }}
                             transition={{ delay: 0.2 }}
-                            className="relative inline-block mx-auto"
+                            className="text-gray-500 text-base"
                         >
-                            <div className="absolute -inset-1 bg-gradient-to-r from-[#FF0000]/40 to-pink-500/40 rounded-2xl blur-lg" />
-                            <div className="relative bg-[#1a1a1a] border border-[#FF0000]/40 rounded-2xl px-8 py-5 flex items-center gap-4">
-                                <motion.div
-                                    animate={{ scale: [1, 1.15, 1] }}
-                                    transition={{ duration: 2, repeat: Infinity }}
-                                    className="w-3 h-3 rounded-full bg-[#FF0000] shrink-0"
-                                />
-                                <p className="text-xl md:text-2xl font-black text-white tracking-tight">
-                                    Workshop on AI and Prompt Engineering
-                                </p>
-                                <motion.div
-                                    animate={{ scale: [1, 1.15, 1] }}
-                                    transition={{ duration: 2, repeat: Infinity, delay: 1 }}
-                                    className="w-3 h-3 rounded-full bg-[#FF0000] shrink-0"
-                                />
-                            </div>
-                        </motion.div>
+                            Workshop on AI and Prompt Engineering
+                        </motion.p>
                     </motion.div>
 
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
