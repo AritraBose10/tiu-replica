@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState } from 'react';
+import { motion } from 'framer-motion';
 import {
     Sparkles, ChevronRight, ArrowUpRight, Check, Brain, Zap,
-    Users, Clock, MapPin, BookOpen, Star, AlertCircle
+    Users, Clock, MapPin, Star, AlertCircle
 } from 'lucide-react';
-import { Link } from 'react-router-dom';
 import SEO from '../components/SEO';
 
 // ─── Floating Background ─────────────────────────────────────────────────────
@@ -25,7 +24,7 @@ const FloatingBackground = () => (
             transition={{ duration: 6, repeat: Infinity }}
             className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[30%] h-[30%] bg-purple-600/5 rounded-full blur-[100px]"
         />
-        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20" />
+        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-40" />
     </div>
 );
 
@@ -68,7 +67,7 @@ const AudienceCard = ({ text, index }) => (
         className="group relative"
     >
         <div className="absolute -inset-0.5 bg-gradient-to-br from-[#FF0000] to-purple-600 opacity-0 group-hover:opacity-30 blur-xl transition-opacity duration-500 rounded-2xl" />
-        <div className="relative bg-[#0a0a12]/90 backdrop-blur-xl border border-white/10 rounded-2xl p-6 group-hover:border-[#FF0000]/30 transition-colors duration-300 h-full flex items-center gap-4">
+        <div className="relative bg-[#1a1a1a]/90 backdrop-blur-xl border border-white/10 rounded-2xl p-6 group-hover:border-[#FF0000]/30 transition-colors duration-300 h-full flex items-center gap-4">
             <Star className="w-5 h-5 text-[#FF0000] shrink-0" />
             <p className="text-gray-300 group-hover:text-white transition-colors duration-300">{text}</p>
         </div>
@@ -82,7 +81,7 @@ const DetailCard = ({ icon: Icon, label, value }) => (
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         whileHover={{ y: -6 }}
-        className="bg-[#0a0a12]/90 backdrop-blur-xl border border-white/10 rounded-2xl p-6 flex flex-col items-center text-center gap-3 hover:border-[#FF0000]/30 transition-all duration-300"
+        className="bg-[#1a1a1a]/90 backdrop-blur-xl border border-white/10 rounded-2xl p-6 flex flex-col items-center text-center gap-3 hover:border-[#FF0000]/30 transition-all duration-300"
     >
         <div className="w-12 h-12 rounded-xl bg-[#FF0000]/10 border border-[#FF0000]/20 flex items-center justify-center">
             <Icon className="w-6 h-6 text-[#FF0000]" />
@@ -190,7 +189,7 @@ const RegistrationForm = () => {
                         value={form.stream}
                         onChange={handleChange}
                         required
-                        className="w-full px-4 py-3.5 bg-[#0a0a12] border border-white/10 rounded-xl text-white focus:outline-none focus:border-[#FF0000]/50 focus:shadow-[0_0_20px_rgba(255,0,0,0.1)] transition-all text-sm appearance-none"
+                        className="w-full px-4 py-3.5 bg-[#1a1a1a] border border-white/10 rounded-xl text-white focus:outline-none focus:border-[#FF0000]/50 focus:shadow-[0_0_20px_rgba(255,0,0,0.1)] transition-all text-sm appearance-none"
                     >
                         <option value="" disabled>Select stream</option>
                         {streams.map(s => <option key={s} value={s}>{s}</option>)}
@@ -204,7 +203,7 @@ const RegistrationForm = () => {
                         value={form.preferredCourse}
                         onChange={handleChange}
                         required
-                        className="w-full px-4 py-3.5 bg-[#0a0a12] border border-white/10 rounded-xl text-white focus:outline-none focus:border-[#FF0000]/50 focus:shadow-[0_0_20px_rgba(255,0,0,0.1)] transition-all text-sm appearance-none"
+                        className="w-full px-4 py-3.5 bg-[#1a1a1a] border border-white/10 rounded-xl text-white focus:outline-none focus:border-[#FF0000]/50 focus:shadow-[0_0_20px_rgba(255,0,0,0.1)] transition-all text-sm appearance-none"
                     >
                         <option value="" disabled>Select course</option>
                         {courses.map(c => <option key={c} value={c}>{c}</option>)}
@@ -251,7 +250,6 @@ const AIEvent = () => {
     ];
 
     const details = [
-        { icon: BookOpen, label: 'Workshop Title', value: 'AI & Prompt Engineering' },
         { icon: Users, label: 'For', value: 'Class 12 students awaiting admission' },
         { icon: MapPin, label: 'Mode', value: 'Offline / Online' },
         { icon: Clock, label: 'Date', value: 'To be announced' },
@@ -273,10 +271,12 @@ const AIEvent = () => {
     ];
 
     return (
-        <div className="min-h-screen bg-[#020205] text-white overflow-x-hidden selection:bg-[#FF0000] selection:text-white">
+        <div className="min-h-screen bg-[#0d0d0d] text-white overflow-x-hidden selection:bg-[#FF0000] selection:text-white">
+            {/* Page-level grain overlay */}
+            <div className="fixed inset-0 pointer-events-none z-[2] bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.07]" />
             <SEO
-                title="AI & Prompt Engineering Workshop for Class 12 Students | School of the Future"
-                description="Start learning AI before college begins. Join our Workshop on AI & Prompt Engineering made specially for Class 12 students awaiting admissions. Limited seats — register now."
+                title="Workshop on AI and Prompt Engineering for Class 12 Students | School of the Future"
+                description="Start learning AI before college begins. Join our Workshop on AI and Prompt Engineering made specially for Class 12 students awaiting admissions. Limited seats — register now."
             />
             <FloatingBackground />
 
@@ -347,7 +347,12 @@ const AIEvent = () => {
                             transition={{ delay: 0.8 }}
                             className="text-xl text-gray-400 max-w-2xl mx-auto mb-4"
                         >
-                            Start learning AI before college begins. Join our Workshop on AI & Prompt Engineering made specially for Class 12 students.
+                            Start learning AI before college begins. Join our{' '}
+                            <span className="relative inline-block">
+                                <span className="relative z-10 text-white font-bold px-1">Workshop on AI and Prompt Engineering</span>
+                                <span className="absolute inset-0 bg-[#FF0000]/15 rounded-md border border-[#FF0000]/25" />
+                            </span>
+                            {' '}made specially for Class 12 students.
                         </motion.p>
 
                         <motion.p
@@ -396,7 +401,7 @@ const AIEvent = () => {
             </section>
 
             {/* ═══ SECTION 1 — WHY JOIN ═══ */}
-            <section className="py-28 px-4 bg-[#050510] relative overflow-hidden">
+            <section className="py-28 px-4 bg-[#111111] relative overflow-hidden">
                 {/* Animated grid */}
                 <div className="absolute inset-0 opacity-10">
                     <div className="absolute inset-0" style={{ backgroundImage: 'linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px)', backgroundSize: '60px 60px' }} />
@@ -435,7 +440,7 @@ const AIEvent = () => {
                                 transition={{ duration: 4, repeat: Infinity }}
                                 className="absolute -inset-4 bg-gradient-to-r from-[#FF0000]/20 to-purple-600/20 rounded-3xl blur-3xl"
                             />
-                            <div className="relative bg-[#0a0a12]/90 backdrop-blur-xl border border-white/10 rounded-3xl p-10 text-center">
+                            <div className="relative bg-[#1a1a1a]/90 backdrop-blur-xl border border-white/10 rounded-3xl p-10 text-center">
                                 <motion.div
                                     animate={{ rotate: [0, 5, -5, 0] }}
                                     transition={{ duration: 4, repeat: Infinity }}
@@ -452,7 +457,7 @@ const AIEvent = () => {
             </section>
 
             {/* ═══ SECTION 2 — WHAT YOU WILL LEARN ═══ */}
-            <section className="py-28 px-4 bg-[#020205] relative">
+            <section className="py-28 px-4 bg-[#0d0d0d] relative">
                 <div className="max-w-4xl mx-auto">
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}
@@ -500,7 +505,7 @@ const AIEvent = () => {
             </section>
 
             {/* ═══ SECTION 4 — WHY THIS MATTERS NOW ═══ */}
-            <section className="py-28 px-4 bg-[#020205] relative overflow-hidden">
+            <section className="py-28 px-4 bg-[#0d0d0d] relative overflow-hidden">
                 <motion.div
                     animate={{ scale: [1, 1.15, 1], opacity: [0.1, 0.2, 0.1] }}
                     transition={{ duration: 6, repeat: Infinity }}
@@ -552,7 +557,7 @@ const AIEvent = () => {
             </section>
 
             {/* ═══ SECTION 5 — WORKSHOP DETAILS ═══ */}
-            <section className="py-28 px-4 bg-[#050510] relative">
+            <section className="py-28 px-4 bg-[#111111] relative">
                 <div className="absolute inset-0 opacity-10">
                     <div className="absolute inset-0" style={{ backgroundImage: 'linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px)', backgroundSize: '60px 60px' }} />
                 </div>
@@ -565,13 +570,39 @@ const AIEvent = () => {
                         className="text-center mb-16"
                     >
                         <SectionLabel>Workshop Info</SectionLabel>
-                        <h2 className="text-4xl md:text-6xl font-black text-white mt-2">
+                        <h2 className="text-4xl md:text-6xl font-black text-white mt-2 mb-10">
                             Workshop{' '}
                             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FF0000] to-pink-500">Details</span>
                         </h2>
+
+                        {/* Workshop name highlight */}
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.95 }}
+                            whileInView={{ opacity: 1, scale: 1 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: 0.2 }}
+                            className="relative inline-block mx-auto"
+                        >
+                            <div className="absolute -inset-1 bg-gradient-to-r from-[#FF0000]/40 to-pink-500/40 rounded-2xl blur-lg" />
+                            <div className="relative bg-[#1a1a1a] border border-[#FF0000]/40 rounded-2xl px-8 py-5 flex items-center gap-4">
+                                <motion.div
+                                    animate={{ scale: [1, 1.15, 1] }}
+                                    transition={{ duration: 2, repeat: Infinity }}
+                                    className="w-3 h-3 rounded-full bg-[#FF0000] shrink-0"
+                                />
+                                <p className="text-xl md:text-2xl font-black text-white tracking-tight">
+                                    Workshop on AI and Prompt Engineering
+                                </p>
+                                <motion.div
+                                    animate={{ scale: [1, 1.15, 1] }}
+                                    transition={{ duration: 2, repeat: Infinity, delay: 1 }}
+                                    className="w-3 h-3 rounded-full bg-[#FF0000] shrink-0"
+                                />
+                            </div>
+                        </motion.div>
                     </motion.div>
 
-                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5">
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
                         {details.map((d, i) => (
                             <motion.div
                                 key={i}
@@ -588,7 +619,7 @@ const AIEvent = () => {
             </section>
 
             {/* ═══ SECTION 6 — WHAT MAKES IT SPECIAL ═══ */}
-            <section className="py-28 px-4 bg-[#020205] relative">
+            <section className="py-28 px-4 bg-[#0d0d0d] relative">
                 <div className="max-w-6xl mx-auto">
                     <div className="grid md:grid-cols-2 gap-16 items-center">
                         <motion.div
@@ -630,7 +661,7 @@ const AIEvent = () => {
                                     viewport={{ once: true }}
                                     transition={{ delay: i * 0.12 }}
                                     whileHover={{ y: -5 }}
-                                    className="bg-[#0a0a12]/90 backdrop-blur-xl border border-white/10 rounded-2xl p-6 hover:border-[#FF0000]/30 transition-all duration-300"
+                                    className="bg-[#1a1a1a]/90 backdrop-blur-xl border border-white/10 rounded-2xl p-6 hover:border-[#FF0000]/30 transition-all duration-300"
                                 >
                                     <Icon className="w-8 h-8 text-[#FF0000] mb-3" />
                                     <p className="text-white font-bold text-sm mb-1">{label}</p>
@@ -678,7 +709,7 @@ const AIEvent = () => {
                         className="relative"
                     >
                         <div className="absolute -inset-0.5 bg-gradient-to-br from-[#FF0000]/30 to-purple-600/30 rounded-3xl blur-xl opacity-50" />
-                        <div className="relative bg-[#0a0a12]/90 backdrop-blur-xl border border-white/10 rounded-3xl p-8 md:p-12">
+                        <div className="relative bg-[#1a1a1a]/90 backdrop-blur-xl border border-white/10 rounded-3xl p-8 md:p-12">
                             <RegistrationForm />
                         </div>
                     </motion.div>
@@ -686,7 +717,7 @@ const AIEvent = () => {
             </section>
 
             {/* ═══ SECTION 8 — URGENCY CTA ═══ */}
-            <section className="py-32 px-4 bg-[#020205] relative overflow-hidden">
+            <section className="py-32 px-4 bg-[#0d0d0d] relative overflow-hidden">
                 <motion.div
                     animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
                     transition={{ duration: 5, repeat: Infinity }}
