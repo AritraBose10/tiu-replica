@@ -7,8 +7,8 @@ const Footer = () => {
         <footer className="relative bg-black text-white py-8 border-t border-white/10 overflow-hidden">
             <div className="container mx-auto px-4 md:px-6 text-center">
                 {/* Logo */}
-                <div className="flex items-center justify-center mb-0">
-                    <img src={logo} alt="Techno India University" className="h-[200px] w-auto object-contain -my-14" />
+                <div className="flex items-center justify-center mb-6">
+                    <img src={logo} alt="Techno India University" className="w-full max-w-[260px] md:max-w-[340px] h-auto object-contain" />
                 </div>
 
                 {/* Links */}

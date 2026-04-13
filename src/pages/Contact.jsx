@@ -270,8 +270,8 @@ const Contact = () => {
                     <ContactInfoCard
                         icon={Mail}
                         title="Email Us Now"
-                        value={getSetting('email') || "admissions@tiu.com"}
-                        href={`mailto:${getSetting('email') || "admissions@technoindiauniversity.com"}`}
+                        value={getSetting('email') || "sof@technoindiaeducation.com"}
+                        href={`mailto:${getSetting('email') || "sof@technoindiaeducation.com"}`}
                         subtitle="We reply within 24 hours"
                         index={1}
                     />

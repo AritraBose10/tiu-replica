@@ -5,6 +5,8 @@ import {
 } from 'lucide-react';
 import SEO from '../components/SEO';
 
+const FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSfvDuLQN7Aq-1oIGeteYicyc50Ta6UOIgmqYVECaO9ROLniJg/viewform?usp=sharing&ouid=100476780291117363807';
+
 // ─── Floating Background ─────────────────────────────────────────────────────
 const FloatingBackground = () => (
     <div className="fixed inset-0 pointer-events-none overflow-hidden">
@@ -23,7 +25,6 @@ const FloatingBackground = () => (
             transition={{ duration: 6, repeat: Infinity }}
             className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[30%] h-[30%] bg-purple-600/5 rounded-full blur-[100px]"
         />
-        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-40" />
     </div>
 );
 
@@ -37,6 +38,60 @@ const SectionLabel = ({ children }) => (
     >
         {children}
     </motion.span>
+);
+
+// ─── Workshop Image Block ─────────────────────────────────────────────────────
+// Replace /assets/images/seminar.jpg with the actual workshop photo when available
+const WorkshopImageBlock = () => (
+    <motion.div
+        initial={{ opacity: 0, x: 60 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.9, delay: 0.4, type: 'spring', stiffness: 70 }}
+        className="relative"
+    >
+        {/* Ambient glow behind image */}
+        <motion.div
+            animate={{ scale: [1, 1.06, 1], opacity: [0.5, 0.85, 0.5] }}
+            transition={{ duration: 4, repeat: Infinity }}
+            className="absolute -inset-6 bg-gradient-to-br from-[#FF0000]/20 via-purple-600/15 to-blue-600/10 rounded-3xl blur-3xl pointer-events-none"
+        />
+
+        {/* Image frame */}
+        <div className="relative rounded-2xl overflow-hidden border border-white/10 shadow-[0_30px_80px_rgba(0,0,0,0.7)]">
+            <img
+                src="/assets/images/seminar.jpg"
+                alt="Live workshop session — students learning AI and Prompt Engineering"
+                className="w-full h-[440px] object-cover"
+                loading="eager"
+            />
+
+            {/* Bottom-to-top gradient overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent" />
+
+            {/* Purple pill badge — matches the creative */}
+            <motion.div
+                initial={{ opacity: 0, y: 14 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 1.3 }}
+                className="absolute bottom-6 left-1/2 -translate-x-1/2"
+            >
+                <div className="flex items-center gap-2.5 bg-[#5a2d82]/85 backdrop-blur-md px-6 py-3 rounded-full border border-purple-400/30 shadow-[0_4px_24px_rgba(90,45,130,0.5)] whitespace-nowrap">
+                    <Sparkles className="w-4 h-4 text-purple-300 shrink-0" />
+                    <span className="text-white font-semibold text-sm">Workshop on AI &amp; Prompt Engineering</span>
+                </div>
+            </motion.div>
+        </div>
+
+        {/* "Don't wait. Get ahead." — directly from the creative */}
+        <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.6 }}
+            className="text-center mt-5 text-[#FF0000] font-black text-lg tracking-wide"
+        >
+            Don&apos;t wait. Get ahead.
+        </motion.p>
+    </motion.div>
 );
 
 // ─── Learn Item ───────────────────────────────────────────────────────────────
@@ -108,8 +163,6 @@ const SpecialItem = ({ text, index }) => (
     </motion.div>
 );
 
-const FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSfvDuLQN7Aq-1oIGeteYicyc50Ta6UOIgmqYVECaO9ROLniJg/viewform?usp=sharing&ouid=100476780291117363807';
-
 // ─── Main Page ────────────────────────────────────────────────────────────────
 const AIEvent = () => {
     const learnItems = [
@@ -150,7 +203,6 @@ const AIEvent = () => {
 
     return (
         <div className="min-h-screen bg-[#0d0d0d] text-white overflow-x-hidden selection:bg-[#FF0000] selection:text-white">
-            {/* Page-level grain overlay */}
             <div className="fixed inset-0 pointer-events-none z-[2] bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.07]" />
             <SEO
                 title="Workshop on AI and Prompt Engineering for Class 12 Students | School of the Future"
@@ -158,124 +210,130 @@ const AIEvent = () => {
             />
             <FloatingBackground />
 
-            {/* ═══ HERO ═══ */}
-            <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-                {/* Large BG text */}
-                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                    <span className="text-[13vw] font-black text-white/[0.025] tracking-tighter select-none leading-none text-center">
-                        PROMPT
-                    </span>
+            {/* ═══ HERO — Split Layout ═══ */}
+            <section className="relative min-h-screen flex items-center overflow-hidden">
+                {/* Large watermark BG text */}
+                <div className="absolute inset-0 flex items-center justify-end pointer-events-none pr-4 md:pr-8">
+                    <span className="text-[22vw] font-black text-white/[0.018] tracking-tighter select-none leading-none">AI</span>
                 </div>
 
-                {/* Animated orb */}
+                {/* Red ambient orb — left side */}
                 <motion.div
-                    animate={{ scale: [1, 1.3, 1], opacity: [0.15, 0.3, 0.15] }}
+                    animate={{ scale: [1, 1.3, 1], opacity: [0.1, 0.22, 0.1] }}
                     transition={{ duration: 5, repeat: Infinity }}
-                    className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#FF0000]/20 rounded-full blur-[150px]"
+                    className="absolute top-1/2 left-[15%] -translate-y-1/2 w-[500px] h-[500px] bg-[#FF0000]/15 rounded-full blur-[160px] pointer-events-none"
                 />
 
-                {/* Content */}
-                <div className="relative z-10 max-w-5xl mx-auto px-4 text-center pt-32 pb-20">
-                    <motion.div
-                        initial={{ opacity: 0, y: 80 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.9, type: 'spring' }}
-                    >
-                        {/* Badge */}
-                        <motion.span
-                            initial={{ opacity: 0, scale: 0.8 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            transition={{ delay: 0.15 }}
-                            className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md px-5 py-2 rounded-full text-sm font-semibold mb-6 border border-white/20 shadow-lg"
-                        >
-                            <Brain className="w-4 h-4 text-[#FF0000]" />
-                            For Class 12 Students
-                            <Sparkles className="w-4 h-4 text-yellow-400" />
-                        </motion.span>
+                <div className="relative z-10 max-w-7xl mx-auto px-6 pt-28 pb-16 w-full">
+                    <div className="grid lg:grid-cols-2 gap-12 xl:gap-20 items-center">
 
-                        {/* Hook line */}
-                        <motion.p
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.3 }}
-                            className="text-base md:text-lg text-gray-500 font-medium tracking-wide mb-5"
-                        >
-                            Still waiting for college admissions?
-                        </motion.p>
-
-                        {/* Main heading — workshop name */}
-                        <h1 className="font-black leading-[1.05] mb-8">
-                            <motion.span
-                                initial={{ opacity: 0, y: 40 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.45 }}
-                                className="block text-white text-4xl md:text-6xl mb-2"
-                            >
-                                Workshop on
-                            </motion.span>
-                            <motion.span
-                                initial={{ opacity: 0, scale: 0.85 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                transition={{ delay: 0.6, type: 'spring', stiffness: 90 }}
-                                className="relative inline-block text-5xl md:text-8xl"
-                            >
-                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FF0000] via-pink-400 to-[#FF0000]">
-                                    AI & Prompt
-                                </span>
-                                <motion.div
-                                    initial={{ scaleX: 0 }}
-                                    animate={{ scaleX: 1 }}
-                                    transition={{ duration: 0.9, delay: 1.1 }}
-                                    className="absolute -bottom-2 left-0 w-full h-1.5 bg-gradient-to-r from-[#FF0000] to-pink-500 origin-left rounded-full"
-                                />
-                            </motion.span>
-                            <motion.span
-                                initial={{ opacity: 0, y: 40 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.75 }}
-                                className="block text-white text-4xl md:text-6xl mt-2"
-                            >
-                                Engineering
-                            </motion.span>
-                        </h1>
-
-                        {/* Subheadline */}
-                        <motion.p
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            transition={{ delay: 0.9 }}
-                            className="text-lg text-gray-400 max-w-xl mx-auto mb-3"
-                        >
-                            Start learning AI before college begins — made specially for Class 12 students.
-                        </motion.p>
-
-                        <motion.p
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            transition={{ delay: 1.0 }}
-                            className="text-sm text-gray-600 mb-10"
-                        >
-                            Limited seats. Early registration is strongly recommended.
-                        </motion.p>
-
+                        {/* ── Left: Ad copy ── */}
                         <motion.div
-                            initial={{ opacity: 0, y: 30 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 1 }}
-                            className="flex flex-wrap gap-4 justify-center"
+                            initial={{ opacity: 0, x: -50 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.8, type: 'spring' }}
                         >
-                            <motion.a
-                                href={FORM_URL} target="_blank" rel="noopener noreferrer"
-                                whileHover={{ scale: 1.05, boxShadow: '0 0 50px rgba(255,0,0,0.6)' }}
-                                whileTap={{ scale: 0.95 }}
-                                className="inline-flex items-center gap-3 bg-gradient-to-r from-[#FF0000] to-[#CC0000] text-white px-10 py-5 rounded-full font-bold text-lg shadow-[0_0_30px_rgba(255,0,0,0.4)] border border-white/10"
+                            {/* Class badge */}
+                            <motion.span
+                                initial={{ opacity: 0, scale: 0.8 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                transition={{ delay: 0.15 }}
+                                className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md px-5 py-2 rounded-full text-sm font-semibold mb-8 border border-white/20 shadow-lg"
                             >
-                                <Zap className="w-5 h-5" />
-                                Register Now
-                                <ChevronRight className="w-5 h-5" />
-                            </motion.a>
+                                <Brain className="w-4 h-4 text-[#FF0000]" />
+                                For Class 12 Students
+                                <Sparkles className="w-4 h-4 text-yellow-400" />
+                            </motion.span>
+
+                            {/* Hook — mirrors the creative exactly */}
+                            <motion.p
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.25 }}
+                                className="text-gray-400 text-xl font-medium mb-2 tracking-wide"
+                            >
+                                Still waiting for
+                            </motion.p>
+
+                            <h1 className="font-black leading-[1.0] mb-5">
+                                <motion.span
+                                    initial={{ opacity: 0, y: 30 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: 0.35 }}
+                                    className="block text-white text-5xl md:text-[4.5rem]"
+                                >
+                                    College
+                                </motion.span>
+                                <motion.span
+                                    initial={{ opacity: 0, y: 30 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: 0.45 }}
+                                    className="relative block"
+                                >
+                                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FF0000] via-pink-400 to-[#FF0000] text-5xl md:text-[4.5rem]">
+                                        Admissions?
+                                    </span>
+                                    <motion.div
+                                        initial={{ scaleX: 0 }}
+                                        animate={{ scaleX: 1 }}
+                                        transition={{ duration: 0.8, delay: 1.0 }}
+                                        className="absolute -bottom-1.5 left-0 w-full h-1.5 bg-gradient-to-r from-[#FF0000] to-pink-500 origin-left rounded-full"
+                                    />
+                                </motion.span>
+                            </h1>
+
+                            <motion.p
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ delay: 0.6 }}
+                                className="text-gray-400 text-lg mb-2"
+                            >
+                                Others have already started{' '}
+                                <span className="text-white font-bold">learning AI.</span>
+                            </motion.p>
+
+                            <motion.p
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.72, type: 'spring' }}
+                                className="text-3xl md:text-4xl font-black text-white mb-10 tracking-tight"
+                            >
+                                WHERE ARE YOU?
+                            </motion.p>
+
+                            <motion.p
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ delay: 0.85 }}
+                                className="text-gray-500 text-sm mb-8 flex items-center gap-2"
+                            >
+                                <AlertCircle className="w-4 h-4 text-[#FF0000] shrink-0" />
+                                Limited seats. Early registration is strongly recommended.
+                            </motion.p>
+
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 1.0 }}
+                            >
+                                <motion.a
+                                    href={FORM_URL}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    whileHover={{ scale: 1.05, boxShadow: '0 0 50px rgba(255,0,0,0.6)' }}
+                                    whileTap={{ scale: 0.95 }}
+                                    className="inline-flex items-center gap-3 bg-gradient-to-r from-[#FF0000] to-[#CC0000] text-white px-10 py-5 rounded-full font-bold text-lg shadow-[0_0_30px_rgba(255,0,0,0.4)] border border-white/10"
+                                >
+                                    <Zap className="w-5 h-5" />
+                                    Register Now
+                                    <ChevronRight className="w-5 h-5" />
+                                </motion.a>
+                            </motion.div>
                         </motion.div>
-                    </motion.div>
+
+                        {/* ── Right: Workshop image block ── */}
+                        <WorkshopImageBlock />
+                    </div>
                 </div>
 
                 {/* Scroll indicator */}
@@ -296,7 +354,6 @@ const AIEvent = () => {
 
             {/* ═══ SECTION 1 — WHY JOIN ═══ */}
             <section className="py-28 px-4 bg-[#111111] relative overflow-hidden">
-                {/* Animated grid */}
                 <div className="absolute inset-0 opacity-10">
                     <div className="absolute inset-0" style={{ backgroundImage: 'linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px)', backgroundSize: '60px 60px' }} />
                 </div>
@@ -464,20 +521,11 @@ const AIEvent = () => {
                         className="text-center mb-16"
                     >
                         <SectionLabel>Workshop Info</SectionLabel>
-                        <h2 className="text-4xl md:text-6xl font-black text-white mt-2 mb-10">
+                        <h2 className="text-4xl md:text-6xl font-black text-white mt-2 mb-4">
                             Workshop{' '}
                             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FF0000] to-pink-500">Details</span>
                         </h2>
-
-                        <motion.p
-                            initial={{ opacity: 0 }}
-                            whileInView={{ opacity: 1 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: 0.2 }}
-                            className="text-gray-500 text-base"
-                        >
-                            Workshop on AI and Prompt Engineering
-                        </motion.p>
+                        <p className="text-gray-500 text-base">Workshop on AI and Prompt Engineering</p>
                     </motion.div>
 
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
@@ -551,92 +599,42 @@ const AIEvent = () => {
                 </div>
             </section>
 
-            {/* ═══ SECTION 7 — REGISTER CTA ═══ */}
-            <section className="py-28 px-4 bg-[#111111] relative overflow-hidden">
+            {/* ═══ FINAL CTA ═══ */}
+            <section className="py-32 px-4 bg-[#111111] relative overflow-hidden">
                 <motion.div
-                    animate={{ scale: [1, 1.1, 1], opacity: [0.1, 0.25, 0.1] }}
-                    transition={{ duration: 5, repeat: Infinity }}
-                    className="absolute top-0 right-0 w-[400px] h-[400px] bg-[#FF0000]/10 rounded-full blur-[120px]"
-                />
-                <motion.div
-                    animate={{ scale: [1, 1.15, 1], opacity: [0.05, 0.15, 0.05] }}
-                    transition={{ duration: 7, repeat: Infinity, delay: 1 }}
-                    className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-[#FF0000]/5 rounded-full blur-[100px]"
-                />
-
-                <div className="max-w-2xl mx-auto relative z-10 text-center">
-                    <motion.div
-                        initial={{ opacity: 0, y: 40 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.7 }}
-                    >
-                        <SectionLabel>Registration</SectionLabel>
-                        <h2 className="text-4xl md:text-6xl font-black text-white mt-2 mb-4">
-                            Register for the{' '}
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FF0000] to-pink-500">Workshop</span>
-                        </h2>
-                        <p className="text-gray-500 mb-10">
-                            Click below to fill in your details and confirm your seat.
-                        </p>
-
-                        <motion.a
-                            href={FORM_URL}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            whileHover={{ scale: 1.05, boxShadow: '0 0 50px rgba(255,0,0,0.5)' }}
-                            whileTap={{ scale: 0.97 }}
-                            className="inline-flex items-center gap-3 bg-gradient-to-r from-[#FF0000] to-[#CC0000] text-white px-12 py-5 rounded-full font-bold text-lg shadow-[0_0_30px_rgba(255,0,0,0.35)] border border-white/10"
-                        >
-                            <Zap className="w-5 h-5" />
-                            Book My Seat
-                            <ArrowUpRight className="w-5 h-5" />
-                        </motion.a>
-                    </motion.div>
-                </div>
-            </section>
-
-            {/* ═══ SECTION 8 — URGENCY CTA ═══ */}
-            <section className="py-32 px-4 bg-[#0d0d0d] relative overflow-hidden">
-                <motion.div
-                    animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
+                    animate={{ scale: [1, 1.2, 1], opacity: [0.2, 0.4, 0.2] }}
                     transition={{ duration: 5, repeat: Infinity }}
                     className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#FF0000]/20 rounded-full blur-[150px]"
                 />
 
                 <div className="max-w-4xl mx-auto text-center relative z-10">
                     <motion.div
-                        initial={{ opacity: 0, scale: 0.8, y: 50 }}
+                        initial={{ opacity: 0, scale: 0.85, y: 50 }}
                         whileInView={{ opacity: 1, scale: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ type: 'spring', stiffness: 100 }}
                     >
-                        <motion.div
-                            animate={{ rotate: [0, 5, -5, 0] }}
-                            transition={{ duration: 4, repeat: Infinity }}
-                            className="inline-block mb-6"
-                        >
-                            <AlertCircle className="w-14 h-14 text-[#FF0000]" />
-                        </motion.div>
-
-                        <h2 className="text-4xl md:text-7xl font-black text-white mb-6">
+                        <h2 className="text-5xl md:text-7xl font-black text-white mb-4 leading-tight">
                             Seats are{' '}
                             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FF0000] to-pink-500">limited.</span>
                         </h2>
 
-                        <div className="space-y-2 mb-10">
-                            <p className="text-xl text-gray-400">Registrations are filling fast.</p>
-                            <p className="text-gray-500">Do not miss the chance to get early exposure to AI before college begins.</p>
-                        </div>
+                        <p className="text-xl text-gray-400 mb-2">Registrations are filling fast.</p>
+                        <p className="text-gray-500 mb-4">Do not miss the chance to get early exposure to AI before college begins.</p>
+
+                        {/* Creative tagline repeated as final punch */}
+                        <p className="text-[#FF0000] font-black text-2xl mb-12 tracking-wide">Don&apos;t wait. Get ahead.</p>
 
                         <motion.a
-                            href={FORM_URL} target="_blank" rel="noopener noreferrer"
+                            href={FORM_URL}
+                            target="_blank"
+                            rel="noopener noreferrer"
                             whileHover={{ scale: 1.05, boxShadow: '0 0 60px rgba(255,0,0,0.6)' }}
                             whileTap={{ scale: 0.95 }}
-                            className="inline-flex items-center gap-3 bg-gradient-to-r from-[#FF0000] to-[#CC0000] text-white px-12 py-6 rounded-full font-bold text-xl shadow-[0_0_40px_rgba(255,0,0,0.5)] border border-white/10 transition-shadow duration-300"
+                            className="inline-flex items-center gap-3 bg-gradient-to-r from-[#FF0000] to-[#CC0000] text-white px-14 py-6 rounded-full font-bold text-xl shadow-[0_0_40px_rgba(255,0,0,0.5)] border border-white/10 transition-shadow duration-300"
                         >
                             <Zap className="w-6 h-6" />
-                            Register Today
+                            Book My Seat
                             <motion.span
                                 animate={{ x: [0, 5, 0] }}
                                 transition={{ repeat: Infinity, duration: 1 }}

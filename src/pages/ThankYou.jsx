@@ -144,11 +144,11 @@ const ThankYou = () => {
                         <span className="text-gray-300 text-sm font-medium">08062642222</span>
                     </a>
                     <a
-                        href="mailto:admissions@technoindiauniversity.com"
+                        href="mailto:sof@technoindiaeducation.com"
                         className="flex items-center gap-2.5 px-5 py-3 rounded-xl bg-white/[0.04] border border-white/10 hover:border-red-500/30 hover:bg-white/[0.07] transition-all duration-300 group"
                     >
                         <Mail className="w-4 h-4 text-red-500 group-hover:scale-110 transition-transform" />
-                        <span className="text-gray-300 text-sm font-medium">admissions@tiu.com</span>
+                        <span className="text-gray-300 text-sm font-medium">sof@technoindiaeducation.com</span>
                     </a>
                 </motion.div>
 
