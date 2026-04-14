@@ -41,39 +41,6 @@ const SectionLabel = ({ children }) => (
     </motion.span>
 );
 
-// ─── AI Highlight — animated marker for "learning AI" ────────────────────────
-const AIHighlight = ({ children }) => (
-    <span className="relative inline-block">
-        {/* yellow marker sweep */}
-        <motion.span
-            initial={{ scaleX: 0 }}
-            animate={{ scaleX: 1 }}
-            transition={{ delay: 1.05, duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-            style={{ transformOrigin: 'left center' }}
-            className="absolute inset-0 -inset-y-[4px] bg-gradient-to-r from-yellow-400/40 via-amber-400/35 to-yellow-300/25 rounded-[5px]"
-        />
-        {/* pulsing glow */}
-        <motion.span
-            animate={{ opacity: [0.25, 0.6, 0.25] }}
-            transition={{ duration: 2.5, repeat: Infinity, delay: 1.6 }}
-            className="absolute -inset-1 bg-yellow-400/20 blur-xl rounded-xl"
-        />
-        {/* underline */}
-        <motion.span
-            initial={{ scaleX: 0 }}
-            animate={{ scaleX: 1 }}
-            transition={{ delay: 1.25, duration: 0.4 }}
-            style={{ transformOrigin: 'left center' }}
-            className="absolute bottom-0 left-0 right-0 h-[2.5px] bg-gradient-to-r from-yellow-400 to-amber-400 rounded-full"
-        />
-        <span
-            className="relative font-black text-yellow-300 tracking-tight"
-            style={{ textShadow: '0 0 20px rgba(253,224,71,0.45)' }}
-        >
-            {children}
-        </span>
-    </span>
-);
 
 // ─── Live Registration Badge ──────────────────────────────────────────────────
 const LiveBadge = () => {
@@ -406,59 +373,61 @@ const AIEvent = () => {
                                 </motion.div>
                             </div>
 
-                            {/* Hook text */}
+                            {/* Setup — small, secondary */}
                             <motion.p
-                                initial={{ opacity: 0, y: 10 }}
+                                initial={{ opacity: 0, y: 8 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 0.25 }}
-                                className="text-gray-400 text-xl font-medium mb-2 tracking-wide"
+                                className="text-gray-500 text-sm md:text-base font-medium mb-1 tracking-wide"
                             >
-                                Still waiting for
+                                Still waiting for College Admissions?
                             </motion.p>
-
-                            <h1 className="font-black leading-[1.0] mb-5">
-                                <motion.span
-                                    initial={{ opacity: 0, y: 30 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: 0.35 }}
-                                    className="block text-white text-5xl md:text-[4.5rem]"
-                                >
-                                    College
-                                </motion.span>
-                                <motion.span
-                                    initial={{ opacity: 0, y: 30 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: 0.45 }}
-                                    className="relative block"
-                                >
-                                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FF0000] via-pink-400 to-[#FF0000] text-5xl md:text-[4.5rem]">
-                                        Admissions?
-                                    </span>
-                                    <motion.div
-                                        initial={{ scaleX: 0 }}
-                                        animate={{ scaleX: 1 }}
-                                        transition={{ duration: 0.8, delay: 1.0 }}
-                                        className="absolute -bottom-1.5 left-0 w-full h-1.5 bg-gradient-to-r from-[#FF0000] to-pink-500 origin-left rounded-full"
-                                    />
-                                </motion.span>
-                            </h1>
-
-                            {/* "learning AI" — the hero highlight */}
                             <motion.p
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
-                                transition={{ delay: 0.6 }}
-                                className="text-gray-300 text-lg md:text-xl mb-2 leading-relaxed"
+                                transition={{ delay: 0.38 }}
+                                className="text-gray-500 text-sm mb-6"
                             >
-                                Others have already started{' '}
-                                <AIHighlight>learning AI.</AIHighlight>
+                                Others have already started
                             </motion.p>
+
+                            {/* ── FOCAL POINT: learning AI ── */}
+                            <div className="relative mb-7">
+                                {/* Ambient glow behind text */}
+                                <motion.div
+                                    animate={{ opacity: [0.25, 0.55, 0.25] }}
+                                    transition={{ duration: 2.8, repeat: Infinity }}
+                                    aria-hidden="true"
+                                    className="absolute inset-0 font-black leading-[0.88] text-[#FF0000] blur-3xl select-none pointer-events-none text-[3rem] md:text-[5rem]"
+                                >
+                                    learning<br />AI.
+                                </motion.div>
+
+                                <motion.h1
+                                    initial={{ opacity: 0, y: 80, scale: 0.72 }}
+                                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                                    transition={{ type: 'spring', stiffness: 58, damping: 14, delay: 0.48 }}
+                                    className="relative font-black leading-[0.88]"
+                                >
+                                    <span className="block text-[3rem] md:text-[5rem] text-transparent bg-clip-text bg-gradient-to-r from-[#FF0000] via-pink-300 to-[#FF0000]">
+                                        learning
+                                    </span>
+                                    <motion.span
+                                        initial={{ opacity: 0, x: -24 }}
+                                        animate={{ opacity: 1, x: 0 }}
+                                        transition={{ delay: 0.72, type: 'spring', stiffness: 75 }}
+                                        className="block text-[4.2rem] md:text-[7rem] text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-[#FF0000] to-pink-500"
+                                    >
+                                        AI.
+                                    </motion.span>
+                                </motion.h1>
+                            </div>
 
                             <motion.p
                                 initial={{ opacity: 0, y: 10 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.72, type: 'spring' }}
-                                className="text-3xl md:text-4xl font-black text-white mb-8 tracking-tight"
+                                transition={{ delay: 0.95, type: 'spring' }}
+                                className="text-xl md:text-2xl font-black text-white mb-8 tracking-tight"
                             >
                                 WHERE ARE YOU?
                             </motion.p>
