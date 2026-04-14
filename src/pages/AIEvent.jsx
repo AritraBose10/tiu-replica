@@ -1,7 +1,8 @@
 import { motion } from 'framer-motion';
+import { useState, useEffect } from 'react';
 import {
     Sparkles, ChevronRight, ArrowUpRight, Check, Brain, Zap,
-    Users, Clock, MapPin, Star, AlertCircle
+    Users, Clock, MapPin, Star, AlertCircle, Flame, TrendingUp, Trophy
 } from 'lucide-react';
 import SEO from '../components/SEO';
 
@@ -40,8 +41,99 @@ const SectionLabel = ({ children }) => (
     </motion.span>
 );
 
+// ─── AI Highlight — animated marker for "learning AI" ────────────────────────
+const AIHighlight = ({ children }) => (
+    <span className="relative inline-block">
+        {/* yellow marker sweep */}
+        <motion.span
+            initial={{ scaleX: 0 }}
+            animate={{ scaleX: 1 }}
+            transition={{ delay: 1.05, duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+            style={{ transformOrigin: 'left center' }}
+            className="absolute inset-0 -inset-y-[4px] bg-gradient-to-r from-yellow-400/40 via-amber-400/35 to-yellow-300/25 rounded-[5px]"
+        />
+        {/* pulsing glow */}
+        <motion.span
+            animate={{ opacity: [0.25, 0.6, 0.25] }}
+            transition={{ duration: 2.5, repeat: Infinity, delay: 1.6 }}
+            className="absolute -inset-1 bg-yellow-400/20 blur-xl rounded-xl"
+        />
+        {/* underline */}
+        <motion.span
+            initial={{ scaleX: 0 }}
+            animate={{ scaleX: 1 }}
+            transition={{ delay: 1.25, duration: 0.4 }}
+            style={{ transformOrigin: 'left center' }}
+            className="absolute bottom-0 left-0 right-0 h-[2.5px] bg-gradient-to-r from-yellow-400 to-amber-400 rounded-full"
+        />
+        <span
+            className="relative font-black text-yellow-300 tracking-tight"
+            style={{ textShadow: '0 0 20px rgba(253,224,71,0.45)' }}
+        >
+            {children}
+        </span>
+    </span>
+);
+
+// ─── Live Registration Badge ──────────────────────────────────────────────────
+const LiveBadge = () => {
+    const [count, setCount] = useState(251);
+    useEffect(() => {
+        const t = setInterval(() => {
+            if (Math.random() > 0.45) setCount(c => c + 1);
+        }, 7500);
+        return () => clearInterval(t);
+    }, []);
+    return (
+        <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 2.0 }}
+            className="flex flex-wrap items-center gap-3 mt-5"
+        >
+            <div className="flex items-center gap-2 bg-green-500/10 border border-green-500/25 px-3.5 py-1.5 rounded-full">
+                <motion.span
+                    animate={{ scale: [1, 1.5, 1], opacity: [0.6, 1, 0.6] }}
+                    transition={{ duration: 1.2, repeat: Infinity }}
+                    className="w-2 h-2 rounded-full bg-green-400 shrink-0"
+                />
+                <span className="text-green-400 text-xs font-bold">{count}+ students registered</span>
+            </div>
+            <div className="flex items-center gap-2 bg-[#FF0000]/10 border border-[#FF0000]/25 px-3.5 py-1.5 rounded-full">
+                <motion.div
+                    animate={{ scale: [1, 1.35, 1] }}
+                    transition={{ duration: 1.2, repeat: Infinity }}
+                >
+                    <Flame className="w-3.5 h-3.5 text-[#FF0000]" />
+                </motion.div>
+                <span className="text-[#FF0000] text-xs font-bold">Seats running out</span>
+            </div>
+        </motion.div>
+    );
+};
+
+// ─── Urgency Ticker ───────────────────────────────────────────────────────────
+const UrgencyTicker = () => {
+    const items = Array(10).fill(['⚡ SEATS FILLING FAST', '🔥 REGISTER NOW', '⏰ LIMITED SPOTS ONLY', '🚀 DON\'T MISS OUT']).flat();
+    return (
+        <div className="relative overflow-hidden bg-[#080000]/90 border-y border-[#FF0000]/15 py-2.5 z-20">
+            <motion.div
+                animate={{ x: ['0%', '-50%'] }}
+                transition={{ duration: 22, repeat: Infinity, ease: 'linear' }}
+                className="flex gap-8 whitespace-nowrap"
+            >
+                {[...items, ...items].map((item, i) => (
+                    <span key={i} className="text-[#FF0000]/55 text-[10px] font-black tracking-[0.18em] uppercase flex items-center gap-3">
+                        {item}
+                        <span className="text-[#FF0000]/15 mx-1">|</span>
+                    </span>
+                ))}
+            </motion.div>
+        </div>
+    );
+};
+
 // ─── Workshop Image Block ─────────────────────────────────────────────────────
-// Replace /assets/images/seminar.jpg with the actual workshop photo when available
 const WorkshopImageBlock = () => (
     <motion.div
         initial={{ opacity: 0, x: 60 }}
@@ -49,14 +141,12 @@ const WorkshopImageBlock = () => (
         transition={{ duration: 0.9, delay: 0.4, type: 'spring', stiffness: 70 }}
         className="relative"
     >
-        {/* Ambient glow behind image */}
         <motion.div
             animate={{ scale: [1, 1.06, 1], opacity: [0.5, 0.85, 0.5] }}
             transition={{ duration: 4, repeat: Infinity }}
             className="absolute -inset-6 bg-gradient-to-br from-[#FF0000]/20 via-purple-600/15 to-blue-600/10 rounded-3xl blur-3xl pointer-events-none"
         />
 
-        {/* Image frame */}
         <div className="relative rounded-2xl overflow-hidden border border-white/10 shadow-[0_30px_80px_rgba(0,0,0,0.7)]">
             <img
                 src="/assets/images/seminar.jpg"
@@ -64,11 +154,30 @@ const WorkshopImageBlock = () => (
                 className="w-full h-[440px] object-cover"
                 loading="eager"
             />
-
-            {/* Bottom-to-top gradient overlay */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent" />
 
-            {/* Purple pill badge — matches the creative */}
+            {/* SPOTS LIMITED badge */}
+            <motion.div
+                initial={{ opacity: 0, scale: 0.7 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 1.5, type: 'spring' }}
+                className="absolute top-4 right-4"
+            >
+                <motion.div
+                    animate={{ boxShadow: ['0 0 12px rgba(255,0,0,0.4)', '0 0 28px rgba(255,0,0,0.7)', '0 0 12px rgba(255,0,0,0.4)'] }}
+                    transition={{ duration: 1.8, repeat: Infinity }}
+                    className="bg-[#FF0000] text-white text-[10px] font-black px-3 py-1.5 rounded-full flex items-center gap-1.5"
+                >
+                    <motion.span
+                        animate={{ scale: [1, 1.5, 1] }}
+                        transition={{ duration: 1, repeat: Infinity }}
+                        className="w-1.5 h-1.5 rounded-full bg-white"
+                    />
+                    SPOTS LIMITED
+                </motion.div>
+            </motion.div>
+
+            {/* Bottom badge */}
             <motion.div
                 initial={{ opacity: 0, y: 14 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -82,7 +191,6 @@ const WorkshopImageBlock = () => (
             </motion.div>
         </div>
 
-        {/* "Don't wait. Get ahead." — directly from the creative */}
         <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -129,19 +237,37 @@ const AudienceCard = ({ text, index }) => (
 );
 
 // ─── Detail Card ──────────────────────────────────────────────────────────────
-const DetailCard = ({ icon: Icon, label, value }) => (
+const DetailCard = ({ icon: Icon, label, value, highlight }) => (
     <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         whileHover={{ y: -6 }}
-        className="bg-[#1a1a1a]/90 backdrop-blur-xl border border-white/10 rounded-2xl p-6 flex flex-col items-center text-center gap-3 hover:border-[#FF0000]/30 transition-all duration-300"
+        className={`relative backdrop-blur-xl rounded-2xl p-6 flex flex-col items-center text-center gap-3 transition-all duration-300 ${
+            highlight
+                ? 'bg-yellow-400/5 border border-yellow-400/30 hover:border-yellow-400/60'
+                : 'bg-[#1a1a1a]/90 border border-white/10 hover:border-[#FF0000]/30'
+        }`}
     >
-        <div className="w-12 h-12 rounded-xl bg-[#FF0000]/10 border border-[#FF0000]/20 flex items-center justify-center">
-            <Icon className="w-6 h-6 text-[#FF0000]" />
+        {highlight && (
+            <motion.div
+                animate={{ opacity: [0.2, 0.45, 0.2] }}
+                transition={{ duration: 2.2, repeat: Infinity }}
+                className="absolute -inset-0.5 bg-yellow-400/8 rounded-2xl blur-xl"
+            />
+        )}
+        <div className={`relative w-12 h-12 rounded-xl flex items-center justify-center ${
+            highlight ? 'bg-yellow-400/15 border border-yellow-400/30' : 'bg-[#FF0000]/10 border border-[#FF0000]/20'
+        }`}>
+            <Icon className={`w-6 h-6 ${highlight ? 'text-yellow-400' : 'text-[#FF0000]'}`} />
         </div>
-        <p className="text-xs font-bold uppercase tracking-widest text-gray-500">{label}</p>
-        <p className="text-white font-semibold">{value}</p>
+        <p className="relative text-xs font-bold uppercase tracking-widest text-gray-500">{label}</p>
+        <p className={`relative font-semibold ${highlight ? 'text-yellow-300 text-2xl font-black' : 'text-white'}`}>{value}</p>
+        {highlight && (
+            <span className="relative text-[10px] bg-yellow-400/15 text-yellow-400 px-2.5 py-0.5 rounded-full font-bold border border-yellow-400/20 tracking-wide">
+                No Registration Fee
+            </span>
+        )}
     </motion.div>
 );
 
@@ -163,6 +289,20 @@ const SpecialItem = ({ text, index }) => (
     </motion.div>
 );
 
+// ─── FOMO Stat Pill ───────────────────────────────────────────────────────────
+const FOMOStat = ({ icon: Icon, value, label, color = 'text-white', delay = 0 }) => (
+    <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay }}
+        className="flex items-center gap-2"
+    >
+        <Icon className={`w-4 h-4 shrink-0 ${color}`} />
+        <span className={`font-black text-sm ${color}`}>{value}</span>
+        <span className="text-gray-500 text-xs">{label}</span>
+    </motion.div>
+);
+
 // ─── Main Page ────────────────────────────────────────────────────────────────
 const AIEvent = () => {
     const learnItems = [
@@ -181,10 +321,10 @@ const AIEvent = () => {
     ];
 
     const details = [
-        { icon: Users, label: 'For', value: 'Class 12 students awaiting admission' },
+        { icon: Users, label: 'For', value: 'Class 12 Students' },
         { icon: MapPin, label: 'Mode', value: 'Offline / Online' },
-        { icon: Clock, label: 'Date', value: 'To be announced' },
-        { icon: Clock, label: 'Duration', value: 'To be announced' },
+        { icon: Clock, label: 'Date', value: 'Coming Soon' },
+        { icon: Star, label: 'Entry Fee', value: 'FREE', highlight: true },
     ];
 
     const specialItems = [
@@ -196,9 +336,9 @@ const AIEvent = () => {
     ];
 
     const whyNowLines = [
-        { bold: 'College will start soon.', sub: 'The clock is already ticking.' },
-        { bold: 'Competition has already started.', sub: 'Others are not waiting.' },
-        { bold: 'Students who begin early will always stay one step ahead.', sub: 'That advantage starts now.' },
+        { bold: 'College will start soon.', sub: 'The clock is already ticking.', emoji: '⏰' },
+        { bold: 'Competition has already started.', sub: 'Others are not waiting.', emoji: '🔥' },
+        { bold: 'Students who begin early will always stay one step ahead.', sub: 'That advantage starts now.', emoji: '🚀' },
     ];
 
     return (
@@ -210,42 +350,63 @@ const AIEvent = () => {
             />
             <FloatingBackground />
 
+            {/* ─── Urgency Ticker ─── */}
+            <UrgencyTicker />
+
             {/* ═══ HERO — Split Layout ═══ */}
             <section className="relative min-h-screen flex items-center overflow-hidden">
-                {/* Large watermark BG text */}
+                {/* Large watermark */}
                 <div className="absolute inset-0 flex items-center justify-end pointer-events-none pr-4 md:pr-8">
                     <span className="text-[22vw] font-black text-white/[0.018] tracking-tighter select-none leading-none">AI</span>
                 </div>
 
-                {/* Red ambient orb — left side */}
+                {/* Red ambient orb */}
                 <motion.div
                     animate={{ scale: [1, 1.3, 1], opacity: [0.1, 0.22, 0.1] }}
                     transition={{ duration: 5, repeat: Infinity }}
                     className="absolute top-1/2 left-[15%] -translate-y-1/2 w-[500px] h-[500px] bg-[#FF0000]/15 rounded-full blur-[160px] pointer-events-none"
                 />
 
-                <div className="relative z-10 max-w-7xl mx-auto px-6 pt-28 pb-16 w-full">
+                <div className="relative z-10 max-w-7xl mx-auto px-6 pt-24 pb-16 w-full">
                     <div className="grid lg:grid-cols-2 gap-12 xl:gap-20 items-center">
 
-                        {/* ── Left: Ad copy ── */}
+                        {/* ── Left ── */}
                         <motion.div
                             initial={{ opacity: 0, x: -50 }}
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ duration: 0.8, type: 'spring' }}
                         >
-                            {/* Class badge */}
-                            <motion.span
-                                initial={{ opacity: 0, scale: 0.8 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                transition={{ delay: 0.15 }}
-                                className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md px-5 py-2 rounded-full text-sm font-semibold mb-8 border border-white/20 shadow-lg"
-                            >
-                                <Brain className="w-4 h-4 text-[#FF0000]" />
-                                For Class 12 Students
-                                <Sparkles className="w-4 h-4 text-yellow-400" />
-                            </motion.span>
+                            {/* Top row: class badge + urgency pill */}
+                            <div className="flex flex-wrap items-center gap-3 mb-7">
+                                <motion.span
+                                    initial={{ opacity: 0, scale: 0.8 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    transition={{ delay: 0.15 }}
+                                    className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md px-5 py-2 rounded-full text-sm font-semibold border border-white/20 shadow-lg"
+                                >
+                                    <Brain className="w-4 h-4 text-[#FF0000]" />
+                                    For Class 12 Students
+                                    <Sparkles className="w-4 h-4 text-yellow-400" />
+                                </motion.span>
 
-                            {/* Hook — mirrors the creative exactly */}
+                                {/* Urgency pill */}
+                                <motion.div
+                                    initial={{ opacity: 0, scale: 0.8 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    transition={{ delay: 0.3 }}
+                                    className="inline-flex items-center gap-2 bg-[#FF0000]/15 border border-[#FF0000]/35 px-4 py-2 rounded-full"
+                                >
+                                    <motion.div
+                                        animate={{ scale: [1, 1.4, 1] }}
+                                        transition={{ duration: 1, repeat: Infinity }}
+                                    >
+                                        <Flame className="w-3.5 h-3.5 text-[#FF0000]" />
+                                    </motion.div>
+                                    <span className="text-[#FF0000] text-xs font-black tracking-wide uppercase">Seats Filling Fast</span>
+                                </motion.div>
+                            </div>
+
+                            {/* Hook text */}
                             <motion.p
                                 initial={{ opacity: 0, y: 10 }}
                                 animate={{ opacity: 1, y: 0 }}
@@ -282,21 +443,22 @@ const AIEvent = () => {
                                 </motion.span>
                             </h1>
 
+                            {/* "learning AI" — the hero highlight */}
                             <motion.p
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
                                 transition={{ delay: 0.6 }}
-                                className="text-gray-400 text-lg mb-2"
+                                className="text-gray-300 text-lg md:text-xl mb-2 leading-relaxed"
                             >
                                 Others have already started{' '}
-                                <span className="text-white font-bold">learning AI.</span>
+                                <AIHighlight>learning AI.</AIHighlight>
                             </motion.p>
 
                             <motion.p
                                 initial={{ opacity: 0, y: 10 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 0.72, type: 'spring' }}
-                                className="text-3xl md:text-4xl font-black text-white mb-10 tracking-tight"
+                                className="text-3xl md:text-4xl font-black text-white mb-8 tracking-tight"
                             >
                                 WHERE ARE YOU?
                             </motion.p>
@@ -311,6 +473,7 @@ const AIEvent = () => {
                                 Limited seats. Early registration is strongly recommended.
                             </motion.p>
 
+                            {/* CTA */}
                             <motion.div
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
@@ -320,18 +483,33 @@ const AIEvent = () => {
                                     href={FORM_URL}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    whileHover={{ scale: 1.05, boxShadow: '0 0 50px rgba(255,0,0,0.6)' }}
+                                    whileHover={{ scale: 1.05, boxShadow: '0 0 60px rgba(255,0,0,0.65)' }}
                                     whileTap={{ scale: 0.95 }}
                                     className="inline-flex items-center gap-3 bg-gradient-to-r from-[#FF0000] to-[#CC0000] text-white px-10 py-5 rounded-full font-bold text-lg shadow-[0_0_30px_rgba(255,0,0,0.4)] border border-white/10"
                                 >
                                     <Zap className="w-5 h-5" />
-                                    Register Now
+                                    Register Now — It's FREE
                                     <ChevronRight className="w-5 h-5" />
                                 </motion.a>
                             </motion.div>
+
+                            {/* Live badge */}
+                            <LiveBadge />
+
+                            {/* 3 stat pills */}
+                            <motion.div
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ delay: 2.2 }}
+                                className="flex flex-wrap items-center gap-x-6 gap-y-2 mt-6 pt-5 border-t border-white/8"
+                            >
+                                <FOMOStat icon={Star}       value="FREE"     label="Entry"          color="text-yellow-400" delay={2.2} />
+                                <FOMOStat icon={Users}      value="Limited"  label="Seats Available" color="text-[#FF0000]"  delay={2.3} />
+                                <FOMOStat icon={TrendingUp} value="All"      label="Streams Welcome" color="text-blue-400"   delay={2.4} />
+                            </motion.div>
                         </motion.div>
 
-                        {/* ── Right: Workshop image block ── */}
+                        {/* ── Right: Workshop image ── */}
                         <WorkshopImageBlock />
                     </div>
                 </div>
@@ -377,6 +555,21 @@ const AIEvent = () => {
                             <p className="text-gray-400 leading-relaxed text-lg mt-4">
                                 This workshop will help you understand how AI works, how prompts can be used in the right way, and how these skills can give you an early advantage before college even starts.
                             </p>
+
+                            {/* Inline FOMO callout */}
+                            <motion.div
+                                initial={{ opacity: 0, y: 16 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ delay: 0.3 }}
+                                className="mt-8 flex items-start gap-3 bg-[#FF0000]/8 border border-[#FF0000]/20 rounded-2xl p-4"
+                            >
+                                <Flame className="w-5 h-5 text-[#FF0000] shrink-0 mt-0.5" />
+                                <p className="text-sm text-gray-400 leading-relaxed">
+                                    Every day you delay is a day someone else gets ahead.{' '}
+                                    <span className="text-white font-bold">The best time to start is right now.</span>
+                                </p>
+                            </motion.div>
                         </motion.div>
 
                         <motion.div
@@ -455,8 +648,9 @@ const AIEvent = () => {
                 </div>
             </section>
 
-            {/* ═══ SECTION 4 — WHY THIS MATTERS NOW ═══ */}
+            {/* ═══ SECTION 4 — WHY THIS MATTERS NOW (FOMO CENTREPIECE) ═══ */}
             <section className="py-28 px-4 bg-[#0d0d0d] relative overflow-hidden">
+                {/* Large red orb */}
                 <motion.div
                     animate={{ scale: [1, 1.15, 1], opacity: [0.1, 0.2, 0.1] }}
                     transition={{ duration: 6, repeat: Infinity }}
@@ -477,29 +671,39 @@ const AIEvent = () => {
                         </h2>
                     </motion.div>
 
-                    <div className="space-y-6 mb-14">
-                        {whyNowLines.map(({ bold, sub }, i) => (
+                    <div className="space-y-5 mb-14">
+                        {whyNowLines.map(({ bold, sub, emoji }, i) => (
                             <motion.div
                                 key={i}
                                 initial={{ opacity: 0, y: 20 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
                                 transition={{ delay: i * 0.15 }}
-                                className="group"
+                                whileHover={{ scale: 1.02 }}
+                                className="group bg-white/[0.03] hover:bg-[#FF0000]/8 border border-white/8 hover:border-[#FF0000]/25 rounded-2xl px-8 py-6 transition-all duration-300 cursor-default"
                             >
-                                <p className="text-2xl md:text-3xl font-black text-white group-hover:text-[#FF0000] transition-colors duration-300">{bold}</p>
-                                <p className="text-gray-500 mt-1">{sub}</p>
+                                <p className="text-2xl md:text-3xl font-black text-white group-hover:text-[#FF0000] transition-colors duration-300 flex items-center justify-center gap-3">
+                                    <span>{emoji}</span>
+                                    {bold}
+                                </p>
+                                <p className="text-gray-500 mt-1.5 text-sm">{sub}</p>
                             </motion.div>
                         ))}
                     </div>
 
+                    {/* Highlighted callout */}
                     <motion.div
-                        initial={{ opacity: 0, scale: 0.9 }}
+                        initial={{ opacity: 0, scale: 0.92 }}
                         whileInView={{ opacity: 1, scale: 1 }}
                         viewport={{ once: true }}
-                        className="bg-[#FF0000]/10 border border-[#FF0000]/20 rounded-2xl p-8 max-w-xl mx-auto"
+                        className="relative bg-gradient-to-br from-[#FF0000]/15 via-[#FF0000]/8 to-transparent border border-[#FF0000]/25 rounded-2xl p-8 max-w-xl mx-auto overflow-hidden"
                     >
-                        <p className="text-lg text-gray-300 leading-relaxed">
+                        <motion.div
+                            animate={{ x: ['-100%', '100%'] }}
+                            transition={{ duration: 2.5, repeat: Infinity, ease: 'linear', repeatDelay: 3 }}
+                            className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent"
+                        />
+                        <p className="relative text-lg text-gray-300 leading-relaxed">
                             Do not spend these important months only waiting.<br />
                             <span className="text-white font-bold">Use this time to build something valuable.</span>
                         </p>
@@ -578,7 +782,7 @@ const AIEvent = () => {
                                 { icon: Brain, label: 'Beginner Friendly', desc: 'No prior knowledge needed' },
                                 { icon: Users, label: 'All Streams', desc: 'Science, Commerce & Arts' },
                                 { icon: Zap, label: 'Practical Focus', desc: 'Real world examples' },
-                                { icon: Star, label: 'Early Advantage', desc: 'Start ahead of peers' },
+                                { icon: Trophy, label: 'Early Advantage', desc: 'Start ahead of peers' },
                             ].map(({ icon: Icon, label, desc }, i) => (
                                 <motion.div
                                     key={i}
@@ -622,19 +826,30 @@ const AIEvent = () => {
                         <p className="text-xl text-gray-400 mb-2">Registrations are filling fast.</p>
                         <p className="text-gray-500 mb-4">Do not miss the chance to get early exposure to AI before college begins.</p>
 
-                        {/* Creative tagline repeated as final punch */}
+                        {/* Entry fee badge */}
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.85 }}
+                            whileInView={{ opacity: 1, scale: 1 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: 0.2 }}
+                            className="inline-flex items-center gap-2 bg-yellow-400/10 border border-yellow-400/30 px-5 py-2 rounded-full mb-6"
+                        >
+                            <Star className="w-4 h-4 text-yellow-400" />
+                            <span className="text-yellow-300 font-black text-sm tracking-wide">100% FREE — No Registration Fee</span>
+                        </motion.div>
+
                         <p className="text-[#FF0000] font-black text-2xl mb-12 tracking-wide">Don&apos;t wait. Get ahead.</p>
 
                         <motion.a
                             href={FORM_URL}
                             target="_blank"
                             rel="noopener noreferrer"
-                            whileHover={{ scale: 1.05, boxShadow: '0 0 60px rgba(255,0,0,0.6)' }}
+                            whileHover={{ scale: 1.05, boxShadow: '0 0 70px rgba(255,0,0,0.65)' }}
                             whileTap={{ scale: 0.95 }}
                             className="inline-flex items-center gap-3 bg-gradient-to-r from-[#FF0000] to-[#CC0000] text-white px-14 py-6 rounded-full font-bold text-xl shadow-[0_0_40px_rgba(255,0,0,0.5)] border border-white/10 transition-shadow duration-300"
                         >
                             <Zap className="w-6 h-6" />
-                            Book My Seat
+                            Book My Seat — FREE
                             <motion.span
                                 animate={{ x: [0, 5, 0] }}
                                 transition={{ repeat: Infinity, duration: 1 }}
@@ -642,6 +857,18 @@ const AIEvent = () => {
                                 <ArrowUpRight className="w-6 h-6" />
                             </motion.span>
                         </motion.a>
+
+                        {/* Final urgency note */}
+                        <motion.p
+                            initial={{ opacity: 0 }}
+                            whileInView={{ opacity: 1 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: 0.4 }}
+                            className="mt-8 text-gray-600 text-sm flex items-center justify-center gap-2"
+                        >
+                            <AlertCircle className="w-3.5 h-3.5 text-[#FF0000]" />
+                            Limited seats available. Once full, registrations will close.
+                        </motion.p>
                     </motion.div>
                 </div>
             </section>
