@@ -1,5 +1,4 @@
 import { motion } from 'framer-motion';
-import { useState, useEffect } from 'react';
 import {
     Sparkles, ChevronRight, ArrowUpRight, Check, Brain, Zap,
     Users, Clock, MapPin, Star, AlertCircle, Flame, TrendingUp, Trophy
@@ -43,41 +42,24 @@ const SectionLabel = ({ children }) => (
 
 
 // ─── Live Registration Badge ──────────────────────────────────────────────────
-const LiveBadge = () => {
-    const [count, setCount] = useState(251);
-    useEffect(() => {
-        const t = setInterval(() => {
-            if (Math.random() > 0.45) setCount(c => c + 1);
-        }, 7500);
-        return () => clearInterval(t);
-    }, []);
-    return (
-        <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 2.0 }}
-            className="flex flex-wrap items-center gap-3 mt-5"
-        >
-            <div className="flex items-center gap-2 bg-green-500/10 border border-green-500/25 px-3.5 py-1.5 rounded-full">
-                <motion.span
-                    animate={{ scale: [1, 1.5, 1], opacity: [0.6, 1, 0.6] }}
-                    transition={{ duration: 1.2, repeat: Infinity }}
-                    className="w-2 h-2 rounded-full bg-green-400 shrink-0"
-                />
-                <span className="text-green-400 text-xs font-bold">{count}+ students registered</span>
-            </div>
-            <div className="flex items-center gap-2 bg-[#FF0000]/10 border border-[#FF0000]/25 px-3.5 py-1.5 rounded-full">
-                <motion.div
-                    animate={{ scale: [1, 1.35, 1] }}
-                    transition={{ duration: 1.2, repeat: Infinity }}
-                >
-                    <Flame className="w-3.5 h-3.5 text-[#FF0000]" />
-                </motion.div>
-                <span className="text-[#FF0000] text-xs font-bold">Seats running out</span>
-            </div>
-        </motion.div>
-    );
-};
+const LiveBadge = () => (
+    <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1.8 }}
+        className="flex items-center gap-3 mt-5"
+    >
+        <div className="flex items-center gap-2 bg-[#FF0000]/10 border border-[#FF0000]/25 px-3.5 py-1.5 rounded-full">
+            <motion.div
+                animate={{ scale: [1, 1.35, 1] }}
+                transition={{ duration: 1.2, repeat: Infinity }}
+            >
+                <Flame className="w-3.5 h-3.5 text-[#FF0000]" />
+            </motion.div>
+            <span className="text-[#FF0000] text-xs font-bold">Seats running out</span>
+        </div>
+    </motion.div>
+);
 
 // ─── Urgency Ticker ───────────────────────────────────────────────────────────
 const UrgencyTicker = () => {
@@ -393,33 +375,23 @@ const AIEvent = () => {
 
                             {/* ── FOCAL POINT: learning AI ── */}
                             <div className="relative mb-7">
-                                {/* Ambient glow behind text */}
+                                {/* Ambient glow */}
                                 <motion.div
-                                    animate={{ opacity: [0.25, 0.55, 0.25] }}
+                                    animate={{ opacity: [0.2, 0.5, 0.2] }}
                                     transition={{ duration: 2.8, repeat: Infinity }}
                                     aria-hidden="true"
-                                    className="absolute inset-0 font-black leading-[0.88] text-[#FF0000] blur-3xl select-none pointer-events-none text-[3rem] md:text-[5rem]"
+                                    className="absolute inset-0 font-black leading-[1.0] text-[#FF0000] blur-3xl select-none pointer-events-none text-[3.8rem] md:text-[5.5rem]"
                                 >
-                                    learning<br />AI.
+                                    learning AI.
                                 </motion.div>
 
                                 <motion.h1
-                                    initial={{ opacity: 0, y: 80, scale: 0.72 }}
+                                    initial={{ opacity: 0, y: 60, scale: 0.8 }}
                                     animate={{ opacity: 1, y: 0, scale: 1 }}
-                                    transition={{ type: 'spring', stiffness: 58, damping: 14, delay: 0.48 }}
-                                    className="relative font-black leading-[0.88]"
+                                    transition={{ type: 'spring', stiffness: 60, damping: 15, delay: 0.48 }}
+                                    className="relative font-black leading-[1.0] text-[3.8rem] md:text-[5.5rem] text-transparent bg-clip-text bg-gradient-to-r from-[#FF0000] via-pink-400 to-[#FF0000]"
                                 >
-                                    <span className="block text-[3rem] md:text-[5rem] text-transparent bg-clip-text bg-gradient-to-r from-[#FF0000] via-pink-300 to-[#FF0000]">
-                                        learning
-                                    </span>
-                                    <motion.span
-                                        initial={{ opacity: 0, x: -24 }}
-                                        animate={{ opacity: 1, x: 0 }}
-                                        transition={{ delay: 0.72, type: 'spring', stiffness: 75 }}
-                                        className="block text-[4.2rem] md:text-[7rem] text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-[#FF0000] to-pink-500"
-                                    >
-                                        AI.
-                                    </motion.span>
+                                    learning<br />AI.
                                 </motion.h1>
                             </div>
 
