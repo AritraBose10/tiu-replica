@@ -15,15 +15,15 @@ export const routeMeta = {
     changefreq: 'weekly',
     priority: 0.9
   },
-  ‘/about’: {
-    title: ‘About Techno India University | Top Private Engineering College in West Bengal’,
-    description: ‘Learn about Techno India University — one of the top private engineering colleges in West Bengal. Established in 2000, UGC-recognised, NAAC-accredited, and powered by Google Cloud & IBM.’,
+  '/about': {
+    title: 'About Techno India University | Top Private Engineering College in West Bengal',
+    description: "Learn about Techno India University — one of the top private engineering colleges in West Bengal. Established in 2000, UGC-recognised, NAAC-accredited, and powered by Google Cloud & IBM.",
     changefreq: 'monthly',
     priority: 0.8
   },
-  ‘/apply’: {
-    title: ‘Admissions 2026 | B.Tech, AI & MBA Programs | Techno India University Kolkata’,
-    description: ‘Apply for 2026 admissions at Techno India University — one of the top private engineering colleges in West Bengal. B.Tech CSE, AI/ML, Data Science, Cloud Computing & more. Apply now.’,
+  '/apply': {
+    title: 'Admissions 2026 | B.Tech, AI & MBA Programs | Techno India University Kolkata',
+    description: "Apply for 2026 admissions at Techno India University — one of the top private engineering colleges in West Bengal. B.Tech CSE, AI/ML, Data Science, Cloud Computing & more. Apply now.",
     changefreq: 'weekly',
     priority: 0.9
   },
@@ -35,7 +35,7 @@ export const routeMeta = {
   },
   '/contact': {
     title: 'Contact Techno India University | Admissions & Campus Visit',
-    description: 'Reach Techno India University’s School Of The Future for admissions, program queries and application guidance. Call 08062642222 or email for quick assistance..',
+    description: "Reach Techno India University's School Of The Future for admissions, program queries and application guidance. Call 08062642222 or email for quick assistance.",
     changefreq: 'monthly',
     priority: 0.8
   },
@@ -46,14 +46,14 @@ export const routeMeta = {
     priority: 0.7
   },
   '/events': {
-    title: 'What’s Happening at Techno India University | Events And Workshops',
-    description: 'Browse the event calendar of Techno India University’s School of the Future, featuring workshops, tech summits, cultural fests, industry collaborations, and student activities.',
+    title: "What's Happening at Techno India University | Events And Workshops",
+    description: "Browse the event calendar of Techno India University's School of the Future, featuring workshops, tech summits, cultural fests, industry collaborations, and student activities.",
     changefreq: 'weekly',
     priority: 0.8
   },
   '/approvals': {
     title: 'Accreditation & Approvals | UGC, NAAC, AICTE',
-    description: 'Techno India University’s School Of The Future is accredited by UGC, NAAC, AICTE & AIU. Discover our regulatory approvals, rankings and commitment to quality education.',
+    description: "Techno India University's School Of The Future is accredited by UGC, NAAC, AICTE & AIU. Discover our regulatory approvals, rankings and commitment to quality education.",
     changefreq: 'monthly',
     priority: 0.7
   }
