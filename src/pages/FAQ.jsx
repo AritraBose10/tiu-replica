@@ -7,26 +7,26 @@ import SEO from '../components/SEO';
 import SchemaInjector from '../components/SchemaInjector';
 
 const fallbackFAQData = [
-    { id: 1, question: 'What is the School of the Future?', answer: 'The School of the Future is a future-focused academic school that offers industry-powered undergraduate, postgraduate and doctoral programs designed for emerging careers in technology, business, design and applied sciences.' },
-    { id: 2, question: 'Is the School of the Future a college or a university?', answer: 'The School of the Future is a constituent school under Techno India University, West Bengal. It delivers academic programs, while the university awards the degrees.' },
-    { id: 3, question: 'Who awards the degree at the School of the Future?', answer: 'All degrees offered at the School of the Future are awarded by Techno India University, West Bengal, a UGC-recognised university.' },
-    { id: 4, question: 'What does "Powered by Google Cloud and IBM" mean?', answer: 'It means that the curriculum, learning frameworks, tools and certifications are aligned with Google Cloud and IBM industry standards and integrated into the academic programs.' },
-    { id: 5, question: 'Do I need prior coding knowledge to join these programs?', answer: 'No. Many programs are designed to start from fundamentals. Students are trained progressively using structured learning, projects and industry tools.' },
-    { id: 6, question: 'What programs can I pursue after Class 12 at the School of the Future?', answer: 'After Class 12, students can pursue programs in Computer Science, AI, Data Analytics, Business Analytics, Design, Filmmaking, Game Development, Allied Health Sciences, and Law.' },
-    { id: 7, question: 'Are these programs suitable for future careers?', answer: 'Yes. Programs are designed around emerging technologies, applied learning and evolving industry needs to ensure long-term career relevance.' },
-    { id: 8, question: 'What career options are available after graduating from SoF?', answer: 'Graduates explore careers across technology, business, creative industries and healthcare, along with opportunities for higher studies and entrepreneurship.' },
-    { id: 9, question: 'Is the degree recognised across India and abroad?', answer: 'Yes. Degrees are awarded by Techno India University, which is recognised in India and accepted for higher studies and employment in India and abroad, subject to local requirements.' },
-    { id: 10, question: 'How does the admission process work?', answer: 'Admissions follow a guided process where students receive counselling support to choose the right program based on their interests, eligibility and career goals.' },
-    { id: 11, question: 'What B.Tech computing specialisations are offered?', answer: 'We offer B.Tech CSE with specialisations in AI/ML, Data Science, and Cloud Computing. These programs are powered by Google and include industry-aligned courses in specific high-growth domains.' },
-    { id: 12, question: 'Can Commerce or Arts students apply to programs at the School of the Future?', answer: 'Yes. Several programs at the School of the Future are designed for students from Commerce, Arts and other non-Science backgrounds, especially in business analytics, design, media and creative technology domains.' },
-    { id: 13, question: 'Are scholarships available at the School of the Future?', answer: 'Yes. The School of the Future offers merit-based and need-based scholarships for eligible students. Details are shared during the admission counselling process.' },
-    { id: 14, question: 'Is there an EMI or education loan facility available?', answer: 'Yes. Students can explore education loan and EMI options through partnered banks and financial institutions, subject to eligibility and applicable terms.' },
-    { id: 15, question: 'Are industry certifications included in the programs?', answer: 'Industry-aligned certifications from partners such as Google Cloud and IBM are integrated into select programs as part of the curriculum or academic pathway.' },
-    { id: 16, question: 'Do students get internship or industry exposure during the course?', answer: 'Yes. Students are exposed to internships, live projects, industry visits, hackathons and applied learning experiences as part of their academic journey.' },
-    { id: 17, question: 'What if I am unsure about my career choice right now?', answer: 'The School of the Future follows a guided counselling approach to help students identify suitable programs based on interests, aptitude and long-term career goals.' },
-    { id: 18, question: 'Is the School of the Future suitable for students aiming for higher studies abroad?', answer: 'Yes. Programs are designed with strong academic foundations and applied learning, making them suitable for students planning higher studies in India or abroad, subject to individual university requirements.' },
-    { id: 19, question: 'Where is the School of the Future campus located?', answer: 'The School of the Future is located in Kolkata and operates under Techno India University, West Bengal, with access to modern academic and learning infrastructure.' },
-    { id: 20, question: 'Does the School of the Future provide hostel or accommodation facilities?', answer: 'Accommodation options and support are available. Details regarding hostels or nearby accommodation are shared with students during the admission process.' },
+    { id: 1, question: 'Is Techno India University one of the best engineering colleges in Kolkata?', answer: 'Yes. Techno India University is consistently ranked among the best engineering colleges in Kolkata and the top engineering universities in West Bengal. It is UGC-recognised, NAAC-accredited, and one of the few private engineering colleges in West Bengal with programs powered directly by Google Cloud and IBM.' },
+    { id: 2, question: 'What B.Tech programs are available at this b tech college in Kolkata?', answer: 'As a leading b tech college in West Bengal, TIU offers B.Tech CSE specialisations in AI/ML, Data Science, and Cloud Computing — all powered by Google Cloud. Students earn embedded industry certifications alongside their degree.' },
+    { id: 3, question: 'What AI courses in Kolkata does TIU offer?', answer: 'TIU — the top AI Institution in Kolkata — offers a range of AI courses in Kolkata including B.Tech CSE AI/ML, BSc Data Analytics & Generative AI, BCA with AI & Data Science, and M.Tech CSE AI/ML. These are widely regarded as the best AI courses in India at the university level.' },
+    { id: 4, question: 'Is there a data science course in Kolkata at TIU?', answer: 'Yes. TIU offers a dedicated 4-year B.Tech CSE — Data Science program, widely considered the best data science course in Kolkata at the undergraduate level. It is powered by Google Cloud and comes with embedded certifications.' },
+    { id: 5, question: 'Does TIU offer cloud computing courses in Kolkata?', answer: 'Yes. The B.Tech CSE — Cloud Computing program is one of the most comprehensive cloud computing courses in Kolkata, covering Google Cloud Platform, DevOps, Kubernetes, and cloud security.' },
+    { id: 6, question: 'What AI/ML courses are available at the postgraduate level?', answer: "TIU's M.Tech CSE AI/ML is the most advanced AI/ML courses in Kolkata offering at the postgraduate level. It is a 2-year research-focused program for B.Tech/BE graduates." },
+    { id: 7, question: 'Are there AI courses after 12th at TIU?', answer: 'Absolutely. Our B.Tech CSE — AI/ML is one of the most popular AI courses after 12th in Kolkata. Students with 10+2 (PCM) can directly enrol and begin their AI career journey at the best AI training Institution in Kolkata.' },
+    { id: 8, question: 'What makes TIU the best IT training Institution in Kolkata?', answer: 'TIU combines UGC-recognised degree programs with real IBM and Google Cloud training on production-grade tools — an experience that no standalone coaching centre or IT training Institution in Kolkata can match. Students graduate with both a university degree and 10+ industry certifications.' },
+    { id: 9, question: 'Is TIU a private college in Kolkata or a government institution?', answer: 'TIU is a private engineering college in West Bengal — specifically an autonomous private college in Kolkata — under the Techno India Group. It operates under UGC and AICTE regulations and is NAAC-accredited.' },
+    { id: 10, question: 'What are the best AI courses in India at the B.Tech level?', answer: "TIU's B.Tech CSE — AI/ML program is recognised among the best AI courses in India at the undergraduate level, owing to its Google Cloud-powered curriculum, embedded certifications, and industry-first approach to AI learning course in Kolkata delivery." },
+    { id: 11, question: 'What is the School of the Future?', answer: 'The School of the Future (SoF) is the innovation-focused academic arm of Techno India University — one of the best engineering colleges in Kolkata. It offers industry-powered B.Tech, M.Tech, BCA, BBA, and MBA programs in collaboration with Google Cloud and IBM.' },
+    { id: 12, question: 'Is the degree recognised?', answer: 'Yes. All degrees are awarded by Techno India University, a UGC-recognised and NAAC-accredited institution — one of the most credible private engineering colleges in West Bengal.' },
+    { id: 13, question: 'Who awards the degree?', answer: 'Techno India University, a fully autonomous university and one of the leading private universities in Kolkata, awards all degrees.' },
+    { id: 14, question: 'Do I need a coding background for AI courses?', answer: 'No prior coding experience is required for most of our AI learning courses in Kolkata. Our curriculum is designed to take you from fundamentals to advanced AI skills.' },
+    { id: 15, question: 'What career options are available after these programs?', answer: 'Graduates from our AI/ML, data science, and cloud computing programs go on to roles such as AI Engineer, Cloud Architect, Data Scientist, ML Researcher, Full-Stack Developer, and more, at companies including Google, IBM, Microsoft, Accenture, and leading startups.' },
+    { id: 16, question: 'Are scholarships available?', answer: 'Yes. The School of the Future offers merit-based and need-based scholarships for eligible students. Details are shared during the admission counselling process.' },
+    { id: 17, question: 'Is there an EMI or education loan facility available?', answer: 'Yes. Students can explore education loan and EMI options through partnered banks and financial institutions, subject to eligibility and applicable terms.' },
+    { id: 18, question: 'Do students get internship or industry exposure during the course?', answer: 'Yes. Students are exposed to internships, live projects, industry visits, hackathons and applied learning experiences as part of their academic journey.' },
+    { id: 19, question: 'Where is the campus located?', answer: 'The campus is located at EM-4, Sector V, Salt Lake, Kolkata 700091 — inside Kolkata\'s IT and technology hub, well-connected by Metro and bus networks.' },
+    { id: 20, question: 'Can Commerce or Arts students apply?', answer: 'Yes. Several programs at the School of the Future are designed for students from Commerce, Arts and other non-Science backgrounds, especially in business analytics, design, media and creative technology domains.' },
 ];
 
 const containerVariants = {
@@ -108,46 +108,24 @@ const FAQ = () => {
         setOpenId(openId === id ? null : id);
     };
 
-    // Static FAQ Schema provided by user
     const faqSchema = {
         "@context": "https://schema.org",
         "@type": "FAQPage",
-        "mainEntity": [{
+        "mainEntity": FAQData.slice(0, 10).map(faq => ({
             "@type": "Question",
-            "name": "How are emerging technologies integrated into learning?",
+            "name": faq.question,
             "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "Our curriculum is designed in collaboration with Google and IBM to incorporate the latest technologies including AI, Machine Learning, Cloud Computing, and Cybersecurity. Students work on real-world projects and gain industry certifications."
+                "text": faq.answer
             }
-        }, {
-            "@type": "Question",
-            "name": "What career paths can graduates pursue?",
-            "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Graduates can pursue careers as Software Engineers, Data Scientists, AI/ML Engineers, Cloud Architects, UI/UX Designers, Digital Marketers, and more. Our placement cell connects students with top tech companies."
-            }
-        }, {
-            "@type": "Question",
-            "name": "What are the eligibility criteria and admission requirements?",
-            "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Eligibility varies by program. Engineering courses require 10+2 with PCM, while other programs accept students from any stream. Apply through our online portal and complete the document submission process."
-            }
-        }, {
-            "@type": "Question",
-            "name": "How is the teaching and learning approach structured?",
-            "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "We follow a blended learning approach combining classroom instruction, hands-on labs, industry projects, and internships. Faculty includes industry experts and certified Google/IBM trainers."
-            }
-        }]
+        }))
     };
 
     return (
         <div className="min-h-screen bg-[#020205] text-white pt-32 pb-20 relative overflow-hidden">
             <SEO
-                title="FAQs | School of the Future | Techno India University"
-                description="Find answers to frequently asked questions about admissions, programs, fees, scholarships, and campus life at the School of the Future."
+                title="FAQs | B.Tech, AI & Engineering Admissions | Techno India University Kolkata"
+                description="Got questions about B.Tech CSE, AI/ML, data science or cloud computing programs at Techno India University? Find answers here. Top engineering college in Kolkata. Admissions 2026."
             />
             <SchemaInjector schema={faqSchema} />
             {/* Red Ambient Glow */}

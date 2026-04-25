@@ -273,8 +273,8 @@ const Courses = () => {
     return (
         <div className="min-h-screen bg-[#020205] text-white relative overflow-x-hidden selection:bg-[#FF0000] selection:text-white">
             <SEO
-                title="Future-Ready Programs After 12th & Graduation | School of the Future"
-                description="Explore UG & PG programs in AI, Data Science, Business Analytics, Design, Media & Allied Health at the School of the Future."
+                title="B.Tech, M.Tech, AI & Data Science Courses in Kolkata | Techno India University"
+                description="Explore B.Tech CSE, M.Tech AI/ML, Data Science, Cloud Computing & AI courses in Kolkata at Techno India University. Powered by Google Cloud & IBM. Admissions 2026 open."
             />
             <SchemaInjector schema={courseSchema} />
 
@@ -308,15 +308,15 @@ const Courses = () => {
                             World Class Education
                         </span>
                         <h1 className="text-5xl md:text-7xl font-black mb-6 bg-clip-text text-transparent bg-gradient-to-b from-white via-white to-white/50">
-                            Discover Your <br />
+                            Future-Ready Programs <br />
                             <span className="text-white relative">
-                                Potential
+                                After 12th & Graduation
                                 <motion.svg
                                     initial={{ pathLength: 0 }}
                                     animate={{ pathLength: 1 }}
                                     transition={{ duration: 1, delay: 0.5 }}
                                     className="absolute -bottom-2 nav-underline left-0 w-full"
-                                    viewBox="0 0 100 10" // Adjusted viewBox
+                                    viewBox="0 0 100 10"
                                     preserveAspectRatio="none"
                                 >
                                     <path d="M0 5 Q 50 10 100 5" stroke="#FF0000" strokeWidth="3" fill="none" />
@@ -324,7 +324,7 @@ const Courses = () => {
                             </span>
                         </h1>
                         <p className="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto">
-                            Explore our wide range of industry-aligned programs designed to launch your career in the digital age.
+                            Discover our industry-aligned B.Tech college in Kolkata programs, postgraduate specialisations, and industry certification courses — all designed to make you career-ready from Day 1.
                         </p>
                         <Link
                             to="/cloud-ai-certification-courses-kolkata"

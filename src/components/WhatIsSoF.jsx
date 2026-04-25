@@ -39,10 +39,10 @@ const WhatIsSoF = () => {
     const sofImage = getSetting('what_is_sof_image') || '/assets/images/sec2.jpeg';
 
     const stats = [
-        { label: "Industry Partners", value: 50, suffix: "+" },
-        { label: "Placement Rate", value: 95, suffix: "%" },
-        { label: "Tech Labs", value: 12, suffix: "" },
-        { label: "Active Startups", value: 20, suffix: "+" },
+        { label: "Industry Partners", value: 200, suffix: "+" },
+        { label: "Placement Assistance", value: 100, suffix: "%" },
+        { label: "Tech Labs", value: 50, suffix: "+" },
+        { label: "Active Startups", value: 150, suffix: "+" },
     ];
 
     return (

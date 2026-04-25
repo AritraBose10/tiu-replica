@@ -6,27 +6,27 @@ const fallbackFaqs = [
     {
         id: 1,
         question: 'What is the School of the Future?',
-        answer: 'The School of the Future is a next-generation academic school under Techno India University, created to prepare students for emerging careers. It combines strong academics with industry-powered curriculum, project-based learning, and real-world exposure across technology, business, creative disciplines, and applied sciences.',
+        answer: 'The School of the Future (SoF) is the innovation-focused academic arm of Techno India University — one of the best engineering colleges in Kolkata. It offers industry-powered B.Tech, M.Tech, BCA, BBA, and MBA programs in collaboration with Google Cloud and IBM.',
     },
     {
         id: 2,
         question: 'Is the degree recognised?',
-        answer: 'Yes. All programs are offered under a UGC-recognised university framework (Techno India University) with structured academic governance and full regulatory compliance. Degrees are valid across India and recognised globally.',
+        answer: 'Yes. All degrees are awarded by Techno India University, a UGC-recognised and NAAC-accredited institution — one of the most credible private engineering colleges in West Bengal.',
     },
     {
         id: 3,
         question: 'Who awards the degree?',
-        answer: 'Degrees are awarded by Techno India University, a UGC-recognised university under the Techno India Group. The School of the Future operates as a future-focused academic school within this established institutional ecosystem.',
+        answer: 'Techno India University, a fully autonomous university and one of the leading private universities in Kolkata, awards all degrees.',
     },
     {
         id: 4,
-        question: 'Do I need a coding background?',
-        answer: 'Not at all. Many of our programs are designed for students from any academic background. Whether you come from science, commerce, or arts, our curriculum starts from fundamentals and builds up with hands-on projects and industry tools.',
+        question: 'Do I need a coding background for AI courses?',
+        answer: 'No prior coding experience is required for most of our AI learning courses in Kolkata. Our curriculum is designed to take you from fundamentals to advanced AI skills.',
     },
     {
         id: 5,
-        question: 'What are the career options after these programs?',
-        answer: 'Graduates explore multiple pathways including technology, business, creative, and healthcare roles, internships and live industry projects, higher studies in India and abroad, and startup and entrepreneurial journeys. Our focus is on long-term careers, not short-term hype.',
+        question: 'What career options are available after these programs?',
+        answer: 'Graduates from our AI/ML, data science, and cloud computing programs go on to roles such as AI Engineer, Cloud Architect, Data Scientist, ML Researcher, Full-Stack Developer, and more, at companies including Google, IBM, Microsoft, Accenture, and leading startups.',
     },
 ];
 

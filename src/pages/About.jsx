@@ -156,10 +156,10 @@ const About = () => {
     const opacity = useTransform(scrollYProgress, [0, 0.3], [1, 0]);
 
     const features = [
-        { icon: Lightbulb, title: 'Built for Innovation', description: 'Curriculum designed to foster creative thinking and problem-solving skills for the modern world.' },
-        { icon: Users, title: 'Expert Faculty', description: 'Learn from industry veterans and academic pioneers who bring real-world experience to the classroom.' },
-        { icon: Globe, title: 'Real-World Exposure', description: 'Internships, industry projects, and global collaborations prepare you for success anywhere.' },
-        { icon: Rocket, title: 'Entrepreneurial Mindset', description: 'We nurture innovators, risk-takers, and future business leaders through dedicated programs.' },
+        { icon: Lightbulb, title: 'Built for Innovation', description: 'Rote learning is yesterday\'s news. Our computer science and engineering course curriculum fosters creative thinking and problem-solving skills for the modern technology landscape.' },
+        { icon: Users, title: 'Expert Faculty', description: 'Learn from industry veterans and academic pioneers who bring real-world experience to the classroom. Our faculty at this leading private college in Kolkata average 15+ years of combined industry and academic experience.' },
+        { icon: Globe, title: 'Real-World Exposure', description: 'Internships, industry projects, and global collaborations are built into every semester — making TIU one of the top engineering colleges in West Bengal for career readiness.' },
+        { icon: Rocket, title: 'Entrepreneurial Mindset', description: 'We nurture innovators and risk-takers. Three student startups were funded in 2024 alone, cementing our place among the best engineering colleges in Kolkata for entrepreneurship.' },
     ];
 
     const stats = [
@@ -172,8 +172,8 @@ const About = () => {
     return (
         <div className="min-h-screen bg-[#020205] text-white overflow-x-hidden selection:bg-[#FF0000] selection:text-white">
             <SEO
-                title="About Techno India University’s School Of The Future | Best Engineering College In Kolkata | Best AI Institute Kolkata"
-                description="Discover the mission and vision of Techno India University’s School of the Future, a leading engineering college. Backed by seasoned industry experts and academic leaders, 15,000+ students and global partners drive innovation-led AI education."
+                title="About Techno India University | Top Private Engineering College in West Bengal"
+                description="Learn about Techno India University — one of the top private engineering colleges in West Bengal. Established in 2000, UGC-recognised, NAAC-accredited, and powered by Google Cloud & IBM."
             />
             <SchemaInjector schema={{
                 "@context": "https://schema.org",
@@ -273,6 +273,14 @@ const About = () => {
                             >
                                 , Today
                             </motion.span>
+                            <motion.span
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.9 }}
+                                className="block text-2xl md:text-4xl font-bold text-gray-300 mt-4"
+                            >
+                                A Legacy of Excellence in Engineering Education
+                            </motion.span>
                         </h1>
 
                         <motion.p
@@ -281,7 +289,7 @@ const About = () => {
                             transition={{ delay: 0.8 }}
                             className="text-xl text-gray-400 max-w-2xl mx-auto mb-12"
                         >
-                            Techno India University is a beacon of innovation in West Bengal, committed to transforming lives through world-class education and research.
+                            Techno India University is one of the best engineering colleges in Kolkata, committed to transforming lives through world-class education, research, and industry collaboration since 2000.
                         </motion.p>
 
                         <motion.div
@@ -423,7 +431,7 @@ const About = () => {
                                 <h3 className="text-xl font-bold text-[#FF0000] mb-3 flex items-center gap-2">
                                     <Sparkles className="w-5 h-5" /> Our Mission
                                 </h3>
-                                <p className="text-gray-400 leading-relaxed">To provide accessible, high-quality education that empowers students to become innovative thinkers, responsible citizens, and global leaders.</p>
+                                <p className="text-gray-400 leading-relaxed">To provide accessible, high-quality education that empowers students to become innovative thinkers, responsible citizens, and global leaders — through programs ranging from the best IT training Institution in Kolkata experience to internationally recognised postgraduate research.</p>
                             </motion.div>
                             <motion.div
                                 initial={{ opacity: 0, x: -30 }}
@@ -436,7 +444,7 @@ const About = () => {
                                 <h3 className="text-xl font-bold text-[#FF0000] mb-3 flex items-center gap-2">
                                     <Rocket className="w-5 h-5" /> Our Vision
                                 </h3>
-                                <p className="text-gray-400 leading-relaxed">To be a world-class university recognized for academic excellence, cutting-edge research, and its contribution to society.</p>
+                                <p className="text-gray-400 leading-relaxed">To be a world-class university recognised for academic excellence, cutting-edge research, and its contribution to society — setting the benchmark for every private engineering college in West Bengal.</p>
                             </motion.div>
                         </div>
                     </motion.div>

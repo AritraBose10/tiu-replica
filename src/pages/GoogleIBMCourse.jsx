@@ -31,18 +31,18 @@ const certifications = [
 ];
 
 const highlights = [
-    { icon: Target, title: 'Curriculum Co-Designed', desc: 'Programs built jointly with Google Cloud & IBM engineers' },
-    { icon: Lightbulb, title: 'Real Tools & Platforms', desc: 'Students learn on production-grade cloud & AI platforms' },
-    { icon: Award, title: 'Embedded Certifications', desc: '10+ industry certifications woven into your degree' },
-    { icon: Users, title: 'Industry Mentors', desc: 'Guest lectures & workshops from Google & IBM practitioners' },
-    { icon: Briefcase, title: 'Guaranteed Internships', desc: 'Industry internships with 500+ hiring partners' },
-    { icon: Building2, title: 'Campus Innovation Labs', desc: 'Dedicated Google Cloud & IBM labs on campus' },
+    { icon: Target, title: 'Curriculum Co-Designed by Industry Leaders', desc: 'Programs built jointly with Google Cloud & IBM engineers — not adapted from generic syllabi. Our AI/ML courses in Kolkata reflect what top tech companies actually need.' },
+    { icon: Lightbulb, title: 'Real Tools & Production-Grade Platforms', desc: 'Students pursuing AI courses in Kolkata at TIU learn on the same platforms used by professionals at Fortune 500 companies — Google Cloud Platform, IBM Watson, BigQuery, and more.' },
+    { icon: Award, title: 'Embedded Certifications — Not Add-Ons', desc: '10+ industry certifications are earned through real coursework, making TIU the best IT training Institution in Kolkata for students who want verifiable credentials alongside their degree.' },
+    { icon: Users, title: 'Industry Mentors & Guest Lecturers', desc: 'Direct access to practitioners from Google and IBM for workshops, mentoring sessions, and career guidance — a key differentiator for our AI learning course in Kolkata.' },
+    { icon: Briefcase, title: 'Guaranteed Internships', desc: 'Industry internships with 200+ hiring partners are structured into the program, ensuring students graduate with experience that matters.' },
+    { icon: Building2, title: 'Campus Innovation Labs', desc: 'Dedicated Google Cloud & IBM labs on campus — bringing TIU\'s claim as the leading AI training Institution in Kolkata to life every single day.' },
 ];
 
 const stats = [
     { value: '10+', label: 'Industry Certifications' },
     { value: '50+', label: 'Live Projects' },
-    { value: '500+', label: 'Hiring Partners' },
+    { value: '200+', label: 'Hiring Partners' },
     { value: '2', label: 'Global Tech Partners' },
 ];
 
@@ -135,8 +135,8 @@ const GoogleIBMCourse = () => {
     return (
         <div className="min-h-screen bg-[#020205] text-white overflow-x-hidden selection:bg-[#FF0000] selection:text-white">
             <SEO
-                title="Google Cloud & IBM Certification Courses | School of the Future, Techno India University"
-                description="Explore industry-powered degree programs co-designed with Google Cloud & IBM. Embedded certifications, live projects, and guaranteed internships at Techno India University."
+                title="AI, Cloud & Data Science Courses in Kolkata | Google Cloud & IBM Certifications | TIU"
+                description="Join the best AI training Institution in Kolkata. Earn Google Cloud & IBM certifications embedded in your B.Tech or BCA degree. AI/ML, Cloud Computing & Data Science courses in Kolkata. Admissions 2026."
             />
             <SchemaInjector schema={courseSchema} />
 
@@ -190,9 +190,9 @@ const GoogleIBMCourse = () => {
                             transition={{ ...fadeUp.transition, delay: 0.2 }}
                             className="text-4xl sm:text-5xl md:text-7xl font-black leading-[1.1] mb-6"
                         >
-                            <span className="text-white">Google Cloud & IBM Certification Courses </span>
+                            <span className="text-white">Google Cloud & IBM Certification Courses — </span>
                             <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-orange-500">
-                                for Future-Ready Careers
+                                The Best AI Training Institution in Kolkata
                             </span>
                         </motion.h1>
 
@@ -201,8 +201,7 @@ const GoogleIBMCourse = () => {
                             transition={{ ...fadeUp.transition, delay: 0.3 }}
                             className="text-gray-300 text-lg md:text-xl max-w-2xl mb-8 leading-relaxed"
                         >
-                            Programs co-designed with Google Cloud & IBM — real tools, real certifications,
-                            real industry exposure. Not just classroom teaching.
+                            Programs co-designed with Google Cloud & IBM — real tools, real certifications, real industry exposure. Techno India University is the only AI Institution in Kolkata where industry-grade certifications are embedded directly into your degree, not offered as optional extras.
                         </motion.p>
 
                         <motion.div
@@ -265,10 +264,10 @@ const GoogleIBMCourse = () => {
                             Why It Matters
                         </span>
                         <h2 className="text-3xl md:text-5xl font-black text-white mb-6">
-                            What Makes This <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-orange-500">Partnership Different</span>
+                            Why TIU is the <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-orange-500">Top AI Institution in Kolkata</span>
                         </h2>
                         <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-                            Industry collaboration isn't a marketing layer — it's built into every semester, every project, every certification.
+                            Most institutions marketing themselves as AI training centres in Kolkata offer standalone certificates with limited real-world application. At TIU, our collaboration with Google Cloud and IBM is woven into every semester — which is what sets us apart as the city's leading AI Institution.
                         </p>
                     </motion.div>
 
@@ -427,7 +426,7 @@ const GoogleIBMCourse = () => {
                             Ready to Build Your Future?
                         </h2>
                         <p className="text-gray-400 text-lg mb-10 max-w-2xl mx-auto">
-                            Join 15,000+ students learning with industry-grade tools and earning certifications that employers actually value. Admissions 2026 are open.
+                            Join 15,000+ students learning at the best AI Institution in Kolkata with industry-grade tools and certifications that employers actually value. Admissions 2026 are now open.
                         </p>
 
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">

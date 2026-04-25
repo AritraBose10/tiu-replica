@@ -278,8 +278,8 @@ const Hero = () => {
                 {/* ── Heading ── */}
                 <motion.div className="text-center mb-4 md:mb-6" variants={fadeUp}>
                     <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black leading-[1.1] tracking-tight">
-                        <span className="text-white">Future-Ready Degrees for Careers </span>
-                        <span className="text-[#FF0000]">that Actually Matter</span>
+                        <span className="text-white">Future-Ready Degrees at One of the </span>
+                        <span className="text-[#FF0000]">Best Engineering Colleges in Kolkata</span>
                     </h1>
                 </motion.div>
 
@@ -288,7 +288,7 @@ const Hero = () => {
                     className="text-center text-gray-400 text-sm md:text-base max-w-2xl mx-auto mb-5 md:mb-6 leading-relaxed"
                     variants={fadeUp}
                 >
-                    Industry-powered UG, PG &amp; Ph.D programs at Techno India University, West Bengal
+                    Industry-powered B.Tech, M.Tech, MBA &amp; PhD programs — co-designed with Google Cloud &amp; IBM — at Techno India University, West Bengal.
                 </motion.p>
 
                 {/* ── Partner Logos ── */}

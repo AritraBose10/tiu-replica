@@ -103,7 +103,7 @@ const CareerPathways = () => {
                                     <Building2 className="w-5 h-5 text-blue-400" />
                                 </div>
                                 <div>
-                                    <p className="text-white font-bold text-lg leading-none">500+</p>
+                                    <p className="text-white font-bold text-lg leading-none">200+</p>
                                     <p className="text-gray-500 text-xs uppercase tracking-wider font-semibold mt-1">Hiring Partners</p>
                                 </div>
                             </div>

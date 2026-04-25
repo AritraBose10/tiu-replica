@@ -64,8 +64,8 @@ const Home = () => {
     return (
         <div className="bg-white">
             <SEO
-                title="AI Courses with Google Cloud & IBM Integration | B.Tech, MBA & PhD Programs | Top Engineering College Kolkata"
-                description="Join career-focused AI programs at Techno India University in CSE, AI, Cloud, MBA, and M.Tech with Google and IBM certifications embedded in the curriculum. Enjoy 90%+ eligible placements with recruiters, including Google, IBM, TCS, and Amazon."
+                title="Techno India University | Best Engineering College in Kolkata"
+                description="Techno India University — among the best engineering colleges in Kolkata. B.Tech, M.Tech & AI/ML courses powered by Google Cloud & IBM. Admissions 2026 open."
             />
             <SchemaInjector schema={eduOrgSchema} />
             {/* §1 — Hero */}

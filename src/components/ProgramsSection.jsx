@@ -364,7 +364,7 @@ const ProgramsSection = () => {
                         </span>
                         <h2 className="text-4xl md:text-6xl font-black text-white mt-4 flex items-center gap-4">
                             <span className="w-1.5 h-12 bg-[#FF0000] rounded-full"></span>
-                            Explore Programs
+                            Explore Our Flagship Programs
                         </h2>
                     </motion.div>
                 </div>

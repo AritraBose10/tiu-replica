@@ -48,8 +48,7 @@ const GoogleIBMBanner = () => {
                         <span className="text-[#FF0000]">Global Technology Leaders</span>
                     </h2>
                     <p className="text-lg text-gray-500 max-w-2xl border-l-4 border-red-500 pl-6 py-1">
-                        At SoF, industry collaboration is embedded into the curriculum — not added as a marketing layer.
-                        Students learn using real tools, real frameworks and real-world problems.
+                        At Techno India University — the top AI Institution in Kolkata — industry collaboration is embedded in the curriculum. Students pursuing AI/ML courses here learn using real tools, real frameworks, and real-world problems alongside Google Cloud and IBM practitioners.
                     </p>
                 </motion.div>
 

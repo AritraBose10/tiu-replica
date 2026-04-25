@@ -6,35 +6,35 @@ const differentiators = [
     {
         icon: Cloud,
         title: 'Industry-Powered Curriculum',
-        description: 'Built with Google Cloud & IBM — not just textbooks.',
+        description: 'Built with Google Cloud & IBM, going beyond textbooks. Every B.Tech CSE course in Kolkata at TIU is co-designed with global tech leaders.',
         number: '01',
         accent: '#3B82F6',
     },
     {
         icon: Layers,
         title: 'Project-First Learning',
-        description: 'Hands-on projects from Year 1, not just final year.',
+        description: 'Hands-on projects and live case studies begin in the first year. Our students ship real applications, publish research, and launch startups.',
         number: '02',
         accent: '#8B5CF6',
     },
     {
         icon: Cpu,
         title: 'Future-Ready Tools',
-        description: 'AI, data, cloud, design & no-code tools in every program.',
+        description: 'AI, data science, cloud computing, and no-code tools are embedded in every program, making us the leading AI training institution in Kolkata.',
         number: '03',
         accent: '#EF4444',
     },
     {
         icon: GraduationCap,
         title: 'Structured Academics',
-        description: 'Modern pedagogy backed by academic governance.',
+        description: 'Modern pedagogy backed by academic governance. We are a recognised private college in Kolkata with full UGC, AICTE and other statutory compliances.',
         number: '04',
         accent: '#10B981',
     },
     {
         icon: Rocket,
         title: 'Careers Beyond Placements',
-        description: 'Jobs, startups, higher studies — pathways, not just jobs.',
+        description: 'Jobs, startups, higher studies — multiple pathways, not just placement drives.',
         number: '05',
         accent: '#F59E0B',
     },
@@ -67,14 +67,13 @@ const WhySoF = () => {
                             Why SoF
                         </span>
                         <h2 className="text-3xl md:text-5xl font-black text-white tracking-tight leading-[1.1] mb-4">
-                            The Future{' '}
+                            Why Choose Us Among the{' '}
                             <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-orange-400">
-                                Doesn't Wait.
+                                Top Engineering Colleges in West Bengal?
                             </span>
                         </h2>
                         <p className="text-gray-500 text-sm md:text-base leading-relaxed">
-                            We designed School of the Future for students who want clarity, relevance,
-                            and direction — not outdated degrees or theory-heavy learning.
+                            Techno India University is consistently recognised as one of the top institutions in West Bengal — a UGC-recognised, NAAC-accredited private engineering college that goes beyond textbooks to deliver an education that prepares you for tomorrow's careers.
                         </p>
                     </motion.div>
                 </div>

@@ -151,8 +151,8 @@ const Admissions = () => {
     return (
         <div className="bg-[#020205] min-h-screen text-white">
             <SEO
-                title="Admission Open for AI-Powered Degrees in Engineering, Design, MBA & More Under Techno India University"
-                description="Admissions open for 2026 at Techno India University’s School of the Future, the best engineering college. Explore Google- and IBM-powered programs, strong placements, scholarships, and industry internships. Apply today."
+                title="Admissions 2026 | B.Tech, AI & MBA Programs | Techno India University Kolkata"
+                description="Apply for 2026 admissions at Techno India University — one of the top private engineering colleges in West Bengal. B.Tech CSE, AI/ML, Data Science, Cloud Computing & more. Apply now."
             />
             <SchemaInjector schema={admissionsFaqSchema} />
             <SchemaInjector schema={admissionsEventSchema} />

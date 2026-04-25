@@ -160,10 +160,10 @@ const AdmissionsHero = () => {
                         transition={{ duration: 0.8 }}
                     >
                         <h2 className="text-2xl md:text-3xl text-white font-bold max-w-xl mb-4">
-                            Build a Career That Actually Matters
+                            Your Journey to a Future-Ready Career Starts Here
                         </h2>
                         <p className="text-lg text-gray-400 max-w-xl border-l-2 border-red-600 pl-6 mb-4">
-                            Industry-powered undergraduate, postgraduate and doctoral programs designed for future careers, under Techno India University.
+                            Techno India University — one of the best engineering colleges in Kolkata — welcomes applications for the 2026 academic year. Whether you are a school-leaver exploring AI courses after 12th or a graduate seeking a top M.Tech college in Kolkata, our admissions process is designed to help you find the right program.
                         </p>
                         <div className="flex flex-wrap items-center gap-3 text-sm text-gray-500 font-medium mb-8">
                             <span className="px-3 py-1 rounded-full bg-red-600/10 border border-red-600/20 text-red-400">Limited Seats</span>

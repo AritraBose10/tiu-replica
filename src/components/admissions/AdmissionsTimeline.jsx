@@ -5,26 +5,26 @@ import { FileText, UserCheck, Award, Layers } from 'lucide-react';
 const steps = [
     {
         id: 1,
-        title: "Submit Application",
-        desc: "Submit your application online or request the course brochure to get started.",
+        title: "Explore Programs",
+        desc: "Browse our full range of B.Tech, BCA, BBA, MBA, M.Tech, and B.Des programs at this leading b tech college in Kolkata.",
         icon: FileText,
     },
     {
         id: 2,
-        title: "Program Advisor",
-        desc: "Speak with a dedicated program advisor who guides you through your options.",
+        title: "Check Eligibility",
+        desc: "Most undergraduate programs (including our B.Tech CSE courses) require 10+2 with PCM. Postgraduate programs require a relevant undergraduate degree.",
         icon: Layers,
     },
     {
         id: 3,
-        title: "Eligibility Review",
-        desc: "Your eligibility is reviewed through academic counselling — not complex entrance exams.",
+        title: "Submit Application",
+        desc: "Complete your application online. Our team at this private college in Kolkata will review your application and reach out within 48 hours.",
         icon: UserCheck,
     },
     {
         id: 4,
-        title: "Offer Confirmation",
-        desc: "Receive your admission offer and begin your onboarding journey.",
+        title: "Admission & Enrolment",
+        desc: "Receive your admission offer, complete fee payment, and join one of West Bengal's top private engineering colleges for Admissions 2026.",
         icon: Award,
     },
 ];
