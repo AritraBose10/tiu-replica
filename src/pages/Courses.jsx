@@ -309,8 +309,19 @@ const Courses = () => {
                         </span>
                         <h1 className="text-5xl md:text-7xl font-black mb-6 bg-clip-text text-transparent bg-gradient-to-b from-white via-white to-white/50">
                             Future-Ready Programs <br />
-                            <span className="text-white">
+                            <span className="text-white relative inline-block pb-3">
                                 After 12th & Graduation
+                                <motion.svg
+                                    initial={{ pathLength: 0 }}
+                                    animate={{ pathLength: 1 }}
+                                    transition={{ duration: 1, delay: 0.5 }}
+                                    className="absolute bottom-0 left-0 w-full"
+                                    style={{ height: '10px' }}
+                                    viewBox="0 0 100 10"
+                                    preserveAspectRatio="none"
+                                >
+                                    <path d="M0 2 Q 50 8 100 2" stroke="#FF0000" strokeWidth="2.5" fill="none" strokeLinecap="round" />
+                                </motion.svg>
                             </span>
                         </h1>
                         <p className="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto">
