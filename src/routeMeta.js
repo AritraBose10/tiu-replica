@@ -4,26 +4,26 @@ export const EXCLUDED_ROUTES = ['/admin', '/events-demo', '/thank-you'];
 // Titles and descriptions are exact duplicates from each page's <SEO /> component
 export const routeMeta = {
   '/': {
-    title: 'Techno India University | Best Engineering College in Kolkata',
-    description: "Techno India University — among the best engineering colleges in Kolkata. B.Tech, M.Tech & AI/ML courses powered by Google Cloud & IBM. Admissions 2026 open.",
+    title: 'Top B.Tech Engineering College In Kolkata | Best AI Courses | Techno India University',
+    description: "Join Techno India University, a leading B.Tech engineering college in kolkata, for career-focused CSE courses in AI, ML, Data Science, Cloud Computing, and more with Google & IBM certifications embedded in the curriculum. 90%+ eligible placements.",
     changefreq: 'daily',
     priority: 1.0
   },
   '/courses': {
-    title: 'B.Tech, M.Tech, AI & Data Science Courses in Kolkata | Techno India University',
-    description: 'Explore B.Tech CSE, M.Tech AI/ML, Data Science, Cloud Computing & AI courses in Kolkata at Techno India University. Powered by Google Cloud & IBM. Admissions 2026 open.',
+    title: 'B.Tech, M.Tech, CSE, AI ML, Data Science & Cloud Computing Courses | Techno India University',
+    description: "Explore B.Tech CSE, AI ML, Data Science & Cloud Computing, BCA, BBA, BSc, Law, Design, Nursing and M.Tech at Kolkata's best engineering college. Google & IBM certified. 90%+ placements. Admissions open.",
     changefreq: 'weekly',
     priority: 0.9
   },
   '/about': {
-    title: 'About Techno India University | Top Private Engineering College in West Bengal',
-    description: "Learn about Techno India University — one of the top private engineering colleges in West Bengal. Established in 2000, UGC-recognised, NAAC-accredited, and powered by Google Cloud & IBM.",
+    title: "About Techno India University's School Of The Future | Best B.Tech Engineering College & AI Institute in Kolkata",
+    description: "Discover the mission and vision of Techno India University's School of the Future, a leading B.Tech engineering college. Backed by seasoned industry experts and academic leaders, 15,000+ students and global partners drive innovation-led AI course.",
     changefreq: 'monthly',
     priority: 0.8
   },
   '/apply': {
-    title: 'Admissions 2026 | B.Tech, AI & MBA Programs | Techno India University Kolkata',
-    description: "Apply for 2026 admissions at Techno India University — one of the top private engineering colleges in West Bengal. B.Tech CSE, AI/ML, Data Science, Cloud Computing & more. Apply now.",
+    title: 'Admission Open for AI Courses in CSE, Design, MBA & More Under Techno India University',
+    description: "Admissions open for 2026 at Techno India University's School of the Future, the best B.Tech engineering college. Explore Google- and IBM-powered programs, strong placements, scholarships, and industry internships. Apply today.",
     changefreq: 'weekly',
     priority: 0.9
   },

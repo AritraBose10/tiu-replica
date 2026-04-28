@@ -172,8 +172,8 @@ const About = () => {
     return (
         <div className="min-h-screen bg-[#020205] text-white overflow-x-hidden selection:bg-[#FF0000] selection:text-white">
             <SEO
-                title="About Techno India University | Top Private Engineering College in West Bengal"
-                description="Learn about Techno India University — one of the top private engineering colleges in West Bengal. Established in 2000, UGC-recognised, NAAC-accredited, and powered by Google Cloud & IBM."
+                title="About Techno India University's School Of The Future | Best B.Tech Engineering College & AI Institute in Kolkata"
+                description="Discover the mission and vision of Techno India University's School of the Future, a leading B.Tech engineering college. Backed by seasoned industry experts and academic leaders, 15,000+ students and global partners drive innovation-led AI course."
             />
             <SchemaInjector schema={{
                 "@context": "https://schema.org",

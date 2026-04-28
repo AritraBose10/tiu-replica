@@ -9,10 +9,10 @@ const LiquidChromeText = () => {
         <div className="relative z-10">
             <h1 className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter leading-[0.9]">
                 <span className="block text-transparent bg-clip-text bg-gradient-to-b from-white via-gray-200 to-gray-500 drop-shadow-2xl">
-                    ADMISSIONS 2026
+                    Admission Open for AI Courses
                 </span>
                 <span className="block text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-orange-400 to-red-600 animate-gradient-x pb-4 text-4xl md:text-5xl lg:text-6xl mt-2">
-                    NOW OPEN
+                    in CSE, Design, MBA & More Under Techno India University
                 </span>
             </h1>
         </div>

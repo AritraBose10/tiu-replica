@@ -273,8 +273,8 @@ const Courses = () => {
     return (
         <div className="min-h-screen bg-[#020205] text-white relative overflow-x-hidden selection:bg-[#FF0000] selection:text-white">
             <SEO
-                title="B.Tech, M.Tech, AI & Data Science Courses in Kolkata | Techno India University"
-                description="Explore B.Tech CSE, M.Tech AI/ML, Data Science, Cloud Computing & AI courses in Kolkata at Techno India University. Powered by Google Cloud & IBM. Admissions 2026 open."
+                title="B.Tech, M.Tech, CSE, AI ML, Data Science & Cloud Computing Courses | Techno India University"
+                description="Explore B.Tech CSE, AI ML, Data Science & Cloud Computing, BCA, BBA, BSc, Law, Design, Nursing and M.Tech at Kolkata's best engineering college. Google & IBM certified. 90%+ placements. Admissions open."
             />
             <SchemaInjector schema={courseSchema} />
 
@@ -308,7 +308,7 @@ const Courses = () => {
                             World Class Education
                         </span>
                         <h1 className="text-5xl md:text-7xl font-black mb-6 bg-clip-text text-transparent bg-gradient-to-b from-white via-white to-white/50">
-                            Future-Ready Programs <br />
+                            Future-Ready AI Courses <br />
                             <span className="text-white relative inline-block pb-3">
                                 After 12th & Graduation
                                 <motion.svg
