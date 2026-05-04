@@ -35,6 +35,7 @@ const careerPathsMap = {
     'VFX': ['VFX Artist', '3D Animator', 'Motion Graphics Designer', 'Compositing Artist'],
     'Cardiovascular': ['Cath Lab Technologist', 'Echocardiography Technician', 'Electrophysiology Lab Tech', 'Cardiac Device Specialist'],
     'Anesthesia': ['Anesthesia Technologist', 'OT Technician', 'Perfusionist', 'Clinical Coordinator'],
+    'Anaesthesia': ['Anaesthesia Technologist', 'OT Technician', 'Perfusionist', 'Clinical Coordinator'],
     'BMLT': ['Lab Technologist', 'Pathology Analyst', 'Research Technician', 'QC Officer'],
     'Medical Lab': ['Lab Technologist', 'Pathology Analyst', 'Research Technician', 'QC Officer'],
     'MMLT': ['Senior Lab Scientist', 'Lab Director', 'Clinical Researcher', 'Biotech Consultant'],
