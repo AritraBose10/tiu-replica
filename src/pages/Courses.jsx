@@ -33,7 +33,7 @@ const careerPathsMap = {
     'Filmmaking': ['Film Director', 'Cinematographer', 'Editor', 'Documentary Filmmaker'],
     'Visual Effects': ['VFX Artist', '3D Animator', 'Motion Graphics Designer', 'Compositing Artist'],
     'VFX': ['VFX Artist', '3D Animator', 'Motion Graphics Designer', 'Compositing Artist'],
-    'Cardiovascular': ['Cardiovascular Technologist', 'Cardiac Sonographer', 'Cath Lab Technician', 'Clinical Specialist'],
+    'Cardiovascular': ['Cath Lab Technologist', 'Echocardiography Technician', 'Electrophysiology Lab Tech', 'Cardiac Device Specialist'],
     'Anesthesia': ['Anesthesia Technologist', 'OT Technician', 'Perfusionist', 'Clinical Coordinator'],
     'BMLT': ['Lab Technologist', 'Pathology Analyst', 'Research Technician', 'QC Officer'],
     'Medical Lab': ['Lab Technologist', 'Pathology Analyst', 'Research Technician', 'QC Officer'],
@@ -98,6 +98,11 @@ const FlipCard = ({ course, index }) => {
                                 )}
                                 {course.title.toLowerCase().includes('ibm') && (
                                     <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg" alt="IBM" className="h-[18px] w-auto object-contain shrink-0 opacity-80 group-hover:opacity-100 transition-opacity mt-1.5" />
+                                )}
+                                {course.partner === 'Emversity' && (
+                                    <span className="text-[10px] font-bold text-white/60 border border-white/10 rounded px-2 py-1 shrink-0 mt-1 whitespace-nowrap">
+                                        Emversity
+                                    </span>
                                 )}
                             </div>
 
