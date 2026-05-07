@@ -32,6 +32,9 @@ const ThankYou = () => {
 
             // Lead Form conversion event (AW-16943685502)
             gtag('event', 'conversion', {'send_to': 'AW-16943685502/7xJnCK78mrkaEP6-sI8_'});
+
+            // Sign-up conversion event (AW-18134909671)
+            gtag('event', 'conversion', {'send_to': 'AW-18134909671/xmeCCIm0nqgcEOeFs8dD', 'value': 1.0, 'currency': 'INR'});
         `;
         document.head.appendChild(inlineScript);
 

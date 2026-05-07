@@ -133,17 +133,24 @@ const Admissions = () => {
         script.async = true;
         document.head.appendChild(script);
 
+        const script2 = document.createElement('script');
+        script2.src = 'https://www.googletagmanager.com/gtag/js?id=AW-18134909671';
+        script2.async = true;
+        document.head.appendChild(script2);
+
         const inlineScript = document.createElement('script');
         inlineScript.textContent = `
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
             gtag('config', 'AW-340383729');
+            gtag('config', 'AW-18134909671');
         `;
         document.head.appendChild(inlineScript);
 
         return () => {
             document.head.removeChild(script);
+            document.head.removeChild(script2);
             document.head.removeChild(inlineScript);
         };
     }, []);
