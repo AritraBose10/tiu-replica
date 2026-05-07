@@ -1,45 +1,45 @@
 import { useEffect } from 'react';
 
 const WhatsAppButton = () => {
-    useEffect(() => {
-        window.chatWidgetConfig = {
-            whatsappNumber: "916292090138",
-            welcomeMessage: "Hey 👋,\nHow can we help you?",
-            buttonText: "",          // empty = no text label, icon only
-            profileName: "School of the Future",
-            profileImageUrl: "https://api.kraya-ai.com/images/kraya-logo.png",
-            appUrl: "https://api.kraya-ai.com"
-        };
+ useEffect(() => {
+ window.chatWidgetConfig = {
+ whatsappNumber: "916292090138",
+ welcomeMessage: "Hey 👋,\nHow can we help you?",
+ buttonText: "", // empty = no text label, icon only
+ profileName: "School of the Future",
+ profileImageUrl: "https://api.kraya-ai.com/images/kraya-logo.png",
+ appUrl: "https://api.kraya-ai.com"
+ };
 
-        // Inject CSS to push widget above sticky Apply bar on mobile
-        if (!document.getElementById('__krayaPositionFix')) {
-            const style = document.createElement('style');
-            style.id = '__krayaPositionFix';
-            style.textContent = `
-                @media (max-width: 768px) {
-                    .kraya-floating-chat-icon {
-                        bottom: 80px !important;
-                        z-index: 70 !important;
-                    }
-                    .kraya-floating-chat-box {
-                        bottom: 150px !important;
-                    }
-                }
-            `;
-            document.head.appendChild(style);
-        }
+ // Inject CSS to push widget above sticky Apply bar on mobile
+ if (!document.getElementById('__krayaPositionFix')) {
+ const style = document.createElement('style');
+ style.id = '__krayaPositionFix';
+ style.textContent = `
+ @media (max-width: 768px) {
+ .kraya-floating-chat-icon {
+ bottom: 80px !important;
+ z-index: 70 !important;
+ }
+ .kraya-floating-chat-box {
+ bottom: 150px !important;
+ }
+ }
+ `;
+ document.head.appendChild(style);
+ }
 
-        // Avoid loading twice
-        if (document.getElementById('__krayaChatWidget')) return;
+ // Avoid loading twice
+ if (document.getElementById('__krayaChatWidget')) return;
 
-        const script = document.createElement('script');
-        script.id = '__krayaChatWidget';
-        script.src = "https://api.kraya-ai.com/widget/chat.js?v=1771933931284";
-        script.async = true;
-        document.head.appendChild(script);
-    }, []);
+ const script = document.createElement('script');
+ script.id = '__krayaChatWidget';
+ script.src = "https://api.kraya-ai.com/widget/chat.js?v=1771933931284";
+ script.async = true;
+ document.head.appendChild(script);
+ }, []);
 
-    return null;
+ return null;
 };
 
 export default WhatsAppButton;

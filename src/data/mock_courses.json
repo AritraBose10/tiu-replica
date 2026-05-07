@@ -1,240 +1,240 @@
 [
-    {
-        "id": "btech-cse-ai-ml",
-        "title": "B.Tech CSE-AI/ML Powered by GOOGLE",
-        "description": "This is TIU's flagship B.Tech CSE course in Kolkata — purpose-built for students who want to lead in Artificial Intelligence and Machine Learning. Widely regarded as one of the best AI courses after 12th available in India, this program combines rigorous academics with Google Cloud certifications and real-world AI projects.",
-        "category": "School of Engineering & Technology",
-        "duration": "4 Years",
-        "link": "#"
-    },
-    {
-        "id": "btech-cse-data-science",
-        "title": "B.Tech CSE-Data Science Powered by GOOGLE",
-        "description": "Enrol in the most comprehensive data science course in Kolkata at the undergraduate level. Students learn to build end-to-end data pipelines, master statistical modelling, and use Python, SQL, and Google BigQuery on live datasets. A top choice among b tech colleges in West Bengal for data-driven careers.",
-        "category": "School of Engineering & Technology",
-        "duration": "4 Years",
-        "link": "#"
-    },
-    {
-        "id": "btech-cse-cloud",
-        "title": "B.Tech CSE-Cloud Computing Powered by GOOGLE",
-        "description": "One of the most advanced cloud computing courses in Kolkata, this program covers cloud architecture, DevOps, Kubernetes, microservices, and Google Cloud Platform in depth. Ideal for students pursuing a B.Tech college in West Bengal that offers enterprise-grade technology exposure.",
-        "category": "School of Engineering & Technology",
-        "duration": "4 Years",
-        "link": "#"
-    },
-    {
-        "id": "bca-data-science-ai",
-        "title": "BCA with Data Science and AI Powered by IBM",
-        "description": "An industry-aligned Bachelor of Computer Applications integrating data science and AI concepts with IBM-powered training. This program functions as a best IT training institute in Kolkata experience within a structured university framework, complete with IBM certifications.",
-        "category": "Information Technology & Applied Sciences",
-        "duration": "4 Years",
-        "link": "#"
-    },
-    {
-        "id": "bsc-hotel-hospitality",
-        "title": "BSc (H) Hotel and Hospital Management",
-        "description": "Prepare for a career in the dynamic hospitality industry with management training.",
-        "category": "School of Business & Management",
-        "duration": "4 Years",
-        "link": "#"
-    },
-    {
-        "id": "bba-business-analytics",
-        "title": "BBA Business Analytics in Collaboration with Powered by IBM",
-        "description": "Combine business management skills with data analytics and AI insights.",
-        "category": "School of Business & Management",
-        "duration": "4 Years",
-        "link": "#"
-    },
-    {
-        "id": "bsc-cyber-security",
-        "title": "BSc (H) Cyber Security and Ethical Hacking Powered by IBM",
-        "description": "Learn to protect digital assets and networks from cyber threats.",
-        "category": "Information Technology & Applied Sciences",
-        "duration": "4 Years",
-        "link": "#"
-    },
-    {
-        "id": "bsc-data-analytics-gen-ai",
-        "title": "BSc (H) Data Analytics and Generative AI Powered by IBM",
-        "description": "A cutting-edge AI learning course in Kolkata at the undergraduate level. Students master Generative AI, LLMs, data analytics, and IBM AI tools, equipping them for the next generation of AI-driven industries. One of the best AI courses in India for science graduates.",
-        "category": "Information Technology & Applied Sciences",
-        "duration": "4 Years",
-        "link": "#"
-    },
-    {
-        "id": "mba-ibm",
-        "title": "MBA - Powered by IBM",
-        "description": "An analytics-driven MBA co-designed with IBM. Combines business administration with data science, AI tools, and strategic management, a strong choice among private colleges in Kolkata for management education.",
-        "category": "School of Business & Management",
-        "duration": "2 Years",
-        "link": "#"
-    },
-    {
-        "id": "working-professional-mba",
-        "title": "Working Professional MBA",
-        "description": "Tailored for working professionals looking to accelerate their career growth.",
-        "category": "School of Business & Management",
-        "duration": "2 Years",
-        "link": "#"
-    },
-    {
-        "id": "bdes-visual-comm",
-        "title": "B. Des Visual Communication & Digital Design",
-        "description": "Explore visual storytelling and digital design principles for modern media.",
-        "category": "Creative Arts & Design",
-        "duration": "4 Years",
-        "link": "#"
-    },
-    {
-        "id": "bdes-game-art",
-        "title": "B. Des Game Art & Design",
-        "description": "Design immersive game environments, characters, and assets.",
-        "category": "Creative Arts & Design",
-        "duration": "4 Years",
-        "link": "#"
-    },
-    {
-        "id": "bdes-digital-product",
-        "title": "B. Des Digital Product Design",
-        "description": "Focus on user experience and interface design for digital products.",
-        "category": "Creative Arts & Design",
-        "duration": "4 Years",
-        "link": "#"
-    },
-    {
-        "id": "mdes-advertising",
-        "title": "M.Des in Advertising, design and digital communications",
-        "description": "Advanced design studies focusing on advertising strategies and digital communication.",
-        "category": "Creative Arts & Design",
-        "duration": "2 Years",
-        "link": "#"
-    },
-    {
-        "id": "bsc-cardiovascular",
-        "title": "B.Sc. (Hons) in Cardiovascular Technology — Industry Skilling by Emversity",
-        "description": "Train in the diagnosis, monitoring, and treatment support of cardiovascular diseases. Operate ECG machines, echocardiography equipment, cardiac catheterisation lab tech, and vascular diagnostic tools. AR/VR simulation training, NCAHP-aligned curriculum, and placement facilitation through 500+ healthcare employer partners via Emversity.",
-        "category": "Health & Allied Sciences",
-        "duration": "4 Years",
-        "eligibility": "12th Pass (PCB/PCMB)",
-        "fee": "₹8.29 Lakhs (Total Program Fee)",
-        "partner": "Emversity",
-        "link": "#"
-    },
-    {
-        "id": "bsc-anesthesia",
-        "title": "B.Sc. (Hons) in Anaesthesia & OT Technology — Industry Skilling by Emversity",
-        "description": "Prepare to become skilled anaesthesia technologists and operation theatre professionals. Covers pre-operative assessment, anaesthesia delivery assistance, patient monitoring, OT equipment management, and sterilisation protocols. AR/VR simulation training, NCAHP-aligned curriculum, and placement facilitation through 500+ healthcare employer partners via Emversity.",
-        "category": "Health & Allied Sciences",
-        "duration": "4 Years",
-        "eligibility": "12th Pass (PCB/PCMB)",
-        "fee": "₹9 Lakhs (Total Program Fee)",
-        "partner": "Emversity",
-        "link": "#"
-    },
-    {
-        "id": "bsc-sound-engineering",
-        "title": "BSC (H) in Sound Engineering",
-        "description": "Technical program covering audio recording, mixing, and sound design.",
-        "category": "Creative Arts & Design",
-        "duration": "4 Years",
-        "link": "#"
-    },
-    {
-        "id": "bsc-game-development",
-        "title": "BSC (H) in Game Development",
-        "description": "Learn game programming and development using industry-standard engines.",
-        "category": "Creative Arts & Design",
-        "duration": "4 Years",
-        "link": "#"
-    },
-    {
-        "id": "bsc-filmmaking",
-        "title": "BSC (H) in Filmmaking",
-        "description": "Comprehensive course on film production, direction, and editing.",
-        "category": "Creative Arts & Design",
-        "duration": "4 Years",
-        "link": "#"
-    },
-    {
-        "id": "bsc-vfx-animation",
-        "title": "BSC (H) in Visual Effects & Animation",
-        "description": "Master the art of VFX and animation for film, TV, and games.",
-        "category": "Creative Arts & Design",
-        "duration": "4 Years",
-        "link": "#"
-    },
-    {
-        "id": "mtech-cse-ai-ml",
-        "title": "M.Tech CSE AI/ML",
-        "description": "The most advanced M.Tech college in Kolkata experience for engineers seeking deep research expertise in AI and Machine Learning. Students publish in IEEE and Springer conferences, work on funded research projects, and earn industry certifications. As the top AI/ML courses in Kolkata at the postgraduate level, this program attracts engineers from across West Bengal and beyond.",
-        "category": "School of Engineering & Technology",
-        "duration": "2 Years",
-        "link": "#"
-    },
-    {
-        "id": "bsc-agriculture",
-        "title": "Bsc Agriculture",
-        "description": "Comprehensive studies in modern agricultural sciences and farming technologies.",
-        "category": "Information Technology & Applied Sciences",
-        "duration": "4 Years",
-        "link": "#"
-    },
-    {
-        "id": "gnm",
-        "title": "GNM",
-        "description": "General Nursing and Midwifery training for competent healthcare professionals.",
-        "category": "Health & Allied Sciences",
-        "duration": "3 Years",
-        "link": "#"
-    },
-    {
-        "id": "bsc-nursing",
-        "title": "Bsc Nursing",
-        "description": "Bachelor of Science in Nursing focusing on extensive healthcare and medical aid.",
-        "category": "Health & Allied Sciences",
-        "duration": "4 Years",
-        "link": "#"
-    },
-    {
-        "id": "llb",
-        "title": "LL.B (3 Years)",
-        "description": "Bachelor of Legislative Law covering fundamental legal principles and systems.",
-        "category": "School of Law",
-        "duration": "3 Years",
-        "link": "#"
-    },
-    {
-        "id": "bba-llb",
-        "title": "B.B.A. LL.B",
-        "description": "Integrated program combining business administration with legislative law studies.",
-        "category": "School of Law",
-        "duration": "5 Years",
-        "link": "#"
-    },
-    {
-        "id": "bcom-llb",
-        "title": "B.Com. LL.B",
-        "description": "Integrated curriculum focused on corporate laws, taxation, and commerce.",
-        "category": "School of Law",
-        "duration": "5 Years",
-        "link": "#"
-    },
-    {
-        "id": "bca",
-        "title": "BCA",
-        "description": "Bachelor of Computer Applications building fundamental programming skills.",
-        "category": "Information Technology & Applied Sciences",
-        "duration": "3 Years",
-        "link": "#"
-    },
-    {
-        "id": "bba",
-        "title": "BBA",
-        "description": "Base business administration program for core management techniques.",
-        "category": "School of Business & Management",
-        "duration": "3 Years",
-        "link": "#"
-    }
+ {
+ "id": "btech-cse-ai-ml",
+ "title": "B.Tech CSE-AI/ML Powered by GOOGLE",
+ "description": "This is TIU's flagship B.Tech CSE course in Kolkata purpose-built for students who want to lead in Artificial Intelligence and Machine Learning. Widely regarded as one of the best AI courses after 12th available in India, this program combines rigorous academics with Google Cloud certifications and real-world AI projects.",
+ "category": "School of Engineering & Technology",
+ "duration": "4 Years",
+ "link": "#"
+ },
+ {
+ "id": "btech-cse-data-science",
+ "title": "B.Tech CSE-Data Science Powered by GOOGLE",
+ "description": "Enrol in the most comprehensive data science course in Kolkata at the undergraduate level. Students learn to build end-to-end data pipelines, master statistical modelling, and use Python, SQL, and Google BigQuery on live datasets. A top choice among b tech colleges in West Bengal for data-driven careers.",
+ "category": "School of Engineering & Technology",
+ "duration": "4 Years",
+ "link": "#"
+ },
+ {
+ "id": "btech-cse-cloud",
+ "title": "B.Tech CSE-Cloud Computing Powered by GOOGLE",
+ "description": "One of the most advanced cloud computing courses in Kolkata, this program covers cloud architecture, DevOps, Kubernetes, microservices, and Google Cloud Platform in depth. Ideal for students pursuing a B.Tech college in West Bengal that offers enterprise-grade technology exposure.",
+ "category": "School of Engineering & Technology",
+ "duration": "4 Years",
+ "link": "#"
+ },
+ {
+ "id": "bca-data-science-ai",
+ "title": "BCA with Data Science and AI Powered by IBM",
+ "description": "An industry-aligned Bachelor of Computer Applications integrating data science and AI concepts with IBM-powered training. This program functions as a best IT training institute in Kolkata experience within a structured university framework, complete with IBM certifications.",
+ "category": "Information Technology & Applied Sciences",
+ "duration": "4 Years",
+ "link": "#"
+ },
+ {
+ "id": "bsc-hotel-hospitality",
+ "title": "BSc (H) Hotel and Hospital Management",
+ "description": "Prepare for a career in the dynamic hospitality industry with management training.",
+ "category": "School of Business & Management",
+ "duration": "4 Years",
+ "link": "#"
+ },
+ {
+ "id": "bba-business-analytics",
+ "title": "BBA Business Analytics in Collaboration with Powered by IBM",
+ "description": "Combine business management skills with data analytics and AI insights.",
+ "category": "School of Business & Management",
+ "duration": "4 Years",
+ "link": "#"
+ },
+ {
+ "id": "bsc-cyber-security",
+ "title": "BSc (H) Cyber Security and Ethical Hacking Powered by IBM",
+ "description": "Learn to protect digital assets and networks from cyber threats.",
+ "category": "Information Technology & Applied Sciences",
+ "duration": "4 Years",
+ "link": "#"
+ },
+ {
+ "id": "bsc-data-analytics-gen-ai",
+ "title": "BSc (H) Data Analytics and Generative AI Powered by IBM",
+ "description": "A cutting-edge AI learning course in Kolkata at the undergraduate level. Students master Generative AI, LLMs, data analytics, and IBM AI tools, equipping them for the next generation of AI-driven industries. One of the best AI courses in India for science graduates.",
+ "category": "Information Technology & Applied Sciences",
+ "duration": "4 Years",
+ "link": "#"
+ },
+ {
+ "id": "mba-ibm",
+ "title": "MBA - Powered by IBM",
+ "description": "An analytics-driven MBA co-designed with IBM. Combines business administration with data science, AI tools, and strategic management, a strong choice among private colleges in Kolkata for management education.",
+ "category": "School of Business & Management",
+ "duration": "2 Years",
+ "link": "#"
+ },
+ {
+ "id": "working-professional-mba",
+ "title": "Working Professional MBA",
+ "description": "Tailored for working professionals looking to accelerate their career growth.",
+ "category": "School of Business & Management",
+ "duration": "2 Years",
+ "link": "#"
+ },
+ {
+ "id": "bdes-visual-comm",
+ "title": "B. Des Visual Communication & Digital Design",
+ "description": "Explore visual storytelling and digital design principles for modern media.",
+ "category": "Creative Arts & Design",
+ "duration": "4 Years",
+ "link": "#"
+ },
+ {
+ "id": "bdes-game-art",
+ "title": "B. Des Game Art & Design",
+ "description": "Design immersive game environments, characters, and assets.",
+ "category": "Creative Arts & Design",
+ "duration": "4 Years",
+ "link": "#"
+ },
+ {
+ "id": "bdes-digital-product",
+ "title": "B. Des Digital Product Design",
+ "description": "Focus on user experience and interface design for digital products.",
+ "category": "Creative Arts & Design",
+ "duration": "4 Years",
+ "link": "#"
+ },
+ {
+ "id": "mdes-advertising",
+ "title": "M.Des in Advertising, design and digital communications",
+ "description": "Advanced design studies focusing on advertising strategies and digital communication.",
+ "category": "Creative Arts & Design",
+ "duration": "2 Years",
+ "link": "#"
+ },
+ {
+ "id": "bsc-cardiovascular",
+ "title": "B.Sc. (Hons) in Cardiovascular Technology Industry Skilling by Emversity",
+ "description": "Train in the diagnosis, monitoring, and treatment support of cardiovascular diseases. Operate ECG machines, echocardiography equipment, cardiac catheterisation lab tech, and vascular diagnostic tools. AR/VR simulation training, NCAHP-aligned curriculum, and placement facilitation through 500+ healthcare employer partners via Emversity.",
+ "category": "Health & Allied Sciences",
+ "duration": "4 Years",
+ "eligibility": "12th Pass (PCB/PCMB)",
+ "fee": "₹8.29 Lakhs (Total Program Fee)",
+ "partner": "Emversity",
+ "link": "#"
+ },
+ {
+ "id": "bsc-anesthesia",
+ "title": "B.Sc. (Hons) in Anaesthesia & OT Technology Industry Skilling by Emversity",
+ "description": "Prepare to become skilled anaesthesia technologists and operation theatre professionals. Covers pre-operative assessment, anaesthesia delivery assistance, patient monitoring, OT equipment management, and sterilisation protocols. AR/VR simulation training, NCAHP-aligned curriculum, and placement facilitation through 500+ healthcare employer partners via Emversity.",
+ "category": "Health & Allied Sciences",
+ "duration": "4 Years",
+ "eligibility": "12th Pass (PCB/PCMB)",
+ "fee": "₹9 Lakhs (Total Program Fee)",
+ "partner": "Emversity",
+ "link": "#"
+ },
+ {
+ "id": "bsc-sound-engineering",
+ "title": "BSC (H) in Sound Engineering",
+ "description": "Technical program covering audio recording, mixing, and sound design.",
+ "category": "Creative Arts & Design",
+ "duration": "4 Years",
+ "link": "#"
+ },
+ {
+ "id": "bsc-game-development",
+ "title": "BSC (H) in Game Development",
+ "description": "Learn game programming and development using industry-standard engines.",
+ "category": "Creative Arts & Design",
+ "duration": "4 Years",
+ "link": "#"
+ },
+ {
+ "id": "bsc-filmmaking",
+ "title": "BSC (H) in Filmmaking",
+ "description": "Comprehensive course on film production, direction, and editing.",
+ "category": "Creative Arts & Design",
+ "duration": "4 Years",
+ "link": "#"
+ },
+ {
+ "id": "bsc-vfx-animation",
+ "title": "BSC (H) in Visual Effects & Animation",
+ "description": "Master the art of VFX and animation for film, TV, and games.",
+ "category": "Creative Arts & Design",
+ "duration": "4 Years",
+ "link": "#"
+ },
+ {
+ "id": "mtech-cse-ai-ml",
+ "title": "M.Tech CSE AI/ML",
+ "description": "The most advanced M.Tech college in Kolkata experience for engineers seeking deep research expertise in AI and Machine Learning. Students publish in IEEE and Springer conferences, work on funded research projects, and earn industry certifications. As the top AI/ML courses in Kolkata at the postgraduate level, this program attracts engineers from across West Bengal and beyond.",
+ "category": "School of Engineering & Technology",
+ "duration": "2 Years",
+ "link": "#"
+ },
+ {
+ "id": "bsc-agriculture",
+ "title": "Bsc Agriculture",
+ "description": "Comprehensive studies in modern agricultural sciences and farming technologies.",
+ "category": "Information Technology & Applied Sciences",
+ "duration": "4 Years",
+ "link": "#"
+ },
+ {
+ "id": "gnm",
+ "title": "GNM",
+ "description": "General Nursing and Midwifery training for competent healthcare professionals.",
+ "category": "Health & Allied Sciences",
+ "duration": "3 Years",
+ "link": "#"
+ },
+ {
+ "id": "bsc-nursing",
+ "title": "Bsc Nursing",
+ "description": "Bachelor of Science in Nursing focusing on extensive healthcare and medical aid.",
+ "category": "Health & Allied Sciences",
+ "duration": "4 Years",
+ "link": "#"
+ },
+ {
+ "id": "llb",
+ "title": "LL.B (3 Years)",
+ "description": "Bachelor of Legislative Law covering fundamental legal principles and systems.",
+ "category": "School of Law",
+ "duration": "3 Years",
+ "link": "#"
+ },
+ {
+ "id": "bba-llb",
+ "title": "B.B.A. LL.B",
+ "description": "Integrated program combining business administration with legislative law studies.",
+ "category": "School of Law",
+ "duration": "5 Years",
+ "link": "#"
+ },
+ {
+ "id": "bcom-llb",
+ "title": "B.Com. LL.B",
+ "description": "Integrated curriculum focused on corporate laws, taxation, and commerce.",
+ "category": "School of Law",
+ "duration": "5 Years",
+ "link": "#"
+ },
+ {
+ "id": "bca",
+ "title": "BCA",
+ "description": "Bachelor of Computer Applications building fundamental programming skills.",
+ "category": "Information Technology & Applied Sciences",
+ "duration": "3 Years",
+ "link": "#"
+ },
+ {
+ "id": "bba",
+ "title": "BBA",
+ "description": "Base business administration program for core management techniques.",
+ "category": "School of Business & Management",
+ "duration": "3 Years",
+ "link": "#"
+ }
 ]

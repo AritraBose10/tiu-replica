@@ -2,5 +2,5 @@ import React from 'react';
 import SiteSettings from '../../components/admin/SiteSettings';
 
 export default function AdminSettings() {
-    return <SiteSettings />;
+ return <SiteSettings />;
 }
