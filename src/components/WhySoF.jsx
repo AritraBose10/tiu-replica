@@ -20,7 +20,7 @@ const differentiators = [
  {
  icon: Cpu,
  title: 'Future-Ready Tools',
- description: 'AI, data science, cloud computing, and no-code tools are embedded in every program, making us the leading AI training institution in Kolkata.',
+ description: 'AI, data science, cloud computing, and no-code tools are embedded in every program, making us the leading AI University in Kolkata.',
  number: '03',
  accent: '#EF4444',
  },
