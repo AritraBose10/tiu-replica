@@ -3,6 +3,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Search, Filter, Sparkles, ArrowUpRight, Zap, Code, Database, Palette, Microscope, ChevronLeft, ChevronRight, ArrowRight, Briefcase } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import coursesData from '../data/mock_courses.json';
+import seameduLogo from '../assets/seamedu.png';
+import emversityLogo from '../assets/emversity.png';
 import { COURSES_QUERY } from '../lib/queries';
 import SEO from '../components/SEO';
 import SchemaInjector from '../components/SchemaInjector';
@@ -101,9 +103,10 @@ const FlipCard = ({ course, index }) => {
  <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg" alt="IBM" className="h-[18px] w-auto object-contain shrink-0 opacity-80 group-hover:opacity-100 transition-opacity mt-1.5" />
  )}
  {course.partner === 'Emversity' && (
- <span className="text-[10px] font-bold text-white/60 border border-white/10 rounded px-2 py-1 shrink-0 mt-1 whitespace-nowrap">
- Emversity
- </span>
+ <img src={emversityLogo} alt="Emversity" className="h-[18px] w-auto object-contain shrink-0 opacity-80 group-hover:opacity-100 transition-opacity mt-1.5" />
+ )}
+ {course.partner === 'Seamedu' && (
+ <img src={seameduLogo} alt="Seamedu" className="h-[18px] w-auto object-contain shrink-0 opacity-80 group-hover:opacity-100 transition-opacity mt-1.5" />
  )}
  </div>
 
@@ -159,16 +162,16 @@ const FlipCard = ({ course, index }) => {
  </p>
 
  {/* Career Path Chips */}
- <div className="flex flex-wrap gap-3">
+ <div className="flex flex-col gap-2">
  {getCareerPaths(course.title).map((path, i) => (
  <motion.span
  key={i}
- initial={{ opacity: 0, scale: 0.8 }}
- animate={flipped ? { opacity: 1, scale: 1 } : {}}
+ initial={{ opacity: 0, x: -10 }}
+ animate={flipped ? { opacity: 1, x: 0 } : {}}
  transition={{ delay: 0.2 + i * 0.1, duration: 0.3 }}
- className="inline-flex items-center gap-2 bg-white/5 text-white text-sm font-semibold px-4 py-2.5 rounded-xl border border-white/10 hover:bg-[#FF0000]/10 hover:border-[#FF0000]/30 hover:text-[#FF0000] transition-all duration-300"
+ className="flex items-center gap-2 w-full bg-white/5 text-white text-sm font-semibold px-4 py-2 rounded-xl border border-white/10 hover:bg-[#FF0000]/10 hover:border-[#FF0000]/30 hover:text-[#FF0000] transition-all duration-300"
  >
- <Briefcase className="w-3.5 h-3.5 text-gray-500" />
+ <Briefcase className="w-3.5 h-3.5 text-gray-500 shrink-0" />
  {path}
  </motion.span>
  ))}

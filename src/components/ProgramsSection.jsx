@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import seameduLogo from '../assets/seamedu.png';
+import emversityLogo from '../assets/emversity.png';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Clock, GraduationCap, ChevronRight, ChevronLeft, ArrowUpRight, Sparkles, Briefcase } from 'lucide-react';
@@ -113,8 +115,8 @@ const courses = {
  {
  id: 11,
  title: 'BSC (H) in Game Development',
- subtitle: 'Unity & Unreal Engine',
- partner: 'Gaming',
+ subtitle: 'Industry Skilling by Seamedu',
+ partner: 'Seamedu',
  duration: '4 Years',
  eligibility: '10+2 any stream',
  badge: 'Bachelor',
@@ -122,8 +124,26 @@ const courses = {
  {
  id: 12,
  title: 'BSC (H) in Filmmaking',
- subtitle: 'Production & Direction',
- partner: 'Film',
+ subtitle: 'Industry Skilling by Seamedu',
+ partner: 'Seamedu',
+ duration: '4 Years',
+ eligibility: '10+2 any stream',
+ badge: 'Bachelor',
+ },
+ {
+ id: 18,
+ title: 'BSC (H) in Sound Engineering',
+ subtitle: 'Industry Skilling by Seamedu',
+ partner: 'Seamedu',
+ duration: '4 Years',
+ eligibility: '10+2 any stream',
+ badge: 'Bachelor',
+ },
+ {
+ id: 19,
+ title: 'BSC (H) in Visual Effects & Animation',
+ subtitle: 'Industry Skilling by Seamedu',
+ partner: 'Seamedu',
  duration: '4 Years',
  eligibility: '10+2 any stream',
  badge: 'Bachelor',
@@ -133,8 +153,8 @@ const courses = {
  {
  id: 13,
  title: 'Bsc (H) Cardiovascular Technology',
- subtitle: 'Medical Specialization',
- partner: 'Health',
+ subtitle: 'Industry Skilling by Emversity',
+ partner: 'Emversity',
  duration: '4 Years',
  eligibility: '10+2 with PCB',
  badge: 'Bachelor',
@@ -142,8 +162,8 @@ const courses = {
  {
  id: 14,
  title: 'Bsc (H) Anesthesia and Operation Theater Technology',
- subtitle: 'Clinical Practice',
- partner: 'Health',
+ subtitle: 'Industry Skilling by Emversity',
+ partner: 'Emversity',
  duration: '4 Years',
  eligibility: '10+2 with PCB',
  badge: 'Bachelor',
@@ -242,6 +262,12 @@ const ProgramFlipCard = ({ course, index }) => {
  {course.subtitle?.toLowerCase().includes('ibm') && (
  <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg" alt="IBM" className="h-[14px] w-auto object-contain shrink-0 opacity-80 group-hover:opacity-100 transition-opacity mt-1.5" />
  )}
+ {course.partner === 'Emversity' && (
+ <img src={emversityLogo} alt="Emversity" className="h-[14px] w-auto object-contain shrink-0 opacity-80 group-hover:opacity-100 transition-opacity mt-1.5" />
+ )}
+ {course.partner === 'Seamedu' && (
+ <img src={seameduLogo} alt="Seamedu" className="h-[14px] w-auto object-contain shrink-0 opacity-80 group-hover:opacity-100 transition-opacity mt-1.5" />
+ )}
  <div className="flex-1" />
  <motion.button
  whileHover={{ scale: 1.1 }}
@@ -305,16 +331,16 @@ const ProgramFlipCard = ({ course, index }) => {
  </p>
 
  {/* Career Path Chips */}
- <div className="flex flex-wrap gap-2">
+ <div className="flex flex-col gap-1.5">
  {getCareerPaths(course.title).map((path, i) => (
  <motion.span
  key={i}
- initial={{ opacity: 0, scale: 0.8 }}
- animate={flipped ? { opacity: 1, scale: 1 } : {}}
+ initial={{ opacity: 0, x: -10 }}
+ animate={flipped ? { opacity: 1, x: 0 } : {}}
  transition={{ delay: 0.2 + i * 0.1, duration: 0.3 }}
- className="inline-flex items-center gap-1.5 bg-white/5 text-white text-xs font-semibold px-3 py-2 rounded-lg border border-white/10 hover:bg-[#FF0000]/10 hover:border-[#FF0000]/30 hover:text-[#FF0000] transition-all duration-300"
+ className="flex items-center gap-1.5 w-full bg-white/5 text-white text-xs font-semibold px-3 py-2 rounded-lg border border-white/10 hover:bg-[#FF0000]/10 hover:border-[#FF0000]/30 hover:text-[#FF0000] transition-all duration-300"
  >
- <Briefcase className="w-3 h-3 text-gray-500" />
+ <Briefcase className="w-3 h-3 text-gray-500 shrink-0" />
  {path}
  </motion.span>
  ))}

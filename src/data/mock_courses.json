@@ -139,6 +139,7 @@
  "description": "Technical program covering audio recording, mixing, and sound design.",
  "category": "Creative Arts & Design",
  "duration": "4 Years",
+ "partner": "Seamedu",
  "link": "#"
  },
  {
@@ -147,6 +148,7 @@
  "description": "Learn game programming and development using industry-standard engines.",
  "category": "Creative Arts & Design",
  "duration": "4 Years",
+ "partner": "Seamedu",
  "link": "#"
  },
  {
@@ -155,6 +157,7 @@
  "description": "Comprehensive course on film production, direction, and editing.",
  "category": "Creative Arts & Design",
  "duration": "4 Years",
+ "partner": "Seamedu",
  "link": "#"
  },
  {
@@ -163,6 +166,7 @@
  "description": "Master the art of VFX and animation for film, TV, and games.",
  "category": "Creative Arts & Design",
  "duration": "4 Years",
+ "partner": "Seamedu",
  "link": "#"
  },
  {
@@ -182,59 +186,59 @@
  "link": "#"
  },
  {
- "id": "gnm",
- "title": "GNM",
- "description": "General Nursing and Midwifery training for competent healthcare professionals.",
- "category": "Health & Allied Sciences",
- "duration": "3 Years",
+ "id": "msc-data-science-ai",
+ "title": "MSc. In Data Science AI",
+ "description": "Advanced postgraduate program in Data Science and Artificial Intelligence covering machine learning, deep learning, and data engineering.",
+ "category": "Information Technology & Applied Sciences",
+ "duration": "2 Years",
  "link": "#"
  },
  {
- "id": "bsc-nursing",
- "title": "Bsc Nursing",
- "description": "Bachelor of Science in Nursing focusing on extensive healthcare and medical aid.",
+ "id": "bpt",
+ "title": "BPT",
+ "description": "Bachelor of Physiotherapy preparing students for clinical practice in physical rehabilitation and therapeutic care.",
+ "category": "Health & Allied Sciences",
+ "duration": "4.5 Years",
+ "link": "#"
+ },
+ {
+ "id": "bmrit",
+ "title": "BMRIT",
+ "description": "Bachelor of Medical Radiation and Imaging Technology with training in radiology, imaging diagnostics, and radiation safety.",
  "category": "Health & Allied Sciences",
  "duration": "4 Years",
  "link": "#"
  },
  {
- "id": "llb",
- "title": "LL.B (3 Years)",
- "description": "Bachelor of Legislative Law covering fundamental legal principles and systems.",
- "category": "School of Law",
- "duration": "3 Years",
+ "id": "mpt",
+ "title": "MPT",
+ "description": "Master of Physiotherapy offering advanced clinical specialisation in physical therapy and rehabilitation sciences.",
+ "category": "Health & Allied Sciences",
+ "duration": "2 Years",
  "link": "#"
  },
  {
- "id": "bba-llb",
- "title": "B.B.A. LL.B",
- "description": "Integrated program combining business administration with legislative law studies.",
- "category": "School of Law",
- "duration": "5 Years",
+ "id": "mmlt",
+ "title": "MMLT",
+ "description": "Master of Medical Laboratory Technology providing advanced expertise in laboratory diagnostics and clinical pathology.",
+ "category": "Health & Allied Sciences",
+ "duration": "2 Years",
  "link": "#"
  },
  {
- "id": "bcom-llb",
- "title": "B.Com. LL.B",
- "description": "Integrated curriculum focused on corporate laws, taxation, and commerce.",
- "category": "School of Law",
- "duration": "5 Years",
+ "id": "phd-ai-full-time",
+ "title": "PhD in AI (Full Time)",
+ "description": "Full-time doctoral research program in Artificial Intelligence covering advanced research methodologies, publications, and innovation at the frontier of AI.",
+ "category": "School of Engineering & Technology",
+ "duration": "4.5 - 5.5 Years",
  "link": "#"
  },
  {
- "id": "bca",
- "title": "BCA",
- "description": "Bachelor of Computer Applications building fundamental programming skills.",
- "category": "Information Technology & Applied Sciences",
- "duration": "3 Years",
- "link": "#"
- },
- {
- "id": "bba",
- "title": "BBA",
- "description": "Base business administration program for core management techniques.",
- "category": "School of Business & Management",
- "duration": "3 Years",
+ "id": "phd-ai-half-time",
+ "title": "PhD in AI (Half Time)",
+ "description": "Part-time doctoral research program in Artificial Intelligence designed for working professionals seeking to pursue advanced research alongside their careers.",
+ "category": "School of Engineering & Technology",
+ "duration": "NA",
  "link": "#"
  }
 ]
