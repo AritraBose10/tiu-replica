@@ -56,5 +56,11 @@ export const routeMeta = {
  description: "Techno India University's School Of The Future is accredited by UGC, NAAC, AICTE & AIU. Discover our regulatory approvals, rankings and commitment to quality education.",
  changefreq: 'monthly',
  priority: 0.7
+ },
+ '/blogs': {
+ title: 'TIU Blog | AI, Tech, Career & Campus Stories | Techno India University',
+ description: 'Read the latest articles, tutorials, career guides, and campus stories from Techno India University\'s School of the Future — written by students, faculty, and industry veterans.',
+ changefreq: 'weekly',
+ priority: 0.8
  }
 };

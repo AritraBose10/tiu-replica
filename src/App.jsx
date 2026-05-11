@@ -14,6 +14,7 @@ import SearchPage from './pages/SearchPage';
 import GoogleIBMCourse from './pages/GoogleIBMCourse';
 import ThankYou from './pages/ThankYou';
 import AIEvent from './pages/AIEvent';
+import Blogs from './pages/Blogs';
 import BreadcrumbSchema from './components/BreadcrumbSchema';
 import EventScraperDemo from './components/EventScraperDemo';
 import { AnimatePresence } from 'framer-motion';
@@ -114,6 +115,7 @@ export function AppShell() {
  <Route path="/faq" element={<FAQ />} />
  <Route path="/approvals" element={<Approvals />} />
  <Route path="/events" element={<Events />} />
+ <Route path="/blogs" element={<Blogs />} />
  <Route path="/search" element={<SearchPage />} />
  <Route path="/events-demo" element={<EventScraperDemo />} />
  <Route path="/thank-you" element={<ThankYou />} />

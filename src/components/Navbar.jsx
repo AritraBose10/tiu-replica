@@ -23,6 +23,7 @@ const Navbar = () => {
  { name: 'Admissions', path: '/apply' },
  { name: 'Approvals', path: '/approvals' },
  { name: 'Events', path: '/events' },
+ { name: 'Blogs', path: '/blogs' },
  { name: 'FAQ', path: '/faq' },
  { name: 'Google and IBM Courses', path: '/courses' },
  ];
