@@ -7,12 +7,12 @@ import { useSettings } from '../../contexts/SettingsContext';
 const LiquidChromeText = () => {
  return (
  <div className="relative z-10">
- <h1 className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter leading-[0.9]">
- <span className="block text-transparent bg-clip-text bg-gradient-to-b from-white via-gray-200 to-gray-500 drop-shadow-2xl">
- Admission Open for AI Courses
+ <h1 className="font-black tracking-tight leading-tight">
+ <span className="block text-3xl md:text-4xl lg:text-5xl text-transparent bg-clip-text bg-gradient-to-b from-white via-gray-200 to-gray-400 drop-shadow-2xl">
+ Admission 2026 Open for AI courses
  </span>
- <span className="block text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-orange-400 to-red-600 animate-gradient-x pb-4 text-4xl md:text-5xl lg:text-6xl mt-2">
- in CSE, Design, MBA & More Under Techno India University
+ <span className="block text-xl md:text-2xl lg:text-3xl text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-orange-400 to-red-600 mt-2">
+ in B.Tech CSE, BBA, BCA &amp; More under Techno India University
  </span>
  </h1>
  </div>
@@ -153,6 +153,21 @@ const AdmissionsHero = () => {
  {/* Left: Typography */}
  <div className="space-y-8">
  <LiquidChromeText />
+
+ {/* Partner logos inline with header */}
+ <div className="flex items-center gap-4 mt-3">
+ <img
+ src="https://upload.wikimedia.org/wikipedia/commons/5/51/Google_Cloud_logo.svg"
+ alt="Google Cloud"
+ className="h-6 object-contain"
+ />
+ <span className="text-white/30 text-lg font-light">|</span>
+ <img
+ src="https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg"
+ alt="IBM"
+ className="h-7 object-contain brightness-0 invert"
+ />
+ </div>
 
  <motion.div
  initial={{ opacity: 0, x: -50 }}
