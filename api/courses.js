@@ -1,49 +1,48 @@
 import { getTurso } from './_lib/turso.js';
 import { requireAuth } from './_lib/auth.js';
+import { applyCors } from './_lib/cors.js';
+import { schemas, validate } from './_lib/validate.js';
 
 export default async function handler(req, res) {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-    if (req.method === 'OPTIONS') return res.status(200).end();
+    if (applyCors(req, res)) return res.status(200).end();
 
     const db = getTurso();
 
     try {
-        // GET — list all courses
         if (req.method === 'GET') {
             const result = await db.execute('SELECT * FROM courses ORDER BY sort_order ASC, rowid ASC');
             return res.status(200).json(result.rows);
         }
 
-        // Auth required for mutations
         const auth = requireAuth(req);
         if (!auth.authorized) return res.status(auth.status).json({ error: auth.message });
 
-        // POST — create course
         if (req.method === 'POST') {
-            const { id, title, description, category, link, sort_order } = req.body;
+            const v = validate(schemas.courses.create, req.body);
+            if (!v.ok) return res.status(400).json({ error: 'Validation failed', details: v.errors });
+            const { id, title, description, category, link, sort_order } = v.data;
             await db.execute({
                 sql: 'INSERT INTO courses (id, title, description, category, link, sort_order) VALUES (?, ?, ?, ?, ?, ?)',
-                args: [id, title, description || '', category || '', link || '#', sort_order || 0],
+                args: [id, title, description, category, link, sort_order],
             });
             return res.status(201).json({ success: true });
         }
 
-        // PUT — update course
         if (req.method === 'PUT') {
-            const { id, title, description, category, link, sort_order } = req.body;
+            const v = validate(schemas.courses.update, req.body);
+            if (!v.ok) return res.status(400).json({ error: 'Validation failed', details: v.errors });
+            const { id, title, description, category, link, sort_order } = v.data;
             await db.execute({
                 sql: 'UPDATE courses SET title = ?, description = ?, category = ?, link = ?, sort_order = ? WHERE id = ?',
-                args: [title, description, category, link, sort_order || 0, id],
+                args: [title, description, category, link, sort_order, id],
             });
             return res.status(200).json({ success: true });
         }
 
-        // DELETE — delete course
         if (req.method === 'DELETE') {
-            const { id } = req.body;
-            await db.execute({ sql: 'DELETE FROM courses WHERE id = ?', args: [id] });
+            const v = validate(schemas.courses.delete, req.body);
+            if (!v.ok) return res.status(400).json({ error: 'Validation failed', details: v.errors });
+            await db.execute({ sql: 'DELETE FROM courses WHERE id = ?', args: [v.data.id] });
             return res.status(200).json({ success: true });
         }
 

@@ -1,16 +1,14 @@
 import { getTurso } from './_lib/turso.js';
 import { requireAuth } from './_lib/auth.js';
+import { applyCors } from './_lib/cors.js';
+import { schemas, validate } from './_lib/validate.js';
 
 export default async function handler(req, res) {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, PUT, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-    if (req.method === 'OPTIONS') return res.status(200).end();
+    if (applyCors(req, res, 'GET, PUT, OPTIONS')) return res.status(200).end();
 
     const db = getTurso();
 
     try {
-        // GET — get a specific setting by key, or all settings
         if (req.method === 'GET') {
             const { key } = req.query || {};
             if (key) {
@@ -18,7 +16,6 @@ export default async function handler(req, res) {
                 if (result.rows.length === 0) return res.status(404).json({ error: 'Setting not found' });
                 return res.status(200).json(JSON.parse(result.rows[0].value));
             }
-            // Return all settings as object
             const result = await db.execute('SELECT key, value FROM site_settings');
             const settings = {};
             for (const row of result.rows) {
@@ -30,12 +27,10 @@ export default async function handler(req, res) {
         const auth = requireAuth(req);
         if (!auth.authorized) return res.status(auth.status).json({ error: auth.message });
 
-        // PUT — upsert a setting
         if (req.method === 'PUT') {
-            const { key, value } = req.body;
-            if (!key || value === undefined) {
-                return res.status(400).json({ error: 'key and value are required' });
-            }
+            const v = validate(schemas.settings.update, req.body);
+            if (!v.ok) return res.status(400).json({ error: 'Validation failed', details: v.errors });
+            const { key, value } = v.data;
             await db.execute({
                 sql: 'INSERT INTO site_settings (key, value) VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value = ?',
                 args: [key, JSON.stringify(value), JSON.stringify(value)],

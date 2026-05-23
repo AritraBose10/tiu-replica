@@ -39,7 +39,7 @@ const FAQSection = ({ customFaqs }) => {
  };
 
  const bgImage = null;
- const sideImage = '/assets/images/FAQ.JPG';
+ const sideImage = '/assets/images/FAQ.webp';
 
  return (
  <section

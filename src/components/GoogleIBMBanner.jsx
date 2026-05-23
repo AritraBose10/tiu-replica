@@ -18,8 +18,8 @@ const GoogleIBMBanner = () => {
  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
  const images = [
- '/assets/images/ibmasmi.jpg',
- '/assets/images/google.jpg',
+ '/assets/images/ibmasmi.webp',
+ '/assets/images/google.webp',
  ];
 
  useEffect(() => {

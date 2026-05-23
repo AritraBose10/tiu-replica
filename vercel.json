@@ -1,4 +1,17 @@
 {
+    "functions": {
+        "api/**/*.js": {
+            "maxDuration": 10
+        }
+    },
+    "headers": [
+        {
+            "source": "/api/(events|courses|gallery|faqs|scholarships|partners|testimonials|recruiters|approvals|settings)(.*)",
+            "headers": [
+                { "key": "Cache-Control", "value": "public, max-age=30, s-maxage=30" }
+            ]
+        }
+    ],
     "redirects": [
         {
             "source": "/admissions",

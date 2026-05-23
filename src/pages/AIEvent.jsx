@@ -98,7 +98,7 @@ const WorkshopImageBlock = () => (
 
  <div className="relative rounded-2xl overflow-hidden border border-white/10 shadow-[0_30px_80px_rgba(0,0,0,0.7)]">
  <img
- src="/assets/images/seminar.jpg"
+ src="/assets/images/seminar.webp"
  alt="Live workshop session students learning AI and Prompt Engineering"
  className="w-full h-[440px] object-cover"
  loading="eager"

@@ -190,7 +190,7 @@ const ExteriorWireframe = ({ src }) => (
  WebkitMaskImage: 'linear-gradient(to right, rgba(0,0,0,1) 20%, rgba(0,0,0,0) 100%)'
  }}>
  <img
- src={src || "/wireframes/exterior.jpg"}
+ src={src || "/wireframes/exterior.webp"}
  alt=""
  className="w-full h-full object-cover opacity-35 filter grayscale contrast-125"
  />
@@ -204,7 +204,7 @@ const InteriorWireframe = ({ src }) => (
  WebkitMaskImage: 'linear-gradient(to left, rgba(0,0,0,1) 20%, rgba(0,0,0,0) 100%)'
  }}>
  <img
- src={src || "/wireframes/interior.jpg"}
+ src={src || "/wireframes/interior.webp"}
  alt=""
  className="w-full h-full object-cover opacity-35 filter grayscale contrast-125"
  />
@@ -221,11 +221,11 @@ const Hero = () => {
 
  // Use local carousel images
  const carouselItems = [
- { url: '/assets/images/c1.jpg', caption: getSetting('home_carousel_caption_1') },
- { url: '/assets/images/c2.jpg', caption: getSetting('home_carousel_caption_2') },
- { url: '/assets/images/c3.jpg', caption: getSetting('home_carousel_caption_3') },
- { url: '/assets/images/c4.jpg', caption: getSetting('home_carousel_caption_4') },
- { url: '/assets/images/c5.jpg', caption: getSetting('home_carousel_caption_5') },
+ { url: '/assets/images/c1.webp', caption: getSetting('home_carousel_caption_1') },
+ { url: '/assets/images/c2.webp', caption: getSetting('home_carousel_caption_2') },
+ { url: '/assets/images/c3.webp', caption: getSetting('home_carousel_caption_3') },
+ { url: '/assets/images/c4.webp', caption: getSetting('home_carousel_caption_4') },
+ { url: '/assets/images/c5.webp', caption: getSetting('home_carousel_caption_5') },
  ];
 
  const containerVariants = {

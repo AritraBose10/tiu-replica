@@ -149,7 +149,7 @@ const FloatingBackground = () => (
 // --- Main About Page ---
 const About = () => {
  const heroBg = '';
- const campusImg = '/assets/images/campus.jpg';
+ const campusImg = '/assets/images/campus.webp';
 
  const { scrollYProgress } = useScroll();
  const y = useTransform(scrollYProgress, [0, 1], [0, -150]);

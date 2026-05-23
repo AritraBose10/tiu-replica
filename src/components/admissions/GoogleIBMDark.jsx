@@ -18,8 +18,8 @@ const GoogleIBMDark = () => {
  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
  const images = [
- '/assets/images/admc1.jpg',
- '/assets/images/admc2.jpg',
+ '/assets/images/admc1.webp',
+ '/assets/images/admc2.webp',
  ];
 
  useEffect(() => {

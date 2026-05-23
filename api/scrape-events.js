@@ -1,18 +1,20 @@
 import axios from 'axios';
 import * as cheerio from 'cheerio';
+import { requireAuth } from './_lib/auth.js';
+import { applyCors } from './_lib/cors.js';
 
 export default async function handler(req, res) {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-    if (req.method === 'OPTIONS') return res.status(200).end();
+    if (applyCors(req, res, 'GET, OPTIONS')) return res.status(200).end();
 
     if (req.method !== 'GET') {
         return res.status(405).json({ error: 'Method not allowed' });
     }
 
+    const auth = requireAuth(req);
+    if (!auth.authorized) return res.status(auth.status).json({ error: auth.message });
+
     try {
-        const { data } = await axios.get('https://technotimes.info/?s=sof');
+        const { data } = await axios.get('https://technotimes.info/?s=sof', { timeout: 5000 });
         const $ = cheerio.load(data);
         const events = [];
 
@@ -24,13 +26,7 @@ export default async function handler(req, res) {
             const category = $(element).find('.p-cat-info a').text().trim();
 
             if (title && link) {
-                events.push({
-                    title,
-                    link,
-                    image,
-                    date,
-                    category
-                });
+                events.push({ title, link, image, date, category });
             }
         });
 

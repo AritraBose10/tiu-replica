@@ -1,11 +1,10 @@
 import { getTurso } from './_lib/turso.js';
 import { requireAuth } from './_lib/auth.js';
+import { applyCors } from './_lib/cors.js';
+import { schemas, validate } from './_lib/validate.js';
 
 export default async function handler(req, res) {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-    if (req.method === 'OPTIONS') return res.status(200).end();
+    if (applyCors(req, res)) return res.status(200).end();
 
     const db = getTurso();
 
@@ -19,26 +18,31 @@ export default async function handler(req, res) {
         if (!auth.authorized) return res.status(auth.status).json({ error: auth.message });
 
         if (req.method === 'POST') {
-            const { question, answer, sort_order } = req.body;
+            const v = validate(schemas.faqs.create, req.body);
+            if (!v.ok) return res.status(400).json({ error: 'Validation failed', details: v.errors });
+            const { question, answer, sort_order } = v.data;
             await db.execute({
                 sql: 'INSERT INTO faqs (question, answer, sort_order) VALUES (?, ?, ?)',
-                args: [question, answer, sort_order || 0],
+                args: [question, answer, sort_order],
             });
             return res.status(201).json({ success: true });
         }
 
         if (req.method === 'PUT') {
-            const { id, question, answer, sort_order } = req.body;
+            const v = validate(schemas.faqs.update, req.body);
+            if (!v.ok) return res.status(400).json({ error: 'Validation failed', details: v.errors });
+            const { id, question, answer, sort_order } = v.data;
             await db.execute({
                 sql: 'UPDATE faqs SET question=?, answer=?, sort_order=? WHERE id=?',
-                args: [question, answer, sort_order || 0, id],
+                args: [question, answer, sort_order, id],
             });
             return res.status(200).json({ success: true });
         }
 
         if (req.method === 'DELETE') {
-            const { id } = req.body;
-            await db.execute({ sql: 'DELETE FROM faqs WHERE id = ?', args: [id] });
+            const v = validate(schemas.faqs.delete, req.body);
+            if (!v.ok) return res.status(400).json({ error: 'Validation failed', details: v.errors });
+            await db.execute({ sql: 'DELETE FROM faqs WHERE id = ?', args: [v.data.id] });
             return res.status(200).json({ success: true });
         }
 

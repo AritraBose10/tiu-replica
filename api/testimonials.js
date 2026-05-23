@@ -1,11 +1,10 @@
 import { getTurso } from './_lib/turso.js';
 import { requireAuth } from './_lib/auth.js';
+import { applyCors } from './_lib/cors.js';
+import { schemas, validate } from './_lib/validate.js';
 
 export default async function handler(req, res) {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-    if (req.method === 'OPTIONS') return res.status(200).end();
+    if (applyCors(req, res)) return res.status(200).end();
 
     const db = getTurso();
 
@@ -19,26 +18,31 @@ export default async function handler(req, res) {
         if (!auth.authorized) return res.status(auth.status).json({ error: auth.message });
 
         if (req.method === 'POST') {
-            const { name, course, quote, rating, image, company, row_num, sort_order } = req.body;
+            const v = validate(schemas.testimonials.create, req.body);
+            if (!v.ok) return res.status(400).json({ error: 'Validation failed', details: v.errors });
+            const { name, course, quote, rating, image, company, row_num, sort_order } = v.data;
             await db.execute({
                 sql: 'INSERT INTO testimonials (name, course, quote, rating, image, company, row_num, sort_order) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
-                args: [name, course || '', quote, rating || 5, image || '', company || '', row_num || 1, sort_order || 0],
+                args: [name, course, quote, rating, image, company, row_num, sort_order],
             });
             return res.status(201).json({ success: true });
         }
 
         if (req.method === 'PUT') {
-            const { id, name, course, quote, rating, image, company, row_num, sort_order } = req.body;
+            const v = validate(schemas.testimonials.update, req.body);
+            if (!v.ok) return res.status(400).json({ error: 'Validation failed', details: v.errors });
+            const { id, name, course, quote, rating, image, company, row_num, sort_order } = v.data;
             await db.execute({
                 sql: 'UPDATE testimonials SET name=?, course=?, quote=?, rating=?, image=?, company=?, row_num=?, sort_order=? WHERE id=?',
-                args: [name, course, quote, rating, image, company, row_num, sort_order || 0, id],
+                args: [name, course, quote, rating, image, company, row_num, sort_order, id],
             });
             return res.status(200).json({ success: true });
         }
 
         if (req.method === 'DELETE') {
-            const { id } = req.body;
-            await db.execute({ sql: 'DELETE FROM testimonials WHERE id = ?', args: [id] });
+            const v = validate(schemas.testimonials.delete, req.body);
+            if (!v.ok) return res.status(400).json({ error: 'Validation failed', details: v.errors });
+            await db.execute({ sql: 'DELETE FROM testimonials WHERE id = ?', args: [v.data.id] });
             return res.status(200).json({ success: true });
         }
 

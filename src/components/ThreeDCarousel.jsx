@@ -3,11 +3,11 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 const defaultImages = [
- "/assets/images/c1.jpg",
- "/assets/images/c2.jpg",
- "/assets/images/c3.jpg",
- "/assets/images/c4.jpg",
- "/assets/images/c5.jpg"
+ "/assets/images/c1.webp",
+ "/assets/images/c2.webp",
+ "/assets/images/c3.webp",
+ "/assets/images/c4.webp",
+ "/assets/images/c5.webp"
 ];
 
 const defaultCaptions = [

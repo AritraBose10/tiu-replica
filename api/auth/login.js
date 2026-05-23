@@ -1,20 +1,21 @@
 import { signToken } from '../_lib/auth.js';
+import { applyCors } from '../_lib/cors.js';
+import { schemas, validate } from '../_lib/validate.js';
 
 export default function handler(req, res) {
-    // CORS
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-    if (req.method === 'OPTIONS') return res.status(200).end();
+    if (applyCors(req, res, 'POST, OPTIONS')) return res.status(200).end();
 
     if (req.method !== 'POST') {
         return res.status(405).json({ error: 'Method not allowed' });
     }
 
-    const { password } = req.body || {};
-    const adminPassword = process.env.CMS_ADMIN_PASSWORD || 'admin123';
+    const v = validate(schemas.login, req.body || {});
+    if (!v.ok) return res.status(400).json({ error: 'Validation failed', details: v.errors });
 
-    if (password !== adminPassword) {
+    const adminPassword = process.env.CMS_ADMIN_PASSWORD;
+    if (!adminPassword) return res.status(500).json({ error: 'Server misconfiguration' });
+
+    if (v.data.password !== adminPassword) {
         return res.status(401).json({ error: 'Invalid password' });
     }
 

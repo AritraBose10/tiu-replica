@@ -2,17 +2,17 @@ import express from 'express';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 import dotenv from 'dotenv';
+import helmet from 'helmet';
+import rateLimit from 'express-rate-limit';
+import axios from 'axios';
+import * as cheerio from 'cheerio';
 
-// Load environment variables
 dotenv.config();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-import axios from 'axios';
-import * as cheerio from 'cheerio';
-
-// Import API Handlers
+import { requireAuth } from './api/_lib/auth.js';
 import authLoginHandler from './api/auth/login.js';
 import settingsHandler from './api/settings.js';
 import eventsHandler from './api/events.js';
@@ -28,14 +28,47 @@ import coursesHandler from './api/courses.js';
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-// Middleware
-app.use(express.json()); // Essential for parsing JSON bodies
-
-// Serve static files from the dist directory
+app.use(helmet());
+app.use(express.json({ limit: '1mb' }));
 app.use(express.static(join(__dirname, 'dist')));
 
-// API Routes - Mount handlers
-app.all('/api/auth/login', authLoginHandler);
+// Rate limiters
+const globalApiLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: 200,
+    message: { error: 'Too many requests, please try again later' },
+    standardHeaders: true,
+    legacyHeaders: false,
+});
+
+const loginLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: 10,
+    message: { error: 'Too many login attempts, please try again later' },
+    standardHeaders: true,
+    legacyHeaders: false,
+});
+
+const scrapeLimiter = rateLimit({
+    windowMs: 60 * 1000,
+    max: 5,
+    message: { error: 'Too many scrape requests, please try again later' },
+    standardHeaders: true,
+    legacyHeaders: false,
+});
+
+// Apply global rate limit + cache headers to all API routes
+app.use('/api', globalApiLimiter);
+app.use('/api', (req, res, next) => {
+    if (req.method === 'GET') {
+        res.setHeader('Cache-Control', 'public, max-age=30, s-maxage=30');
+    } else {
+        res.setHeader('Cache-Control', 'no-store');
+    }
+    next();
+});
+
+app.all('/api/auth/login', loginLimiter, authLoginHandler);
 app.all('/api/settings', settingsHandler);
 app.all('/api/events', eventsHandler);
 app.all('/api/partners', partnersHandler);
@@ -47,10 +80,12 @@ app.all('/api/scholarships', scholarshipsHandler);
 app.all('/api/recruiters', recruitersHandler);
 app.all('/api/courses', coursesHandler);
 
-// Event Scraper Endpoint
-app.get('/api/scrape-events', async (req, res) => {
+app.get('/api/scrape-events', scrapeLimiter, async (req, res) => {
+    const auth = requireAuth(req);
+    if (!auth.authorized) return res.status(auth.status).json({ error: auth.message });
+
     try {
-        const { data } = await axios.get('https://technotimes.info/?s=sof');
+        const { data } = await axios.get('https://technotimes.info/?s=sof', { timeout: 5000 });
         const $ = cheerio.load(data);
         const events = [];
 
@@ -62,13 +97,7 @@ app.get('/api/scrape-events', async (req, res) => {
             const category = $(element).find('.p-cat-info a').text().trim();
 
             if (title && link) {
-                events.push({
-                    title,
-                    link,
-                    image,
-                    date,
-                    category
-                });
+                events.push({ title, link, image, date, category });
             }
         });
 
@@ -79,16 +108,10 @@ app.get('/api/scrape-events', async (req, res) => {
     }
 });
 
-// SPA Fallback - Serve index.html for any other route
 app.get(/(.*)/, (req, res) => {
     res.sendFile(join(__dirname, 'dist', 'index.html'));
 });
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
-    console.log(`API routes registered:`);
-    console.log(`- /api/auth/login`);
-    console.log(`- /api/settings`);
-    console.log(`- /api/events`);
-    // ... listing others not strictly necessary but helpful for debug
 });
