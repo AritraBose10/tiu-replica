@@ -62,5 +62,11 @@ export const routeMeta = {
  description: 'Read the latest articles, tutorials, career guides, and campus stories from Techno India University\'s School of the Future — written by students, faculty, and industry veterans.',
  changefreq: 'weekly',
  priority: 0.8
+ },
+ '/btech-admissions-2026-iit-kgp-collaboration': {
+ title: 'B.Tech Admissions 2026 with IIT KGP Collaboration | Techno India University',
+ description: 'Apply for B.Tech CSE, B.Tech CSE in AI and ML, Data Science and Cloud Computing at Techno India University, School of the Future under its collaboration with IIT KGP. Admissions 2026 open.',
+ changefreq: 'weekly',
+ priority: 0.9
  }
 };
