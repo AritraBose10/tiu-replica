@@ -7,7 +7,7 @@ const CampusLife = () => {
  {
  icon: Trophy,
  title: 'Tech Fests & Hackathons',
- span: 'col-span-2 row-span-2',
+ span: 'col-span-2 row-span-2 md:col-span-2 md:row-span-2',
  gradient: 'from-[#FF0000]/20 to-orange-600/10',
  imageSrc: '/assets/images/TechFests.webp',
  },
@@ -49,8 +49,8 @@ const CampusLife = () => {
  ];
 
  return (
- <section className="py-20 px-0 bg-white overflow-hidden">
- <div className="w-[90%] md:w-[70%] mx-auto">
+ <section className="py-20 px-4 md:px-0 bg-white overflow-hidden">
+ <div className="w-full md:w-[80%] lg:w-[70%] mx-auto">
  {/* Header */}
  <motion.div
  initial={{ opacity: 0, y: 20 }}
@@ -73,7 +73,7 @@ const CampusLife = () => {
  </motion.div>
 
  {/* Instagram-Style Grid */}
- <div className="grid grid-cols-4 auto-rows-[160px] md:auto-rows-[200px] gap-4">
+ <div className="grid grid-cols-2 md:grid-cols-4 auto-rows-[140px] sm:auto-rows-[160px] md:auto-rows-[200px] gap-3 md:gap-4">
  {campusItems.map((item, index) => (
  <motion.div
  key={index}

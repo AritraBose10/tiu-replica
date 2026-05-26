@@ -336,10 +336,20 @@ const ProgramFlipCard = ({ course, index }) => {
  {/* Hover Gradient Border */}
  <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
 
- <div className="relative bg-[#0a0a1a] h-full rounded-[20px] p-8 overflow-hidden transition-transform duration-300 group-hover:-translate-y-1 flex flex-col justify-between">
+ <div className="relative bg-[#0a0a1a] h-full rounded-[20px] p-6 overflow-hidden transition-transform duration-300 group-hover:-translate-y-1 flex flex-col justify-between">
+ {/* Arrow button — absolutely positioned so it never gets clipped by flex */}
+ <motion.button
+ whileHover={{ scale: 1.1 }}
+ whileTap={{ scale: 0.95 }}
+ onClick={(e) => { e.stopPropagation(); setFlipped(true); }}
+ className="absolute top-4 right-4 w-10 h-10 bg-[#FF0000] rounded-full flex items-center justify-center cursor-pointer hover:shadow-[0_0_15px_rgba(255,0,0,0.5)] transition-shadow duration-300 z-10"
+ >
+ <ArrowUpRight className="w-5 h-5 text-white" />
+ </motion.button>
+
  {/* Badge */}
  <div>
- <div className="flex justify-between items-start mb-6 gap-3">
+ <div className="flex items-start gap-2 mb-6 pr-12">
  <span className="bg-white/5 text-white/90 text-[10px] font-bold px-3 py-1.5 rounded-lg border border-white/10 uppercase tracking-wide whitespace-nowrap">
  {course.badge}
  </span>
@@ -355,15 +365,6 @@ const ProgramFlipCard = ({ course, index }) => {
  {course.partner === 'Seamedu' && (
  <img src={seameduLogo} alt="Seamedu" className="h-[14px] w-auto object-contain shrink-0 opacity-80 group-hover:opacity-100 transition-opacity mt-1.5" />
  )}
- <div className="flex-1" />
- <motion.button
- whileHover={{ scale: 1.1 }}
- whileTap={{ scale: 0.95 }}
- onClick={(e) => { e.stopPropagation(); setFlipped(true); }}
- className="w-10 h-10 shrink-0 bg-[#FF0000] rounded-full flex items-center justify-center cursor-pointer hover:shadow-[0_0_15px_rgba(255,0,0,0.5)] transition-shadow duration-300"
- >
- <ArrowUpRight className="w-5 h-5 text-white" />
- </motion.button>
  </div>
 
  {/* Title */}
