@@ -31,7 +31,8 @@ const Navbar = () => {
  return (
  <>
  <nav
- className={`fixed top-4 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] max-w-6xl z-50 transition-all duration-500 rounded-2xl border h-14 overflow-visible bg-[#f2f5f7] ${scrolled
+ style={{ top: 'var(--navbar-top, 1rem)' }}
+ className={`fixed left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] max-w-6xl z-50 transition-all duration-500 rounded-2xl border h-14 overflow-visible bg-[#f2f5f7] ${scrolled
  ? 'border-gray-200 shadow-[0_8px_32px_rgba(0,0,0,0.1)]'
  : 'border-gray-200/50 shadow-[inset_0_0_20px_rgba(0,0,0,0.02)]'
  }`}

@@ -35,14 +35,23 @@ const CursorGlow = () => {
 };
 
 // ─── Marquee Announcement Bar ─────────────────────────────────────────────────
+const BAR_HEIGHT = 36; // px — must match h-[36px] below
+
 const AnnouncementBar = () => {
   const items = ['B.Tech Admissions 2026 Now Open', 'Collaboration with IIT KGP', 'Project Based Learning', 'AI · ML · Data Science · Cloud Computing', 'Limited Seats Available', 'School of the Future · Techno India University'];
+
+  useEffect(() => {
+    // Push the navbar down by bar height + 8px gap
+    document.documentElement.style.setProperty('--navbar-top', `${BAR_HEIGHT + 8}px`);
+    return () => document.documentElement.style.setProperty('--navbar-top', '1rem');
+  }, []);
+
   return (
-    <div className="relative z-50 bg-amber-400 overflow-hidden py-2">
-      <div className="flex animate-marquee whitespace-nowrap">
+    <div className="sticky top-0 z-[60] bg-[#FF0000] overflow-hidden" style={{ height: BAR_HEIGHT }}>
+      <div className="flex h-full items-center animate-marquee whitespace-nowrap">
         {[...items, ...items].map((t, i) => (
-          <span key={i} className="inline-flex items-center gap-4 px-8 text-black text-xs font-black tracking-wider uppercase flex-shrink-0">
-            <span className="w-1.5 h-1.5 rounded-full bg-black/40 flex-shrink-0" />
+          <span key={i} className="inline-flex items-center gap-4 px-8 text-white text-[11px] font-black tracking-wider uppercase flex-shrink-0">
+            <span className="w-1 h-1 rounded-full bg-white/50 flex-shrink-0" />
             {t}
           </span>
         ))}
@@ -267,7 +276,7 @@ const IITKGPLanding = () => {
         <motion.div animate={{ y: [0, 30, 0] }} transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
           className="absolute bottom-[-5%] left-[-5%] w-[45%] h-[55%] bg-[#FF0000]/8 rounded-full blur-[180px] pointer-events-none" />
 
-        <div className="relative z-10 flex-1 flex items-center max-w-7xl mx-auto w-full px-4 sm:px-6 md:px-10 pt-28 md:pt-24 lg:pt-20 pb-6">
+        <div className="relative z-10 flex-1 flex items-center max-w-7xl mx-auto w-full px-4 sm:px-6 md:px-10 pt-32 md:pt-28 lg:pt-24 pb-6">
           <div className="w-full grid lg:grid-cols-[1fr_420px] xl:grid-cols-[1fr_460px] gap-10 lg:gap-14 items-start lg:items-center">
 
           {/* ── LEFT ── */}
