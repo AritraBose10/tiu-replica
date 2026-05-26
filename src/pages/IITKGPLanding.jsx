@@ -28,7 +28,7 @@ const CursorGlow = () => {
       className="fixed pointer-events-none z-0 hidden lg:block"
       style={{ left: springX, top: springY, translateX: '-50%', translateY: '-50%',
         width: 500, height: 500,
-        background: 'radial-gradient(circle, rgba(251,191,36,0.04) 0%, transparent 70%)',
+        background: 'radial-gradient(circle, rgba(255,0,0,0.04) 0%, transparent 70%)',
         borderRadius: '50%' }}
     />
   );
@@ -72,7 +72,7 @@ const DiagDivider = ({ flip = false }) => (
 // ─── Big Ghost Number ─────────────────────────────────────────────────────────
 const GhostNum = ({ n }) => (
   <span className="absolute -top-6 md:-top-10 left-0 text-[100px] md:text-[160px] font-black leading-none select-none pointer-events-none"
-    style={{ WebkitTextStroke: '1px rgba(251,191,36,0.08)', color: 'transparent', zIndex: 0 }}>
+    style={{ WebkitTextStroke: '1px rgba(255,0,0,0.12)', color: 'transparent', zIndex: 0 }}>
     {n}
   </span>
 );
@@ -102,29 +102,55 @@ const Counter = ({ target, suffix = '', duration = 1.8 }) => {
   return <span ref={ref}>{val}{suffix}</span>;
 };
 
+// ── Paste your Google Apps Script Web App URL here after deploying ────────────
+const SHEET_URL = 'https://script.google.com/macros/s/AKfycbxXVXoFQZVrzyGnuGQLvgEc4V1yk1iXvLQ5LTNEi117oB0LTm_OCIp36PH0cGwvtLFi_A/exec';
+
 // ─── Lead Form ────────────────────────────────────────────────────────────────
 const LeadForm = ({ compact = false }) => {
   const [form, setForm] = useState({ name: '', mobile: '', email: '', course: '', board: '', city: '', counselling: '' });
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+
   const handle = (e) => setForm(f => ({ ...f, [e.target.name]: e.target.value }));
+
   const submit = async (e) => {
-    e.preventDefault(); setLoading(true);
-    await new Promise(r => setTimeout(r, 900));
-    setLoading(false); setSubmitted(true);
+    e.preventDefault();
+    setLoading(true);
+    setError('');
+    try {
+      const payload = new FormData();
+      payload.append('timestamp', new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }));
+      payload.append('name', form.name);
+      payload.append('mobile', form.mobile);
+      payload.append('email', form.email || '');
+      payload.append('course', form.course);
+      payload.append('board', form.board || '');
+      payload.append('city', form.city || '');
+      payload.append('counselling', form.counselling || '');
+      payload.append('source', 'IIT KGP Landing Page');
+
+      // no-cors: data is sent but response is opaque — treat completion as success
+      await fetch(SHEET_URL, { method: 'POST', mode: 'no-cors', body: payload });
+      setSubmitted(true);
+    } catch {
+      setError('Something went wrong. Please call 08062642222 directly.');
+    } finally {
+      setLoading(false);
+    }
   };
   const inp = `w-full bg-black/40 border border-white/10 rounded-lg px-4 py-3 text-white text-sm placeholder:text-gray-600
-    focus:outline-none focus:border-amber-400/50 focus:bg-black/60 transition-all duration-200`;
+    focus:outline-none focus:border-[#FF0000]/50 focus:bg-black/60 transition-all duration-200`;
 
   if (submitted) return (
     <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="text-center py-10">
       <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: 'spring', stiffness: 200, delay: 0.1 }}
-        className="w-16 h-16 bg-amber-400/15 rounded-full flex items-center justify-center mx-auto mb-4 border border-amber-400/30">
-        <Check className="w-8 h-8 text-amber-400" />
+        className="w-16 h-16 bg-[#FF0000]/10 rounded-full flex items-center justify-center mx-auto mb-4 border border-[#FF0000]/25">
+        <Check className="w-8 h-8 text-[#FF0000]" />
       </motion.div>
       <h3 className="text-xl font-bold text-white mb-2">Application Received!</h3>
       <p className="text-gray-400 text-sm">Our admission counsellor will connect with you shortly.</p>
-      <p className="text-amber-400 text-sm font-bold mt-3">Call us: 08062642222</p>
+      <p className="text-[#FF0000] text-sm font-bold mt-3">Call us: 08062642222</p>
     </motion.div>
   );
 
@@ -152,12 +178,17 @@ const LeadForm = ({ compact = false }) => {
         </select>
       </>}
       <motion.button type="submit" disabled={loading} whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.97 }}
-        className="w-full bg-amber-400 text-black font-black py-3.5 rounded-lg hover:bg-amber-300 transition-colors
+        className="w-full bg-[#FF0000] text-black font-black py-3.5 rounded-lg hover:bg-[#CC0000] transition-colors
           flex items-center justify-center gap-2 disabled:opacity-70 tracking-wide text-sm">
         {loading
           ? <motion.div animate={{ rotate: 360 }} transition={{ duration: 1, repeat: Infinity, ease: 'linear' }} className="w-5 h-5 border-2 border-black/30 border-t-black rounded-full" />
           : <><span>SUBMIT APPLICATION</span><ArrowRight className="w-4 h-4" /></>}
       </motion.button>
+      {error && (
+        <p className="text-red-400 text-xs text-center bg-red-400/10 border border-red-400/20 rounded-lg px-3 py-2">
+          {error}
+        </p>
+      )}
       <p className="text-gray-700 text-xs text-center">Limited seats. Early applicants get priority counselling.</p>
     </form>
   );
@@ -171,11 +202,11 @@ const FAQItem = ({ faq, i }) => {
       className="border-b border-white/6 last:border-0">
       <button onClick={() => setOpen(o => !o)}
         className="w-full flex items-center justify-between gap-4 py-6 text-left group">
-        <span className="text-white font-semibold text-sm md:text-base leading-snug group-hover:text-amber-400 transition-colors">
+        <span className="text-white font-semibold text-sm md:text-base leading-snug group-hover:text-[#FF0000] transition-colors">
           {faq.q}
         </span>
         <motion.div animate={{ rotate: open ? 45 : 0 }} transition={{ duration: 0.25 }}
-          className="flex-shrink-0 w-7 h-7 rounded-full border border-white/15 flex items-center justify-center group-hover:border-amber-400/40 transition-colors">
+          className="flex-shrink-0 w-7 h-7 rounded-full border border-white/15 flex items-center justify-center group-hover:border-[#FF0000]/30 transition-colors">
           <ChevronDown className="w-4 h-4 text-gray-500" />
         </motion.div>
       </button>
@@ -197,7 +228,7 @@ const courses = [
   { n: '01', icon: Cpu, title: 'B.Tech CSE', label: 'Core', accent: '#FF0000',
     desc: 'Strong foundation in computer science — programming, software development, algorithms, databases, OS, networks and emerging technologies.',
     for: 'Software development · IT careers · Product development · Higher studies' },
-  { n: '02', icon: Brain, title: 'B.Tech CSE in AI and ML', label: 'High Demand', accent: '#f59e0b',
+  { n: '02', icon: Brain, title: 'B.Tech CSE in AI and ML', label: 'High Demand', accent: '#FF4444',
     desc: 'Artificial Intelligence and Machine Learning — intelligent systems, automation, data driven applications, next generation technology careers.',
     for: 'AI roles · Machine learning · Automation · Robotics · Future technology' },
   { n: '03', icon: TrendingUp, title: 'B.Tech CSE in Data Science', label: 'Fastest Growing', accent: '#3b82f6',
@@ -244,7 +275,7 @@ const IITKGPLanding = () => {
   const heroY = useTransform(scrollYProgress, [0, 1], ['0%', '25%']);
 
   return (
-    <div className="min-h-screen bg-[#09080a] text-white overflow-x-hidden selection:bg-amber-400 selection:text-black">
+    <div className="min-h-screen bg-[#09080a] text-white overflow-x-hidden selection:bg-[#FF0000] selection:text-white">
       <SEO
         title="B.Tech Admissions 2026 with IIT KGP Collaboration | Techno India University"
         description="Apply for B.Tech CSE, B.Tech CSE in AI and ML, Data Science and Cloud Computing at Techno India University, School of the Future under its collaboration with IIT KGP. Admissions 2026 open."
@@ -263,16 +294,16 @@ const IITKGPLanding = () => {
           aria-hidden>
           <div className="absolute inset-0 opacity-[0.04]"
             style={{ backgroundImage: 'linear-gradient(to right,#fff 1px,transparent 1px),linear-gradient(to bottom,#fff 1px,transparent 1px)', backgroundSize: '80px 80px' }} />
-          {/* Diagonal amber slash */}
+          {/* Diagonal red slash */}
           <div className="absolute inset-0" style={{
-            background: 'linear-gradient(115deg, transparent 58%, rgba(251,191,36,0.04) 58.5%, rgba(251,191,36,0.04) 100%)'
+            background: 'linear-gradient(115deg, transparent 58%, rgba(255,0,0,0.04) 58.5%, rgba(255,0,0,0.04) 100%)'
           }} />
         </motion.div>
 
         {/* Glow blobs */}
         <motion.div animate={{ scale: [1, 1.15, 1], opacity: [0.07, 0.12, 0.07] }}
           transition={{ duration: 8, repeat: Infinity }}
-          className="absolute top-[-10%] right-[-5%] w-[55%] h-[70%] bg-amber-500 rounded-full blur-[200px] pointer-events-none" />
+          className="absolute top-[-10%] right-[-5%] w-[55%] h-[70%] bg-[#FF0000] rounded-full blur-[200px] pointer-events-none" />
         <motion.div animate={{ y: [0, 30, 0] }} transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
           className="absolute bottom-[-5%] left-[-5%] w-[45%] h-[55%] bg-[#FF0000]/8 rounded-full blur-[180px] pointer-events-none" />
 
@@ -283,18 +314,18 @@ const IITKGPLanding = () => {
           <div>
             {/* IIT badge */}
             <motion.div initial={{ opacity: 0, y: -12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
-              className="inline-flex items-center gap-2.5 bg-amber-400/12 border border-amber-400/30 px-4 py-2 rounded-full mb-5">
+              className="inline-flex items-center gap-2.5 bg-[#FF0000]/10 border border-[#FF0000]/25 px-4 py-2 rounded-full mb-5">
               <motion.span animate={{ scale: [1, 1.5, 1] }} transition={{ duration: 1.8, repeat: Infinity }}
-                className="w-2 h-2 rounded-full bg-amber-400 flex-shrink-0" />
-              <GraduationCap className="w-3.5 h-3.5 text-amber-400" />
-              <span className="text-amber-400 text-xs font-black tracking-widest uppercase">Collaboration with IIT KGP</span>
+                className="w-2 h-2 rounded-full bg-[#FF0000] flex-shrink-0" />
+              <GraduationCap className="w-3.5 h-3.5 text-[#FF0000]" />
+              <span className="text-[#FF0000] text-xs font-black tracking-widest uppercase">Collaboration with IIT KGP</span>
             </motion.div>
 
             {/* Headline */}
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2, duration: 0.8 }} className="relative overflow-hidden">
               {/* Ghost backdrop text — clipped to parent */}
               <span className="absolute top-0 -left-1 text-[70px] sm:text-[100px] md:text-[130px] font-black leading-none select-none pointer-events-none"
-                style={{ WebkitTextStroke: '1.5px rgba(251,191,36,0.06)', color: 'transparent' }}>
+                style={{ WebkitTextStroke: '1.5px rgba(255,0,0,0.08)', color: 'transparent' }}>
                 IIT KGP
               </span>
               <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-6xl xl:text-7xl font-black leading-[1.0] tracking-tight relative z-10 pt-2">
@@ -302,13 +333,13 @@ const IITKGPLanding = () => {
                   className="block text-white">Dreaming</motion.span>
                 <motion.span initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.35, duration: 0.7 }}
                   className="block text-white">of <span className="relative inline-block">
-                    <span className="text-transparent" style={{ WebkitTextStroke: '2px #f59e0b' }}>IIT?</span>
+                    <span className="text-transparent" style={{ WebkitTextStroke: '2px #FF0000' }}>IIT?</span>
                     <motion.span initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ delay: 1.1, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                      className="absolute bottom-1 left-0 right-0 h-1 bg-amber-400 origin-left" />
+                      className="absolute bottom-1 left-0 right-0 h-1 bg-[#FF0000] origin-left" />
                   </span>
                 </motion.span>
                 <motion.span initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.45, duration: 0.7 }}
-                  className="block text-transparent bg-clip-text bg-gradient-to-r from-[#FF0000] via-orange-500 to-amber-400">
+                  className="block text-transparent bg-clip-text bg-gradient-to-r from-[#FF0000] via-orange-500 to-[#FF0000]">
                   We Have Your Path.
                 </motion.span>
               </h1>
@@ -337,7 +368,7 @@ const IITKGPLanding = () => {
                 Apply Now <ArrowRight className="w-4 h-4" />
               </MotionLink>
               <a href="tel:08062642222"
-                className="inline-flex items-center justify-center gap-2 px-7 py-4 rounded-full font-semibold border border-white/12 text-gray-300 hover:border-amber-400/40 hover:text-amber-400 transition-colors text-sm">
+                className="inline-flex items-center justify-center gap-2 px-7 py-4 rounded-full font-semibold border border-white/12 text-gray-300 hover:border-[#FF0000]/30 hover:text-[#FF0000] transition-colors text-sm">
                 <Phone className="w-4 h-4" /> 08062642222
               </a>
             </motion.div>
@@ -353,18 +384,18 @@ const IITKGPLanding = () => {
           <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             className="relative w-full">
             {/* Corner decorations */}
-            <div className="absolute -top-3 -left-3 w-10 h-10 border-t-2 border-l-2 border-amber-400/40 rounded-tl-lg" />
-            <div className="absolute -bottom-3 -right-3 w-10 h-10 border-b-2 border-r-2 border-amber-400/40 rounded-br-lg" />
+            <div className="absolute -top-3 -left-3 w-10 h-10 border-t-2 border-l-2 border-[#FF0000]/30 rounded-tl-lg" />
+            <div className="absolute -bottom-3 -right-3 w-10 h-10 border-b-2 border-r-2 border-[#FF0000]/30 rounded-br-lg" />
 
             <div className="bg-white/[0.03] backdrop-blur-xl border border-white/10 rounded-2xl p-6 md:p-8">
               <div className="flex items-start justify-between mb-5">
                 <div>
-                  <p className="text-xs text-amber-400 font-black tracking-widest uppercase mb-1">Admissions 2026</p>
+                  <p className="text-xs text-[#FF0000] font-black tracking-widest uppercase mb-1">Admissions 2026</p>
                   <h2 className="text-lg font-black text-white leading-snug">Apply for B.Tech<br />Admissions 2026</h2>
                   <p className="text-gray-500 text-xs mt-1">Counsellor will connect with you.</p>
                 </div>
-                <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-amber-400/10 border border-amber-400/25 flex items-center justify-center">
-                  <GraduationCap className="w-6 h-6 text-amber-400" />
+                <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-[#FF0000]/10 border border-[#FF0000]/25 flex items-center justify-center">
+                  <GraduationCap className="w-6 h-6 text-[#FF0000]" />
                 </div>
               </div>
               <LeadForm />
@@ -384,7 +415,7 @@ const IITKGPLanding = () => {
             ].map((s, i) => (
               <motion.div key={i} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1 + i * 0.1 }}
                 className={`text-center ${i > 0 ? 'border-l border-white/5' : ''}`}>
-                <div className="text-2xl md:text-3xl font-black text-amber-400">
+                <div className="text-2xl md:text-3xl font-black text-[#FF0000]">
                   <Counter target={s.val} suffix={s.suf} />
                 </div>
                 <div className="text-xs text-gray-600 mt-1 font-medium">{s.label}</div>
@@ -399,9 +430,9 @@ const IITKGPLanding = () => {
         <DiagDivider />
         <div className="max-w-6xl mx-auto px-6 text-center relative z-10 py-8">
           <motion.div initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }}
-            className="inline-flex items-center gap-2 bg-amber-400/8 border border-amber-400/20 px-5 py-2 rounded-full mb-8">
-            <Star className="w-3.5 h-3.5 text-amber-400" />
-            <span className="text-amber-400 text-xs font-black tracking-widest uppercase">IIT Dreams Don't End with Entrance Results</span>
+            className="inline-flex items-center gap-2 bg-[#FF0000]/8 border border-[#FF0000]/20 px-5 py-2 rounded-full mb-8">
+            <Star className="w-3.5 h-3.5 text-[#FF0000]" />
+            <span className="text-[#FF0000] text-xs font-black tracking-widest uppercase">IIT Dreams Don't End with Entrance Results</span>
           </motion.div>
 
           {/* Big pull-quote style */}
@@ -412,7 +443,7 @@ const IITKGPLanding = () => {
             </motion.p>
             <motion.p initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.15 }}
               className="text-3xl md:text-5xl lg:text-6xl font-black leading-[1.1] tracking-tight">
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-500">But every serious aspirant</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FF0000] to-[#CC0000]">But every serious aspirant</span>
               <span className="text-white"> deserves </span>
               <span className="relative inline-block">
                 <span className="text-transparent" style={{ WebkitTextStroke: '2px rgba(255,0,0,0.6)' }}>more.</span>
@@ -516,7 +547,7 @@ const IITKGPLanding = () => {
 
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-0 right-0 w-1/2 h-full opacity-[0.03]"
-            style={{ backgroundImage: 'repeating-linear-gradient(45deg, #f59e0b 0, #f59e0b 1px, transparent 0, transparent 50%)', backgroundSize: '20px 20px' }} />
+            style={{ backgroundImage: 'repeating-linear-gradient(45deg, #FF0000 0, #FF0000 1px, transparent 0, transparent 50%)', backgroundSize: '20px 20px' }} />
         </div>
 
         <div className="max-w-7xl mx-auto px-6 md:px-10 relative z-10">
@@ -525,10 +556,10 @@ const IITKGPLanding = () => {
             <div className="lg:sticky lg:top-32">
               <div className="relative">
                 <GhostNum n="03" />
-                <p className="text-xs text-amber-400 font-black tracking-widest uppercase mb-4 relative z-10">What You Get</p>
+                <p className="text-xs text-[#FF0000] font-black tracking-widest uppercase mb-4 relative z-10">What You Get</p>
                 <h2 className="text-3xl md:text-5xl font-black text-white mb-6 leading-tight relative z-10">
                   The IIT KGP<br />
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-yellow-300">
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FF0000] to-[#FF4444]">
                     Collaboration Benefits
                   </span>
                 </h2>
@@ -538,8 +569,8 @@ const IITKGPLanding = () => {
               </p>
 
               {/* Decorative IIT KGP badge */}
-              <div className="inline-block p-5 rounded-2xl border border-amber-400/20 bg-amber-400/5">
-                <p className="text-amber-400 text-xs font-black tracking-widest uppercase mb-1">Collaboration with</p>
+              <div className="inline-block p-5 rounded-2xl border border-[#FF0000]/20 bg-[#FF0000]/5">
+                <p className="text-[#FF0000] text-xs font-black tracking-widest uppercase mb-1">Collaboration with</p>
                 <p className="text-white text-2xl font-black">IIT KGP</p>
                 <p className="text-gray-500 text-xs mt-1">Indian Institute of Technology · Kharagpur</p>
                 <p className="text-gray-700 text-xs mt-3">Benefits applicable as per program terms.</p>
@@ -557,12 +588,12 @@ const IITKGPLanding = () => {
                     viewport={{ once: true }}
                     transition={{ delay: i * 0.1, duration: 0.6 }}
                     className="group relative flex gap-5 py-7 border-b border-white/6 last:border-0 hover:pl-3 transition-all duration-300">
-                    <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-amber-400/8 border border-amber-400/20 flex items-center justify-center group-hover:bg-amber-400/15 transition-colors">
-                      <Icon className="w-5 h-5 text-amber-400" />
+                    <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-[#FF0000]/8 border border-[#FF0000]/20 flex items-center justify-center group-hover:bg-[#FF0000]/10 transition-colors">
+                      <Icon className="w-5 h-5 text-[#FF0000]" />
                     </div>
                     <div>
                       <div className="flex items-center gap-2 mb-1">
-                        <span className="text-amber-400/40 text-xs font-black">{b.n}</span>
+                        <span className="text-[#FF0000]/40 text-xs font-black">{b.n}</span>
                         <h3 className="text-white font-bold text-base">{b.title}</h3>
                       </div>
                       <p className="text-gray-400 text-sm leading-relaxed">{b.desc}</p>
@@ -720,24 +751,24 @@ const IITKGPLanding = () => {
         <div className="absolute inset-0"
           style={{ background: 'linear-gradient(135deg, rgba(255,0,0,0.06) 0%, transparent 50%, rgba(245,158,11,0.04) 100%)' }} />
         {/* Corner bracket decorations */}
-        <div className="absolute top-8 left-8 w-16 h-16 border-t-2 border-l-2 border-amber-400/20 rounded-tl-xl" />
-        <div className="absolute top-8 right-8 w-16 h-16 border-t-2 border-r-2 border-amber-400/20 rounded-tr-xl" />
-        <div className="absolute bottom-8 left-8 w-16 h-16 border-b-2 border-l-2 border-amber-400/20 rounded-bl-xl" />
-        <div className="absolute bottom-8 right-8 w-16 h-16 border-b-2 border-r-2 border-amber-400/20 rounded-br-xl" />
+        <div className="absolute top-8 left-8 w-16 h-16 border-t-2 border-l-2 border-[#FF0000]/20 rounded-tl-xl" />
+        <div className="absolute top-8 right-8 w-16 h-16 border-t-2 border-r-2 border-[#FF0000]/20 rounded-tr-xl" />
+        <div className="absolute bottom-8 left-8 w-16 h-16 border-b-2 border-l-2 border-[#FF0000]/20 rounded-bl-xl" />
+        <div className="absolute bottom-8 right-8 w-16 h-16 border-b-2 border-r-2 border-[#FF0000]/20 rounded-br-xl" />
 
         <div className="max-w-5xl mx-auto relative z-10">
           <div className="grid lg:grid-cols-2 gap-12 items-start">
             <div>
               <motion.div initial={{ opacity: 0, y: -10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-                className="inline-flex items-center gap-2.5 bg-amber-400/10 border border-amber-400/25 px-4 py-2 rounded-full mb-7">
-                <GraduationCap className="w-4 h-4 text-amber-400" />
-                <span className="text-amber-400 text-xs font-black tracking-widest uppercase">Collaboration with IIT KGP</span>
+                className="inline-flex items-center gap-2.5 bg-[#FF0000]/10 border border-[#FF0000]/25 px-4 py-2 rounded-full mb-7">
+                <GraduationCap className="w-4 h-4 text-[#FF0000]" />
+                <span className="text-[#FF0000] text-xs font-black tracking-widest uppercase">Collaboration with IIT KGP</span>
               </motion.div>
 
               <motion.h2 initial={{ opacity: 0, y: 25 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
                 className="text-4xl md:text-5xl xl:text-6xl font-black text-white leading-[1.05] tracking-tight mb-6">
                 Your B.Tech Journey Can Carry the{' '}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-[#FF0000]">IIT KGP Advantage</span>
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FF0000] to-[#990000]">IIT KGP Advantage</span>
               </motion.h2>
 
               <motion.p initial={{ opacity: 0, y: 15 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }}
@@ -757,7 +788,7 @@ const IITKGPLanding = () => {
                 className="space-y-3 text-sm">
                 <div className="flex items-center gap-3 text-gray-500">
                   <Phone className="w-4 h-4 text-[#FF0000]" />
-                  <span>Call: <a href="tel:08062642222" className="text-white font-bold hover:text-amber-400 transition-colors">08062642222</a></span>
+                  <span>Call: <a href="tel:08062642222" className="text-white font-bold hover:text-[#FF0000] transition-colors">08062642222</a></span>
                 </div>
                 <div className="flex items-center gap-3 text-gray-500">
                   <MapPin className="w-4 h-4 text-[#FF0000]" />
@@ -766,7 +797,7 @@ const IITKGPLanding = () => {
                 <div className="flex items-center gap-3 text-gray-500">
                   <Layers className="w-4 h-4 text-[#FF0000]" />
                   <a href="https://www.technoindiauniversity.ai" target="_blank" rel="noopener noreferrer"
-                    className="text-white font-bold hover:text-amber-400 transition-colors">www.technoindiauniversity.ai</a>
+                    className="text-white font-bold hover:text-[#FF0000] transition-colors">www.technoindiauniversity.ai</a>
                 </div>
               </motion.div>
               <p className="text-gray-700 text-xs mt-4">Benefits under the collaboration with IIT KGP are applicable as per program terms.</p>
