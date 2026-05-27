@@ -77,7 +77,7 @@ const StudentWork = () => {
  initial={{ opacity: 0, y: 30 }}
  whileInView={{ opacity: 1, y: 0 }}
  viewport={{ once: true }}
- className="flex flex-col md:flex-row items-end justify-between gap-8 mb-16"
+ className="flex flex-col md:flex-row items-start md:items-end justify-between gap-8 mb-16"
  >
  <div className="max-w-2xl">
  <span className="text-red-500 text-xs font-bold tracking-[0.2em] uppercase mb-4 block">
@@ -90,7 +90,7 @@ const StudentWork = () => {
  </span>
  </h2>
  </div>
- <p className="text-gray-400 max-w-sm text-sm md:text-base leading-relaxed text-right md:text-left">
+ <p className="text-gray-400 max-w-sm text-sm md:text-base leading-relaxed text-left">
  Our students don't just study theory. They build, ship, and launch real-world projects from Day 1.
  </p>
  </motion.div>

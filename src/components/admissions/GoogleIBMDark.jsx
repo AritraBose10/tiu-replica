@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Award, BookOpen, Cloud, Shield } from 'lucide-react';
@@ -108,7 +108,7 @@ const GoogleIBMDark = () => {
  </div>
 
  {/* Right Image Section */}
- <div className="relative h-full min-h-[450px] overflow-hidden">
+ <div className="relative h-full min-h-[220px] md:min-h-[450px] overflow-hidden">
  {/* Red accent bar */}
  <div className="absolute right-0 top-0 bottom-0 w-2 bg-gradient-to-b from-red-600 via-orange-500 to-red-600 z-10" />
 
