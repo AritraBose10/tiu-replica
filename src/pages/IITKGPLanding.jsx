@@ -511,7 +511,7 @@ const IITKGPLanding = () => {
       </section>
 
       {/* ── IIT KGP BENEFITS — Numbered list ──────────────────────────────── */}
-      <section className="relative py-12 md:py-32 overflow-hidden"
+      <section className="relative py-8 md:py-32 overflow-hidden"
         style={{ background: 'linear-gradient(135deg, #0d0a07 0%, #09080a 50%, #080a0d 100%)' }}>
 
         <div className="absolute inset-0 pointer-events-none">
@@ -576,7 +576,7 @@ const IITKGPLanding = () => {
       </section>
 
       {/* ── WHY + GOOGLE CLOUD — Two-tone split ───────────────────────────── */}
-      <section className="py-24 md:py-28 px-6 md:px-10 relative overflow-hidden">
+      <section className="py-8 md:py-28 px-6 md:px-10 relative overflow-hidden">
         <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-6">
 
           {/* Why This Matters */}
@@ -628,7 +628,7 @@ const IITKGPLanding = () => {
       </section>
 
       {/* ── COMPARISON — Two Large Panels ─────────────────────────────────── */}
-      <section className="py-12 md:py-32 px-6 md:px-10 relative overflow-hidden"
+      <section className="py-8 md:py-32 px-6 md:px-10 relative overflow-hidden"
         style={{ background: 'linear-gradient(180deg, #09080a 0%, #0b0809 100%)' }}>
         <div className="max-w-6xl mx-auto relative z-10">
           <div className="text-center mb-14">
