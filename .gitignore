@@ -26,3 +26,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Raw/source video files — use compressed web versions instead
+public/logos/videos/*.mp4
+!public/logos/videos/sof-event-web.mp4
