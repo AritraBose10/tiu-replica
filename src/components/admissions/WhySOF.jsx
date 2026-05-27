@@ -1,7 +1,6 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { Cpu, Users, Briefcase, BrainCircuit, Play, X } from 'lucide-react';
-import { useSettings } from '../../contexts/SettingsContext';
+import { Cpu, Users, Briefcase, BrainCircuit } from 'lucide-react';
 
 const differentiators = [
  {
@@ -44,10 +43,23 @@ const cardVariants = {
  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: 'easeOut' } },
 };
 
+const VIDEO_SRC = '/logos/videos/sof-event-web.mp4';
+const POSTER_SRC = '/logos/videos/sof-event-poster.jpg';
+
 const WhySOF = () => {
- const { getSetting } = useSettings();
+ const sectionRef = useRef(null);
  const videoRef = useRef(null);
- const isInView = useInView(videoRef, { once: true, amount: 0.3 });
+ const [srcLoaded, setSrcLoaded] = useState(false);
+ const isInView = useInView(sectionRef, { once: true, amount: 0.2 });
+
+ // Load src only when section is near viewport, auto-play muted
+ useEffect(() => {
+   if (!isInView) return;
+   setSrcLoaded(true);
+   const el = videoRef.current;
+   if (!el) return;
+   el.play().catch(() => {});
+ }, [isInView]);
 
  return (
  <section className="py-12 md:py-24 px-4 bg-[#020205] relative overflow-hidden">
@@ -55,7 +67,7 @@ const WhySOF = () => {
  <div className="absolute top-0 right-0 w-[40vw] h-[40vw] bg-red-600/5 rounded-full blur-[150px] pointer-events-none" />
  <div className="absolute bottom-0 left-0 w-[30vw] h-[30vw] bg-blue-600/5 rounded-full blur-[120px] pointer-events-none" />
 
- <div className="max-w-7xl mx-auto">
+ <div ref={sectionRef} className="max-w-7xl mx-auto">
  {/* Section Header */}
  <motion.div
  initial={{ opacity: 0, y: 20 }}
@@ -118,23 +130,24 @@ const WhySOF = () => {
 
  {/* Right: Video Section */}
  <motion.div
- ref={videoRef}
  initial={{ opacity: 0, scale: 0.95 }}
  whileInView={{ opacity: 1, scale: 1 }}
  viewport={{ once: true }}
  transition={{ duration: 0.7, ease: 'easeOut' }}
- className="relative rounded-3xl overflow-hidden group"
+ className="relative rounded-3xl overflow-hidden"
  >
  <div className="relative aspect-[16/10] bg-black">
- {isInView && (
- <iframe
- src={(getSetting('admissions_why_sof_video_url') || getSetting('learning_video_url') || "https://www.youtube.com/embed/oOYWAudEu5E") + "?autoplay=1&mute=1&rel=0"}
- title="School of the Future"
- className="w-full h-full"
- allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
- allowFullScreen
+ <video
+ ref={videoRef}
+ src={srcLoaded ? VIDEO_SRC : undefined}
+ poster={POSTER_SRC}
+ preload="none"
+ muted
+ playsInline
+ loop
+ controls
+ className="w-full h-full object-cover"
  />
- )}
  </div>
  </motion.div>
  </div>

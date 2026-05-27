@@ -4,6 +4,7 @@ import { dirname, join } from 'path';
 import dotenv from 'dotenv';
 import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
+import slowDown from 'express-slow-down';
 import axios from 'axios';
 import * as cheerio from 'cheerio';
 
@@ -28,6 +29,9 @@ import coursesHandler from './api/courses.js';
 const app = express();
 const PORT = process.env.PORT || 3001;
 
+// Required for correct client IP detection behind Vercel / reverse proxies
+app.set('trust proxy', 1);
+
 app.use(helmet());
 app.use(express.json({ limit: '1mb' }));
 app.use(express.static(join(__dirname, 'dist')));
@@ -41,12 +45,30 @@ const globalApiLimiter = rateLimit({
     legacyHeaders: false,
 });
 
+// Progressive slow-down: delay responses 500ms after 50 req/15min, up to 20s max
+const globalSlowDown = slowDown({
+    windowMs: 15 * 60 * 1000,
+    delayAfter: 50,
+    delayMs: (hits) => (hits - 50) * 500,
+    maxDelayMs: 20000,
+});
+
 const loginLimiter = rateLimit({
     windowMs: 15 * 60 * 1000,
     max: 10,
     message: { error: 'Too many login attempts, please try again later' },
     standardHeaders: true,
     legacyHeaders: false,
+});
+
+// Tighter limit for write operations (POST/PUT/PATCH/DELETE)
+const mutationLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: 30,
+    message: { error: 'Too many write requests, please try again later' },
+    standardHeaders: true,
+    legacyHeaders: false,
+    skip: (req) => req.method === 'GET' || req.method === 'HEAD',
 });
 
 const scrapeLimiter = rateLimit({
@@ -57,8 +79,10 @@ const scrapeLimiter = rateLimit({
     legacyHeaders: false,
 });
 
-// Apply global rate limit + cache headers to all API routes
+// Apply global rate limit + slow-down + cache headers to all API routes
+app.use('/api', globalSlowDown);
 app.use('/api', globalApiLimiter);
+app.use('/api', mutationLimiter);
 app.use('/api', (req, res, next) => {
     if (req.method === 'GET') {
         res.setHeader('Cache-Control', 'public, max-age=30, s-maxage=30');
