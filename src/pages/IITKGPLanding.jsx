@@ -285,7 +285,7 @@ const IITKGPLanding = () => {
           className="absolute bottom-[-5%] left-[-5%] w-[45%] h-[55%] bg-[#FF0000]/8 rounded-full blur-[180px] pointer-events-none" />
 
         <div className="relative z-10 flex-1 flex items-center max-w-7xl mx-auto w-full px-4 sm:px-6 md:px-10 pt-32 md:pt-28 lg:pt-24 pb-6">
-          <div className="w-full grid lg:grid-cols-[1fr_420px] xl:grid-cols-[1fr_460px] gap-10 lg:gap-14 items-start lg:items-center">
+          <div className="w-full grid lg:grid-cols-2 gap-10 lg:gap-14 items-center">
 
           {/* ── LEFT ── */}
           <div>
@@ -357,36 +357,22 @@ const IITKGPLanding = () => {
             </motion.p>
           </div>
 
-          {/* ── RIGHT — Image + Form ── */}
+          {/* ── RIGHT — Image ── */}
           <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            className="relative w-full flex flex-col gap-4">
+            className="relative w-full">
 
-            {/* Campus image */}
-            <div className="relative w-full h-44 md:h-52 rounded-2xl overflow-hidden border border-white/10">
-              <img src={iitkgpImg} alt="IIT Kharagpur Campus" className="w-full h-full object-cover" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+            {/* Corner decorations */}
+            <div className="absolute -top-3 -left-3 w-10 h-10 border-t-2 border-l-2 border-[#FF0000]/30 rounded-tl-lg z-10" />
+            <div className="absolute -bottom-3 -right-3 w-10 h-10 border-b-2 border-r-2 border-[#FF0000]/30 rounded-br-lg z-10" />
+
+            {/* Campus image — full, not cropped */}
+            <div className="relative w-full rounded-2xl overflow-hidden border border-white/10">
+              <img src={iitkgpImg} alt="IIT Kharagpur Campus" className="w-full h-auto object-contain" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
               <div className="absolute bottom-3 left-4 flex items-center gap-2">
                 <GraduationCap className="w-4 h-4 text-[#FF0000]" />
                 <span className="text-white text-xs font-black tracking-widest uppercase">IIT Kharagpur</span>
               </div>
-            </div>
-
-            {/* Corner decorations */}
-            <div className="absolute -top-3 -left-3 w-10 h-10 border-t-2 border-l-2 border-[#FF0000]/30 rounded-tl-lg" />
-            <div className="absolute -bottom-3 -right-3 w-10 h-10 border-b-2 border-r-2 border-[#FF0000]/30 rounded-br-lg" />
-
-            <div className="bg-white/[0.03] backdrop-blur-xl border border-white/10 rounded-2xl p-6 md:p-8">
-              <div className="flex items-start justify-between mb-5">
-                <div>
-                  <p className="text-xs text-[#FF0000] font-black tracking-widest uppercase mb-1">Admissions 2026</p>
-                  <h2 className="text-lg font-black text-white leading-snug">Apply for B.Tech<br />Admissions 2026</h2>
-                  <p className="text-gray-500 text-xs mt-1">Counsellor will connect with you.</p>
-                </div>
-                <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-[#FF0000]/10 border border-[#FF0000]/25 flex items-center justify-center">
-                  <GraduationCap className="w-6 h-6 text-[#FF0000]" />
-                </div>
-              </div>
-              <LeadForm />
             </div>
           </motion.div>
           </div>
