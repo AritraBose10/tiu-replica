@@ -10,6 +10,7 @@ import {
 import SEO from '../components/SEO';
 import SchemaInjector from '../components/SchemaInjector';
 import iitkgpImg from '../assets/iitkgp.jpg';
+import iitkgpLogo from '../assets/IIT_KGP.jpeg';
 
 const MotionLink = motion.create(Link);
 
@@ -298,6 +299,19 @@ const IITKGPLanding = () => {
               <span className="text-[#FF0000] text-xs font-black tracking-widest uppercase">Collaboration with IIT KGP</span>
             </motion.div>
 
+            {/* KGP Logo bar */}
+            <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }}
+              className="flex items-center gap-4 mb-6 p-4 rounded-2xl bg-white/[0.03] border border-white/10 w-fit">
+              <div className="w-16 h-16 rounded-xl bg-white p-1.5 flex-shrink-0">
+                <img src={iitkgpLogo} alt="IIT Kharagpur Logo" className="w-full h-full object-contain" />
+              </div>
+              <div>
+                <p className="text-white font-black text-base leading-tight">IIT Kharagpur</p>
+                <p className="text-gray-500 text-xs mt-0.5">Indian Institute of Technology</p>
+                <p className="text-[#FF0000] text-xs font-bold mt-1 tracking-wide uppercase">Est. 1951</p>
+              </div>
+            </motion.div>
+
             {/* Headline */}
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2, duration: 0.8 }} className="relative overflow-hidden">
               {/* Ghost backdrop text — clipped to parent */}
@@ -524,11 +538,16 @@ const IITKGPLanding = () => {
               </p>
 
               {/* Decorative IIT KGP badge */}
-              <div className="inline-block p-5 rounded-2xl border border-[#FF0000]/20 bg-[#FF0000]/5">
-                <p className="text-[#FF0000] text-xs font-black tracking-widest uppercase mb-1">Collaboration with</p>
-                <p className="text-white text-2xl font-black">IIT KGP</p>
-                <p className="text-gray-500 text-xs mt-1">Indian Institute of Technology · Kharagpur</p>
-                <p className="text-gray-700 text-xs mt-3">Benefits applicable as per program terms.</p>
+              <div className="inline-flex items-center gap-5 p-5 rounded-2xl border border-[#FF0000]/20 bg-[#FF0000]/5">
+                <div className="w-20 h-20 rounded-xl bg-white p-2 flex-shrink-0">
+                  <img src={iitkgpLogo} alt="IIT Kharagpur Logo" className="w-full h-full object-contain" />
+                </div>
+                <div>
+                  <p className="text-[#FF0000] text-xs font-black tracking-widest uppercase mb-1">Collaboration with</p>
+                  <p className="text-white text-2xl font-black">IIT KGP</p>
+                  <p className="text-gray-500 text-xs mt-1">Indian Institute of Technology · Kharagpur</p>
+                  <p className="text-gray-700 text-xs mt-3">Benefits applicable as per program terms.</p>
+                </div>
               </div>
             </div>
 
