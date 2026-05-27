@@ -204,6 +204,9 @@ const AdmissionsHero = () => {
  <a href="https://wa.me/916292233351?text=Hi%2C%20I%20want%20the%20SoF%20course%20brochure" target="_blank" rel="noopener noreferrer" className="px-8 py-4 rounded-full border border-green-500/30 bg-green-500/10 text-green-400 font-medium hover:bg-green-500/20 transition-all flex items-center gap-2">
  📱 Get Brochure on WhatsApp
  </a>
+ <a href="/btech-admissions-2026-iit-kgp-collaboration" className="group px-8 py-4 rounded-full border border-red-500/40 bg-red-500/10 text-red-400 font-bold hover:bg-red-500/20 transition-all flex items-center gap-2">
+ TIU &amp; IIT KGP Program <ArrowRight className="w-4 h-4" />
+ </a>
  </motion.div>
  </div>
 

@@ -163,10 +163,10 @@ const About = () => {
  ];
 
  const stats = [
- { value: '25', suffix: '+', label: 'Years of Excellence' },
- { value: '15000', suffix: '+', label: 'Students Enrolled' },
- { value: '500', suffix: '+', label: 'Expert Faculty' },
- { value: '50', suffix: '+', label: 'Global Partners' },
+ { value: '40', suffix: '+', label: 'Years of Experience' },
+ { value: '100', suffix: 'K+', label: 'Students Enrolled' },
+ { value: '5', suffix: 'K+', label: 'Faculty & Staff' },
+ { value: '500', suffix: '+', label: 'Global Partners' },
  ];
 
  return (
@@ -340,7 +340,7 @@ const About = () => {
  </section>
 
  {/* === STATS SECTION === */}
- <section className="py-24 bg-[#050510] relative overflow-hidden">
+ <section className="py-12 md:py-24 bg-[#050510] relative overflow-hidden">
  {/* Animated Grid Lines */}
  <div className="absolute inset-0 opacity-10">
  <div className="absolute inset-0" style={{ backgroundImage: 'linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px)', backgroundSize: '60px 60px' }} />
@@ -359,7 +359,7 @@ const About = () => {
  className="text-center p-6 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 group cursor-pointer"
  >
  <motion.div
- className="text-5xl md:text-7xl font-black bg-gradient-to-b from-white to-gray-500 bg-clip-text text-transparent mb-2"
+ className="text-3xl md:text-5xl font-black bg-gradient-to-b from-white to-gray-500 bg-clip-text text-transparent mb-2"
  whileHover={{ textShadow: "0 0 30px rgba(255,0,0,0.5)" }}
  >
  <AnimatedCounter value={stat.value} suffix={stat.suffix} />
@@ -372,7 +372,7 @@ const About = () => {
  </section>
 
  {/* === FEATURE CARDS SECTION === */}
- <section id="features" className="py-28 px-4 bg-[#020205] relative">
+ <section id="features" className="py-14 md:py-28 px-4 bg-[#020205] relative">
  <div className="max-w-7xl mx-auto">
  <motion.div
  initial={{ opacity: 0, y: 30 }}
@@ -401,7 +401,7 @@ const About = () => {
  </section>
 
  {/* === MISSION & VISION === */}
- <section className="py-28 px-4 bg-gradient-to-b from-[#020205] via-[#0a0a1a] to-[#020205] relative overflow-hidden">
+ <section className="py-14 md:py-28 px-4 bg-gradient-to-b from-[#020205] via-[#0a0a1a] to-[#020205] relative overflow-hidden">
  {/* Floating Orb */}
  <motion.div
  animate={{ y: [0, -30, 0], scale: [1, 1.1, 1] }}
@@ -454,7 +454,7 @@ const About = () => {
  whileInView={{ opacity: 1, x: 0, rotateY: 0 }}
  viewport={{ once: true }}
  transition={{ duration: 0.8 }}
- className="relative"
+ className="relative pb-10 pr-4 md:pb-8 md:pr-8"
  >
  <motion.div
  animate={{ scale: [1, 1.05, 1] }}
@@ -482,7 +482,7 @@ const About = () => {
  </section>
 
  {/* === CTA SECTION === */}
- <section className="py-32 px-4 bg-[#020205] relative overflow-hidden">
+ <section className="py-16 md:py-32 px-4 bg-[#020205] relative overflow-hidden">
  <motion.div
  animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
  transition={{ duration: 5, repeat: Infinity }}

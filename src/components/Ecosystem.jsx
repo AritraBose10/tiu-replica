@@ -32,7 +32,7 @@ const layers = [
 
 const Ecosystem = () => {
  return (
- <section className="py-28 px-4 bg-[#020205] relative overflow-hidden">
+ <section className="pt-28 pb-10 px-4 bg-[#020205] relative overflow-hidden">
  {/* Subtle grid */}
  <div
  className="absolute inset-0 opacity-[0.025] pointer-events-none"

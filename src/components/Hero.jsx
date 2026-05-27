@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { DollarSign, CheckCircle, Building2, Globe, ArrowRight } from 'lucide-react';
 import ThreeDCarousel from './ThreeDCarousel';
 import { useSettings } from '../contexts/SettingsContext';
+import iitKgpLogo from '../assets/IIT_KGP.jpeg';
 
 /* ─── Stat Badge Data ─── */
 const statBadges = [
@@ -313,6 +314,16 @@ const Hero = () => {
  className="h-5 object-contain opacity-80 hover:opacity-100 transition-opacity brightness-0 invert"
  />
  </div>
+ <div className="hidden sm:block w-px h-6 bg-white/10" />
+ <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white/[0.04] border border-white/10 hover:bg-white/[0.07] transition-all duration-300">
+ <span className="text-white/40 text-[10px] font-semibold uppercase tracking-widest whitespace-nowrap">In collaboration with</span>
+ <img
+ src={iitKgpLogo}
+ alt="IIT Kharagpur"
+ className="h-6 object-contain opacity-80 hover:opacity-100 transition-opacity"
+ />
+ <span className="text-white/80 text-[11px] font-semibold whitespace-nowrap">IIT Kharagpur</span>
+ </div>
  </motion.div>
 
  {/* ═══ 3D CAROUSEL ═══ */}
@@ -336,6 +347,13 @@ const Hero = () => {
  className="flex items-center gap-2 border border-white/30 text-white px-8 py-3.5 rounded-full font-bold text-sm uppercase tracking-widest hover:bg-white/10 transition-all duration-300 hover:border-white/60"
  >
  Explore Programs
+ <ArrowRight className="w-4 h-4" />
+ </Link>
+ <Link
+ to="/btech-admissions-2026-iit-kgp-collaboration"
+ className="flex items-center gap-2 border border-red-500/40 text-red-400 px-8 py-3.5 rounded-full font-bold text-sm uppercase tracking-widest hover:bg-red-500/10 transition-all duration-300 hover:border-red-500/70"
+ >
+ IIT KGP Collaboration
  <ArrowRight className="w-4 h-4" />
  </Link>
  </motion.div>

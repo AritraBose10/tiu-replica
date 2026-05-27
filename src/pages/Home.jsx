@@ -112,8 +112,6 @@ const Home = () => {
  {/* §12 Scholarships */}
  <ScholarshipsStrip />
 
- {/* Testimonials Strip */}
- <Testimonials />
 
  {/* §14 Admissions Snapshot */}
  <section className="py-24 bg-black relative overflow-hidden text-center text-white">

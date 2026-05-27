@@ -1,14 +1,15 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import {
   ArrowRight, ArrowUpRight, GraduationCap, Users, Award,
   BookOpen, Briefcase, Target, Zap, ChevronDown, Phone,
   MapPin, Cpu, Brain, CloudLightning, Check, X,
-  TrendingUp, Shield, Layers, Star, CheckCircle2
+  TrendingUp, Layers, Star, CheckCircle2
 } from 'lucide-react';
 import SEO from '../components/SEO';
 import SchemaInjector from '../components/SchemaInjector';
+import iitkgpImg from '../assets/iitkgp.jpg';
 
 const MotionLink = motion.create(Link);
 
@@ -77,30 +78,6 @@ const GhostNum = ({ n }) => (
   </span>
 );
 
-// ─── Inline animated counter ──────────────────────────────────────────────────
-const Counter = ({ target, suffix = '', duration = 1.8 }) => {
-  const [val, setVal] = useState(0);
-  const ref = useRef(null);
-  const started = useRef(false);
-  useEffect(() => {
-    const obs = new IntersectionObserver(([e]) => {
-      if (e.isIntersecting && !started.current) {
-        started.current = true;
-        const start = performance.now();
-        const tick = (now) => {
-          const p = Math.min((now - start) / (duration * 1000), 1);
-          const ease = 1 - Math.pow(1 - p, 3);
-          setVal(Math.round(ease * target));
-          if (p < 1) requestAnimationFrame(tick);
-        };
-        requestAnimationFrame(tick);
-      }
-    }, { threshold: 0.5 });
-    if (ref.current) obs.observe(ref.current);
-    return () => obs.disconnect();
-  }, [target, duration]);
-  return <span ref={ref}>{val}{suffix}</span>;
-};
 
 // ── Paste your Google Apps Script Web App URL here after deploying ────────────
 const SHEET_URL = 'https://script.google.com/macros/s/AKfycbxXVXoFQZVrzyGnuGQLvgEc4V1yk1iXvLQ5LTNEi117oB0LTm_OCIp36PH0cGwvtLFi_A/exec';
@@ -353,7 +330,7 @@ const IITKGPLanding = () => {
             {/* Course pills */}
             <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.7 }}
               className="flex flex-wrap gap-2 mb-6">
-              {['B.Tech CSE', 'AI & ML', 'Data Science', 'Cloud Computing'].map((c, i) => (
+              {['B.Tech CSE', 'CSE AI-ML', 'CSE Data Science', 'CSE Cloud Computing'].map((c, i) => (
                 <span key={i} className="text-xs font-bold px-4 py-2 rounded-full border border-white/10 bg-white/[0.04] text-gray-400 tracking-wide">
                   {c}
                 </span>
@@ -380,9 +357,20 @@ const IITKGPLanding = () => {
             </motion.p>
           </div>
 
-          {/* ── RIGHT — Form ── */}
+          {/* ── RIGHT — Image + Form ── */}
           <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            className="relative w-full">
+            className="relative w-full flex flex-col gap-4">
+
+            {/* Campus image */}
+            <div className="relative w-full h-44 md:h-52 rounded-2xl overflow-hidden border border-white/10">
+              <img src={iitkgpImg} alt="IIT Kharagpur Campus" className="w-full h-full object-cover" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+              <div className="absolute bottom-3 left-4 flex items-center gap-2">
+                <GraduationCap className="w-4 h-4 text-[#FF0000]" />
+                <span className="text-white text-xs font-black tracking-widest uppercase">IIT Kharagpur</span>
+              </div>
+            </div>
+
             {/* Corner decorations */}
             <div className="absolute -top-3 -left-3 w-10 h-10 border-t-2 border-l-2 border-[#FF0000]/30 rounded-tl-lg" />
             <div className="absolute -bottom-3 -right-3 w-10 h-10 border-b-2 border-r-2 border-[#FF0000]/30 rounded-br-lg" />
@@ -404,29 +392,10 @@ const IITKGPLanding = () => {
           </div>
         </div>
 
-        {/* Bottom stats strip */}
-        <div className="relative z-10 border-t border-white/6 bg-black/50 backdrop-blur-lg">
-          <div className="max-w-7xl mx-auto px-6 py-5 grid grid-cols-2 md:grid-cols-4 gap-y-4 gap-x-0">
-            {[
-              { val: 4, suf: '', label: 'Specializations' },
-              { val: 15000, suf: '+', label: 'Students' },
-              { val: 200, suf: '+', label: 'Hiring Partners' },
-              { val: 2026, suf: '', label: 'Admissions Open' },
-            ].map((s, i) => (
-              <motion.div key={i} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1 + i * 0.1 }}
-                className={`text-center ${i > 0 ? 'border-l border-white/5' : ''}`}>
-                <div className="text-2xl md:text-3xl font-black text-[#FF0000]">
-                  <Counter target={s.val} suffix={s.suf} />
-                </div>
-                <div className="text-xs text-gray-600 mt-1 font-medium">{s.label}</div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
       </section>
 
       {/* ── IIT DREAM ─────────────────────────────────────────────────────── */}
-      <section className="relative py-24 md:py-36 overflow-hidden" style={{ background: 'linear-gradient(180deg, #09080a 0%, #0d0a07 50%, #09080a 100%)' }}>
+      <section className="relative py-12 md:py-36 overflow-hidden" style={{ background: 'linear-gradient(180deg, #09080a 0%, #0d0a07 50%, #09080a 100%)' }}>
         <DiagDivider />
         <div className="max-w-6xl mx-auto px-6 text-center relative z-10 py-8">
           <motion.div initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }}
@@ -467,7 +436,7 @@ const IITKGPLanding = () => {
       </section>
 
       {/* ── COURSES — Magazine Row Layout ─────────────────────────────────── */}
-      <section className="py-24 md:py-32 px-4 md:px-10 relative overflow-hidden">
+      <section className="py-12 md:py-32 px-4 md:px-10 relative overflow-hidden">
         <div className="max-w-7xl mx-auto">
           {/* Section header */}
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
@@ -542,7 +511,7 @@ const IITKGPLanding = () => {
       </section>
 
       {/* ── IIT KGP BENEFITS — Numbered list ──────────────────────────────── */}
-      <section className="relative py-24 md:py-32 overflow-hidden"
+      <section className="relative py-12 md:py-32 overflow-hidden"
         style={{ background: 'linear-gradient(135deg, #0d0a07 0%, #09080a 50%, #080a0d 100%)' }}>
 
         <div className="absolute inset-0 pointer-events-none">
@@ -659,7 +628,7 @@ const IITKGPLanding = () => {
       </section>
 
       {/* ── COMPARISON — Two Large Panels ─────────────────────────────────── */}
-      <section className="py-24 md:py-32 px-6 md:px-10 relative overflow-hidden"
+      <section className="py-12 md:py-32 px-6 md:px-10 relative overflow-hidden"
         style={{ background: 'linear-gradient(180deg, #09080a 0%, #0b0809 100%)' }}>
         <div className="max-w-6xl mx-auto relative z-10">
           <div className="text-center mb-14">
@@ -731,7 +700,7 @@ const IITKGPLanding = () => {
       </section>
 
       {/* ── FAQ ────────────────────────────────────────────────────────────── */}
-      <section className="py-24 md:py-32 px-6 relative">
+      <section className="py-12 md:py-32 px-6 relative">
         <div className="max-w-3xl mx-auto">
           <div className="mb-14 relative">
             <GhostNum n="05" />
@@ -747,7 +716,7 @@ const IITKGPLanding = () => {
       </section>
 
       {/* ── FINAL CTA ──────────────────────────────────────────────────────── */}
-      <section className="relative py-24 md:py-32 px-6 overflow-hidden">
+      <section className="relative py-12 md:py-32 px-6 overflow-hidden">
         <div className="absolute inset-0"
           style={{ background: 'linear-gradient(135deg, rgba(255,0,0,0.06) 0%, transparent 50%, rgba(245,158,11,0.04) 100%)' }} />
         {/* Corner bracket decorations */}
