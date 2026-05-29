@@ -126,10 +126,13 @@ function BlogList({ onNew, onEdit }) {
       {loading ? (
         <div className="flex justify-center py-24"><Loader2 className="w-8 h-8 text-red-500 animate-spin" /></div>
       ) : blogs.length === 0 ? (
-        <div className="text-center py-24 text-gray-600">
-          <FileText className="w-12 h-12 mx-auto mb-4 opacity-30" />
-          <p className="text-lg font-medium">No blogs yet</p>
-          <p className="text-sm mt-1">Click "New Blog" to write your first post</p>
+        <div className="text-center py-24 text-gray-600 bg-white/[0.02] border border-white/5 rounded-3xl p-8 max-w-lg mx-auto">
+          <FileText className="w-16 h-16 mx-auto mb-4 opacity-30 text-red-500 animate-pulse" />
+          <p className="text-xl font-bold text-white mb-2">No articles written yet</p>
+          <p className="text-sm text-gray-400 mb-6">Create and publish your first article on the TIU replica School of the Future website.</p>
+          <button onClick={onNew} className="admin-btn-primary flex items-center gap-2 mx-auto shadow-lg shadow-red-600/25">
+            <Plus className="w-4 h-4" /> Write Your First Post
+          </button>
         </div>
       ) : (
         <div className="admin-table-wrap">
