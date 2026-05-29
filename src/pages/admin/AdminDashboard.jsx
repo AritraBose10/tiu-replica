@@ -3,11 +3,12 @@ import { Link } from 'react-router-dom';
 import {
  BookOpen, CalendarDays, HelpCircle, MessageSquareQuote,
  Handshake, ShieldCheck, Image, GraduationCap, Building2,
- ArrowUpRight, Settings, Globe
+ ArrowUpRight, Settings, Globe, FileText
 } from 'lucide-react';
 
 const contentTypes = [
- { key: 'courses', label: 'Courses', icon: BookOpen, color: '#FF0000', endpoint: '/api/courses' },
+ { key: 'blogs', label: 'Blogs', icon: FileText, color: '#FF0000', endpoint: '/api/blogs?all=1' },
+ { key: 'courses', label: 'Courses', icon: BookOpen, color: '#f97316', endpoint: '/api/courses' },
  { key: 'events', label: 'Events', icon: CalendarDays, color: '#f97316', endpoint: '/api/events' },
  { key: 'faqs', label: 'FAQs', icon: HelpCircle, color: '#a855f7', endpoint: '/api/faqs' },
  { key: 'testimonials', label: 'Testimonials', icon: MessageSquareQuote, color: '#06b6d4', endpoint: '/api/testimonials' },
@@ -19,6 +20,7 @@ const contentTypes = [
 ];
 
 const quickActions = [
+ { label: 'Write a Blog', path: '/admin/blogs', icon: FileText, color: '#FF0000' },
  { label: 'Manage Courses', path: '/admin/courses', icon: BookOpen, color: '#FF0000' },
  { label: 'Manage Events', path: '/admin/events', icon: CalendarDays, color: '#f97316' },
  { label: 'Site Settings', path: '/admin/settings', icon: Settings, color: '#a855f7' },

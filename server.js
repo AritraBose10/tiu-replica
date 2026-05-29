@@ -25,6 +25,7 @@ import galleryHandler from './api/gallery.js';
 import scholarshipsHandler from './api/scholarships.js';
 import recruitersHandler from './api/recruiters.js';
 import coursesHandler from './api/courses.js';
+import blogsHandler from './api/blogs.js';
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -103,6 +104,7 @@ app.all('/api/gallery', galleryHandler);
 app.all('/api/scholarships', scholarshipsHandler);
 app.all('/api/recruiters', recruitersHandler);
 app.all('/api/courses', coursesHandler);
+app.all('/api/blogs', blogsHandler);
 
 app.get('/api/scrape-events', scrapeLimiter, async (req, res) => {
     const auth = requireAuth(req);

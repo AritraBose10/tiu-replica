@@ -1,11 +1,11 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import {
   BookOpen, Clock, ArrowUpRight, Search, Tag,
   Sparkles, ChevronRight, User, TrendingUp, Zap,
   Brain, Code, Cpu, Globe, GraduationCap, Lightbulb
 } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import SEO from '../components/SEO';
 
 // ─── Blog Data ────────────────────────────────────────────────
@@ -20,125 +20,18 @@ const CATEGORY_ICONS = {
   'Tutorials': Code,
 };
 
-const BLOGS_DATA = [
-  {
-    id: 1,
-    title: 'How Generative AI Is Reshaping the Future of Engineering Education',
-    excerpt: 'From AI-powered tutors to personalized learning paths — here\'s how universities like TIU are embedding intelligence into every layer of learning.',
-    category: 'AI & Tech',
-    author: 'Dr. Aritra Sen',
-    authorRole: 'Dean, School of the Future',
-    date: 'May 8, 2026',
-    readTime: '7 min read',
-    image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=2070&auto=format&fit=crop',
-    featured: true,
-    tags: ['Generative AI', 'EdTech', 'Future of Learning'],
-  },
-  {
-    id: 2,
-    title: 'From Campus to Corporate: How TIU Students Are Landing Dream Jobs',
-    excerpt: 'A deep dive into the placement journeys of three TIU alumni — from their first lab session to offer letters at Microsoft, Infosys, and Deloitte.',
-    category: 'Career',
-    author: 'Priya Ghosh',
-    authorRole: 'Placement Coordinator',
-    date: 'April 29, 2026',
-    readTime: '5 min read',
-    image: 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=2084&auto=format&fit=crop',
-    featured: true,
-    tags: ['Placements', 'Alumni Stories', 'Career Growth'],
-  },
-  {
-    id: 3,
-    title: 'Building a Neural Network from Scratch with Python — A Student\'s Guide',
-    excerpt: 'No black boxes. No shortcuts. This step-by-step guide walks you through the math and code behind a working neural network, built by TIU students.',
-    category: 'Tutorials',
-    author: 'Rohit Das',
-    authorRole: 'B.Tech CSE (AI), Year 3',
-    date: 'April 21, 2026',
-    readTime: '12 min read',
-    image: 'https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=2070&auto=format&fit=crop',
-    featured: false,
-    tags: ['Python', 'Deep Learning', 'Beginner'],
-  },
-  {
-    id: 4,
-    title: 'The Rise of Quantum Computing: What It Means for Indian Engineers',
-    excerpt: 'Quantum supremacy isn\'t science fiction anymore. We break down what the quantum wave means for students choosing their specialisation today.',
-    category: 'Research',
-    author: 'Prof. Sanjay Mukherjee',
-    authorRole: 'Head of Research, TIU',
-    date: 'April 14, 2026',
-    readTime: '9 min read',
-    image: 'https://images.unsplash.com/photo-1635070041078-e363dbe005cb?q=80&w=2070&auto=format&fit=crop',
-    featured: false,
-    tags: ['Quantum', 'Future Tech', 'Engineering'],
-  },
-  {
-    id: 5,
-    title: 'TechNova 2026: When 2,500 Students Turned Ideas Into Reality',
-    excerpt: 'Our annual tech fest was more than competitions — it was a proof of concept for what happens when creativity, code, and community collide.',
-    category: 'Campus Life',
-    author: 'Ananya Roy',
-    authorRole: 'Student Affairs, TIU',
-    date: 'April 5, 2026',
-    readTime: '6 min read',
-    image: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=2070&auto=format&fit=crop',
-    featured: false,
-    tags: ['TechNova', 'Events', 'Innovation'],
-  },
-  {
-    id: 6,
-    title: 'Google Cloud & IBM Skills Build: A Student\'s Honest Review',
-    excerpt: 'After completing both industry certifications through TIU\'s integrated curriculum, here\'s an unfiltered take on what actually helped and what didn\'t.',
-    category: 'Industry',
-    author: 'Sneha Banerjee',
-    authorRole: 'B.Tech CSE, Year 4',
-    date: 'March 30, 2026',
-    readTime: '8 min read',
-    image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop',
-    featured: false,
-    tags: ['Google Cloud', 'IBM', 'Certification'],
-  },
-  {
-    id: 7,
-    title: 'Cracking the System Design Interview: Notes from TIU Placements',
-    excerpt: 'System design rounds trip up even strong coders. These battle-tested frameworks from our placement veterans will give you the edge you need.',
-    category: 'Career',
-    author: 'Arjun Sharma',
-    authorRole: 'Alumni, Software Engineer @ Amazon',
-    date: 'March 22, 2026',
-    readTime: '10 min read',
-    image: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=2070&auto=format&fit=crop',
-    featured: false,
-    tags: ['Interviews', 'System Design', 'FAANG'],
-  },
-  {
-    id: 8,
-    title: 'Why Every Engineer Should Learn Data Storytelling in 2026',
-    excerpt: 'Code alone won\'t cut it anymore. The engineers who communicate insights visually are the ones shaping product decisions at top tech companies.',
-    category: 'AI & Tech',
-    author: 'Dr. Meera Pillai',
-    authorRole: 'Associate Professor, Data Science',
-    date: 'March 15, 2026',
-    readTime: '6 min read',
-    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop',
-    featured: false,
-    tags: ['Data Science', 'Visualization', 'Skills'],
-  },
-  {
-    id: 9,
-    title: 'Inside TIU\'s Hackathon Lab: Where Startups Are Born at 3AM',
-    excerpt: 'Sleep-deprived, caffeinated, and building something that matters — a night inside the Innovation Hub during Code for Change 2026.',
-    category: 'Campus Life',
-    author: 'Editorial Team',
-    authorRole: 'TIU Blog',
-    date: 'March 8, 2026',
-    readTime: '5 min read',
-    image: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=2070&auto=format&fit=crop',
-    featured: false,
-    tags: ['Hackathon', 'Startup', 'Campus'],
-  },
-];
+// ─── Skeleton Card ────────────────────────────────────────────
+const SkeletonCard = () => (
+  <div className="bg-[#0a0a12]/80 border border-white/5 rounded-2xl overflow-hidden animate-pulse">
+    <div className="h-48 bg-white/5" />
+    <div className="p-5 space-y-3">
+      <div className="h-3 bg-white/5 rounded w-3/4" />
+      <div className="h-3 bg-white/5 rounded w-1/2" />
+      <div className="h-3 bg-white/5 rounded w-full" />
+    </div>
+  </div>
+);
+
 
 // ─── Floating Background ──────────────────────────────────────
 const FloatingBackground = () => (
@@ -368,17 +261,30 @@ const TagStrip = () => {
 const Blogs = () => {
   const [activeCategory, setActiveCategory] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
+  const [allBlogs, setAllBlogs] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const filteredBlogs = BLOGS_DATA.filter((blog) => {
+  useEffect(() => {
+    fetch('/api/blogs')
+      .then(r => r.json())
+      .then(data => {
+        setAllBlogs(Array.isArray(data) ? data : []);
+        setLoading(false);
+      })
+      .catch(() => setLoading(false));
+  }, []);
+
+  const filteredBlogs = allBlogs.filter((blog) => {
     const matchesCategory = activeCategory === 'All' || blog.category === activeCategory;
+    const tags = Array.isArray(blog.tags) ? blog.tags : [];
     const matchesSearch =
       blog.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      blog.excerpt.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      blog.tags.some((t) => t.toLowerCase().includes(searchQuery.toLowerCase()));
+      (blog.excerpt || '').toLowerCase().includes(searchQuery.toLowerCase()) ||
+      tags.some((t) => t.toLowerCase().includes(searchQuery.toLowerCase()));
     return matchesCategory && matchesSearch;
   });
 
-  const featuredBlogs = BLOGS_DATA.filter((b) => b.featured);
+  const featuredBlogs = allBlogs.filter((b) => b.featured);
   const regularBlogs = filteredBlogs.filter((b) => !b.featured);
 
   return (

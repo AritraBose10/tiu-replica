@@ -3,11 +3,12 @@ import { useAuth } from './AuthProvider';
 import {
  LayoutDashboard, BookOpen, CalendarDays, HelpCircle, MessageSquareQuote,
  Handshake, ShieldCheck, Image, GraduationCap, Building2, Settings,
- LogOut, ExternalLink, Zap
+ LogOut, ExternalLink, Zap, FileText
 } from 'lucide-react';
 
 const navItems = [
  { label: 'Dashboard', path: '/admin/dashboard', icon: LayoutDashboard },
+ { label: 'Blogs', path: '/admin/blogs', icon: FileText },
  { label: 'Courses', path: '/admin/courses', icon: BookOpen },
  { label: 'Events', path: '/admin/events', icon: CalendarDays },
  { label: 'FAQs', path: '/admin/faqs', icon: HelpCircle },

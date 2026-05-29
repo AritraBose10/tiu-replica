@@ -16,6 +16,7 @@ import ThankYou from './pages/ThankYou';
 import AIEvent from './pages/AIEvent';
 import Blogs from './pages/Blogs';
 import IITKGPLanding from './pages/IITKGPLanding';
+import BlogPost from './pages/BlogPost';
 import BreadcrumbSchema from './components/BreadcrumbSchema';
 import EventScraperDemo from './components/EventScraperDemo';
 import { AnimatePresence } from 'framer-motion';
@@ -45,6 +46,7 @@ import AdminGallery from './pages/admin/AdminGallery';
 import AdminScholarships from './pages/admin/AdminScholarships';
 import AdminRecruiters from './pages/admin/AdminRecruiters';
 import AdminSettings from './pages/admin/AdminSettings';
+import AdminBlogs from './pages/admin/AdminBlogs';
 import './styles/admin.css';
 
 // Scroll to top component
@@ -87,6 +89,7 @@ export function AppShell() {
  <Route path="/admin/login" element={<Navigate to="/admin" replace />} />
  <Route path="/admin" element={<AdminGuard><AdminLayout /></AdminGuard>}>
  <Route path="dashboard" element={<AdminDashboard />} />
+ <Route path="blogs" element={<AdminBlogs />} />
  <Route path="courses" element={<AdminCourses />} />
  <Route path="events" element={<AdminEvents />} />
  <Route path="faqs" element={<AdminFAQs />} />
@@ -121,8 +124,9 @@ export function AppShell() {
  <Route path="/events-demo" element={<EventScraperDemo />} />
  <Route path="/thank-you" element={<ThankYou />} />
  <Route path="/ai-event" element={<AIEvent />} />
-                <Route path="/btech-admission-iit-kharagpur-collaboration" element={<IITKGPLanding />} />
-                <Route path="*" element={<NotFound />} />
+ <Route path="/btech-admission-iit-kharagpur-collaboration" element={<IITKGPLanding />} />
+ <Route path="/blog/:slug" element={<BlogPost />} />
+ <Route path="*" element={<NotFound />} />
  </Routes>
  </main>
  <Footer />
