@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import {
@@ -83,92 +83,84 @@ const GhostNum = ({ n }) => (
 // ── Paste your Google Apps Script Web App URL here after deploying ────────────
 const SHEET_URL = 'https://script.google.com/macros/s/AKfycbxXVXoFQZVrzyGnuGQLvgEc4V1yk1iXvLQ5LTNEi117oB0LTm_OCIp36PH0cGwvtLFi_A/exec';
 
-// ─── Lead Form ────────────────────────────────────────────────────────────────
-const LeadForm = ({ compact = false }) => {
-  const [form, setForm] = useState({ name: '', mobile: '', email: '', course: '', board: '', city: '', counselling: '' });
-  const [submitted, setSubmitted] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
+// ─── ExtraEdge Form Widget (same as Admissions page) ─────────────────────────
+const EEFormWidget = () => {
+  const [isLoading, setIsLoading] = useState(true);
+  const [iframeHeight, setIframeHeight] = useState(520);
 
-  const handle = (e) => setForm(f => ({ ...f, [e.target.name]: e.target.value }));
+  useEffect(() => {
+    const handleMessage = (event) => {
+      if (event.data && event.data.type === 'EE_WIDGET_LOADED') setIsLoading(false);
+      if (event.data && event.data.type === 'EE_WIDGET_HEIGHT') setIframeHeight(event.data.height);
+    };
+    window.addEventListener('message', handleMessage);
+    return () => window.removeEventListener('message', handleMessage);
+  }, []);
 
-  const submit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    setError('');
-    try {
-      const payload = new FormData();
-      payload.append('timestamp', new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }));
-      payload.append('name', form.name);
-      payload.append('mobile', form.mobile);
-      payload.append('email', form.email || '');
-      payload.append('course', form.course);
-      payload.append('board', form.board || '');
-      payload.append('city', form.city || '');
-      payload.append('counselling', form.counselling || '');
-      payload.append('source', 'IIT KGP Landing Page');
-
-      // no-cors: data is sent but response is opaque — treat completion as success
-      await fetch(SHEET_URL, { method: 'POST', mode: 'no-cors', body: payload });
-      setSubmitted(true);
-    } catch {
-      setError('Something went wrong. Please call 08062642222 directly.');
-    } finally {
-      setLoading(false);
-    }
+  const widgetCode = `
+  <!DOCTYPE html>
+  <html>
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+  body { margin: 0; padding: 0; background: transparent; font-family: sans-serif; }
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 3px; }
+  <\/style>
+  <\/head>
+  <body>
+  <div class="ee-form-widget" id="ee-form-8"><\/div>
+  <script>
+  function reportHeight() {
+  var h = document.body.scrollHeight;
+  window.parent.postMessage({ type: 'EE_WIDGET_HEIGHT', height: h }, '*');
+  }
+  window.addEventListener("DOMContentLoaded", function() {
+  window.ee_form_widget_baseurl = "https://eeconfigstaticfiles.blob.core.windows.net/staticfiles/ee-form-widget/";
+  if (!document.getElementById("__formWidgetCss")) {
+  var e = document.createElement("link");
+  e.id = "__formWidgetCss";
+  e.rel = "stylesheet";
+  e.href = window.ee_form_widget_baseurl + "css/stylesheet.min.css";
+  e.type = "text/css";
+  document.getElementsByTagName("head")[0].appendChild(e);
+  }
+  var t = document.createElement("script");
+  t.type = "text/javascript";
+  t.onload = async function() {
+  var _eeFormWidget = new eeFormWidget();
+  await _eeFormWidget.init("softiu", "form-8", "ee-form-8");
+  window.parent.postMessage({ type: 'EE_WIDGET_LOADED' }, '*');
+  setTimeout(reportHeight, 300);
+  setTimeout(reportHeight, 1000);
   };
-  const inp = `w-full bg-black/40 border border-white/10 rounded-lg px-4 py-3 text-white text-sm placeholder:text-gray-600
-    focus:outline-none focus:border-[#FF0000]/50 focus:bg-black/60 transition-all duration-200`;
-
-  if (submitted) return (
-    <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="text-center py-10">
-      <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: 'spring', stiffness: 200, delay: 0.1 }}
-        className="w-16 h-16 bg-[#FF0000]/10 rounded-full flex items-center justify-center mx-auto mb-4 border border-[#FF0000]/25">
-        <Check className="w-8 h-8 text-[#FF0000]" />
-      </motion.div>
-      <h3 className="text-xl font-bold text-white mb-2">Application Received!</h3>
-      <p className="text-gray-400 text-sm">Our admission counsellor will connect with you shortly.</p>
-      <p className="text-[#FF0000] text-sm font-bold mt-3">Call us: 08062642222</p>
-    </motion.div>
-  );
+  t.src = window.ee_form_widget_baseurl + "js/eeFormWidget.min.js";
+  document.getElementsByTagName("head")[0].appendChild(t);
+  });
+  if (window.ResizeObserver) {
+  new ResizeObserver(reportHeight).observe(document.documentElement);
+  }
+  <\/script>
+  <\/body>
+  <\/html>
+  `;
 
   return (
-    <form onSubmit={submit} className="space-y-3">
-      <input required name="name" placeholder="Full Name" value={form.name} onChange={handle} className={inp} />
-      <input required name="mobile" placeholder="Mobile Number" type="tel" value={form.mobile} onChange={handle} className={inp} />
-      {!compact && <input name="email" placeholder="Email ID" type="email" value={form.email} onChange={handle} className={inp} />}
-      <select required name="course" value={form.course} onChange={handle} className={`${inp} ${!form.course ? 'text-gray-600' : 'text-white'}`}>
-        <option value="" disabled>Preferred Course</option>
-        <option>B.Tech CSE</option>
-        <option>B.Tech CSE in AI and ML</option>
-        <option>B.Tech CSE in Data Science</option>
-        <option>B.Tech CSE in Cloud Computing</option>
-      </select>
-      {!compact && <>
-        <select name="board" value={form.board} onChange={handle} className={`${inp} ${!form.board ? 'text-gray-600' : 'text-white'}`}>
-          <option value="" disabled>Class 12 Board</option>
-          <option>CBSE</option><option>ICSE</option><option>West Bengal Board</option><option>Other State Board</option>
-        </select>
-        <input name="city" placeholder="City" value={form.city} onChange={handle} className={inp} />
-        <select name="counselling" value={form.counselling} onChange={handle} className={`${inp} ${!form.counselling ? 'text-gray-600' : 'text-white'}`}>
-          <option value="" disabled>Counselling Preference</option>
-          <option>Online</option><option>In Person (Campus Visit)</option><option>Phone Call</option>
-        </select>
-      </>}
-      <motion.button type="submit" disabled={loading} whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.97 }}
-        className="w-full bg-[#FF0000] text-black font-black py-3.5 rounded-lg hover:bg-[#CC0000] transition-colors
-          flex items-center justify-center gap-2 disabled:opacity-70 tracking-wide text-sm">
-        {loading
-          ? <motion.div animate={{ rotate: 360 }} transition={{ duration: 1, repeat: Infinity, ease: 'linear' }} className="w-5 h-5 border-2 border-black/30 border-t-black rounded-full" />
-          : <><span>SUBMIT APPLICATION</span><ArrowRight className="w-4 h-4" /></>}
-      </motion.button>
-      {error && (
-        <p className="text-red-400 text-xs text-center bg-red-400/10 border border-red-400/20 rounded-lg px-3 py-2">
-          {error}
-        </p>
+    <div className="relative bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl shadow-2xl" style={{ padding: '10px 5px', height: iframeHeight + 40 }}>
+      {isLoading && (
+        <div className="absolute inset-0 flex items-center justify-center z-20 bg-black/20 backdrop-blur-sm rounded-3xl">
+          <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-red-500" />
+        </div>
       )}
-      <p className="text-gray-700 text-xs text-center">Limited seats. Early applicants get priority counselling.</p>
-    </form>
+      <iframe
+        srcDoc={widgetCode}
+        title="IIT KGP Admissions Enquiry Form"
+        className={`w-full border-0 z-10 rounded-2xl transition-opacity duration-500 ${isLoading ? 'opacity-0' : 'opacity-100'}`}
+        style={{ backgroundColor: 'transparent', height: iframeHeight }}
+      />
+    </div>
   );
 };
 
@@ -777,16 +769,12 @@ const IITKGPLanding = () => {
               <p className="text-gray-700 text-xs mt-4">Benefits under the collaboration with IIT KGP are applicable as per program terms.</p>
             </div>
 
-            {/* Form */}
+            {/* ExtraEdge Form Widget */}
             <motion.div initial={{ opacity: 0, x: 40 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.2 }}
               className="relative">
               <div className="absolute -top-3 -left-3 w-8 h-8 border-t-2 border-l-2 border-[#FF0000]/30 rounded-tl-lg" />
               <div className="absolute -bottom-3 -right-3 w-8 h-8 border-b-2 border-r-2 border-[#FF0000]/30 rounded-br-lg" />
-              <div className="bg-white/[0.03] border border-white/10 rounded-2xl p-7 md:p-8">
-                <h3 className="text-lg font-black text-white mb-1">Apply for B.Tech Admissions 2026</h3>
-                <p className="text-gray-500 text-sm mb-6">Our counsellor will reach out to you.</p>
-                <LeadForm compact />
-              </div>
+              <EEFormWidget />
             </motion.div>
           </div>
         </div>
