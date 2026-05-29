@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useRef } from 'react';
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import Image from '@tiptap/extension-image';
@@ -31,11 +31,13 @@ const ToolbarDivider = () => (
 );
 
 export default function RichTextEditor({ content, onChange, placeholder = 'Write your blog content here...' }) {
+  const fileInputRef = useRef(null);
+
   const editor = useEditor({
     extensions: [
       StarterKit.configure({ heading: { levels: [2, 3] } }),
       Underline,
-      Image.configure({ inline: false, allowBase64: false }),
+      Image.configure({ inline: false, allowBase64: true }),
       Link.configure({ openOnClick: false, autolink: true, HTMLAttributes: { class: 'text-red-400 underline hover:text-red-300 transition-colors' } }),
       Placeholder.configure({ placeholder }),
     ],
@@ -57,10 +59,47 @@ export default function RichTextEditor({ content, onChange, placeholder = 'Write
     editor.chain().focus().extendMarkRange('link').setLink({ href: url }).run();
   }, [editor]);
 
+  const handleFileChange = useCallback((e) => {
+    const file = e.target.files?.[0];
+    if (!file || !editor) return;
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const img = new window.Image();
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        const MAX_WIDTH = 800; // body images are smaller
+        let width = img.width;
+        let height = img.height;
+        
+        if (width > MAX_WIDTH) {
+          height = Math.round((height * MAX_WIDTH) / width);
+          width = MAX_WIDTH;
+        }
+        
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, width, height);
+        
+        const compressedBase64 = canvas.toDataURL('image/webp', 0.8);
+        editor.chain().focus().setImage({ src: compressedBase64, alt: '' }).run();
+      };
+      img.src = event.target.result;
+    };
+    reader.readAsDataURL(file);
+    e.target.value = ''; // Reset file input
+  }, [editor]);
+
   const addImage = useCallback(() => {
     if (!editor) return;
-    const url = window.prompt('Image URL');
-    if (url) editor.chain().focus().setImage({ src: url, alt: '' }).run();
+    const choice = window.confirm('Do you want to upload a local image file from your computer?\n(Click OK to upload a file, or click Cancel to paste a direct image URL instead.)');
+    if (choice) {
+      fileInputRef.current?.click();
+    } else {
+      const url = window.prompt('Image URL');
+      if (url) editor.chain().focus().setImage({ src: url, alt: '' }).run();
+    }
   }, [editor]);
 
   if (!editor) return null;
@@ -106,6 +145,15 @@ export default function RichTextEditor({ content, onChange, placeholder = 'Write
 
       {/* Editor area */}
       <EditorContent editor={editor} />
+
+      {/* Hidden file input for inline images */}
+      <input
+        type="file"
+        ref={fileInputRef}
+        accept="image/*"
+        onChange={handleFileChange}
+        className="hidden"
+      />
     </div>
   );
 }

@@ -4,7 +4,7 @@ import RichTextEditor from '../../components/admin/RichTextEditor';
 import {
   Plus, Pencil, Trash2, Eye, EyeOff, ArrowLeft,
   FileText, Globe, Star, Tag, Clock, ChevronRight,
-  Save, Send, Loader2, X, AlertCircle, CheckCircle
+  Save, Send, Loader2, X, AlertCircle, CheckCircle, Upload
 } from 'lucide-react';
 
 // ─── helpers ─────────────────────────────────────────────────────────────────
@@ -301,11 +301,66 @@ function BlogEditor({ blog, onBack, onSaved }) {
 
           {/* Feature Image */}
           <div>
-            <label className={label}>Feature Image URL <span className="normal-case text-gray-600 font-normal">(shown just after the title)</span></label>
-            <input value={form.feature_image} onChange={(e) => set('feature_image', e.target.value)} placeholder="https://..." className={inp} />
+            <label className={label}>Feature Image <span className="normal-case text-gray-600 font-normal">(paste URL or upload a file)</span></label>
+            <div className="flex gap-2">
+              <input
+                value={form.feature_image}
+                onChange={(e) => set('feature_image', e.target.value)}
+                placeholder="https://... or select a file"
+                className={inp + ' flex-1'}
+              />
+              <label className="flex items-center gap-2 px-4 py-2.5 bg-white/5 border border-white/10 hover:border-white/20 text-gray-300 hover:text-white rounded-lg cursor-pointer text-sm font-semibold transition-colors whitespace-nowrap">
+                <Upload className="w-4 h-4 text-red-500" />
+                Upload File
+                <input
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  onChange={async (e) => {
+                    const file = e.target.files?.[0];
+                    if (!file) return;
+                    
+                    const reader = new FileReader();
+                    reader.onload = (event) => {
+                      const img = new Image();
+                      img.onload = () => {
+                        const canvas = document.createElement('canvas');
+                        const MAX_WIDTH = 1200;
+                        let width = img.width;
+                        let height = img.height;
+                        
+                        if (width > MAX_WIDTH) {
+                          height = Math.round((height * MAX_WIDTH) / width);
+                          width = MAX_WIDTH;
+                        }
+                        
+                        canvas.width = width;
+                        canvas.height = height;
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0, width, height);
+                        
+                        // Output as highly optimized compressed WebP
+                        const compressedBase64 = canvas.toDataURL('image/webp', 0.82);
+                        set('feature_image', compressedBase64);
+                      };
+                      img.src = event.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                  }}
+                />
+              </label>
+            </div>
             {form.feature_image && (
-              <div className="mt-2 rounded-xl overflow-hidden border border-white/10 max-h-48">
+              <div className="mt-3 relative rounded-xl overflow-hidden border border-white/10 max-h-48 group/img">
                 <img src={form.feature_image} alt="Feature" className="w-full h-48 object-cover" />
+                <button
+                  type="button"
+                  onClick={() => set('feature_image', '')}
+                  className="absolute top-2 right-2 p-1.5 bg-black/70 hover:bg-red-600 text-white rounded-full opacity-0 group-hover/img:opacity-100 transition-opacity"
+                  title="Remove Image"
+                >
+                  <Trash2 className="w-4 h-4" />
+                </button>
               </div>
             )}
           </div>
