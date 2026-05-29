@@ -121,7 +121,7 @@ export function AppShell() {
  <Route path="/events-demo" element={<EventScraperDemo />} />
  <Route path="/thank-you" element={<ThankYou />} />
  <Route path="/ai-event" element={<AIEvent />} />
-                <Route path="/btech-admissions-2026-iit-kgp-collaboration" element={<IITKGPLanding />} />
+                <Route path="/btech-admission-iit-kharagpur-collaboration" element={<IITKGPLanding />} />
                 <Route path="*" element={<NotFound />} />
  </Routes>
  </main>

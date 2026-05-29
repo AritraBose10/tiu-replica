@@ -204,10 +204,10 @@ const FAQItem = ({ faq, i }) => {
 // ─── Data ─────────────────────────────────────────────────────────────────────
 const courses = [
   { n: '01', icon: Cpu, title: 'B.Tech CSE', label: 'Core', accent: '#FF0000',
-    desc: 'Strong foundation in computer science — programming, software development, algorithms, databases, OS, networks and emerging technologies.',
+    desc: 'Strong foundation in computer science: programming, software development, algorithms, databases, OS, networks and emerging technologies.',
     for: 'Software development · IT careers · Product development · Higher studies' },
   { n: '02', icon: Brain, title: 'B.Tech CSE in AI and ML', label: 'High Demand', accent: '#FF4444',
-    desc: 'Artificial Intelligence and Machine Learning — intelligent systems, automation, data driven applications, next generation technology careers.',
+    desc: 'Artificial Intelligence and Machine Learning, intelligent systems, automation, data driven applications, next generation technology careers.',
     for: 'AI roles · Machine learning · Automation · Robotics · Future technology' },
   { n: '03', icon: TrendingUp, title: 'B.Tech CSE in Data Science', label: 'Fastest Growing', accent: '#3b82f6',
     desc: 'Data analytics, big data, business intelligence, data visualization, statistics and data driven decision making.',
@@ -255,8 +255,8 @@ const IITKGPLanding = () => {
   return (
     <div className="min-h-screen bg-[#09080a] text-white overflow-x-hidden selection:bg-[#FF0000] selection:text-white">
       <SEO
-        title="B.Tech Admissions 2026 with IIT KGP Collaboration | Techno India University"
-        description="Apply for B.Tech CSE, B.Tech CSE in AI and ML, Data Science and Cloud Computing at Techno India University, School of the Future under its collaboration with IIT KGP. Admissions 2026 open."
+        title="B.Tech CSE Admission at Techno India University with IIT Kharagpur Collaboration"
+        description="Admissions open for B.Tech CSE at Techno India University in collaboration with IIT Kharagpur. Choose AI & ML, Data Science, or Cloud Computing. Apply now in limited seats!"
       />
       <SchemaInjector schema={pageSchema} />
       <CursorGlow />
@@ -338,7 +338,7 @@ const IITKGPLanding = () => {
 
             <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }}
               className="text-gray-400 text-sm md:text-base lg:text-lg leading-relaxed mt-5 mb-6 max-w-xl">
-              Admissions 2026 are now open at Techno India University, School of the Future — future ready B.Tech CSE programs under its collaboration with IIT KGP, with project based learning and certification driven academic exposure.
+              Admissions 2026 are now open at Techno India University, School of the Future, future ready B.Tech CSE programs under its collaboration with IIT KGP, with project based learning and certification driven academic exposure.
             </motion.p>
 
             {/* Course pills */}
@@ -422,14 +422,14 @@ const IITKGPLanding = () => {
 
           <motion.p initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.25 }}
             className="text-gray-400 text-lg md:text-xl leading-relaxed mt-8 max-w-3xl mx-auto">
-            At Techno India University, School of the Future, students pursue future ready B.Tech CSE programs under its collaboration with IIT KGP — with project based learning and certification driven academic exposure.
+            At Techno India University, School of the Future, students pursue future ready B.Tech CSE programs under its collaboration with IIT KGP, with project based learning and certification driven academic exposure.
           </motion.p>
 
           <motion.div initial={{ opacity: 0, y: 15 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.35 }}
             className="mt-10 inline-flex items-center gap-3 bg-[#FF0000]/10 border border-[#FF0000]/25 px-7 py-3.5 rounded-full cursor-default">
             <motion.span animate={{ scale: [1, 1.4, 1] }} transition={{ duration: 1.5, repeat: Infinity }}
               className="w-2 h-2 rounded-full bg-[#FF0000]" />
-            <span className="text-[#FF0000] font-black tracking-wider text-sm uppercase">Apply Early — Seats Are Limited</span>
+            <span className="text-[#FF0000] font-black tracking-wider text-sm uppercase">Apply Early. Seats Are Limited</span>
           </motion.div>
         </div>
         <DiagDivider flip />
@@ -594,7 +594,7 @@ const IITKGPLanding = () => {
                 A Regular B.Tech May Not Be Enough Anymore
               </h3>
               <p className="text-gray-400 text-sm leading-relaxed mb-6">
-                The engineering job market is changing fast. Recruiters today look beyond a basic degree — they look for strong fundamentals, AI exposure, practical project experience, specialization knowledge and career ready confidence.
+                The engineering job market is changing fast. Recruiters today look beyond a basic degree. They look for strong fundamentals, AI exposure, practical project experience, specialization knowledge and career ready confidence.
               </p>
               <div className="space-y-2.5">
                 {['Future focused B.Tech pathway via IIT KGP', 'AI focused specializations built for the industry', 'Project based learning over theory', 'Career readiness credentials that stand out'].map((t, i) => (
@@ -618,7 +618,7 @@ const IITKGPLanding = () => {
                 Also: Google Cloud Collaborated Learning
               </h3>
               <p className="text-gray-400 text-sm leading-relaxed mb-6">
-                Along with the collaboration with IIT KGP, students at the School of the Future also get access to Google Cloud collaborated learning exposure — cloud, AI, digital tools and industry aligned learning.
+                Along with the collaboration with IIT KGP, students at the School of the Future also get access to Google Cloud collaborated learning exposure: cloud, AI, digital tools and industry aligned learning.
               </p>
               <div className="flex flex-wrap gap-2">
                 {['Cloud Computing', 'AI Exposure', 'Digital Tools', 'Industry Aligned'].map((t, i) => (
