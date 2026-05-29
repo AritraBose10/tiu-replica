@@ -395,7 +395,7 @@ const IITKGPLanding = () => {
       </section>
 
       {/* ── IIT DREAM ─────────────────────────────────────────────────────── */}
-      <section className="relative py-12 md:py-36 overflow-hidden" style={{ background: 'linear-gradient(180deg, #09080a 0%, #0d0a07 50%, #09080a 100%)' }}>
+      <section className="relative py-8 md:py-16 overflow-hidden" style={{ background: 'linear-gradient(180deg, #09080a 0%, #0d0a07 50%, #09080a 100%)' }}>
         <DiagDivider />
         <div className="max-w-6xl mx-auto px-6 text-center relative z-10 py-8">
           <motion.div initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }}
@@ -436,7 +436,7 @@ const IITKGPLanding = () => {
       </section>
 
       {/* ── COURSES — Magazine Row Layout ─────────────────────────────────── */}
-      <section className="py-12 md:py-32 px-4 md:px-10 relative overflow-hidden">
+      <section className="py-8 md:py-16 px-4 md:px-10 relative overflow-hidden">
         <div className="max-w-7xl mx-auto">
           {/* Section header */}
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
@@ -511,7 +511,7 @@ const IITKGPLanding = () => {
       </section>
 
       {/* ── IIT KGP BENEFITS — Numbered list ──────────────────────────────── */}
-      <section className="relative py-8 md:py-32 overflow-hidden"
+      <section className="relative py-6 md:py-14 overflow-hidden"
         style={{ background: 'linear-gradient(135deg, #0d0a07 0%, #09080a 50%, #080a0d 100%)' }}>
 
         <div className="absolute inset-0 pointer-events-none">
@@ -581,7 +581,7 @@ const IITKGPLanding = () => {
       </section>
 
       {/* ── WHY + GOOGLE CLOUD — Two-tone split ───────────────────────────── */}
-      <section className="py-8 md:py-28 px-6 md:px-10 relative overflow-hidden">
+      <section className="py-6 md:py-14 px-6 md:px-10 relative overflow-hidden">
         <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-6">
 
           {/* Why This Matters */}
@@ -633,7 +633,7 @@ const IITKGPLanding = () => {
       </section>
 
       {/* ── COMPARISON — Two Large Panels ─────────────────────────────────── */}
-      <section className="py-8 md:py-32 px-6 md:px-10 relative overflow-hidden"
+      <section className="py-6 md:py-14 px-6 md:px-10 relative overflow-hidden"
         style={{ background: 'linear-gradient(180deg, #09080a 0%, #0b0809 100%)' }}>
         <div className="max-w-6xl mx-auto relative z-10">
           <div className="text-center mb-14">
@@ -705,7 +705,7 @@ const IITKGPLanding = () => {
       </section>
 
       {/* ── FAQ ────────────────────────────────────────────────────────────── */}
-      <section className="py-12 md:py-32 px-6 relative">
+      <section className="py-8 md:py-16 px-6 relative">
         <div className="max-w-3xl mx-auto">
           <div className="mb-14 relative">
             <GhostNum n="05" />
@@ -721,7 +721,7 @@ const IITKGPLanding = () => {
       </section>
 
       {/* ── FINAL CTA ──────────────────────────────────────────────────────── */}
-      <section className="relative py-12 md:py-32 px-6 overflow-hidden">
+      <section className="relative py-8 md:py-16 px-6 overflow-hidden">
         <div className="absolute inset-0"
           style={{ background: 'linear-gradient(135deg, rgba(255,0,0,0.06) 0%, transparent 50%, rgba(245,158,11,0.04) 100%)' }} />
         {/* Corner bracket decorations */}
