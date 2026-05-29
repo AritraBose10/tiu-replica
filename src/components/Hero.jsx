@@ -350,7 +350,7 @@ const Hero = () => {
  <ArrowRight className="w-4 h-4" />
  </Link>
  <Link
- to="/btech-admissions-2026-iit-kgp-collaboration"
+ to="/btech-admission-iit-kharagpur-collaboration"
  className="flex items-center gap-2 border border-red-500/40 text-red-400 px-8 py-3.5 rounded-full font-bold text-sm uppercase tracking-widest hover:bg-red-500/10 transition-all duration-300 hover:border-red-500/70"
  >
  IIT KGP Collaboration

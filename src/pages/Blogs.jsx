@@ -71,17 +71,16 @@ const FeaturedBlogCard = ({ blog, index }) => {
   };
 
   const CategoryIcon = CATEGORY_ICONS[blog.category] || BookOpen;
+  const imageUrl = blog.feature_image || 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800';
+  const displayDate = blog.created_at ? new Date(blog.created_at).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }) : '';
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 70 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-60px' }}
-      transition={{ duration: 0.7, delay: index * 0.18, type: 'spring', stiffness: 80 }}
+    <Link
+      to={`/blog/${blog.slug}`}
+      className="group relative cursor-pointer block"
       onMouseMove={handleMouse}
       onMouseLeave={() => { x.set(0); y.set(0); }}
       style={{ rotateX, rotateY, transformStyle: 'preserve-3d' }}
-      className="group relative cursor-pointer"
     >
       <div className="absolute -inset-1 bg-gradient-to-br from-[#FF0000] via-pink-600 to-purple-700 opacity-0 group-hover:opacity-30 blur-2xl transition-all duration-700 rounded-3xl" />
 
@@ -94,7 +93,7 @@ const FeaturedBlogCard = ({ blog, index }) => {
           <motion.img
             whileHover={{ scale: 1.06 }}
             transition={{ duration: 0.5 }}
-            src={blog.image}
+            src={imageUrl}
             alt={blog.title}
             className="w-full h-full object-cover"
           />
@@ -115,12 +114,14 @@ const FeaturedBlogCard = ({ blog, index }) => {
             <Sparkles className="w-6 h-6 text-yellow-400 drop-shadow-lg" />
           </motion.div>
 
-          <div className="absolute bottom-4 right-4">
-            <span className="text-xs text-white/70 bg-black/40 backdrop-blur-sm px-3 py-1 rounded-full flex items-center gap-1.5">
-              <Clock className="w-3 h-3" />
-              {blog.readTime}
-            </span>
-          </div>
+          {blog.read_time && (
+            <div className="absolute bottom-4 right-4">
+              <span className="text-xs text-white/70 bg-black/40 backdrop-blur-sm px-3 py-1 rounded-full flex items-center gap-1.5">
+                <Clock className="w-3 h-3" />
+                {blog.read_time}
+              </span>
+            </div>
+          )}
         </div>
 
         {/* Content */}
@@ -143,11 +144,11 @@ const FeaturedBlogCard = ({ blog, index }) => {
           <div className="flex items-center justify-between pt-5 border-t border-white/5">
             <div className="flex items-center gap-3">
               <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#FF0000] to-pink-600 flex items-center justify-center text-white text-xs font-bold">
-                {blog.author[0]}
+                {(blog.author || 'E')[0]}
               </div>
               <div>
-                <p className="text-white text-sm font-semibold">{blog.author}</p>
-                <p className="text-gray-600 text-xs">{blog.date}</p>
+                <p className="text-white text-sm font-semibold">{blog.author || 'Editorial Team'}</p>
+                <p className="text-gray-600 text-xs">{displayDate}</p>
               </div>
             </div>
             <motion.div
@@ -159,23 +160,22 @@ const FeaturedBlogCard = ({ blog, index }) => {
           </div>
         </div>
       </div>
-    </motion.div>
+    </Link>
   );
 };
 
 // ─── Regular Blog Card ────────────────────────────────────────
 const BlogCard = ({ blog, index }) => {
   const CategoryIcon = CATEGORY_ICONS[blog.category] || BookOpen;
+  const imageUrl = blog.feature_image || 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800';
+  const displayDate = blog.created_at ? new Date(blog.created_at).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }) : '';
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-40px' }}
-      transition={{ duration: 0.5, delay: (index % 3) * 0.12 }}
-      className="group relative"
+    <Link
+      to={`/blog/${blog.slug}`}
+      className="group relative block h-full cursor-pointer"
     >
-      <div className="absolute -inset-0.5 bg-gradient-to-br from-[#FF0000] to-purple-600 opacity-0 group-hover:opacity-20 blur-lg transition-all duration-500 rounded-2xl" />
+      <div className="absolute -inset-0.5 bg-gradient-to-br from-[#FF0000] to-purple-600 opacity-0 group-hover:opacity-20 blur-lg transition-all duration-500 rounded-2xl animate-pulse" />
 
       <div className="relative bg-[#0a0a12]/80 backdrop-blur-sm border border-white/5 rounded-2xl overflow-hidden group-hover:border-[#FF0000]/30 transition-all duration-300 h-full flex flex-col">
         {/* Image strip */}
@@ -183,7 +183,7 @@ const BlogCard = ({ blog, index }) => {
           <motion.img
             whileHover={{ scale: 1.08 }}
             transition={{ duration: 0.5 }}
-            src={blog.image}
+            src={imageUrl}
             alt={blog.title}
             className="w-full h-full object-cover"
           />
@@ -201,9 +201,9 @@ const BlogCard = ({ blog, index }) => {
           <div className="flex items-center justify-between mb-3">
             <span className="text-xs text-gray-600 flex items-center gap-1">
               <Clock className="w-3 h-3" />
-              {blog.readTime}
+              {blog.read_time || '2 min read'}
             </span>
-            <span className="text-xs text-gray-600">{blog.date}</span>
+            <span className="text-xs text-gray-600">{displayDate}</span>
           </div>
 
           <h3 className="text-base font-bold text-white mb-2 group-hover:text-[#FF0000] transition-colors duration-300 line-clamp-2 leading-snug flex-grow">
@@ -217,9 +217,9 @@ const BlogCard = ({ blog, index }) => {
           <div className="pt-4 border-t border-white/5 flex items-center justify-between mt-auto">
             <div className="flex items-center gap-2">
               <div className="w-6 h-6 rounded-full bg-gradient-to-br from-[#FF0000] to-pink-600 flex items-center justify-center text-white text-xs font-bold flex-shrink-0">
-                {blog.author[0]}
+                {(blog.author || 'E')[0]}
               </div>
-              <span className="text-gray-500 text-xs truncate">{blog.author}</span>
+              <span className="text-gray-500 text-xs truncate">{blog.author || 'Editorial Team'}</span>
             </div>
             <div className="bg-white/5 p-1.5 rounded-full group-hover:bg-[#FF0000] transition-colors duration-300 flex-shrink-0">
               <ArrowUpRight className="w-3 h-3 text-white" />
@@ -227,7 +227,7 @@ const BlogCard = ({ blog, index }) => {
           </div>
         </div>
       </div>
-    </motion.div>
+    </Link>
   );
 };
 

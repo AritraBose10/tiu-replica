@@ -63,10 +63,10 @@ export const routeMeta = {
  changefreq: 'weekly',
  priority: 0.8
  },
- '/btech-admissions-2026-iit-kgp-collaboration': {
- title: 'B.Tech Admissions 2026 with IIT KGP Collaboration | Techno India University',
- description: 'Apply for B.Tech CSE, B.Tech CSE in AI and ML, Data Science and Cloud Computing at Techno India University, School of the Future under its collaboration with IIT KGP. Admissions 2026 open.',
- changefreq: 'weekly',
- priority: 0.9
- }
+  '/btech-admission-iit-kharagpur-collaboration': {
+    title: 'B.Tech CSE Admission at Techno India University with IIT Kharagpur Collaboration',
+    description: 'Admissions open for B.Tech CSE at Techno India University in collaboration with IIT Kharagpur. Choose AI & ML, Data Science, or Cloud Computing. Apply now in limited seats!',
+    changefreq: 'weekly',
+    priority: 0.9
+  }
 };
