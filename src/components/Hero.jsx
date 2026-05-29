@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { DollarSign, CheckCircle, Building2, Globe, ArrowRight } from 'lucide-react';
 import ThreeDCarousel from './ThreeDCarousel';
 import { useSettings } from '../contexts/SettingsContext';
-import iitKgpLogo from '../assets/IIT_KGP.jpeg';
+import iitKgpLogo from '../assets/IIT_KGP.webp';
 
 /* ─── Stat Badge Data ─── */
 const statBadges = [

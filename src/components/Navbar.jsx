@@ -26,6 +26,7 @@ const Navbar = () => {
  { name: 'Blogs', path: '/blogs' },
  { name: 'FAQ', path: '/faq' },
  { name: 'Google and IBM Courses', path: '/courses' },
+ { name: 'IIT KGP Collaboration', path: '/btech-admissions-2026-iit-kgp-collaboration' },
  ];
 
  return (

@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import coursesData from '../data/mock_courses.json';
 import seameduLogo from '../assets/seamedu.png';
 import emversityLogo from '../assets/emversity.png';
-import iitKgpLogo from '../assets/IIT_KGP.jpeg';
+import iitKgpLogo from '../assets/IIT_KGP.webp';
 import { COURSES_QUERY } from '../lib/queries';
 import SEO from '../components/SEO';
 import SchemaInjector from '../components/SchemaInjector';

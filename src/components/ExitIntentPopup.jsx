@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLocation, useNavigate } from 'react-router-dom';
-import iitkgpFlyer from '../assets/iitkgp.jpg';
+import iitkgpFlyer from '../assets/iitkgp.webp';
 
 const ALLOWED_PATHS = ['/', '/admissions', '/apply'];
 

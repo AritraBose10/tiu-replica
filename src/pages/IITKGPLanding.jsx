@@ -9,8 +9,8 @@ import {
 } from 'lucide-react';
 import SEO from '../components/SEO';
 import SchemaInjector from '../components/SchemaInjector';
-import iitkgpImg from '../assets/iitkgp.jpg';
-import iitkgpLogo from '../assets/IIT_KGP.jpeg';
+import iitkgpImg from '../assets/iitkgp.webp';
+import iitkgpLogo from '../assets/IIT_KGP.webp';
 
 const MotionLink = motion.create(Link);
 

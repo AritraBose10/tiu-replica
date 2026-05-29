@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import seameduLogo from '../assets/seamedu.png';
 import emversityLogo from '../assets/emversity.png';
-import iitKgpLogo from '../assets/IIT_KGP.jpeg';
+import iitKgpLogo from '../assets/IIT_KGP.webp';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Clock, GraduationCap, ChevronRight, ChevronLeft, ArrowUpRight, Sparkles, Briefcase } from 'lucide-react';
