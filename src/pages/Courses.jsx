@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 import coursesData from '../data/mock_courses.json';
 import seameduLogo from '../assets/seamedu.png';
 import emversityLogo from '../assets/emversity.png';
-import iitKgpLogo from '../assets/IIT_KGP.webp';
 import { COURSES_QUERY } from '../lib/queries';
 import SEO from '../components/SEO';
 import SchemaInjector from '../components/SchemaInjector';
@@ -344,8 +343,6 @@ const Courses = () => {
  <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Google_Cloud_logo.svg" alt="Google Cloud" className="h-4" />
  <span className="mx-1 text-white/30">×</span>
  <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg" alt="IBM" className="h-5 brightness-0 invert" />
- <span className="mx-1 text-white/30">×</span>
- <img src={iitKgpLogo} alt="IIT KGP" className="h-5 w-auto object-contain brightness-0 invert opacity-80" />
  <span className="ml-2">Certification Courses</span>
  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
  </Link>

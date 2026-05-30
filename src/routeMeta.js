@@ -63,10 +63,4 @@ export const routeMeta = {
  changefreq: 'weekly',
  priority: 0.8
  },
-  '/btech-admission-iit-kharagpur-collaboration': {
-    title: 'B.Tech CSE Admission at Techno India University with IIT Kharagpur Collaboration',
-    description: 'Admissions open for B.Tech CSE at Techno India University in collaboration with IIT Kharagpur. Choose AI & ML, Data Science, or Cloud Computing. Apply now in limited seats!',
-    changefreq: 'weekly',
-    priority: 0.9
-  }
 };

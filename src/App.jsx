@@ -15,7 +15,6 @@ import GoogleIBMCourse from './pages/GoogleIBMCourse';
 import ThankYou from './pages/ThankYou';
 import AIEvent from './pages/AIEvent';
 import Blogs from './pages/Blogs';
-import IITKGPLanding from './pages/IITKGPLanding';
 import BlogPost from './pages/BlogPost';
 import BreadcrumbSchema from './components/BreadcrumbSchema';
 import EventScraperDemo from './components/EventScraperDemo';
@@ -124,7 +123,7 @@ export function AppShell() {
  <Route path="/events-demo" element={<EventScraperDemo />} />
  <Route path="/thank-you" element={<ThankYou />} />
  <Route path="/ai-event" element={<AIEvent />} />
- <Route path="/btech-admission-iit-kharagpur-collaboration" element={<IITKGPLanding />} />
+ <Route path="/btech-admission-iit-kharagpur-collaboration" element={<Navigate to="/apply" replace />} />
  <Route path="/blog/:slug" element={<BlogPost />} />
  <Route path="*" element={<NotFound />} />
  </Routes>
