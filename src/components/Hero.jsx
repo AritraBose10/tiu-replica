@@ -314,6 +314,7 @@ const Hero = () => {
  className="h-5 object-contain opacity-80 hover:opacity-100 transition-opacity brightness-0 invert"
  />
  </div>
+ {/*
  <div className="hidden sm:block w-px h-6 bg-white/10" />
  <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white/[0.04] border border-white/10 hover:bg-white/[0.07] transition-all duration-300">
  <span className="text-white/40 text-[10px] font-semibold uppercase tracking-widest whitespace-nowrap">In collaboration with</span>
@@ -324,6 +325,7 @@ const Hero = () => {
  />
  <span className="text-white/80 text-[11px] font-semibold whitespace-nowrap">IIT Kharagpur</span>
  </div>
+ */}
  </motion.div>
 
  {/* ═══ 3D CAROUSEL ═══ */}
@@ -349,6 +351,7 @@ const Hero = () => {
  Explore Programs
  <ArrowRight className="w-4 h-4" />
  </Link>
+ {/*
  <Link
  to="/btech-admission-iit-kharagpur-collaboration"
  className="flex items-center gap-2 border border-red-500/40 text-red-400 px-8 py-3.5 rounded-full font-bold text-sm uppercase tracking-widest hover:bg-red-500/10 transition-all duration-300 hover:border-red-500/70"
@@ -356,6 +359,7 @@ const Hero = () => {
  IIT KGP Collaboration
  <ArrowRight className="w-4 h-4" />
  </Link>
+ */}
  </motion.div>
 
  </motion.div>

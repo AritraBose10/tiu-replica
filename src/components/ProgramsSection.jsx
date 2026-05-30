@@ -357,9 +357,11 @@ const ProgramFlipCard = ({ course, index }) => {
  {course.subtitle?.toLowerCase().includes('google') && (
  <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Google_Cloud_logo.svg" alt="Google Cloud" className="h-[14px] w-auto object-contain shrink-0 opacity-80 grayscale group-hover:grayscale-0 transition-all mt-1" />
  )}
+ {/*
  {course.title.toLowerCase().startsWith('b.tech') && (
  <img src={iitKgpLogo} alt="IIT Kharagpur" className="h-[14px] w-auto object-contain shrink-0 opacity-80 group-hover:opacity-100 transition-opacity mt-1" />
  )}
+ */}
  {course.subtitle?.toLowerCase().includes('ibm') && (
  <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg" alt="IBM" className="h-[14px] w-auto object-contain shrink-0 opacity-80 group-hover:opacity-100 transition-opacity mt-1.5" />
  )}
@@ -379,6 +381,7 @@ const ProgramFlipCard = ({ course, index }) => {
  <p className="text-gray-400 text-sm font-medium">
  {course.subtitle}
  </p>
+ {/*
  {course.title.toLowerCase().startsWith('b.tech') && (
  <div className="flex items-center gap-1.5 mt-2">
    <span className="text-white/40 text-[10px] font-semibold whitespace-nowrap">In collab with</span>
@@ -386,6 +389,7 @@ const ProgramFlipCard = ({ course, index }) => {
    <span className="text-white/60 text-[10px] font-bold whitespace-nowrap">IIT KGP</span>
  </div>
  )}
+ */}
  </div>
  </div>
 
