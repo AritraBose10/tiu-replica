@@ -249,6 +249,7 @@ const IITKGPLanding = () => {
       <SEO
         title="B.Tech CSE Admission at Techno India University with IIT Kharagpur Collaboration"
         description="Admissions open for B.Tech CSE at Techno India University in collaboration with IIT Kharagpur. Choose AI & ML, Data Science, or Cloud Computing. Apply now in limited seats!"
+        noindex={true}
       />
       <SchemaInjector schema={pageSchema} />
       <CursorGlow />

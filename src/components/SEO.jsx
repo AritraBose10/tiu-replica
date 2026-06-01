@@ -4,7 +4,7 @@ import { useEffect } from 'react';
  * SEO Component sets document title, meta description, and optional JSON-LD schema.
  * Lightweight alternative to react-helmet for SPAs.
  */
-const SEO = ({ title, description, schema }) => {
+const SEO = ({ title, description, schema, noindex }) => {
  useEffect(() => {
  // Set document title
  if (title) {
@@ -22,6 +22,21 @@ const SEO = ({ title, description, schema }) => {
  metaDescription.setAttribute('content', description);
  }
 
+ // Set Robots Noindex tag if requested
+ let robotsMeta = document.querySelector('meta[name="robots"]');
+ if (noindex) {
+ if (!robotsMeta) {
+ robotsMeta = document.createElement('meta');
+ robotsMeta.setAttribute('name', 'robots');
+ document.head.appendChild(robotsMeta);
+ }
+ robotsMeta.setAttribute('content', 'noindex, nofollow');
+ } else {
+ if (robotsMeta) {
+ robotsMeta.remove();
+ }
+ }
+
  // Set Canonical Tag
  let canonicalLink = document.querySelector('link[rel="canonical"]');
  if (!canonicalLink) {
@@ -34,9 +49,13 @@ const SEO = ({ title, description, schema }) => {
 
  // Cleanup on unmount
  return () => {
- // No cleanup needed for canonical/meta created once per route during dev
+ // Cleanup robots tag on unmount if it was page-specific
+ const robotsMetaOnCleanup = document.querySelector('meta[name="robots"]');
+ if (robotsMetaOnCleanup) {
+ robotsMetaOnCleanup.remove();
+ }
  };
- }, [title, description]);
+ }, [title, description, noindex]);
 
  return null;
 };
