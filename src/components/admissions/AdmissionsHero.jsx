@@ -23,6 +23,7 @@ const LiquidChromeText = () => {
 const AdmissionsFormWidget = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [iframeHeight, setIframeHeight] = useState(520);
+    const parentSearch = typeof window !== 'undefined' ? window.location.search : '';
 
     useEffect(() => {
         const handleMessage = (event) => {
@@ -53,8 +54,11 @@ const AdmissionsFormWidget = () => {
  </style>
  </head>
  <body>
+ <script>
+ (function(){var s=${JSON.stringify(parentSearch)};if(s){try{history.replaceState(null,'',s);}catch(e){}try{new URLSearchParams(s).forEach(function(v,k){window[k]=v;});}catch(e){}}})();
+ <\/script>
  <div class="ee-form-widget" id="ee-form-8"></div>
- 
+
  <script>
  function reportHeight() {
  var h = document.body.scrollHeight;

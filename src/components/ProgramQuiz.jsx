@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 const AdmissionsFormWidget = () => {
  const [isLoading, setIsLoading] = useState(true);
  const [iframeHeight, setIframeHeight] = useState(520);
+ const parentSearch = typeof window !== 'undefined' ? window.location.search : '';
 
  useEffect(() => {
  const handleMessage = (event) => {
@@ -36,8 +37,11 @@ const AdmissionsFormWidget = () => {
  </style>
  </head>
  <body>
+ <script>
+ (function(){var s=${JSON.stringify(parentSearch)};if(s){try{history.replaceState(null,'',s);}catch(e){}try{new URLSearchParams(s).forEach(function(v,k){window[k]=v;});}catch(e){}}})();
+ <\/script>
  <div class="ee-form-widget" id="ee-form-8"></div>
- 
+
  <script>
  function reportHeight() {
  var h = document.body.scrollHeight;
@@ -142,7 +146,7 @@ const results = {
  tech: {
  domain: 'Technology & Artificial Intelligence',
  tagline: 'Build careers in AI, data and cloud not just degrees.',
- programs: 'B.Tech CSE-AI/ML | BCA with Data Science and AI | BSc (H) Cyber Security | M.Tech CSE AI/ML',
+ programs: 'B.Tech CSE-AI/ML | BCA with Data Science and AI | B.Sc (H) Cyber Security | M.Tech CSE AI/ML',
  badge: 'Powered by Google Cloud & IBM',
  color: 'from-blue-600 to-cyan-500',
  link: '/courses?category=engineering',
@@ -150,7 +154,7 @@ const results = {
  business: {
  domain: 'Business, Analytics & Management',
  tagline: 'Where business decisions are driven by data and intelligence.',
- programs: 'BBA Business Analytics | MBA | BSc (H) Hotel and Hospital Management',
+ programs: 'BBA Business Analytics | MBA | B.Sc (H) Hotel and Hospital Management',
  badge: 'Powered by IBM',
  color: 'from-amber-500 to-orange-500',
  link: '/courses?category=management',
@@ -158,7 +162,7 @@ const results = {
  creative: {
  domain: 'Design, Media & Creative Technology',
  tagline: 'Turn creativity into real careers not just portfolios.',
- programs: 'B. Des Visual Communication | BSC (H) in Game Development | BSC (H) in Filmmaking | BSC (H) in Visual Effects & Animation',
+ programs: 'B. Des Visual Communication | B.Sc (H) in Game Development | B.Sc (H) in Filmmaking | B.Sc (H) in Visual Effects & Animation',
  badge: '',
  color: 'from-purple-600 to-pink-500',
  link: '/courses?category=design',
@@ -166,7 +170,7 @@ const results = {
  health: {
  domain: 'Health & Allied Sciences',
  tagline: 'Skill-focused healthcare education aligned with real hospitals.',
- programs: 'Bsc (H) Cardiovascular Technology | Bsc (H) Anesthesia and Operation Theater Technology | Bsc (H) Microbiology | Bsc (H) Biotechnology',
+ programs: 'B.Sc (H) Cardiovascular Technology | B.Sc (H) Anesthesia and Operation Theater Technology | B.Sc (H) Microbiology | B.Sc (H) Biotechnology',
  badge: '',
  color: 'from-emerald-500 to-teal-500',
  link: '/courses?category=health',
