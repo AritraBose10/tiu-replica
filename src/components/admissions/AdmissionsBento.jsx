@@ -32,9 +32,9 @@ const domains = [
  gridClass: 'md:col-span-1',
  programs: [
  { name: 'BCA with Data Science and AI', badge: 'Powered by IBM' },
- { name: 'BSc (H) Cyber Security and Ethical Hacking', badge: 'Powered by IBM' },
- { name: 'BSc (H) Data Analytics and Generative AI', badge: 'Powered by IBM' },
- { name: 'Bsc Agriculture', badge: null },
+ { name: 'B.Sc (H) Cyber Security and Ethical Hacking', badge: 'Powered by IBM' },
+ { name: 'B.Sc (H) Data Analytics and Generative AI', badge: 'Powered by IBM' },
+ { name: 'B.Sc Agriculture', badge: null },
  ],
  },
  {
@@ -47,7 +47,7 @@ const domains = [
  glow: 'bg-amber-500/10',
  gridClass: 'md:col-span-1',
  programs: [
- { name: 'BSc (H) Hotel and Hospital Management', badge: null },
+ { name: 'B.Sc (H) Hotel and Hospital Management', badge: null },
  { name: 'BBA Business Analytics', badge: 'Powered by IBM' },
  { name: 'MBA', badge: 'Powered by IBM' },
  { name: 'Working Professional MBA', badge: null },
@@ -67,10 +67,10 @@ const domains = [
  { name: 'B. Des Game Art & Design', badge: null },
  { name: 'B. Des Digital Product Design', badge: null },
  { name: 'M.Des in Advertising, design and digital communications', badge: null },
- { name: 'BSC (H) in Sound Engineering', badge: null },
- { name: 'BSC (H) in Game Development', badge: null },
- { name: 'BSC (H) in Filmmaking', badge: null },
- { name: 'BSC (H) in Visual Effects & Animation', badge: null },
+ { name: 'B.Sc (H) in Sound Engineering', badge: null },
+ { name: 'B.Sc (H) in Game Development', badge: null },
+ { name: 'B.Sc (H) in Filmmaking', badge: null },
+ { name: 'B.Sc (H) in Visual Effects & Animation', badge: null },
  ],
  },
  {
@@ -83,10 +83,10 @@ const domains = [
  glow: 'bg-emerald-500/10',
  gridClass: 'md:col-span-1',
  programs: [
- { name: 'Bsc (H) Cardiovascular Technology', badge: null },
- { name: 'Bsc (H) Anesthesia and Operation Theater Technology', badge: null },
- { name: 'Bsc (H) Microbiology', badge: null },
- { name: 'Bsc (H) Biotechnology', badge: null },
+ { name: 'B.Sc (H) Cardiovascular Technology', badge: null },
+ { name: 'B.Sc (H) Anesthesia and Operation Theater Technology', badge: null },
+ { name: 'B.Sc (H) Microbiology', badge: null },
+ { name: 'B.Sc (H) Biotechnology', badge: null },
  ],
  },
  {

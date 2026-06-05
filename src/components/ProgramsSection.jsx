@@ -82,7 +82,7 @@ const courses = {
  },
  {
  id: 5,
- title: 'BSc (H) Cyber Security and Ethical Hacking',
+ title: 'B.Sc (H) Cyber Security and Ethical Hacking',
  subtitle: 'Powered by IBM',
  partner: 'IBM',
  duration: '4 Years',
@@ -91,7 +91,7 @@ const courses = {
  },
  {
  id: 23,
- title: 'BSc (H) Data Analytics and Generative AI',
+ title: 'B.Sc (H) Data Analytics and Generative AI',
  subtitle: 'Powered by IBM',
  partner: 'IBM',
  duration: '4 Years',
@@ -109,7 +109,7 @@ const courses = {
  },
  {
  id: 6,
- title: 'Bsc Agriculture',
+ title: 'B.Sc Agriculture',
  subtitle: 'Modern Agricultural Sciences',
  partner: 'AgriTech',
  duration: '4 Years',
@@ -147,7 +147,7 @@ const courses = {
  },
  {
  id: 9,
- title: 'BSc (H) Hotel and Hospital Management',
+ title: 'B.Sc (H) Hotel and Hospital Management',
  subtitle: 'Hospitality & Management',
  partner: 'Hospitality',
  duration: '4 Years',
@@ -194,7 +194,7 @@ const courses = {
  },
  {
  id: 11,
- title: 'BSC (H) in Game Development',
+ title: 'B.Sc (H) in Game Development',
  subtitle: 'Industry Skilling by Seamedu',
  partner: 'Seamedu',
  duration: '4 Years',
@@ -203,7 +203,7 @@ const courses = {
  },
  {
  id: 12,
- title: 'BSC (H) in Filmmaking',
+ title: 'B.Sc (H) in Filmmaking',
  subtitle: 'Industry Skilling by Seamedu',
  partner: 'Seamedu',
  duration: '4 Years',
@@ -212,7 +212,7 @@ const courses = {
  },
  {
  id: 18,
- title: 'BSC (H) in Sound Engineering',
+ title: 'B.Sc (H) in Sound Engineering',
  subtitle: 'Industry Skilling by Seamedu',
  partner: 'Seamedu',
  duration: '4 Years',
@@ -221,7 +221,7 @@ const courses = {
  },
  {
  id: 19,
- title: 'BSC (H) in Visual Effects & Animation',
+ title: 'B.Sc (H) in Visual Effects & Animation',
  subtitle: 'Industry Skilling by Seamedu',
  partner: 'Seamedu',
  duration: '4 Years',
@@ -232,7 +232,7 @@ const courses = {
  health: [
  {
  id: 13,
- title: 'Bsc (H) Cardiovascular Technology',
+ title: 'B.Sc (H) Cardiovascular Technology',
  subtitle: 'Industry Skilling by Emversity',
  partner: 'Emversity',
  duration: '4 Years',
@@ -241,7 +241,7 @@ const courses = {
  },
  {
  id: 14,
- title: 'Bsc (H) Anesthesia and Operation Theater Technology',
+ title: 'B.Sc (H) Anesthesia and Operation Theater Technology',
  subtitle: 'Industry Skilling by Emversity',
  partner: 'Emversity',
  duration: '4 Years',

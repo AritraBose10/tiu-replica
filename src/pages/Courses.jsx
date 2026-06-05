@@ -283,7 +283,7 @@ const Courses = () => {
  <div className="min-h-screen bg-[#020205] text-white relative overflow-x-hidden selection:bg-[#FF0000] selection:text-white">
  <SEO
  title="B.Tech, M.Tech, CSE, AI ML, Data Science & Cloud Computing Courses | Techno India University"
- description="Explore B.Tech CSE, AI ML, Data Science & Cloud Computing, BCA, BBA, BSc, Law, Design, Nursing and M.Tech at Kolkata's best engineering college. Google & IBM certified. 90%+ placements. Admissions open."
+ description="Explore B.Tech CSE, AI ML, Data Science & Cloud Computing, BCA, BBA, B.Sc, Law, Design, Nursing and M.Tech at Kolkata's best engineering college. Google & IBM certified. 90%+ placements. Admissions open."
  />
  <SchemaInjector schema={courseSchema} />
 

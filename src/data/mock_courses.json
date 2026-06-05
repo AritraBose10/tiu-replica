@@ -24,6 +24,14 @@
  "link": "#"
  },
  {
+ "id": "btech-cse",
+ "title": "B.Tech in CSE Powered by GOOGLE",
+ "description": "A comprehensive Computer Science and Engineering program at TIU that builds a strong foundation in programming, algorithms, computer architecture, and software engineering. Enhanced with Google Cloud certifications and industry-aligned projects, this program is ideal for students seeking a well-rounded B.Tech college in Kolkata with deep technical exposure.",
+ "category": "School of Engineering & Technology",
+ "duration": "4 Years",
+ "link": "#"
+ },
+ {
  "id": "bca-data-science-ai",
  "title": "BCA with Data Science and AI Powered by IBM",
  "description": "An industry-aligned Bachelor of Computer Applications integrating data science and AI concepts with IBM-powered training. This program functions as a best IT training institute in Kolkata experience within a structured university framework, complete with IBM certifications.",
@@ -33,7 +41,7 @@
  },
  {
  "id": "bsc-hotel-hospitality",
- "title": "BSc (H) Hotel and Hospital Management",
+ "title": "B.Sc (H) Hotel and Hospital Management",
  "description": "Prepare for a career in the dynamic hospitality industry with management training.",
  "category": "School of Business & Management",
  "duration": "4 Years",
@@ -49,7 +57,7 @@
  },
  {
  "id": "bsc-cyber-security",
- "title": "BSc (H) Cyber Security and Ethical Hacking Powered by IBM",
+ "title": "B.Sc (H) Cyber Security and Ethical Hacking Powered by IBM",
  "description": "Learn to protect digital assets and networks from cyber threats.",
  "category": "Information Technology & Applied Sciences",
  "duration": "4 Years",
@@ -57,7 +65,7 @@
  },
  {
  "id": "bsc-data-analytics-gen-ai",
- "title": "BSc (H) Data Analytics and Generative AI Powered by IBM",
+ "title": "B.Sc (H) Data Analytics and Generative AI Powered by IBM",
  "description": "A cutting-edge AI learning course in Kolkata at the undergraduate level. Students master Generative AI, LLMs, data analytics, and IBM AI tools, equipping them for the next generation of AI-driven industries. One of the best AI courses in India for science graduates.",
  "category": "Information Technology & Applied Sciences",
  "duration": "4 Years",
@@ -113,7 +121,7 @@
  },
  {
  "id": "bsc-cardiovascular",
- "title": "Bsc (H) Cardiovascular Technology",
+ "title": "B.Sc (H) Cardiovascular Technology",
  "description": "Train in the diagnosis, monitoring, and treatment support of cardiovascular diseases. Operate ECG machines, echocardiography equipment, cardiac catheterisation lab tech, and vascular diagnostic tools. AR/VR simulation training, NCAHP-aligned curriculum, and placement facilitation through 500+ healthcare employer partners via Emversity.",
  "category": "Health & Allied Sciences",
  "duration": "4 Years",
@@ -124,7 +132,7 @@
  },
  {
  "id": "bsc-anesthesia",
- "title": "Bsc (H) Anesthesia and Operation Theater Technology",
+ "title": "B.Sc (H) Anesthesia and Operation Theater Technology",
  "description": "Prepare to become skilled anaesthesia technologists and operation theatre professionals. Covers pre-operative assessment, anaesthesia delivery assistance, patient monitoring, OT equipment management, and sterilisation protocols. AR/VR simulation training, NCAHP-aligned curriculum, and placement facilitation through 500+ healthcare employer partners via Emversity.",
  "category": "Health & Allied Sciences",
  "duration": "4 Years",
@@ -135,7 +143,7 @@
  },
  {
  "id": "bsc-sound-engineering",
- "title": "BSC (H) in Sound Engineering",
+ "title": "B.Sc (H) in Sound Engineering",
  "description": "Technical program covering audio recording, mixing, and sound design.",
  "category": "Creative Arts & Design",
  "duration": "4 Years",
@@ -144,7 +152,7 @@
  },
  {
  "id": "bsc-game-development",
- "title": "BSC (H) in Game Development",
+ "title": "B.Sc (H) in Game Development",
  "description": "Learn game programming and development using industry-standard engines.",
  "category": "Creative Arts & Design",
  "duration": "4 Years",
@@ -153,7 +161,7 @@
  },
  {
  "id": "bsc-filmmaking",
- "title": "BSC (H) in Filmmaking",
+ "title": "B.Sc (H) in Filmmaking",
  "description": "Comprehensive course on film production, direction, and editing.",
  "category": "Creative Arts & Design",
  "duration": "4 Years",
@@ -162,7 +170,7 @@
  },
  {
  "id": "bsc-vfx-animation",
- "title": "BSC (H) in Visual Effects & Animation",
+ "title": "B.Sc (H) in Visual Effects & Animation",
  "description": "Master the art of VFX and animation for film, TV, and games.",
  "category": "Creative Arts & Design",
  "duration": "4 Years",
@@ -179,7 +187,7 @@
  },
  {
  "id": "bsc-agriculture",
- "title": "Bsc Agriculture",
+ "title": "B.Sc Agriculture",
  "description": "Comprehensive studies in modern agricultural sciences and farming technologies.",
  "category": "Information Technology & Applied Sciences",
  "duration": "4 Years",

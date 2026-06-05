@@ -137,7 +137,7 @@ B.Tech, M.Tech, CSE, AI ML, Data Science & Cloud Computing Courses  | Techno Ind
 
 META DESCRIPTION
 Meta Description
-Explore B.Tech CSE, AI ML, Data Science & Cloud Computing, BCA, BBA, BSc, Law, Design, Nursing and M.Tech at Kolkata's best engineering college. Google & IBM certified. 90%+ placements. Admissions open. 
+Explore B.Tech CSE, AI ML, Data Science & Cloud Computing, BCA, BBA, B.Sc, Law, Design, Nursing and M.Tech at Kolkata's best engineering college. Google & IBM certified. 90%+ placements. Admissions open. 
 
 HERO / PAGE INTRO
 H1
@@ -173,7 +173,7 @@ Cloud Security Analyst
 BCA with Data Science and AI — Powered by IBM
 Duration: 4 Years  |  Eligibility: 10+2 with Mathematics
 An industry-aligned Bachelor of Computer Applications integrating data science and AI concepts with IBM-powered training. This program functions as a best IT training institute in Kolkata experience within a structured university framework, complete with IBM certifications.
-BSc (H) Data Analytics and Generative AI — Powered by IBM
+B.Sc (H) Data Analytics and Generative AI — Powered by IBM
 Duration: 4 Years  |  Eligibility: 10+2
 A cutting-edge AI learning course in Kolkata at the undergraduate level. Students master Generative AI, LLMs, data analytics, and IBM AI tools, equipping them for the next generation of AI-driven industries. One of the best AI courses in India for science graduates.
 POSTGRADUATE PROGRAMS
@@ -189,7 +189,7 @@ MBA — Powered by IBM
 Duration: 2 Years  |  Eligibility: Any UG degree with 50% marks
 An analytics-driven MBA co-designed with IBM. Combines business administration with data science, AI tools, and strategic management, a strong choice among private colleges in Kolkata for management education.
 OTHER FLAGSHIP PROGRAMS
-BBA Business Analytics (IBM) | BSc Cyber Security & Ethical Hacking (IBM) | B.Des Digital Product Design | BSc Game Development | BSc Nursing | LLB | and more.
+BBA Business Analytics (IBM) | B.Sc Cyber Security & Ethical Hacking (IBM) | B.Des Digital Product Design | B.Sc Game Development | B.Sc Nursing | LLB | and more.
 View the complete list on our Programs page.
 WHY THIS IS THE BEST B.TECH COLLEGE IN KOLKATA FOR TECH STUDENTS
 Choosing the right B.Tech college in West Bengal is one of the most important decisions of your academic life. At TIU consistently ranked among the best engineering colleges in Kolkata, you get:
@@ -250,8 +250,8 @@ B.Tech CSE — Data Science | Data Science Course in Kolkata
 The most hands-on data science course in Kolkata at the university level. Students work with real datasets using Google Cloud BigQuery, Python, and machine learning pipelines from Semester 1.
 B.Tech CSE — Cloud Computing | Cloud Computing Courses in Kolkata
 The deepest cloud computing courses in Kolkata available within a B.Tech framework. Covers GCP, AWS fundamentals, Kubernetes, Docker, and cloud security — earning students multiple Google Cloud certifications.
-BSc Data Analytics & Generative AI — AI Learning Course in Kolkata
-A 4-year AI learning course in Kolkata designed around the next wave of AI technologies — Generative AI, LLMs, Prompt Engineering, and AI Ethics. Powered by IBM. Considered among the best AI courses in India at the BSc level.
+B.Sc Data Analytics & Generative AI — AI Learning Course in Kolkata
+A 4-year AI learning course in Kolkata designed around the next wave of AI technologies — Generative AI, LLMs, Prompt Engineering, and AI Ethics. Powered by IBM. Considered among the best AI courses in India at the B.Sc level.
 BCA with Data Science and AI — Best IT Training Institute in Kolkata
 This BCA program functions as the best IT training institute in Kolkata experience within a university degree. IBM certifications, live projects, and AI/Data Science modules are embedded throughout the 4-year curriculum.
 M.Tech CSE — AI/ML | AI/ML Courses in Kolkata for Postgraduates
@@ -319,7 +319,7 @@ Yes. Techno India University is consistently ranked among the best engineering c
 Q2. What B.Tech programs are available at this b tech college in Kolkata?
 As a leading b tech college in West Bengal, TIU offers B.Tech CSE specialisations in AI/ML, Data Science, and Cloud Computing — all powered by Google Cloud. Students earn embedded industry certifications alongside their degree.
 Q3. What AI courses in Kolkata does TIU offer?
-TIU, the top ai institute in Kolkata, offers a range of ai courses in Kolkata including B.Tech CSE AI/ML, BSc Data Analytics & Generative AI, BCA with AI & Data Science, and M.Tech CSE AI/ML. These are widely regarded as the best ai courses in India at the university level.
+TIU, the top ai institute in Kolkata, offers a range of ai courses in Kolkata including B.Tech CSE AI/ML, B.Sc Data Analytics & Generative AI, BCA with AI & Data Science, and M.Tech CSE AI/ML. These are widely regarded as the best ai courses in India at the university level.
 Q4. Is there a data science course in Kolkata at TIU?
 Yes. TIU offers a dedicated 4-year B.Tech CSE, Data Science program, widely considered the best data science course in Kolkata at the undergraduate level. It is powered by Google Cloud and comes with embedded certifications.
 Q5. Does TIU offer cloud computing courses in Kolkata?
