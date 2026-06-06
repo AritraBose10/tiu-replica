@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 const EEFormWidget = () => {
  const [isLoading, setIsLoading] = useState(true);
  const [iframeHeight, setIframeHeight] = useState(520);
- const parentSearch = typeof window !== 'undefined' ? window.location.search : '';
+ const [iframeUrl, setIframeUrl] = useState('');
 
  useEffect(() => {
  const handleMessage = (event) => {
@@ -12,61 +12,46 @@ const EEFormWidget = () => {
  if (event.data && event.data.type === 'EE_WIDGET_HEIGHT') setIframeHeight(event.data.height);
  };
  window.addEventListener('message', handleMessage);
- return () => window.removeEventListener('message', handleMessage);
- }, []);
 
- const widgetCode = `
- <!DOCTYPE html>
- <html>
- <head>
- <meta charset="utf-8">
- <meta name="viewport" content="width=device-width, initial-scale=1">
- <style>
- body { margin: 0; padding: 0; background: transparent; font-family: sans-serif; }
- ::-webkit-scrollbar { width: 6px; }
- ::-webkit-scrollbar-track { background: transparent; }
- ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 3px; }
- </style>
- </head>
- <body>
- <script>
- (function(){var s=${JSON.stringify(parentSearch)};if(s){try{history.replaceState(null,'',s);}catch(e){}try{new URLSearchParams(s).forEach(function(v,k){window[k]=v;});}catch(e){}}})();
- <\/script>
- <div class="ee-form-widget" id="ee-form-8"></div>
- <script>
- function reportHeight() {
- var h = document.body.scrollHeight;
- window.parent.postMessage({ type: 'EE_WIDGET_HEIGHT', height: h }, '*');
- }
- window.addEventListener("DOMContentLoaded", function() {
- window.ee_form_widget_baseurl = "https://eeconfigstaticfiles.blob.core.windows.net/staticfiles/ee-form-widget/";
- if (!document.getElementById("__formWidgetCss")) {
- var e = document.createElement("link");
- e.id = "__formWidgetCss";
- e.rel = "stylesheet";
- e.href = window.ee_form_widget_baseurl + "css/stylesheet.min.css";
- e.type = "text/css";
- document.getElementsByTagName("head")[0].appendChild(e);
- }
- var t = document.createElement("script");
- t.type = "text/javascript";
- t.onload = async function() {
- var _eeFormWidget = new eeFormWidget();
- await _eeFormWidget.init("softiu", "form-8", "ee-form-8");
- window.parent.postMessage({ type: 'EE_WIDGET_LOADED' }, '*');
- setTimeout(reportHeight, 300);
- setTimeout(reportHeight, 1000);
+ const widgetCode = `<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body { margin: 0; padding: 0; background: transparent; font-family: sans-serif; }
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 3px; }
+</style>
+</head>
+<body>
+<script>
+(function(){try{var s=window.parent.location.search;if(s)history.replaceState(null,'',s);}catch(e){}})();
+<\/script>
+<div class="ee-form-widget" id="ee-form-8"></div>
+<script>
+function reportHeight(){var h=document.body.scrollHeight;window.parent.postMessage({type:'EE_WIDGET_HEIGHT',height:h},'*');}
+window.addEventListener("DOMContentLoaded",function(){
+window.ee_form_widget_baseurl="https://eeconfigstaticfiles.blob.core.windows.net/staticfiles/ee-form-widget/";
+if(!document.getElementById("__formWidgetCss")){var e=document.createElement("link");e.id="__formWidgetCss";e.rel="stylesheet";e.href=window.ee_form_widget_baseurl+"css/stylesheet.min.css";e.type="text/css";document.getElementsByTagName("head")[0].appendChild(e);}
+var t=document.createElement("script");t.type="text/javascript";
+t.onload=async function(){var w=new eeFormWidget();await w.init("softiu","form-8","ee-form-8");window.parent.postMessage({type:'EE_WIDGET_LOADED'},'*');setTimeout(reportHeight,300);setTimeout(reportHeight,1000);};
+t.src=window.ee_form_widget_baseurl+"js/eeFormWidget.min.js";document.getElementsByTagName("head")[0].appendChild(t);});
+if(window.ResizeObserver){new ResizeObserver(reportHeight).observe(document.documentElement);}
+<\/script>
+</body>
+</html>`;
+
+ const blob = new Blob([widgetCode], { type: 'text/html' });
+ const url = URL.createObjectURL(blob);
+ setIframeUrl(url);
+
+ return () => {
+ window.removeEventListener('message', handleMessage);
+ URL.revokeObjectURL(url);
  };
- t.src = window.ee_form_widget_baseurl + "js/eeFormWidget.min.js";
- document.getElementsByTagName("head")[0].appendChild(t);
- });
- if (window.ResizeObserver) {
- new ResizeObserver(reportHeight).observe(document.documentElement);
- }
- <\/script>
- </body>
- </html>
- `;
+ }, []);
 
  return (
  <div className="relative bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl shadow-2xl" style={{ padding: '10px 5px', height: iframeHeight + 40 }}>
@@ -75,12 +60,14 @@ const EEFormWidget = () => {
  <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-red-500" />
  </div>
  )}
+ {iframeUrl && (
  <iframe
- srcDoc={widgetCode}
+ src={iframeUrl}
  title="Admissions Enquiry Form"
  className={`w-full border-0 z-10 rounded-2xl transition-opacity duration-500 ${isLoading ? 'opacity-0' : 'opacity-100'}`}
  style={{ backgroundColor: 'transparent', height: iframeHeight }}
  />
+ )}
  </div>
  );
 };
