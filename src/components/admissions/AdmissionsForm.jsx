@@ -43,6 +43,7 @@ if(window.ResizeObserver){new ResizeObserver(reportHeight).observe(document.docu
 </body>
 </html>`;
 
+  try{var _qs=window.location.search,_p=new URLSearchParams(_qs);if(_p.has("utm_source")||_p.has("utm_medium")||_p.has("utm_campaign")){localStorage.setItem("stored_url",JSON.stringify({url:window.location.href,expiry:Date.now()+2592000000}));}}catch(_e){}
  const blob = new Blob([widgetCode], { type: 'text/html' });
  const url = URL.createObjectURL(blob);
  setIframeUrl(url);
