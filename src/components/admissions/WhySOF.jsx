@@ -52,14 +52,19 @@ const WhySOF = () => {
  const [srcLoaded, setSrcLoaded] = useState(false);
  const isInView = useInView(sectionRef, { once: true, amount: 0.2 });
 
- // Load src only when section is near viewport, auto-play muted
+ // Step 1: When section scrolls into view, load the video src
  useEffect(() => {
-   if (!isInView) return;
-   setSrcLoaded(true);
+   if (isInView) {
+     setSrcLoaded(true);
+   }
+ }, [isInView]);
+
+ // Step 2: Once source is loaded and video can play, start playback
+ const handleCanPlay = () => {
    const el = videoRef.current;
    if (!el) return;
    el.play().catch(() => {});
- }, [isInView]);
+ };
 
  return (
  <section className="py-12 md:py-24 px-4 bg-[#020205] relative overflow-hidden">
@@ -146,6 +151,7 @@ const WhySOF = () => {
  playsInline
  loop
  controls
+ onCanPlay={handleCanPlay}
  className="w-full h-full object-cover"
  />
  </div>
