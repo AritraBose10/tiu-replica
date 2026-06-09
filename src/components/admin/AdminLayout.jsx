@@ -59,7 +59,7 @@ export default function AdminLayout() {
  ))}
 
  <div className="admin-nav-section">Manage</div>
- {navItems.slice(1, 10).map(({ label, path, icon: Icon }) => (
+ {navItems.slice(1, 11).map(({ label, path, icon: Icon }) => (
  <NavLink
  key={path}
  to={path}
@@ -71,7 +71,7 @@ export default function AdminLayout() {
  ))}
 
  <div className="admin-nav-section">System</div>
- {navItems.slice(10).map(({ label, path, icon: Icon }) => (
+ {navItems.slice(11).map(({ label, path, icon: Icon }) => (
  <NavLink
  key={path}
  to={path}

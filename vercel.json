@@ -4,9 +4,10 @@
             "maxDuration": 10
         }
     },
+    "cleanUrls": true,
     "headers": [
         {
-            "source": "/api/(events|courses|gallery|faqs|scholarships|partners|testimonials|recruiters|approvals|settings)(.*)",
+            "source": "/api/(events|courses|gallery|faqs|scholarships|partners|testimonials|recruiters|approvals|settings|blogs)(.*)",
             "headers": [
                 { "key": "Cache-Control", "value": "public, max-age=30, s-maxage=30" }
             ]
@@ -23,6 +24,42 @@
         {
             "source": "/api/(.*)",
             "destination": "/api/$1"
+        },
+        {
+            "source": "/courses",
+            "destination": "/courses/index.html"
+        },
+        {
+            "source": "/about",
+            "destination": "/about/index.html"
+        },
+        {
+            "source": "/apply",
+            "destination": "/apply/index.html"
+        },
+        {
+            "source": "/contact",
+            "destination": "/contact/index.html"
+        },
+        {
+            "source": "/faq",
+            "destination": "/faq/index.html"
+        },
+        {
+            "source": "/approvals",
+            "destination": "/approvals/index.html"
+        },
+        {
+            "source": "/events",
+            "destination": "/events/index.html"
+        },
+        {
+            "source": "/blogs",
+            "destination": "/blogs/index.html"
+        },
+        {
+            "source": "/cloud-ai-certification-courses-kolkata",
+            "destination": "/cloud-ai-certification-courses-kolkata/index.html"
         },
         {
             "source": "/((?!api/).*)",

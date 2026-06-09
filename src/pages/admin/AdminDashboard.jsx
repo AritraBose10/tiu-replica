@@ -34,10 +34,15 @@ export default function AdminDashboard() {
  useEffect(() => {
  const fetchCounts = async () => {
  const results = {};
+ // Blogs requires auth token since it fetches all including drafts
+ const token = localStorage.getItem('cms_token') || '';
  await Promise.all(
  contentTypes.map(async (ct) => {
  try {
- const res = await fetch(ct.endpoint);
+ const headers = ct.key === 'blogs' && token
+ ? { Authorization: `Bearer ${token}` }
+ : {};
+ const res = await fetch(ct.endpoint, { headers });
  if (res.ok) {
  const data = await res.json();
  results[ct.key] = Array.isArray(data) ? data.length : 0;
