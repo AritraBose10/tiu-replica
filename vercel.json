@@ -62,7 +62,7 @@
             "destination": "/cloud-ai-certification-courses-kolkata/index.html"
         },
         {
-            "source": "/((?!api/).*)",
+            "source": "/(.*)",
             "destination": "/index.html"
         }
     ]
