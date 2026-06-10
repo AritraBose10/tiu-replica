@@ -112,14 +112,16 @@ function BlogList({ onNew, onEdit }) {
   };
 
   return (
-    <div className="admin-crud">
-      <div className="admin-crud-header">
-        <div>
-          <h1 className="admin-crud-title">Blogs</h1>
-          <p className="admin-crud-subtitle">{blogs.length} article{blogs.length !== 1 ? 's' : ''}</p>
-        </div>
-        <button onClick={onNew} className="admin-btn-primary flex items-center gap-2">
-          <Plus className="w-4 h-4" /> New Blog
+    <div className="admin-content-page">
+      <div className="admin-page-header">
+        <h1>Blogs</h1>
+        <p>{blogs.length} article{blogs.length !== 1 ? 's' : ''}</p>
+      </div>
+
+      <div className="admin-toolbar" style={{ justifyContent: 'flex-end' }}>
+        <button onClick={onNew} className="admin-add-btn">
+          <Plus style={{ width: 18, height: 18 }} />
+          New Blog
         </button>
       </div>
 
@@ -130,7 +132,7 @@ function BlogList({ onNew, onEdit }) {
           <FileText className="w-16 h-16 mx-auto mb-4 opacity-30 text-red-500 animate-pulse" />
           <p className="text-xl font-bold text-white mb-2">No articles written yet</p>
           <p className="text-sm text-gray-400 mb-6">Create and publish your first article on the TIU replica School of the Future website.</p>
-          <button onClick={onNew} className="admin-btn-primary flex items-center gap-2 mx-auto shadow-lg shadow-red-600/25">
+          <button onClick={onNew} className="px-6 py-3 bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl transition-all shadow-lg shadow-red-600/20 flex items-center gap-2 mx-auto">
             <Plus className="w-4 h-4" /> Write Your First Post
           </button>
         </div>
