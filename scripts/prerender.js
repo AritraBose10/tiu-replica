@@ -10,6 +10,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { prerenderToNodeStream } from 'react-dom/static';
+import 'dotenv/config';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..');
@@ -31,6 +32,34 @@ async function prerender() {
     process.exit(1);
   }
   const template = fs.readFileSync(templatePath, 'utf-8');
+
+  // Fetch blogs dynamically to prerender them
+  if (process.env.TURSO_DATABASE_URL && process.env.TURSO_AUTH_TOKEN) {
+    console.log('Fetching dynamic blogs for prerendering...');
+    try {
+      const { createClient } = await import('@libsql/client');
+      const db = createClient({
+        url: process.env.TURSO_DATABASE_URL,
+        authToken: process.env.TURSO_AUTH_TOKEN,
+      });
+      const rs = await db.execute("SELECT slug, title, meta_title, meta_description, excerpt, schema_html FROM blogs WHERE status = 'published'");
+      for (const row of rs.rows) {
+        if (row.slug) {
+          const route = `/blog/${row.slug}`;
+          routeMeta[route] = {
+            title: row.meta_title || row.title || 'TIU Blog',
+            description: row.meta_description || row.excerpt || 'Read this article on Techno India University School of the Future.',
+            changefreq: 'weekly',
+            priority: 0.8,
+            schema: row.schema_html || null
+          };
+        }
+      }
+      console.log(`✅ Added ${rs.rows.length} dynamic blog routes.`);
+    } catch (err) {
+      console.error('⚠️ Could not fetch blogs:', err.message);
+    }
+  }
 
   const routes = Object.keys(routeMeta);
   let successCount = 0;
@@ -83,6 +112,14 @@ async function prerender() {
         html = html.replace(
           '</head>',
           `  <meta name="robots" content="index, follow" />\n  </head>`
+        );
+      }
+
+      // Inject Schema JSON-LD if present
+      if (meta.schema) {
+        html = html.replace(
+          '</head>',
+          `  ${meta.schema}\n  </head>`
         );
       }
 
