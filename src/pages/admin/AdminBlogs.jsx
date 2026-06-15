@@ -449,13 +449,13 @@ function BlogEditor({ blog, onBack, onSaved }) {
             <label className={label}>SEO</label>
             <div>
               <p className="text-xs text-gray-600 mb-1">Meta Title</p>
-              <input value={form.meta_title} onChange={(e) => set('meta_title', e.target.value)} placeholder="Page title for search engines" className={inp} maxLength={70} />
-              <p className={`text-xs mt-1 text-right ${form.meta_title.length > 60 ? 'text-yellow-500' : 'text-gray-700'}`}>{form.meta_title.length}/70</p>
+              <input value={form.meta_title} onChange={(e) => set('meta_title', e.target.value)} placeholder="Page title for search engines" className={inp} maxLength={100} />
+              <p className={`text-xs mt-1 text-right ${form.meta_title.length > 85 ? 'text-yellow-500' : 'text-gray-700'}`}>{form.meta_title.length}/100</p>
             </div>
             <div>
               <p className="text-xs text-gray-600 mb-1">Meta Description</p>
-              <textarea value={form.meta_description} onChange={(e) => set('meta_description', e.target.value)} placeholder="Description for search snippets..." rows={3} className={inp + ' resize-none'} maxLength={160} />
-              <p className={`text-xs mt-1 text-right ${form.meta_description.length > 145 ? 'text-yellow-500' : 'text-gray-700'}`}>{form.meta_description.length}/160</p>
+              <textarea value={form.meta_description} onChange={(e) => set('meta_description', e.target.value)} placeholder="Description for search snippets..." rows={5} className={inp + ' resize-none'} maxLength={250} />
+              <p className={`text-xs mt-1 text-right ${form.meta_description.length > 215 ? 'text-yellow-500' : 'text-gray-700'}`}>{form.meta_description.length}/250</p>
             </div>
           </div>
 
