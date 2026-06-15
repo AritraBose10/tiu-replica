@@ -91,10 +91,13 @@ function BlogList({ onNew, onEdit }) {
   const load = async () => {
     setLoading(true);
     try {
-      const res = await fetch('/api/blogs?all=1', { headers: { Authorization: `Bearer ${token}` } });
+      const res = await fetch('/api/blogs?all=1', {
+        headers: { Authorization: `Bearer ${token}`, 'Cache-Control': 'no-cache' },
+      });
       const data = await res.json();
+      if (!res.ok) throw new Error(data?.error || `Server error ${res.status}`);
       setBlogs(Array.isArray(data) ? data : []);
-    } catch { showToast('Failed to load blogs', 'error'); }
+    } catch (err) { showToast(err.message || 'Failed to load blogs', 'error'); }
     setLoading(false);
   };
 

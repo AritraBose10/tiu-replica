@@ -58,6 +58,10 @@
             "destination": "/blogs/index.html"
         },
         {
+            "source": "/blog/:slug",
+            "destination": "/blog/:slug/index.html"
+        },
+        {
             "source": "/cloud-ai-certification-courses-kolkata",
             "destination": "/cloud-ai-certification-courses-kolkata/index.html"
         },

@@ -39,6 +39,7 @@ export default async function handler(req, res) {
             if (all === '1') {
                 const auth = requireAuth(req);
                 if (!auth.authorized) return res.status(auth.status).json({ error: auth.message });
+                res.setHeader('Cache-Control', 'no-store');
                 const result = await db.execute('SELECT * FROM blogs ORDER BY sort_order ASC, id DESC');
                 return res.status(200).json(result.rows.map(b => ({ ...b, tags: tryParseJSON(b.tags, []) })));
             }

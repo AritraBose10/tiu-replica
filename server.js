@@ -2,6 +2,7 @@ import 'dotenv/config';
 import express from 'express';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
+import { readFileSync } from 'fs';
 import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
 import slowDown from 'express-slow-down';
@@ -11,6 +12,7 @@ import * as cheerio from 'cheerio';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
+import { getTurso } from './api/_lib/turso.js';
 import { requireAuth } from './api/_lib/auth.js';
 import authLoginHandler from './api/auth/login.js';
 import settingsHandler from './api/settings.js';
@@ -131,6 +133,48 @@ app.get('/api/scrape-events', scrapeLimiter, async (req, res) => {
         res.status(500).json({ error: 'Failed to scrape events' });
     }
 });
+
+// Server-side meta injection for blog posts so Ctrl+U / crawlers see correct title+description
+app.get('/blog/:slug', async (req, res) => {
+    try {
+        const db = getTurso();
+        const result = await db.execute({
+            sql: `SELECT meta_title, meta_description, title, excerpt FROM blogs WHERE slug = ? AND status = 'published' LIMIT 1`,
+            args: [req.params.slug],
+        });
+
+        if (!result.rows.length) {
+            return res.sendFile(join(__dirname, 'dist', 'index.html'));
+        }
+
+        const blog = result.rows[0];
+        const metaTitle = blog.meta_title || blog.title || '';
+        const metaDesc = blog.meta_description || blog.excerpt || '';
+
+        let html = readFileSync(join(__dirname, 'dist', 'index.html'), 'utf-8');
+        html = html.replace(
+            /<title>[^<]*<\/title>/,
+            `<title>${escapeHtml(metaTitle)}</title>`
+        );
+        html = html.replace(
+            /(<meta\s+name="description"\s+content=")[^"]*(")/,
+            `$1${escapeHtml(metaDesc)}$2`
+        );
+
+        res.setHeader('Content-Type', 'text/html');
+        res.send(html);
+    } catch {
+        res.sendFile(join(__dirname, 'dist', 'index.html'));
+    }
+});
+
+function escapeHtml(str) {
+    return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/"/g, '&quot;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+}
 
 app.get(/(.*)/, (req, res) => {
     res.sendFile(join(__dirname, 'dist', 'index.html'));
