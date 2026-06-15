@@ -76,7 +76,7 @@ const FeaturedBlogCard = ({ blog, index }) => {
 
   return (
     <Link
-      to={`/blog/${blog.slug}`}
+      to={`/blogs/${blog.slug}`}
       className="group relative cursor-pointer block"
       onMouseMove={handleMouse}
       onMouseLeave={() => { x.set(0); y.set(0); }}
@@ -172,7 +172,7 @@ const BlogCard = ({ blog, index }) => {
 
   return (
     <Link
-      to={`/blog/${blog.slug}`}
+      to={`/blogs/${blog.slug}`}
       className="group relative block h-full cursor-pointer"
     >
       <div className="absolute -inset-0.5 bg-gradient-to-br from-[#FF0000] to-purple-600 opacity-0 group-hover:opacity-20 blur-lg transition-all duration-500 rounded-2xl animate-pulse" />

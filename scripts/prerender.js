@@ -45,7 +45,7 @@ async function prerender() {
       const rs = await db.execute("SELECT slug, title, meta_title, meta_description, excerpt, schema_html FROM blogs WHERE status = 'published'");
       for (const row of rs.rows) {
         if (row.slug) {
-          const route = `/blog/${row.slug}`;
+          const route = `/blogs/${row.slug}`;
           routeMeta[route] = {
             title: row.meta_title || row.title || 'TIU Blog',
             description: row.meta_description || row.excerpt || 'Read this article on Techno India University School of the Future.',

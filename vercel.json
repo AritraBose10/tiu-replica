@@ -15,6 +15,11 @@
     ],
     "redirects": [
         {
+            "source": "/blog/:slug",
+            "destination": "/blogs/:slug",
+            "permanent": true
+        },
+        {
             "source": "/admissions",
             "destination": "/apply",
             "permanent": true
@@ -58,8 +63,8 @@
             "destination": "/blogs/index.html"
         },
         {
-            "source": "/blog/:slug",
-            "destination": "/blog/:slug/index.html"
+            "source": "/blogs/:slug",
+            "destination": "/blogs/:slug/index.html"
         },
         {
             "source": "/cloud-ai-certification-courses-kolkata",

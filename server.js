@@ -135,7 +135,7 @@ app.get('/api/scrape-events', scrapeLimiter, async (req, res) => {
 });
 
 // Server-side meta injection for blog posts so Ctrl+U / crawlers see correct title+description
-app.get('/blog/:slug', async (req, res) => {
+app.get('/blogs/:slug', async (req, res) => {
     try {
         const db = getTurso();
         const result = await db.execute({

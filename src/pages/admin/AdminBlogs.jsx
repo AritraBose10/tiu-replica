@@ -175,7 +175,7 @@ function BlogList({ onNew, onEdit }) {
                       <button onClick={() => onEdit(b)} className="p-1.5 rounded-lg hover:bg-white/10 text-gray-400 hover:text-white transition-colors" title="Edit">
                         <Pencil className="w-4 h-4" />
                       </button>
-                      <a href={`/blog/${b.slug}`} target="_blank" rel="noopener noreferrer" className="p-1.5 rounded-lg hover:bg-white/10 text-gray-400 hover:text-blue-400 transition-colors" title="Preview">
+                      <a href={`/blogs/${b.slug}`} target="_blank" rel="noopener noreferrer" className="p-1.5 rounded-lg hover:bg-white/10 text-gray-400 hover:text-blue-400 transition-colors" title="Preview">
                         <Globe className="w-4 h-4" />
                       </a>
                       <button onClick={() => deleteBlog(b)} disabled={deleting === b.id} className="p-1.5 rounded-lg hover:bg-red-500/10 text-gray-400 hover:text-red-400 transition-colors" title="Delete">
@@ -419,7 +419,7 @@ function BlogEditor({ blog, onBack, onSaved }) {
           {/* Slug */}
           <div className="bg-white/[0.03] border border-white/10 rounded-xl p-4">
             <label className={label}><Globe className="w-3.5 h-3.5 inline mr-1" />URL Slug</label>
-            <div className="flex items-center gap-1 text-xs text-gray-600 mb-2">/blog/</div>
+            <div className="flex items-center gap-1 text-xs text-gray-600 mb-2">/blogs/</div>
             <input value={form.slug} onChange={(e) => set('slug', slugify(e.target.value))} placeholder="my-blog-post" className={inp} />
           </div>
 

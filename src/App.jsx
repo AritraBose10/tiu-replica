@@ -124,7 +124,7 @@ export function AppShell() {
  <Route path="/thank-you" element={<ThankYou />} />
  <Route path="/ai-event" element={<AIEvent />} />
  <Route path="/btech-admission-iit-kharagpur-collaboration" element={<Navigate to="/apply" replace />} />
- <Route path="/blog/:slug" element={<BlogPost />} />
+ <Route path="/blogs/:slug" element={<BlogPost />} />
  <Route path="*" element={<NotFound />} />
  </Routes>
  </main>
