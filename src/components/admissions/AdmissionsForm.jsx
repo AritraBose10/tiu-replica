@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
 const EEFormWidget = () => {
@@ -27,7 +27,7 @@ body { margin: 0; padding: 0; background: transparent; font-family: sans-serif; 
 </head>
 <body>
 <script>
-(function(){try{var s=window.parent.location.search;if(s)history.replaceState(null,'',s);}catch(e){}})();
+(function(){var s=${JSON.stringify(window.location.search)};if(s)try{history.replaceState(null,'',s);}catch(_){}})();
 <\/script>
 <div class="ee-form-widget" id="ee-form-8"></div>
 <script>
@@ -43,7 +43,7 @@ if(window.ResizeObserver){new ResizeObserver(reportHeight).observe(document.docu
 </body>
 </html>`;
 
-  try{var _qs=window.location.search,_p=new URLSearchParams(_qs);if(_p.has("utm_source")||_p.has("utm_medium")||_p.has("utm_campaign")){localStorage.setItem("stored_url",JSON.stringify({url:window.location.href,expiry:Date.now()+2592000000}));}}catch(_e){}
+  try{var _qs=window.location.search,_p=new URLSearchParams(_qs);if(_p.has("utm_source")||_p.has("utm_medium")||_p.has("utm_campaign")||_p.has("utm_term")||_p.has("utm_content")||_p.has("channel")){localStorage.setItem("stored_url",JSON.stringify({url:window.location.href,expiry:Date.now()+2592000000}));}}catch(_e){}
  const blob = new Blob([widgetCode], { type: 'text/html' });
  const url = URL.createObjectURL(blob);
  setIframeUrl(url);
