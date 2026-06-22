@@ -138,7 +138,7 @@ if(window.ResizeObserver){new ResizeObserver(reportHeight).observe(document.docu
 </body>
 </html>`;
 
-  try{var _qs=window.location.search,_p=new URLSearchParams(_qs);if(_p.has("utm_source")||_p.has("utm_medium")||_p.has("utm_campaign")||_p.has("utm_term")||_p.has("utm_content")||_p.has("channel")){localStorage.setItem("stored_url",JSON.stringify({url:window.location.href,expiry:Date.now()+2592000000}));}}catch(_e){}
+  try{var _qs=window.location.search,_p=new URLSearchParams(_qs);if(["utm_source","utm_medium","utm_campaign","utm_term","utm_content","channel"].some(function(k){return _p.has(k)})){var _u=new URL(window.location.href);if(_p.has("channel")&&!_p.has("utm_source"))_u.searchParams.set("utm_source",_p.get("channel"));localStorage.setItem("stored_url",JSON.stringify({url:_u.href,expiry:Date.now()+2592000000}));}}catch(_e){}
  const blob = new Blob([widgetCode], { type: 'text/html' });
  const url = URL.createObjectURL(blob);
  setIframeUrl(url);
