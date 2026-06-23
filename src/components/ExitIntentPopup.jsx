@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 // Keep flyer import commented for potential restore:
 // import iitkgpFlyer from '../assets/iitkgp.webp';
 
@@ -81,26 +81,33 @@ if(window.ResizeObserver){new ResizeObserver(reportHeight).observe(document.docu
 
 const ExitIntentPopup = () => {
   const [show, setShow] = useState(false);
+  const [hasShown, setHasShown] = useState(false);
+  const dismissed = useRef(false);
   const { pathname } = useLocation();
-  const navigate = useNavigate();
+
+  const handleClose = () => {
+    setShow(false);
+    dismissed.current = true;
+  };
 
   useEffect(() => {
     if (!ALLOWED_PATHS.includes(pathname)) {
       setShow(false);
       return;
     }
+    if (dismissed.current) return;
 
     setShow(false);
 
     // Desktop: mouse leaves viewport from the top
     const handleMouseOut = (e) => {
-      if (e.clientY <= 0) setShow(true);
+      if (e.clientY <= 0 && !dismissed.current) { setShow(true); setHasShown(true); }
     };
     document.addEventListener('mouseout', handleMouseOut);
 
     // Auto popup after 6 seconds
     const timer = setTimeout(() => {
-      setShow(true);
+      if (!dismissed.current) { setShow(true); setHasShown(true); }
     }, 6000);
 
     return () => {
@@ -120,7 +127,7 @@ const ExitIntentPopup = () => {
           exit={{ opacity: 0 }}
           transition={{ duration: 0.3 }}
           className="fixed inset-0 z-[70] flex items-center justify-center p-4"
-          onClick={() => setShow(false)}
+          onClick={handleClose}
         >
           {/* Backdrop */}
           <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
@@ -146,7 +153,7 @@ const ExitIntentPopup = () => {
 
             {/* Close button */}
             <button
-              onClick={() => setShow(false)}
+              onClick={handleClose}
               className="absolute top-4 right-4 w-8 h-8 rounded-full flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/10 transition-colors z-[80]"
               aria-label="Close popup"
             >
@@ -161,7 +168,7 @@ const ExitIntentPopup = () => {
               <p className="text-gray-400 text-xs mt-1">Fill out the quick form below to proceed.</p>
             </div>
             
-            <AdmissionsFormWidget />
+            {hasShown && <AdmissionsFormWidget />}
 
             {/* Original Flyer & Button commented out for potential restore:
             <img
