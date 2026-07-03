@@ -1,15 +1,12 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { Award, Heart, Zap, GraduationCap, ArrowRight } from 'lucide-react';
+import { Award, Heart, Zap, ArrowRight } from 'lucide-react';
 
 const scholarships = [
  {
  icon: Award,
  title: 'Merit Scholarship',
  coverage: 100,
- coverageLabel: 'Up to 100% Tuition',
- criteria: 'Top academic performers in 10+2 or equivalent examinations with 90%+ aggregate.',
- benefits: ['Full tuition waiver', 'Book allowance', 'Priority lab access'],
  gradient: 'from-amber-500 to-orange-500',
  glowColor: 'rgba(245, 158, 11, 0.15)',
  },
@@ -17,9 +14,6 @@ const scholarships = [
  icon: Heart,
  title: 'Need-Based Aid',
  coverage: 75,
- coverageLabel: 'Up to 75% Tuition',
- criteria: 'Students from economically weaker sections with demonstrated financial need.',
- benefits: ['Tuition reduction', 'Hostel fee support', 'Exam fee waiver'],
  gradient: 'from-rose-500 to-pink-500',
  glowColor: 'rgba(244, 63, 94, 0.15)',
  },
@@ -27,9 +21,6 @@ const scholarships = [
  icon: Zap,
  title: 'Sports Excellence',
  coverage: 50,
- coverageLabel: 'Up to 50% Tuition',
- criteria: 'National or state-level athletes with verified sports authority certificates.',
- benefits: ['Tuition reduction', 'Sports kit provided', 'Flexible attendance'],
  gradient: 'from-blue-500 to-cyan-500',
  glowColor: 'rgba(59, 130, 246, 0.15)',
  },
@@ -143,18 +134,7 @@ const ScholarshipSection = () => {
  </div>
 
  {/* Title */}
- <h3 className="text-2xl font-bold text-white mb-2">{s.title}</h3>
- <p className="text-gray-400 text-sm leading-relaxed mb-6">{s.criteria}</p>
-
- {/* Benefits */}
- <div className="space-y-2 mb-8">
- {s.benefits.map((b, j) => (
- <div key={j} className="flex items-center gap-2 text-sm">
- <GraduationCap className="w-4 h-4 text-red-500 flex-shrink-0" />
- <span className="text-gray-300">{b}</span>
- </div>
- ))}
- </div>
+ <h3 className="text-2xl font-bold text-white mb-6">{s.title}</h3>
 
  {/* CTA */}
  <button className="w-full py-3 rounded-xl border border-white/10 text-white font-semibold hover:bg-white/5 transition-all flex items-center justify-center gap-2 group/btn">
