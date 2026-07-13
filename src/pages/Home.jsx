@@ -54,9 +54,9 @@ const eduOrgSchema = {
  "name": "Techno India Group"
  },
  "hasCredential": [
- { "@type": "EducationalOccupationalCredential", "credentialCategory": "UGC Recognition" },
- { "@type": "EducationalOccupationalCredential", "credentialCategory": "NAAC Accreditation" },
- { "@type": "EducationalOccupationalCredential", "credentialCategory": "AICTE Approval" }
+ { "@type": "EducationalOccupationalCredential", "name": "UGC Recognition", "credentialCategory": "certification" },
+ { "@type": "EducationalOccupationalCredential", "name": "NAAC Accreditation Grade A", "credentialCategory": "certification" },
+ { "@type": "EducationalOccupationalCredential", "name": "AICTE Approval", "credentialCategory": "certification" }
  ]
 };
 
@@ -64,7 +64,7 @@ const Home = () => {
  return (
  <div className="bg-white">
  <SEO
- title="Top B.Tech Engineering College In Kolkata | Best AI Courses | Techno India University"
+ title="Top Engineering & AI College in Kolkata | Techno India University"
  description="Join Techno India University, a leading B.Tech engineering college in kolkata, for career-focused CSE courses in AI, ML, Data Science, Cloud Computing, and more with Google & IBM certifications embedded in the curriculum. 90%+ eligible placements."
  />
  <SchemaInjector schema={eduOrgSchema} />

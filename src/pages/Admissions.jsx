@@ -98,8 +98,9 @@ const admissionsEventSchema = {
  "description": "Admissions are now open for 2026 intake at School of the Future, Techno India University. Apply for Google Cloud & IBM-powered degree programs in AI, Data Science, Cloud Computing, Business, Design and more.",
  "startDate": "2026-01-15",
  "endDate": "2026-06-30",
+ "image": "https://www.technoindiauniversity.ai/image.png",
  "eventStatus": "https://schema.org/EventScheduled",
- "eventAttendanceMode": "https://schema.org/MixedEventAttendanceMode",
+ "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
  "location": {
  "@type": "Place",
  "name": "Techno India University School of the Future",
@@ -113,13 +114,15 @@ const admissionsEventSchema = {
  }
  },
  "organizer": {
- "@type": "CollegeOrUniversity",
+ "@type": "Organization",
  "name": "Techno India University",
  "url": "https://www.technoindiauniversity.ai"
  },
  "offers": {
  "@type": "Offer",
  "url": "https://www.technoindiauniversity.ai/apply",
+ "price": 0,
+ "priceCurrency": "INR",
  "availability": "https://schema.org/InStock",
  "validFrom": "2026-01-15"
  }
@@ -158,7 +161,7 @@ const Admissions = () => {
  return (
  <div className="bg-[#020205] min-h-screen text-white">
  <SEO
- title="Admission Open for AI Courses in CSE, Design, MBA & More Under Techno India University"
+ title="Admissions 2026 Open | School of the Future, TIU Kolkata"
  description="Admissions open for 2026 at Techno India University's School of the Future, the best B.Tech engineering college. Explore Google- and IBM-powered programs, strong placements, scholarships, and industry internships. Apply today."
  />
  <SchemaInjector schema={admissionsFaqSchema} />

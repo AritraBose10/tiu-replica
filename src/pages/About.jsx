@@ -172,7 +172,7 @@ const About = () => {
  return (
  <div className="min-h-screen bg-[#020205] text-white overflow-x-hidden selection:bg-[#FF0000] selection:text-white">
  <SEO
- title="About Techno India University's School Of The Future | Best B.Tech Engineering College & AI Institute in Kolkata"
+ title="School of the Future | Techno India University Kolkata"
  description="Discover the mission and vision of Techno India University's School of the Future, a leading B.Tech engineering college. Backed by seasoned industry experts and academic leaders, 15,000+ students and global partners drive innovation-led AI course."
  />
  <SchemaInjector schema={{
@@ -194,9 +194,9 @@ const About = () => {
  },
  "telephone": "+91-8062642222",
  "hasCredential": [
- { "@type": "EducationalOccupationalCredential", "credentialCategory": "UGC Recognition" },
- { "@type": "EducationalOccupationalCredential", "credentialCategory": "NAAC Accreditation" },
- { "@type": "EducationalOccupationalCredential", "credentialCategory": "AICTE Approval" }
+ { "@type": "EducationalOccupationalCredential", "name": "UGC Recognition", "credentialCategory": "certification" },
+ { "@type": "EducationalOccupationalCredential", "name": "NAAC Accreditation Grade A", "credentialCategory": "certification" },
+ { "@type": "EducationalOccupationalCredential", "name": "AICTE Approval", "credentialCategory": "certification" }
  ]
  }} />
  <FloatingBackground />

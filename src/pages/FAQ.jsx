@@ -124,7 +124,7 @@ const FAQ = () => {
  return (
  <div className="min-h-screen bg-[#020205] text-white pt-32 pb-20 relative overflow-hidden">
  <SEO
- title="FAQs | B.Tech, AI & Engineering Admissions | Techno India University Kolkata"
+ title="Admissions FAQs | Techno India University Kolkata"
  description="Got questions about B.Tech CSE, AI/ML, data science or cloud computing programs at Techno India University? Find answers here. Top engineering college in Kolkata. Admissions 2026."
  />
  <SchemaInjector schema={faqSchema} />

@@ -135,7 +135,7 @@ const GoogleIBMCourse = () => {
  return (
  <div className="min-h-screen bg-[#020205] text-white overflow-x-hidden selection:bg-[#FF0000] selection:text-white">
  <SEO
- title="AI, Cloud & Data Science Courses in Kolkata | Google Cloud & IBM Certifications | TIU"
+ title="Google Cloud & IBM AI Courses in Kolkata | TIU"
  description="Join the best AI training Institution in Kolkata. Earn Google Cloud & IBM certifications embedded in your B.Tech or BCA degree. AI/ML, Cloud Computing & Data Science courses in Kolkata. Admissions 2026."
  />
  <SchemaInjector schema={courseSchema} />

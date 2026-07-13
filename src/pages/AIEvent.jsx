@@ -294,7 +294,7 @@ const AIEvent = () => {
  <div className="min-h-screen bg-[#0d0d0d] text-white overflow-x-hidden selection:bg-[#FF0000] selection:text-white">
  <div className="fixed inset-0 pointer-events-none z-[2] bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.07]" />
  <SEO
- title="Workshop on AI and Prompt Engineering for Class 12 Students | School of the Future"
+ title="AI & Prompt Engineering Workshop | School of the Future"
  description="Start learning AI before college begins. Join our Workshop on AI and Prompt Engineering made specially for Class 12 students awaiting admissions. Limited seats register now."
  />
  <FloatingBackground />

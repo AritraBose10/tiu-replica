@@ -251,9 +251,6 @@ const Courses = () => {
  },
  "offers": {
  "@type": "Offer",
- "category": "Paid",
- "priceCurrency": "INR",
- "price": "0",
  "url": "https://www.technoindiauniversity.ai/apply",
  "availability": "https://schema.org/InStock"
  }
@@ -282,7 +279,7 @@ const Courses = () => {
  return (
  <div className="min-h-screen bg-[#020205] text-white relative overflow-x-hidden selection:bg-[#FF0000] selection:text-white">
  <SEO
- title="B.Tech, M.Tech, CSE, AI ML, Data Science & Cloud Computing Courses | Techno India University"
+ title="B.Tech, BCA, MBA & AI Courses | Techno India University"
  description="Explore B.Tech CSE, AI ML, Data Science & Cloud Computing, BCA, BBA, B.Sc, Law, Design, Nursing and M.Tech at Kolkata's best engineering college. Google & IBM certified. 90%+ placements. Admissions open."
  />
  <SchemaInjector schema={courseSchema} />
