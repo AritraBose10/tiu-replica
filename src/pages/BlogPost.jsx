@@ -51,7 +51,7 @@ const BlogPost = () => {
   const metaTitle = blog.meta_title || blog.title;
   const metaDesc = blog.meta_description || blog.excerpt || '';
 
-  // Parse schema_html for SchemaInjector
+  // Auto-generate BlogPosting schema from post fields; override with schema_html if present
   let parsedSchema = null;
   if (blog.schema_html) {
     try {
@@ -59,11 +59,37 @@ const BlogPost = () => {
       if (match) parsedSchema = JSON.parse(match[1]);
     } catch {}
   }
+  const postUrl = `https://www.technoindiauniversity.ai/blogs/${blog.slug}`;
+  const blogSchema = parsedSchema || {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": (blog.meta_title || blog.title || '').slice(0, 110),
+    "description": metaDesc,
+    "url": postUrl,
+    "mainEntityOfPage": { "@type": "WebPage", "@id": postUrl },
+    ...(blog.feature_image ? { "image": blog.feature_image } : {}),
+    "datePublished": blog.created_at || new Date().toISOString(),
+    "dateModified": blog.updated_at || blog.created_at || new Date().toISOString(),
+    "author": {
+      "@type": "Person",
+      "name": blog.author || "Editorial Team",
+      ...(blog.author_role ? { "jobTitle": blog.author_role } : {})
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Techno India University",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://www.technoindiauniversity.ai/image.png"
+      }
+    },
+    "keywords": Array.isArray(blog.tags) ? blog.tags.join(', ') : ''
+  };
 
   return (
     <div className="min-h-screen bg-[#020205] text-white selection:bg-red-600 selection:text-white">
       <SEO title={metaTitle} description={metaDesc} />
-      {parsedSchema && <SchemaInjector schema={parsedSchema} />}
+      <SchemaInjector schema={blogSchema} />
 
       {/* Hero */}
       <section className="relative pt-28 pb-12 px-4">
