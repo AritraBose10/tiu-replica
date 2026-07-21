@@ -2,17 +2,46 @@ import { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import {
-  ArrowRight, ArrowUpRight, GraduationCap, Users, Award,
-  BookOpen, Briefcase, Target, Zap, ChevronDown, Phone,
+  ArrowRight, ArrowUpRight, GraduationCap, Award,
+  BookOpen, Target, ChevronDown, Phone,
   MapPin, Cpu, Brain, CloudLightning, Check, X,
-  TrendingUp, Layers, Star, CheckCircle2
+  TrendingUp, Layers, CheckCircle2, IdCard, Mail, ShieldCheck
 } from 'lucide-react';
 import SEO from '../components/SEO';
 import SchemaInjector from '../components/SchemaInjector';
-import iitkgpImg from '../assets/iitkgp.webp';
+import tiuLogo from '../assets/logo.png';
 import iitkgpLogo from '../assets/IIT_KGP.webp';
 
 const MotionLink = motion.create(Link);
+
+// ─── Mandatory OCN disclaimer (verbatim — PS/OCN/BRAND/2026-01 §4.1) ──────────
+const OCN_DISCLAIMER = "IIT Kharagpur provides specific micro-specialisation course(s) to students of this programme through its Outreach Course Network. The degree/programme is awarded solely by Techno India University. IIT Kharagpur does not award, co-award, or endorse any degree of Techno India University. All IIT Kharagpur credentials (OCN Student Identity Card, institutional email ID, OCN Micro-Specialisation Certificate, and OCN Alumni Status) are subject to IIT Kharagpur's policies and conferred at its sole discretion.";
+
+// ─── Reusable disclaimer panel (legible, same field of view as any OCN mention)
+const DisclaimerPanel = ({ className = '' }) => (
+  <div className={`rounded-xl border border-white/12 bg-white/[0.04] px-5 py-4 ${className}`}>
+    <p className="text-[10px] font-black tracking-widest uppercase text-gray-500 mb-2">Important — please read</p>
+    <p className="text-gray-300 text-[13px] leading-relaxed">{OCN_DISCLAIMER}</p>
+  </div>
+);
+
+// ─── Approved IIT Kharagpur OCN lock-up (crest + wordmark + descriptor) ───────
+// Kept modest — never larger or heavier than the Techno India University identity.
+const OcnLockup = ({ size = 'sm' }) => {
+  const crest = size === 'lg' ? 'w-12 h-12' : 'w-9 h-9';
+  const word = size === 'lg' ? 'text-base' : 'text-sm';
+  return (
+    <div className="inline-flex items-center gap-2.5">
+      <div className={`${crest} rounded-md bg-white p-1 flex-shrink-0`}>
+        <img src={iitkgpLogo} alt="IIT Kharagpur OCN" className="w-full h-full object-contain" />
+      </div>
+      <div className="leading-tight">
+        <p className={`${word} font-bold text-white`}>IIT Kharagpur OCN</p>
+        <p className="text-[9px] tracking-[0.15em] uppercase text-gray-500">Outreach Course Network</p>
+      </div>
+    </div>
+  );
+};
 
 // ─── Cursor Glow ──────────────────────────────────────────────────────────────
 const CursorGlow = () => {
@@ -40,10 +69,11 @@ const CursorGlow = () => {
 const BAR_HEIGHT = 36; // px — must match h-[36px] below
 
 const AnnouncementBar = () => {
-  const items = ['B.Tech Admissions 2026 Now Open', 'Collaboration with IIT KGP', 'Project Based Learning', 'AI · ML · Data Science · Cloud Computing', 'Limited Seats Available', 'School of the Future · Techno India University'];
+  // Partner programme leads; IIT Kharagpur OCN is referenced only as a
+  // micro-specialisation contributor (never as the dominant headline).
+  const items = ['B.Tech Admissions 2026 Now Open', 'Techno India University · School of the Future', 'Project-Based Learning', 'AI · ML · Data Science · Cloud Computing', 'Includes IIT Kharagpur OCN Micro-Specialisation', 'Limited Seats Available'];
 
   useEffect(() => {
-    // Push the navbar down by bar height + 8px gap
     document.documentElement.style.setProperty('--navbar-top', `${BAR_HEIGHT + 8}px`);
     return () => document.documentElement.style.setProperty('--navbar-top', '1rem');
   }, []);
@@ -62,15 +92,6 @@ const AnnouncementBar = () => {
   );
 };
 
-// ─── Diagonal Divider ─────────────────────────────────────────────────────────
-const DiagDivider = ({ flip = false }) => (
-  <div className={`w-full overflow-hidden leading-none ${flip ? 'rotate-180' : ''}`} style={{ lineHeight: 0 }}>
-    <svg viewBox="0 0 1440 60" preserveAspectRatio="none" className="w-full h-[40px] md:h-[60px]" fill="none">
-      <polygon points="0,0 1440,60 1440,60 0,60" fill="rgba(255,255,255,0.015)" />
-    </svg>
-  </div>
-);
-
 // ─── Big Ghost Number ─────────────────────────────────────────────────────────
 const GhostNum = ({ n }) => (
   <span className="absolute -top-6 md:-top-10 left-0 text-[100px] md:text-[160px] font-black leading-none select-none pointer-events-none"
@@ -79,11 +100,7 @@ const GhostNum = ({ n }) => (
   </span>
 );
 
-
-// ── Paste your Google Apps Script Web App URL here after deploying ────────────
-const SHEET_URL = 'https://script.google.com/macros/s/AKfycbxXVXoFQZVrzyGnuGQLvgEc4V1yk1iXvLQ5LTNEi117oB0LTm_OCIp36PH0cGwvtLFi_A/exec';
-
-// ─── ExtraEdge Form Widget (same as Admissions page) ─────────────────────────
+// ─── ExtraEdge Form Widget ────────────────────────────────────────────────────
 const EEFormWidget = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [iframeHeight, setIframeHeight] = useState(520);
@@ -110,7 +127,7 @@ body { margin: 0; padding: 0; background: transparent; font-family: sans-serif; 
 </head>
 <body>
 <script>
-(function(){try{var s=window.parent.location.search;if(s)history.replaceState(null,'',s);}catch(e){}})();
+(function(){var s=${JSON.stringify(window.location.search)};if(s)try{history.replaceState(null,'',s);}catch(_){}})();
 <\/script>
 <div class="ee-form-widget" id="ee-form-8"></div>
 <script>
@@ -126,8 +143,8 @@ if(window.ResizeObserver){new ResizeObserver(reportHeight).observe(document.docu
 </body>
 </html>`;
 
-     try{var _qs=window.location.search,_p=new URLSearchParams(_qs);if(_p.has("utm_source")||_p.has("utm_medium")||_p.has("utm_campaign")){localStorage.setItem("stored_url",JSON.stringify({url:window.location.href,expiry:Date.now()+2592000000}));}}catch(_e){}
- const blob = new Blob([widgetCode], { type: 'text/html' });
+    try{var _qs=window.location.search,_p=new URLSearchParams(_qs);if(["utm_source","utm_medium","utm_campaign","utm_term","utm_content","channel"].some(function(k){return _p.has(k)})){var _url=window.location.href;if(_p.has("channel")&&!_p.has("utm_source")){var _u=new URL(_url);_u.searchParams.set("utm_source",_p.get("channel"));_url=_u.href;}localStorage.setItem("stored_url",JSON.stringify({url:_url,expiry:Date.now()+2592000000}));}}catch(_e){}
+    const blob = new Blob([widgetCode], { type: 'text/html' });
     const url = URL.createObjectURL(blob);
     setIframeUrl(url);
 
@@ -147,7 +164,7 @@ if(window.ResizeObserver){new ResizeObserver(reportHeight).observe(document.docu
       {iframeUrl && (
         <iframe
           src={iframeUrl}
-          title="IIT KGP Admissions Enquiry Form"
+          title="Admissions Enquiry Form"
           className={`w-full border-0 z-10 rounded-2xl transition-opacity duration-500 ${isLoading ? 'opacity-0' : 'opacity-100'}`}
           style={{ backgroundColor: 'transparent', height: iframeHeight }}
         />
@@ -186,47 +203,56 @@ const FAQItem = ({ faq, i }) => {
 };
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
-const courses = [
+// The Partner's own degree programmes — awarded solely by Techno India University.
+const degreePrograms = [
   { n: '01', icon: Cpu, title: 'B.Tech CSE', label: 'Core', accent: '#FF0000',
-    desc: 'Strong foundation in computer science: programming, software development, algorithms, databases, OS, networks and emerging technologies.',
+    desc: 'A strong foundation in computer science: programming, software development, algorithms, databases, operating systems, networks and emerging technologies.',
     for: 'Software development · IT careers · Product development · Higher studies' },
-  { n: '02', icon: Brain, title: 'B.Tech CSE in AI and ML', label: 'High Demand', accent: '#FF4444',
-    desc: 'Artificial Intelligence and Machine Learning, intelligent systems, automation, data driven applications, next generation technology careers.',
+  { n: '02', icon: Brain, title: 'B.Tech CSE in AI & ML', label: 'High Demand', accent: '#FF4444',
+    desc: 'Artificial Intelligence and Machine Learning, intelligent systems, automation and data-driven applications for next-generation technology careers.',
     for: 'AI roles · Machine learning · Automation · Robotics · Future technology' },
   { n: '03', icon: TrendingUp, title: 'B.Tech CSE in Data Science', label: 'Fastest Growing', accent: '#3b82f6',
-    desc: 'Data analytics, big data, business intelligence, data visualization, statistics and data driven decision making.',
+    desc: 'Data analytics, big data, business intelligence, data visualization, statistics and data-driven decision making.',
     for: 'Data analytics · Business intelligence · Insights · Research · Decision science' },
   { n: '04', icon: CloudLightning, title: 'B.Tech CSE in Cloud Computing', label: 'Enterprise', accent: '#06b6d4',
     desc: 'Cloud technology, scalable systems, cloud infrastructure, enterprise platforms and modern digital transformation.',
     for: 'Cloud platforms · DevOps · Cloud architecture · Enterprise technology' },
 ];
 
-const iitBenefits = [
-  { n: '01', icon: BookOpen, title: 'Academic Collaboration with IIT KGP', desc: 'A strong academic value addition to the B.Tech learning journey through the established collaboration.' },
-  { n: '02', icon: Users, title: 'Sessions by IIT KGP Faculty', desc: 'Students get access to academic sessions as part of the program structure, taught by IIT KGP faculty.' },
-  { n: '03', icon: Target, title: 'Project Based Evaluation', desc: 'Students move beyond textbook learning through practical and outcome focused academic evaluation.' },
-  { n: '04', icon: Award, title: 'Certificate Upon Completion', desc: 'Students can receive a certificate linked to the collaborative course pathway, subject to successful completion.' },
-  { n: '05', icon: Briefcase, title: 'Credentials That Stand Out', desc: 'Students build a stronger profile for internships, placements, recruiter interactions and future technology careers.' },
-  { n: '06', icon: Zap, title: 'Future Ready Skill Stack', desc: 'Exposure to real-world tools, emerging technologies, and industry-grade learning frameworks.' },
+// A separate, dedicated section — the OCN credentials a qualifying learner may earn.
+// Presented as benefits available at IIT Kharagpur's sole discretion, never as a guarantee.
+const ocnCredentials = [
+  { icon: BookOpen, title: 'IIT Kharagpur OCN Micro-Specialisation course(s)',
+    desc: 'Specific micro-specialisation course(s) delivered through the IIT Kharagpur Outreach Course Network, alongside your Techno India University degree.' },
+  { icon: Award, title: 'IIT Kharagpur OCN Micro-Specialisation Certificate',
+    desc: 'Available upon successful completion of the OCN micro-specialisation course(s), subject to IIT Kharagpur\'s policies.' },
+  { icon: IdCard, title: 'IIT Kharagpur OCN Student Identity Card',
+    desc: 'Issued for the programme duration, subject to IIT Kharagpur\'s policies.' },
+  { icon: Mail, title: 'IIT Kharagpur OCN email ID',
+    desc: 'Provided for the programme duration, subject to IIT Kharagpur\'s policies.' },
+  { icon: ShieldCheck, title: 'IIT Kharagpur OCN Alumni Status',
+    desc: 'Available upon successful completion, subject to IIT Kharagpur\'s policies.' },
+  { icon: Target, title: 'Project-based, outcome-focused learning',
+    desc: 'Practical evaluation that moves beyond textbook learning, as part of the Techno India University programme structure.' },
 ];
 
-const comparisonLeft = ['Degree focused', 'Generic academic exposure', 'Mostly theory based', 'Common learning path', 'Limited profile building', 'Late placement preparation', 'Less differentiation'];
-const comparisonRight = ['Degree + skill focused', 'Collaboration with IIT KGP', 'Project based learning', 'AI focused specializations', 'Certification driven exposure', 'Career readiness from Day 1', 'Stronger career positioning'];
+const comparisonLeft = ['Degree focused only', 'Generic academic exposure', 'Mostly theory based', 'Common learning path', 'Limited profile building', 'Late placement preparation', 'Less differentiation'];
+const comparisonRight = ['Degree + micro-specialisation', 'IIT Kharagpur OCN Micro-Specialisation Certificate', 'Project-based learning', 'AI-focused specializations', 'Certification-driven exposure', 'Career readiness from Day 1', 'Stronger career positioning'];
 
 const faqs = [
-  { q: 'Which B.Tech courses are available for Admissions 2026?', a: 'B.Tech CSE, B.Tech CSE in AI and ML, B.Tech CSE in Data Science and B.Tech CSE in Cloud Computing.' },
-  { q: 'What is the IIT KGP collaboration?', a: 'Students receive academic benefits including academic exposure, project based evaluation and certification driven learning under the collaboration with IIT KGP, as per program terms.' },
-  { q: 'Will students receive a certificate?', a: 'Students can receive a certificate upon successful completion, as per program terms.' },
-  { q: 'Is this suitable for students interested in AI careers?', a: 'Yes. The programs are designed for students interested in Computer Science, AI and ML, Data Science, Cloud Computing and future technology careers.' },
-  { q: 'Is this useful for placements and internships?', a: 'The programs are designed to help students build stronger academic exposure, project experience and career ready credentials that support internship and placement readiness.' },
-  { q: 'Where is the campus located?', a: 'Techno India University is located at EM 4, Sector V, Salt Lake, Kolkata.' },
-  { q: 'How can I apply?', a: 'Fill the enquiry form on this page or call 08062642222 for admission counselling.' },
+  { q: 'Which B.Tech courses are available for Admissions 2026?', a: 'B.Tech CSE, B.Tech CSE in AI & ML, B.Tech CSE in Data Science and B.Tech CSE in Cloud Computing. These degrees are awarded solely by Techno India University.' },
+  { q: 'What is the IIT Kharagpur OCN Micro-Specialisation?', a: 'Techno India University is an onboarded partner of the IIT Kharagpur Outreach Course Network (OCN), via ProofSlate. Students of the programme can access specific IIT Kharagpur OCN micro-specialisation course(s) delivered through the Outreach Course Network, alongside their Techno India University degree.' },
+  { q: 'Does the IIT Kharagpur OCN award my degree?', a: 'No. Your B.Tech degree is awarded solely by Techno India University. IIT Kharagpur does not award, co-award, accredit or endorse any Techno India University degree. IIT Kharagpur\'s involvement is limited to specific micro-specialisation course(s) delivered through its Outreach Course Network.' },
+  { q: 'What certificate can I earn from the OCN?', a: 'Qualifying learners can earn an IIT Kharagpur OCN Micro-Specialisation Certificate upon successful completion. All OCN credentials are conferred at IIT Kharagpur\'s sole discretion, subject to its policies as amended from time to time.' },
+  { q: 'Is this suitable for students interested in AI careers?', a: 'Yes. The programmes are designed for students interested in Computer Science, AI & ML, Data Science, Cloud Computing and future technology careers.' },
+  { q: 'Where is the campus located?', a: 'Techno India University is located at EM-4, Sector V, Salt Lake, Kolkata 700091.' },
+  { q: 'How can I apply?', a: 'Fill the enquiry form on this page or call 08062642222 for admission counselling with Techno India University.' },
 ];
 
 const pageSchema = {
   '@context': 'https://schema.org', '@type': 'Course',
-  name: 'B.Tech CSE Admissions 2026 with IIT KGP Collaboration',
-  description: 'Future ready B.Tech CSE programs at Techno India University under its collaboration with IIT KGP.',
+  name: 'B.Tech CSE Admissions 2026 — Techno India University, School of the Future',
+  description: 'B.Tech CSE degree programmes awarded solely by Techno India University. The programme includes IIT Kharagpur OCN micro-specialisation course(s) delivered through the IIT Kharagpur Outreach Course Network.',
   provider: { '@type': 'CollegeOrUniversity', name: 'Techno India University', url: 'https://www.technoindiauniversity.ai' },
 };
 
@@ -239,8 +265,8 @@ const IITKGPLanding = () => {
   return (
     <div className="min-h-screen bg-[#09080a] text-white overflow-x-hidden selection:bg-[#FF0000] selection:text-white">
       <SEO
-        title="B.Tech CSE Admission at Techno India University with IIT Kharagpur Collaboration"
-        description="Admissions open for B.Tech CSE at Techno India University in collaboration with IIT Kharagpur. Choose AI & ML, Data Science, or Cloud Computing. Apply now in limited seats!"
+        title="B.Tech CSE Admissions 2026 | Techno India University"
+        description="B.Tech CSE degrees awarded solely by Techno India University, School of the Future. Programme includes IIT Kharagpur OCN micro-specialisation course(s) delivered through the Outreach Course Network. Admissions 2026 open."
         noindex={true}
       />
       <SchemaInjector schema={pageSchema} />
@@ -253,11 +279,9 @@ const IITKGPLanding = () => {
       <section ref={heroRef} className="relative min-h-[100svh] flex flex-col overflow-hidden">
 
         {/* Parallax grid */}
-        <motion.div style={{ y: heroY }} className="absolute inset-0 pointer-events-none"
-          aria-hidden>
+        <motion.div style={{ y: heroY }} className="absolute inset-0 pointer-events-none" aria-hidden>
           <div className="absolute inset-0 opacity-[0.04]"
             style={{ backgroundImage: 'linear-gradient(to right,#fff 1px,transparent 1px),linear-gradient(to bottom,#fff 1px,transparent 1px)', backgroundSize: '80px 80px' }} />
-          {/* Diagonal red slash */}
           <div className="absolute inset-0" style={{
             background: 'linear-gradient(115deg, transparent 58%, rgba(255,0,0,0.04) 58.5%, rgba(255,0,0,0.04) 100%)'
           }} />
@@ -275,61 +299,43 @@ const IITKGPLanding = () => {
 
           {/* ── LEFT ── */}
           <div>
-            {/* IIT badge */}
+            {/* Partner (Techno India University) — primary, largest identity */}
             <motion.div initial={{ opacity: 0, y: -12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
-              className="inline-flex items-center gap-2.5 bg-[#FF0000]/10 border border-[#FF0000]/25 px-4 py-2 rounded-full mb-5">
-              <motion.span animate={{ scale: [1, 1.5, 1] }} transition={{ duration: 1.8, repeat: Infinity }}
-                className="w-2 h-2 rounded-full bg-[#FF0000] flex-shrink-0" />
-              <GraduationCap className="w-3.5 h-3.5 text-[#FF0000]" />
-              <span className="text-[#FF0000] text-xs font-black tracking-widest uppercase">Collaboration with IIT KGP</span>
+              className="mb-6">
+              <img src={tiuLogo} alt="Techno India University" className="h-14 md:h-16 w-auto object-contain" />
+              <p className="text-gray-500 text-xs font-semibold tracking-widest uppercase mt-2">School of the Future</p>
             </motion.div>
 
-            {/* KGP Logo bar */}
+            {/* Onboarded-partner pill (approved formulation) */}
             <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }}
-              className="flex items-center gap-4 mb-6 p-4 rounded-2xl bg-white/[0.03] border border-white/10 w-fit">
-              <div className="w-16 h-16 rounded-xl bg-white p-1.5 flex-shrink-0">
-                <img src={iitkgpLogo} alt="IIT Kharagpur Logo" className="w-full h-full object-contain" />
-              </div>
-              <div>
-                <p className="text-white font-black text-base leading-tight">IIT Kharagpur</p>
-                <p className="text-gray-500 text-xs mt-0.5">Indian Institute of Technology</p>
-                <p className="text-[#FF0000] text-xs font-bold mt-1 tracking-wide uppercase">Est. 1951</p>
-              </div>
+              className="inline-flex items-center gap-2.5 bg-white/[0.04] border border-white/12 px-4 py-2 rounded-full mb-6">
+              <GraduationCap className="w-3.5 h-3.5 text-gray-400" />
+              <span className="text-gray-300 text-[11px] font-bold tracking-wide">Onboarded partner of the IIT Kharagpur OCN, via ProofSlate</span>
             </motion.div>
 
-            {/* Headline */}
+            {/* Headline — the Partner's own programme is always the headline */}
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2, duration: 0.8 }} className="relative overflow-hidden">
-              {/* Ghost backdrop text — clipped to parent */}
-              <span className="absolute top-0 -left-1 text-[70px] sm:text-[100px] md:text-[130px] font-black leading-none select-none pointer-events-none"
-                style={{ WebkitTextStroke: '1.5px rgba(255,0,0,0.08)', color: 'transparent' }}>
-                IIT KGP
-              </span>
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-6xl xl:text-7xl font-black leading-[1.0] tracking-tight relative z-10 pt-2">
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-6xl xl:text-7xl font-black leading-[1.02] tracking-tight relative z-10 pt-2">
                 <motion.span initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.25, duration: 0.7 }}
-                  className="block text-white">Dreaming</motion.span>
+                  className="block text-white">B.Tech CSE</motion.span>
                 <motion.span initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.35, duration: 0.7 }}
-                  className="block text-white">of <span className="relative inline-block">
-                    <span className="text-transparent" style={{ WebkitTextStroke: '2px #FF0000' }}>IIT?</span>
-                    <motion.span initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ delay: 1.1, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                      className="absolute bottom-1 left-0 right-0 h-1 bg-[#FF0000] origin-left" />
-                  </span>
+                  className="block text-transparent bg-clip-text bg-gradient-to-r from-[#FF0000] via-orange-500 to-[#FF0000]">
+                  Admissions 2026
                 </motion.span>
                 <motion.span initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.45, duration: 0.7 }}
-                  className="block text-transparent bg-clip-text bg-gradient-to-r from-[#FF0000] via-orange-500 to-[#FF0000]">
-                  We Have Your Path.
-                </motion.span>
+                  className="block text-white text-2xl sm:text-3xl md:text-4xl mt-3">at Techno India University</motion.span>
               </h1>
             </motion.div>
 
             <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }}
               className="text-gray-400 text-sm md:text-base lg:text-lg leading-relaxed mt-5 mb-6 max-w-xl">
-              Admissions 2026 are now open at Techno India University, School of the Future, future ready B.Tech CSE programs under its collaboration with IIT KGP, with project based learning and certification driven academic exposure.
+              Future-ready B.Tech CSE degree programmes at the School of the Future, awarded solely by Techno India University. The programme <span className="text-gray-200 font-semibold">includes IIT Kharagpur OCN micro-specialisation course(s)</span> delivered through the IIT Kharagpur Outreach Course Network, with project-based learning.
             </motion.p>
 
-            {/* Course pills */}
+            {/* Programme pills (Partner degree programmes) */}
             <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.7 }}
               className="flex flex-wrap gap-2 mb-6">
-              {['B.Tech CSE', 'CSE AI-ML', 'CSE Data Science', 'CSE Cloud Computing'].map((c, i) => (
+              {['B.Tech CSE', 'CSE AI & ML', 'CSE Data Science', 'CSE Cloud Computing'].map((c, i) => (
                 <span key={i} className="text-xs font-bold px-4 py-2 rounded-full border border-white/10 bg-white/[0.04] text-gray-400 tracking-wide">
                   {c}
                 </span>
@@ -338,7 +344,7 @@ const IITKGPLanding = () => {
 
             {/* CTAs */}
             <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.8 }}
-              className="flex flex-col sm:flex-row gap-3">
+              className="flex flex-col sm:flex-row gap-3 mb-6">
               <MotionLink to="/apply" whileHover={{ scale: 1.04, boxShadow: '0 0 50px rgba(255,0,0,0.4)' }} whileTap={{ scale: 0.97 }}
                 className="inline-flex items-center justify-center gap-2 bg-[#FF0000] text-white px-8 py-4 rounded-full font-black text-sm tracking-wider uppercase shadow-[0_0_30px_rgba(255,0,0,0.25)] transition-shadow">
                 Apply Now <ArrowRight className="w-4 h-4" />
@@ -349,98 +355,55 @@ const IITKGPLanding = () => {
               </a>
             </motion.div>
 
-            {/* Disclaimer */}
-            <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1 }}
-              className="text-gray-700 text-xs mt-5">
-              Benefits under the collaboration with IIT KGP are applicable as per program terms.
-            </motion.p>
+            {/* Modest OCN lock-up + mandatory disclaimer, above the fold */}
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.95 }}
+              className="max-w-xl">
+              <div className="flex items-center gap-2 mb-3">
+                <span className="text-gray-600 text-[10px] font-bold uppercase tracking-widest">Micro-specialisation delivered through</span>
+                <OcnLockup size="sm" />
+              </div>
+              <DisclaimerPanel />
+            </motion.div>
           </div>
 
-          {/* ── RIGHT — Image ── */}
+          {/* ── RIGHT — Partner campus image (Partner's own identity is the primary visual) ── */}
           <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            className="relative w-full">
-
-            {/* Corner decorations */}
+            className="relative w-full hidden lg:block">
             <div className="absolute -top-3 -left-3 w-10 h-10 border-t-2 border-l-2 border-[#FF0000]/30 rounded-tl-lg z-10" />
             <div className="absolute -bottom-3 -right-3 w-10 h-10 border-b-2 border-r-2 border-[#FF0000]/30 rounded-br-lg z-10" />
-
-            {/* Campus image — full, not cropped */}
             <div className="relative w-full rounded-2xl overflow-hidden border border-white/10">
-              <img src={iitkgpImg} alt="IIT Kharagpur Campus" className="w-full h-auto object-contain" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+              <img src="/assets/images/campus.webp" alt="Techno India University Campus, Salt Lake, Kolkata" className="w-full h-auto object-cover" loading="eager" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
               <div className="absolute bottom-3 left-4 flex items-center gap-2">
-                <GraduationCap className="w-4 h-4 text-[#FF0000]" />
-                <span className="text-white text-xs font-black tracking-widest uppercase">IIT Kharagpur</span>
+                <MapPin className="w-4 h-4 text-[#FF0000]" />
+                <span className="text-white text-xs font-black tracking-widest uppercase">Techno India University · Kolkata</span>
               </div>
             </div>
           </motion.div>
           </div>
         </div>
-
       </section>
 
-      {/* ── IIT DREAM ─────────────────────────────────────────────────────── */}
-      <section className="relative py-8 md:py-16 overflow-hidden" style={{ background: 'linear-gradient(180deg, #09080a 0%, #0d0a07 50%, #09080a 100%)' }}>
-        <DiagDivider />
-        <div className="max-w-6xl mx-auto px-6 text-center relative z-10 py-8">
-          <motion.div initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }}
-            className="inline-flex items-center gap-2 bg-[#FF0000]/8 border border-[#FF0000]/20 px-5 py-2 rounded-full mb-8">
-            <Star className="w-3.5 h-3.5 text-[#FF0000]" />
-            <span className="text-[#FF0000] text-xs font-black tracking-widest uppercase">IIT Dreams Don't End with Entrance Results</span>
-          </motion.div>
-
-          {/* Big pull-quote style */}
-          <div className="relative">
-            <motion.p initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-              className="text-3xl md:text-5xl lg:text-6xl font-black text-white leading-[1.1] tracking-tight mb-4">
-              Not every student gets into IIT.
-            </motion.p>
-            <motion.p initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.15 }}
-              className="text-3xl md:text-5xl lg:text-6xl font-black leading-[1.1] tracking-tight">
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FF0000] to-[#CC0000]">But every serious aspirant</span>
-              <span className="text-white"> deserves </span>
-              <span className="relative inline-block">
-                <span className="text-transparent" style={{ WebkitTextStroke: '2px rgba(255,0,0,0.6)' }}>more.</span>
-              </span>
-            </motion.p>
-          </div>
-
-          <motion.p initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.25 }}
-            className="text-gray-400 text-lg md:text-xl leading-relaxed mt-8 max-w-3xl mx-auto">
-            At Techno India University, School of the Future, students pursue future ready B.Tech CSE programs under its collaboration with IIT KGP, with project based learning and certification driven academic exposure.
-          </motion.p>
-
-          <motion.div initial={{ opacity: 0, y: 15 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.35 }}
-            className="mt-10 inline-flex items-center gap-3 bg-[#FF0000]/10 border border-[#FF0000]/25 px-7 py-3.5 rounded-full cursor-default">
-            <motion.span animate={{ scale: [1, 1.4, 1] }} transition={{ duration: 1.5, repeat: Infinity }}
-              className="w-2 h-2 rounded-full bg-[#FF0000]" />
-            <span className="text-[#FF0000] font-black tracking-wider text-sm uppercase">Apply Early. Seats Are Limited</span>
-          </motion.div>
-        </div>
-        <DiagDivider flip />
-      </section>
-
-      {/* ── COURSES — Magazine Row Layout ─────────────────────────────────── */}
+      {/* ── PARTNER DEGREE PROGRAMMES ─────────────────────────────────────── */}
       <section className="py-8 md:py-16 px-4 md:px-10 relative overflow-hidden">
         <div className="max-w-7xl mx-auto">
-          {/* Section header */}
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
             <div className="relative">
-              <GhostNum n="02" />
-              <p className="text-xs text-[#FF0000] font-black tracking-widest uppercase mb-3 relative z-10">Programs</p>
+              <GhostNum n="01" />
+              <p className="text-xs text-[#FF0000] font-black tracking-widest uppercase mb-3 relative z-10">Techno India University Degrees</p>
               <h2 className="text-3xl md:text-5xl font-black text-white relative z-10">
                 Choose Your<br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FF0000] to-orange-400">Future Ready Program</span>
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FF0000] to-orange-400">B.Tech CSE Programme</span>
               </h2>
+              <p className="text-gray-500 text-sm mt-4 max-w-lg relative z-10">These degree programmes are awarded solely by Techno India University.</p>
             </div>
-            <MotionLink to="/apply" whileHover={{ x: 4 }} className="inline-flex items-center gap-2 text-sm font-bold text-gray-400 hover:text-white transition-colors group">
+            <MotionLink to="/courses" whileHover={{ x: 4 }} className="inline-flex items-center gap-2 text-sm font-bold text-gray-400 hover:text-white transition-colors group">
               View All Courses <ArrowUpRight className="w-4 h-4 group-hover:text-[#FF0000] transition-colors" />
             </MotionLink>
           </div>
 
-          {/* Magazine-style rows */}
           <div className="space-y-px">
-            {courses.map((c, i) => {
+            {degreePrograms.map((c, i) => {
               const Icon = c.icon;
               return (
                 <motion.div key={i}
@@ -451,19 +414,14 @@ const IITKGPLanding = () => {
                   whileHover={{ backgroundColor: 'rgba(255,255,255,0.025)' }}
                   className="group relative flex flex-col md:flex-row items-start md:items-center gap-6 md:gap-10 py-8 px-6 md:px-8 rounded-2xl border border-transparent hover:border-white/8 transition-all duration-300 cursor-default"
                 >
-                  {/* Number */}
                   <span className="text-6xl md:text-7xl font-black leading-none flex-shrink-0 tabular-nums"
                     style={{ color: `${c.accent}15`, WebkitTextStroke: `1px ${c.accent}30` }}>
                     {c.n}
                   </span>
-
-                  {/* Icon */}
                   <div className="w-12 h-12 rounded-xl flex-shrink-0 flex items-center justify-center border"
                     style={{ backgroundColor: `${c.accent}12`, borderColor: `${c.accent}25` }}>
                     <Icon className="w-6 h-6" style={{ color: c.accent }} />
                   </div>
-
-                  {/* Content */}
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-3 mb-1.5 flex-wrap">
                       <h3 className="text-xl md:text-2xl font-black text-white">{c.title}</h3>
@@ -475,8 +433,6 @@ const IITKGPLanding = () => {
                     <p className="text-gray-400 text-sm leading-relaxed mb-2">{c.desc}</p>
                     <p className="text-xs text-gray-600 font-medium">{c.for}</p>
                   </div>
-
-                  {/* CTA */}
                   <MotionLink to="/apply" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}
                     className="flex-shrink-0 flex items-center gap-2 px-6 py-3 rounded-full border font-bold text-sm transition-all duration-200"
                     style={{ borderColor: `${c.accent}30`, color: c.accent }}
@@ -484,8 +440,6 @@ const IITKGPLanding = () => {
                     onMouseLeave={e => { e.currentTarget.style.backgroundColor = 'transparent'; }}>
                     Apply <ArrowRight className="w-4 h-4" />
                   </MotionLink>
-
-                  {/* Hover left accent line */}
                   <div className="absolute left-0 top-0 bottom-0 w-0.5 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
                     style={{ backgroundColor: c.accent }} />
                 </motion.div>
@@ -495,7 +449,7 @@ const IITKGPLanding = () => {
         </div>
       </section>
 
-      {/* ── IIT KGP BENEFITS — Numbered list ──────────────────────────────── */}
+      {/* ── IIT KHARAGPUR OCN MICRO-SPECIALISATION — dedicated, distinct section ─ */}
       <section className="relative py-6 md:py-14 overflow-hidden"
         style={{ background: 'linear-gradient(135deg, #0d0a07 0%, #09080a 50%, #080a0d 100%)' }}>
 
@@ -506,39 +460,34 @@ const IITKGPLanding = () => {
 
         <div className="max-w-7xl mx-auto px-6 md:px-10 relative z-10">
           <div className="grid lg:grid-cols-[1fr_1fr] gap-16 items-start">
-            {/* Left header — sticky feel */}
+            {/* Left header */}
             <div className="lg:sticky lg:top-32">
               <div className="relative">
-                <GhostNum n="03" />
-                <p className="text-xs text-[#FF0000] font-black tracking-widest uppercase mb-4 relative z-10">What You Get</p>
+                <GhostNum n="02" />
+                <p className="text-xs text-[#FF0000] font-black tracking-widest uppercase mb-4 relative z-10">A Separate Add-On to Your Degree</p>
                 <h2 className="text-3xl md:text-5xl font-black text-white mb-6 leading-tight relative z-10">
-                  The IIT KGP<br />
+                  IIT Kharagpur OCN<br />
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FF0000] to-[#FF4444]">
-                    Collaboration Benefits
+                    Micro-Specialisation
                   </span>
                 </h2>
               </div>
-              <p className="text-gray-400 text-base leading-relaxed mb-8">
-                Students enrolling in selected B.Tech programs at Techno India University, School of the Future can receive academic benefits linked to the collaboration with IIT KGP.
+              <p className="text-gray-400 text-base leading-relaxed mb-4">
+                Alongside their Techno India University degree, students of the programme can access specific micro-specialisation course(s) delivered through the IIT Kharagpur Outreach Course Network. These courses are separate from, and additional to, the Techno India University degree programmes above.
+              </p>
+              <p className="text-gray-500 text-sm leading-relaxed mb-8">
+                All IIT Kharagpur OCN credentials are presented as benefits available to qualifying learners, conferred at IIT Kharagpur's sole discretion and subject to its policies. They are not guaranteed.
               </p>
 
-              {/* Decorative IIT KGP badge */}
-              <div className="inline-flex items-center gap-5 p-5 rounded-2xl border border-[#FF0000]/20 bg-[#FF0000]/5">
-                <div className="w-20 h-20 rounded-xl bg-white p-2 flex-shrink-0">
-                  <img src={iitkgpLogo} alt="IIT Kharagpur Logo" className="w-full h-full object-contain" />
-                </div>
-                <div>
-                  <p className="text-[#FF0000] text-xs font-black tracking-widest uppercase mb-1">Collaboration with</p>
-                  <p className="text-white text-2xl font-black">IIT KGP</p>
-                  <p className="text-gray-500 text-xs mt-1">Indian Institute of Technology · Kharagpur</p>
-                  <p className="text-gray-700 text-xs mt-3">Benefits applicable as per program terms.</p>
-                </div>
+              {/* Modest OCN lock-up */}
+              <div className="inline-flex items-center gap-4 p-5 rounded-2xl border border-white/12 bg-white/[0.03]">
+                <OcnLockup size="lg" />
               </div>
             </div>
 
-            {/* Right — numbered list */}
+            {/* Right — credential list (full OCN-qualified names) */}
             <div className="space-y-0">
-              {iitBenefits.map((b, i) => {
+              {ocnCredentials.map((b, i) => {
                 const Icon = b.icon;
                 return (
                   <motion.div key={i}
@@ -546,15 +495,12 @@ const IITKGPLanding = () => {
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: i * 0.1, duration: 0.6 }}
-                    className="group relative flex gap-5 py-7 border-b border-white/6 last:border-0 hover:pl-3 transition-all duration-300">
+                    className="group relative flex gap-5 py-6 border-b border-white/6 last:border-0 hover:pl-3 transition-all duration-300">
                     <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-[#FF0000]/8 border border-[#FF0000]/20 flex items-center justify-center group-hover:bg-[#FF0000]/10 transition-colors">
                       <Icon className="w-5 h-5 text-[#FF0000]" />
                     </div>
                     <div>
-                      <div className="flex items-center gap-2 mb-1">
-                        <span className="text-[#FF0000]/40 text-xs font-black">{b.n}</span>
-                        <h3 className="text-white font-bold text-base">{b.title}</h3>
-                      </div>
+                      <h3 className="text-white font-bold text-base mb-1">{b.title}</h3>
                       <p className="text-gray-400 text-sm leading-relaxed">{b.desc}</p>
                     </div>
                   </motion.div>
@@ -562,13 +508,15 @@ const IITKGPLanding = () => {
               })}
             </div>
           </div>
+
+          {/* Mandatory disclaimer in same field of view */}
+          <DisclaimerPanel className="mt-12 max-w-4xl mx-auto" />
         </div>
       </section>
 
-      {/* ── WHY + GOOGLE CLOUD — Two-tone split ───────────────────────────── */}
+      {/* ── WHY + GOOGLE CLOUD ────────────────────────────────────────────── */}
       <section className="py-6 md:py-14 px-6 md:px-10 relative overflow-hidden">
         <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-6">
-
           {/* Why This Matters */}
           <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
             className="relative p-8 md:p-10 rounded-3xl border border-white/8 bg-white/[0.02] overflow-hidden">
@@ -576,13 +524,13 @@ const IITKGPLanding = () => {
             <div className="relative z-10">
               <p className="text-xs text-[#FF0000] font-black tracking-widest uppercase mb-4">Why It Matters</p>
               <h3 className="text-2xl md:text-3xl font-black text-white mb-4 leading-snug">
-                A Regular B.Tech May Not Be Enough Anymore
+                A Degree Plus Practical, Certifiable Skills
               </h3>
               <p className="text-gray-400 text-sm leading-relaxed mb-6">
-                The engineering job market is changing fast. Recruiters today look beyond a basic degree. They look for strong fundamentals, AI exposure, practical project experience, specialization knowledge and career ready confidence.
+                The engineering job market is changing fast. Recruiters look beyond a basic degree for strong fundamentals, AI exposure, practical project experience and career-ready confidence.
               </p>
               <div className="space-y-2.5">
-                {['Future focused B.Tech pathway via IIT KGP', 'AI focused specializations built for the industry', 'Project based learning over theory', 'Career readiness credentials that stand out'].map((t, i) => (
+                {['B.Tech CSE degree awarded solely by Techno India University', 'IIT Kharagpur OCN micro-specialisation course(s) as an add-on', 'Project-based learning over theory', 'Career-readiness credentials that stand out'].map((t, i) => (
                   <div key={i} className="flex items-center gap-2.5">
                     <CheckCircle2 className="w-4 h-4 text-[#FF0000] flex-shrink-0" />
                     <span className="text-gray-300 text-sm">{t}</span>
@@ -603,7 +551,7 @@ const IITKGPLanding = () => {
                 Also: Google Cloud Collaborated Learning
               </h3>
               <p className="text-gray-400 text-sm leading-relaxed mb-6">
-                Along with the collaboration with IIT KGP, students at the School of the Future also get access to Google Cloud collaborated learning exposure: cloud, AI, digital tools and industry aligned learning.
+                At the School of the Future, students also get access to Google Cloud collaborated learning exposure: cloud, AI, digital tools and industry-aligned learning.
               </p>
               <div className="flex flex-wrap gap-2">
                 {['Cloud Computing', 'AI Exposure', 'Digital Tools', 'Industry Aligned'].map((t, i) => (
@@ -617,31 +565,30 @@ const IITKGPLanding = () => {
         </div>
       </section>
 
-      {/* ── COMPARISON — Two Large Panels ─────────────────────────────────── */}
+      {/* ── COMPARISON ─────────────────────────────────────────────────────── */}
       <section className="py-6 md:py-14 px-6 md:px-10 relative overflow-hidden"
         style={{ background: 'linear-gradient(180deg, #09080a 0%, #0b0809 100%)' }}>
         <div className="max-w-6xl mx-auto relative z-10">
           <div className="text-center mb-14">
             <div className="relative inline-block">
-              <GhostNum n="04" />
+              <GhostNum n="03" />
               <p className="text-xs text-[#FF0000] font-black tracking-widest uppercase mb-3 relative z-10">The Difference</p>
               <h2 className="text-3xl md:text-5xl font-black text-white relative z-10">
-                Regular B.Tech<br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FF0000] to-orange-400">vs. Future Ready Pathway</span>
+                A Degree-Only Path<br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FF0000] to-orange-400">vs. Degree + Micro-Specialisation</span>
               </h2>
             </div>
           </div>
 
           <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
             className="grid md:grid-cols-2 gap-4 md:gap-0 md:divide-x divide-white/8">
-
             {/* Regular */}
             <div className="p-8 md:p-10 rounded-3xl md:rounded-r-none md:rounded-l-3xl border border-white/6 bg-white/[0.015]">
               <div className="flex items-center gap-3 mb-8">
                 <div className="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center">
                   <X className="w-4 h-4 text-gray-500" />
                 </div>
-                <h3 className="text-gray-400 font-black text-lg">Regular B.Tech</h3>
+                <h3 className="text-gray-400 font-black text-lg">A Degree-Only Path</h3>
               </div>
               <div className="space-y-4">
                 {comparisonLeft.map((item, i) => (
@@ -663,7 +610,7 @@ const IITKGPLanding = () => {
                   <div className="w-8 h-8 rounded-full bg-[#FF0000]/15 border border-[#FF0000]/30 flex items-center justify-center">
                     <Check className="w-4 h-4 text-[#FF0000]" />
                   </div>
-                  <h3 className="text-white font-black text-lg">School of the Future</h3>
+                  <h3 className="text-white font-black text-lg">Techno India University · School of the Future</h3>
                 </div>
                 <div className="space-y-4">
                   {comparisonRight.map((item, i) => (
@@ -693,7 +640,7 @@ const IITKGPLanding = () => {
       <section className="py-8 md:py-16 px-6 relative">
         <div className="max-w-3xl mx-auto">
           <div className="mb-14 relative">
-            <GhostNum n="05" />
+            <GhostNum n="04" />
             <p className="text-xs text-[#FF0000] font-black tracking-widest uppercase mb-3 relative z-10">Frequently Asked</p>
             <h2 className="text-3xl md:text-5xl font-black text-white relative z-10">
               Got Questions?
@@ -709,7 +656,6 @@ const IITKGPLanding = () => {
       <section className="relative py-8 md:py-16 px-6 overflow-hidden">
         <div className="absolute inset-0"
           style={{ background: 'linear-gradient(135deg, rgba(255,0,0,0.06) 0%, transparent 50%, rgba(245,158,11,0.04) 100%)' }} />
-        {/* Corner bracket decorations */}
         <div className="absolute top-8 left-8 w-16 h-16 border-t-2 border-l-2 border-[#FF0000]/20 rounded-tl-xl" />
         <div className="absolute top-8 right-8 w-16 h-16 border-t-2 border-r-2 border-[#FF0000]/20 rounded-tr-xl" />
         <div className="absolute bottom-8 left-8 w-16 h-16 border-b-2 border-l-2 border-[#FF0000]/20 rounded-bl-xl" />
@@ -718,25 +664,23 @@ const IITKGPLanding = () => {
         <div className="max-w-5xl mx-auto relative z-10">
           <div className="grid lg:grid-cols-2 gap-12 items-start">
             <div>
-              <motion.div initial={{ opacity: 0, y: -10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-                className="inline-flex items-center gap-2.5 bg-[#FF0000]/10 border border-[#FF0000]/25 px-4 py-2 rounded-full mb-7">
-                <GraduationCap className="w-4 h-4 text-[#FF0000]" />
-                <span className="text-[#FF0000] text-xs font-black tracking-widest uppercase">Collaboration with IIT KGP</span>
-              </motion.div>
+              {/* Partner logo — primary identity */}
+              <motion.img initial={{ opacity: 0, y: -10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+                src={tiuLogo} alt="Techno India University" className="h-12 md:h-14 w-auto object-contain mb-6" />
 
               <motion.h2 initial={{ opacity: 0, y: 25 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
                 className="text-4xl md:text-5xl xl:text-6xl font-black text-white leading-[1.05] tracking-tight mb-6">
-                Your B.Tech Journey Can Carry the{' '}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FF0000] to-[#990000]">IIT KGP Advantage</span>
+                Secure Your B.Tech CSE Seat for{' '}
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FF0000] to-[#990000]">Admissions 2026</span>
               </motion.h2>
 
               <motion.p initial={{ opacity: 0, y: 15 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }}
-                className="text-gray-400 text-base md:text-lg leading-relaxed mb-8">
-                Do not wait until seats are full. Apply now for future ready B.Tech programs at Techno India University, School of the Future under its collaboration with IIT KGP.
+                className="text-gray-400 text-base md:text-lg leading-relaxed mb-6">
+                Apply now for future-ready B.Tech CSE programmes at Techno India University, School of the Future — including IIT Kharagpur OCN micro-specialisation course(s) delivered through the Outreach Course Network.
               </motion.p>
 
               <motion.div initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.2 }}
-                className="flex flex-col sm:flex-row gap-3 mb-10">
+                className="flex flex-col sm:flex-row gap-3 mb-8">
                 <MotionLink to="/apply" whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}
                   className="inline-flex items-center justify-center gap-2 bg-[#FF0000] text-white px-8 py-4 rounded-full font-black text-sm tracking-wider uppercase shadow-[0_0_40px_rgba(255,0,0,0.25)] hover:shadow-[0_0_60px_rgba(255,0,0,0.4)] transition-shadow">
                   Apply for Admissions 2026 <ArrowRight className="w-4 h-4" />
@@ -744,14 +688,14 @@ const IITKGPLanding = () => {
               </motion.div>
 
               <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: 0.3 }}
-                className="space-y-3 text-sm">
+                className="space-y-3 text-sm mb-6">
                 <div className="flex items-center gap-3 text-gray-500">
                   <Phone className="w-4 h-4 text-[#FF0000]" />
                   <span>Call: <a href="tel:08062642222" className="text-white font-bold hover:text-[#FF0000] transition-colors">08062642222</a></span>
                 </div>
                 <div className="flex items-center gap-3 text-gray-500">
                   <MapPin className="w-4 h-4 text-[#FF0000]" />
-                  <span>EM 4, Sector V, Salt Lake, Kolkata</span>
+                  <span>EM-4, Sector V, Salt Lake, Kolkata 700091</span>
                 </div>
                 <div className="flex items-center gap-3 text-gray-500">
                   <Layers className="w-4 h-4 text-[#FF0000]" />
@@ -759,7 +703,9 @@ const IITKGPLanding = () => {
                     className="text-white font-bold hover:text-[#FF0000] transition-colors">www.technoindiauniversity.ai</a>
                 </div>
               </motion.div>
-              <p className="text-gray-700 text-xs mt-4">Benefits under the collaboration with IIT KGP are applicable as per program terms.</p>
+
+              {/* Mandatory disclaimer in same field of view as OCN references */}
+              <DisclaimerPanel />
             </div>
 
             {/* ExtraEdge Form Widget */}
