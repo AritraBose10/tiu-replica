@@ -197,6 +197,10 @@ const FlipCard = ({ course, index }) => {
  );
 };
 
+// --- Normalize text for forgiving search (ignore case, dots, spaces, punctuation) ---
+// so "Btech", "b tech", "B.Tech" all match "B.Tech CSE...", and "bca" matches "BCA ...".
+const normalize = (s) => (s || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+
 // --- Helper to determine degree level ---
 const getDegreeLevel = (title) => {
  const ugKeywords = ['B.Tech', 'BCA', 'BBA', 'B.Des', 'B.Sc', 'Bsc', 'Bachelor', 'LL.B', 'B.Com'];
@@ -267,10 +271,12 @@ const Courses = () => {
  results = results.filter(c => getDegreeLevel(c.title) === degreeType);
 
  // 2. Filter by Search
- if (searchTerm) {
+ if (searchTerm.trim()) {
+ const q = normalize(searchTerm);
+ const raw = searchTerm.toLowerCase().trim();
  results = results.filter(c =>
- c.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
- c.description.toLowerCase().includes(searchTerm.toLowerCase())
+ normalize(c.title).includes(q) ||
+ c.description.toLowerCase().includes(raw)
  );
  }
  setFilteredCourses(results);

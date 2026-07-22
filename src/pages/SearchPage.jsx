@@ -90,29 +90,35 @@ const SearchPage = () => {
  ];
 
  // Search logic
+ // Normalize text for forgiving search (ignore case, dots, spaces, punctuation)
+ // so "Btech", "b tech", "B.Tech" all match, and "bca" matches "BCA ...".
+ const normalize = (s) => (s || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+
  const results = useMemo(() => {
- const q = (searchParams.get('q') || '').toLowerCase().trim();
- if (!q) return [];
+ const rawInput = (searchParams.get('q') || '').trim();
+ if (!rawInput) return [];
+ const q = normalize(rawInput);
+ const raw = rawInput.toLowerCase();
 
  const matches = [];
 
  // Search courses
  coursesData.forEach(course => {
- if (course.title.toLowerCase().includes(q) || course.description.toLowerCase().includes(q) || course.category.toLowerCase().includes(q)) {
+ if (normalize(course.title).includes(q) || course.description.toLowerCase().includes(raw) || normalize(course.category).includes(q)) {
  matches.push({ type: 'course', title: course.title, description: course.description, url: '/courses' });
  }
  });
 
  // Search events
  events.forEach(event => {
- if ((event.title || '').toLowerCase().includes(q) || (event.category || '').toLowerCase().includes(q)) {
+ if (normalize(event.title).includes(q) || normalize(event.category).includes(q)) {
  matches.push({ type: 'event', title: event.title, description: event.date || 'Upcoming event at TIU', url: '/events' });
  }
  });
 
  // Search pages
  pages.forEach(page => {
- if (page.title.toLowerCase().includes(q) || page.description.toLowerCase().includes(q)) {
+ if (normalize(page.title).includes(q) || normalize(page.description).includes(q)) {
  matches.push({ type: 'page', title: page.title, description: page.description, url: page.url });
  }
  });
