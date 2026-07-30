@@ -16,6 +16,7 @@ import ThankYou from './pages/ThankYou';
 import AIEvent from './pages/AIEvent';
 import Blogs from './pages/Blogs';
 import BlogPost from './pages/BlogPost';
+import IITKGPLanding from './pages/IITKGPLanding';
 import BreadcrumbSchema from './components/BreadcrumbSchema';
 import EventScraperDemo from './components/EventScraperDemo';
 import { AnimatePresence } from 'framer-motion';
@@ -123,7 +124,7 @@ export function AppShell() {
  <Route path="/events-demo" element={<EventScraperDemo />} />
  <Route path="/thank-you" element={<ThankYou />} />
  <Route path="/ai-event" element={<AIEvent />} />
- <Route path="/btech-admission-iit-kharagpur-collaboration" element={<Navigate to="/apply" replace />} />
+ <Route path="/btech-admission-iit-kharagpur-collaboration" element={<IITKGPLanding />} />
  <Route path="/blogs/:slug" element={<BlogPost />} />
  <Route path="*" element={<NotFound />} />
  </Routes>

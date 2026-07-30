@@ -3,14 +3,14 @@ import { motion, AnimatePresence, useScroll, useTransform, useMotionValue, useSp
 import { Link } from 'react-router-dom';
 import {
   ArrowRight, ArrowUpRight, GraduationCap, Award,
-  BookOpen, Target, ChevronDown, Phone,
+  ChevronDown, Phone,
   MapPin, Cpu, Brain, CloudLightning, Check, X,
   TrendingUp, Layers, CheckCircle2, IdCard, Mail, ShieldCheck
 } from 'lucide-react';
 import SEO from '../components/SEO';
 import SchemaInjector from '../components/SchemaInjector';
-import tiuLogo from '../assets/logo.png';
-import iitkgpLogo from '../assets/IIT_KGP.webp';
+import sofLogo from '../assets/logo1.png';
+import ocnLockup from '../assets/iit-kharagpur-ocn-logo-horizontal-transparent.png';
 
 const MotionLink = motion.create(Link);
 
@@ -24,24 +24,6 @@ const DisclaimerPanel = ({ className = '' }) => (
     <p className="text-gray-300 text-[13px] leading-relaxed">{OCN_DISCLAIMER}</p>
   </div>
 );
-
-// ─── Approved IIT Kharagpur OCN lock-up (crest + wordmark + descriptor) ───────
-// Kept modest — never larger or heavier than the Techno India University identity.
-const OcnLockup = ({ size = 'sm' }) => {
-  const crest = size === 'lg' ? 'w-12 h-12' : 'w-9 h-9';
-  const word = size === 'lg' ? 'text-base' : 'text-sm';
-  return (
-    <div className="inline-flex items-center gap-2.5">
-      <div className={`${crest} rounded-md bg-white p-1 flex-shrink-0`}>
-        <img src={iitkgpLogo} alt="IIT Kharagpur OCN" className="w-full h-full object-contain" />
-      </div>
-      <div className="leading-tight">
-        <p className={`${word} font-bold text-white`}>IIT Kharagpur OCN</p>
-        <p className="text-[9px] tracking-[0.15em] uppercase text-gray-500">Outreach Course Network</p>
-      </div>
-    </div>
-  );
-};
 
 // ─── Cursor Glow ──────────────────────────────────────────────────────────────
 const CursorGlow = () => {
@@ -71,7 +53,7 @@ const BAR_HEIGHT = 36; // px — must match h-[36px] below
 const AnnouncementBar = () => {
   // Partner programme leads; IIT Kharagpur OCN is referenced only as a
   // micro-specialisation contributor (never as the dominant headline).
-  const items = ['B.Tech Admissions 2026 Now Open', 'Techno India University · School of the Future', 'Project-Based Learning', 'AI · ML · Data Science · Cloud Computing', 'Includes IIT Kharagpur OCN Micro-Specialisation', 'Limited Seats Available'];
+  const items = ['Final Admission Call 2026', 'B.Tech CSE · Techno India University', '40 Years of Legacy', 'Includes IIT Kharagpur OCN Micro-Specialisation', 'Limited Seats Available', 'Counselling Helpline · 08062642222'];
 
   useEffect(() => {
     document.documentElement.style.setProperty('--navbar-top', `${BAR_HEIGHT + 8}px`);
@@ -219,21 +201,17 @@ const degreePrograms = [
     for: 'Cloud platforms · DevOps · Cloud architecture · Enterprise technology' },
 ];
 
-// A separate, dedicated section — the OCN credentials a qualifying learner may earn.
-// Presented as benefits available at IIT Kharagpur's sole discretion, never as a guarantee.
+// ELIGIBLE STUDENT BENEFITS — the four OCN credentials, worded exactly as the
+// approved poster / §3 credential table. Benefits at IIT Kharagpur's sole discretion.
 const ocnCredentials = [
-  { icon: BookOpen, title: 'IIT Kharagpur OCN Micro-Specialisation course(s)',
-    desc: 'Specific micro-specialisation course(s) delivered through the IIT Kharagpur Outreach Course Network, alongside your Techno India University degree.' },
-  { icon: Award, title: 'IIT Kharagpur OCN Micro-Specialisation Certificate',
-    desc: 'Available upon successful completion of the OCN micro-specialisation course(s), subject to IIT Kharagpur\'s policies.' },
-  { icon: IdCard, title: 'IIT Kharagpur OCN Student Identity Card',
-    desc: 'Issued for the programme duration, subject to IIT Kharagpur\'s policies.' },
-  { icon: Mail, title: 'IIT Kharagpur OCN email ID',
-    desc: 'Provided for the programme duration, subject to IIT Kharagpur\'s policies.' },
-  { icon: ShieldCheck, title: 'IIT Kharagpur OCN Alumni Status',
-    desc: 'Available upon successful completion, subject to IIT Kharagpur\'s policies.' },
-  { icon: Target, title: 'Project-based, outcome-focused learning',
-    desc: 'Practical evaluation that moves beyond textbook learning, as part of the Techno India University programme structure.' },
+  { icon: Award, title: 'IIT KGP OCN Micro-specialisation certificate',
+    desc: 'upon successful completion' },
+  { icon: IdCard, title: 'IIT KGP OCN student identity card',
+    desc: 'for the program duration' },
+  { icon: Mail, title: 'IIT KGP OCN email ID',
+    desc: 'for the program duration' },
+  { icon: ShieldCheck, title: 'IIT KGP OCN alumni status',
+    desc: 'upon successful completion' },
 ];
 
 const comparisonLeft = ['Degree focused only', 'Generic academic exposure', 'Mostly theory based', 'Common learning path', 'Limited profile building', 'Late placement preparation', 'Less differentiation'];
@@ -300,18 +278,11 @@ const IITKGPLanding = () => {
           {/* ── LEFT ── */}
           <div>
             {/* Partner (Techno India University) — primary, largest identity */}
-            <motion.div initial={{ opacity: 0, y: -12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
-              className="mb-6">
-              <img src={tiuLogo} alt="Techno India University" className="h-14 md:h-16 w-auto object-contain" />
-              <p className="text-gray-500 text-xs font-semibold tracking-widest uppercase mt-2">School of the Future</p>
-            </motion.div>
-
-            {/* Onboarded-partner pill (approved formulation) */}
-            <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }}
-              className="inline-flex items-center gap-2.5 bg-white/[0.04] border border-white/12 px-4 py-2 rounded-full mb-6">
-              <GraduationCap className="w-3.5 h-3.5 text-gray-400" />
-              <span className="text-gray-300 text-[11px] font-bold tracking-wide">Onboarded partner of the IIT Kharagpur OCN, via ProofSlate</span>
-            </motion.div>
+            {/* Kicker */}
+            <motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }}
+              className="text-xs text-[#FF0000] font-black tracking-widest uppercase mb-3">
+              Final Admission Call 2026
+            </motion.p>
 
             {/* Headline — the Partner's own programme is always the headline */}
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2, duration: 0.8 }} className="relative overflow-hidden">
@@ -327,8 +298,15 @@ const IITKGPLanding = () => {
               </h1>
             </motion.div>
 
+            {/* Onboarded-partner pill (approved formulation) */}
+            <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.55 }}
+              className="inline-flex items-center gap-2.5 bg-white/[0.04] border border-white/12 px-4 py-2 rounded-full mt-6 mb-6">
+              <GraduationCap className="w-3.5 h-3.5 text-gray-400" />
+              <span className="text-gray-300 text-[11px] font-bold tracking-wide">Onboarded partner of the IIT Kharagpur OCN, via ProofSlate</span>
+            </motion.div>
+
             <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }}
-              className="text-gray-400 text-sm md:text-base lg:text-lg leading-relaxed mt-5 mb-6 max-w-xl">
+              className="text-gray-400 text-sm md:text-base lg:text-lg leading-relaxed mb-6 max-w-xl">
               Future-ready B.Tech CSE degree programmes at the School of the Future, awarded solely by Techno India University. The programme <span className="text-gray-200 font-semibold">includes IIT Kharagpur OCN micro-specialisation course(s)</span> delivered through the IIT Kharagpur Outreach Course Network, with project-based learning.
             </motion.p>
 
@@ -355,30 +333,33 @@ const IITKGPLanding = () => {
               </a>
             </motion.div>
 
-            {/* Modest OCN lock-up + mandatory disclaimer, above the fold */}
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.95 }}
-              className="max-w-xl">
-              <div className="flex items-center gap-2 mb-3">
-                <span className="text-gray-600 text-[10px] font-bold uppercase tracking-widest">Micro-specialisation delivered through</span>
-                <OcnLockup size="sm" />
-              </div>
-              <DisclaimerPanel />
-            </motion.div>
           </div>
 
-          {/* ── RIGHT — Partner campus image (Partner's own identity is the primary visual) ── */}
+          {/* ── RIGHT — IIT Kharagpur OCN featured lock-up (approved lock-up, not a campus photo) ── */}
           <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            className="relative w-full hidden lg:block">
+            className="relative w-full">
             <div className="absolute -top-3 -left-3 w-10 h-10 border-t-2 border-l-2 border-[#FF0000]/30 rounded-tl-lg z-10" />
             <div className="absolute -bottom-3 -right-3 w-10 h-10 border-b-2 border-r-2 border-[#FF0000]/30 rounded-br-lg z-10" />
-            <div className="relative w-full rounded-2xl overflow-hidden border border-white/10">
-              <img src="/assets/images/campus.webp" alt="Techno India University Campus, Salt Lake, Kolkata" className="w-full h-auto object-cover" loading="eager" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
-              <div className="absolute bottom-3 left-4 flex items-center gap-2">
-                <MapPin className="w-4 h-4 text-[#FF0000]" />
-                <span className="text-white text-xs font-black tracking-widest uppercase">Techno India University · Kolkata</span>
+
+            <div className="relative rounded-3xl border border-white/12 overflow-hidden p-7 md:p-9"
+              style={{ background: 'linear-gradient(155deg, rgba(44,44,134,0.20) 0%, rgba(9,8,10,0.55) 55%, rgba(255,0,0,0.06) 100%)' }}>
+              <div className="absolute -top-16 -right-10 w-56 h-56 bg-[#2C2C86]/25 rounded-full blur-[90px] pointer-events-none" />
+
+              <p className="text-[10px] font-black tracking-[0.2em] uppercase text-gray-400 mb-5 relative z-10">Programme includes micro-specialisation from</p>
+
+              {/* Official IIT Kharagpur OCN lock-up (on a light surface for legibility) */}
+              <div className="bg-white rounded-xl px-4 py-3 mb-6 relative z-10 shadow-lg inline-block">
+                <img src={ocnLockup} alt="IIT Kharagpur OCN — Outreach Course Network" className="h-12 md:h-14 w-auto object-contain" />
               </div>
+
+              <p className="text-gray-300 text-base md:text-lg leading-relaxed relative z-10">
+                Students can earn <span className="text-white font-semibold">IIT Kharagpur OCN Micro-specialisation certification(s)</span> alongside their <span className="text-white font-semibold">Techno India University B.Tech CSE degree</span>.
+              </p>
+              <p className="text-gray-600 text-[11px] mt-5 relative z-10">Benefits available to qualifying learners at IIT Kharagpur's sole discretion.</p>
             </div>
+
+            {/* Mandatory disclaimer — in the same field of view as the OCN reference, above the fold */}
+            <DisclaimerPanel className="mt-4" />
           </motion.div>
           </div>
         </div>
@@ -449,8 +430,8 @@ const IITKGPLanding = () => {
         </div>
       </section>
 
-      {/* ── IIT KHARAGPUR OCN MICRO-SPECIALISATION — dedicated, distinct section ─ */}
-      <section className="relative py-6 md:py-14 overflow-hidden"
+      {/* ── ELIGIBLE STUDENT BENEFITS — dedicated OCN credentials section ─────── */}
+      <section className="relative py-8 md:py-16 overflow-hidden"
         style={{ background: 'linear-gradient(135deg, #0d0a07 0%, #09080a 50%, #080a0d 100%)' }}>
 
         <div className="absolute inset-0 pointer-events-none">
@@ -466,22 +447,22 @@ const IITKGPLanding = () => {
                 <GhostNum n="02" />
                 <p className="text-xs text-[#FF0000] font-black tracking-widest uppercase mb-4 relative z-10">A Separate Add-On to Your Degree</p>
                 <h2 className="text-3xl md:text-5xl font-black text-white mb-6 leading-tight relative z-10">
-                  IIT Kharagpur OCN<br />
+                  Eligible Student<br />
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FF0000] to-[#FF4444]">
-                    Micro-Specialisation
+                    Benefits
                   </span>
                 </h2>
               </div>
               <p className="text-gray-400 text-base leading-relaxed mb-4">
-                Alongside their Techno India University degree, students of the programme can access specific micro-specialisation course(s) delivered through the IIT Kharagpur Outreach Course Network. These courses are separate from, and additional to, the Techno India University degree programmes above.
+                Qualifying learners can earn the following IIT Kharagpur OCN credentials alongside their Techno India University B.Tech CSE degree. These are separate from, and additional to, the degree awarded solely by Techno India University.
               </p>
               <p className="text-gray-500 text-sm leading-relaxed mb-8">
                 All IIT Kharagpur OCN credentials are presented as benefits available to qualifying learners, conferred at IIT Kharagpur's sole discretion and subject to its policies. They are not guaranteed.
               </p>
 
-              {/* Modest OCN lock-up */}
-              <div className="inline-flex items-center gap-4 p-5 rounded-2xl border border-white/12 bg-white/[0.03]">
-                <OcnLockup size="lg" />
+              {/* Official IIT Kharagpur OCN lock-up (on a light surface for legibility) */}
+              <div className="bg-white rounded-xl px-4 py-3 shadow-lg inline-block">
+                <img src={ocnLockup} alt="IIT Kharagpur OCN — Outreach Course Network" className="h-12 md:h-14 w-auto object-contain" />
               </div>
             </div>
 
@@ -509,8 +490,15 @@ const IITKGPLanding = () => {
             </div>
           </div>
 
+          {/* N.B. */}
+          <div className="mt-12 max-w-4xl mx-auto rounded-xl border border-white/12 bg-white/[0.04] px-5 py-4">
+            <p className="text-gray-300 text-[13px] leading-relaxed">
+              <span className="font-black text-white">N.B.:</span> Students enrolled in this programme have the opportunity to pursue select IIT Kharagpur Micro-Specialisation course(s) through IIT KGP's Outreach Course Network (OCN). The degree/programme is solely awarded by TIU, WB. IIT Kharagpur's participation is limited to the OCN Micro-Specialisation component and the associated OCN credentials.
+            </p>
+          </div>
+
           {/* Mandatory disclaimer in same field of view */}
-          <DisclaimerPanel className="mt-12 max-w-4xl mx-auto" />
+          <DisclaimerPanel className="mt-4 max-w-4xl mx-auto" />
         </div>
       </section>
 
@@ -666,7 +654,7 @@ const IITKGPLanding = () => {
             <div>
               {/* Partner logo — primary identity */}
               <motion.img initial={{ opacity: 0, y: -10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-                src={tiuLogo} alt="Techno India University" className="h-12 md:h-14 w-auto object-contain mb-6" />
+                src={sofLogo} alt="School of the Future — Techno India University" className="h-12 md:h-14 w-auto object-contain mb-6" />
 
               <motion.h2 initial={{ opacity: 0, y: 25 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
                 className="text-4xl md:text-5xl xl:text-6xl font-black text-white leading-[1.05] tracking-tight mb-6">
