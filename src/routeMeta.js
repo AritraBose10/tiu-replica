@@ -63,4 +63,10 @@ export const routeMeta = {
  changefreq: 'weekly',
  priority: 0.8
  },
+ '/pg-programs-for-professionals': {
+ title: 'MBA, M.Tech, M.Sc & Ph.D for Working Professionals | Techno India University',
+ description: 'Weekend & hybrid MBA, M.Tech, M.Sc and Ph.D programmes for working professionals at Techno India University — UGC-recognised, same degree as full-time, EMI available. Check your eligibility.',
+ changefreq: 'weekly',
+ priority: 0.9
+ },
 };

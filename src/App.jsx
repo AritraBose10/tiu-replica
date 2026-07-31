@@ -17,6 +17,7 @@ import AIEvent from './pages/AIEvent';
 import Blogs from './pages/Blogs';
 import BlogPost from './pages/BlogPost';
 import IITKGPLanding from './pages/IITKGPLanding';
+import WorkingProfessionals from './pages/WorkingProfessionals';
 import BreadcrumbSchema from './components/BreadcrumbSchema';
 import EventScraperDemo from './components/EventScraperDemo';
 import { AnimatePresence } from 'framer-motion';
@@ -61,7 +62,7 @@ const ScrollToTop = () => {
 // Engagement widgets suppressed on certain pages
 const EngagementWidgets = () => {
  const { pathname } = useLocation();
- if (pathname === '/ai-event') return null;
+ if (pathname === '/ai-event' || pathname === '/pg-programs-for-professionals') return null;
  return (
  <>
  <StickyApplyButton />
@@ -125,6 +126,7 @@ export function AppShell() {
  <Route path="/thank-you" element={<ThankYou />} />
  <Route path="/ai-event" element={<AIEvent />} />
  <Route path="/btech-admission-iit-kharagpur-collaboration" element={<IITKGPLanding />} />
+ <Route path="/pg-programs-for-professionals" element={<WorkingProfessionals />} />
  <Route path="/blogs/:slug" element={<BlogPost />} />
  <Route path="*" element={<NotFound />} />
  </Routes>

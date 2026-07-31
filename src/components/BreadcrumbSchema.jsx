@@ -15,6 +15,7 @@ const ROUTE_LABELS = {
  '/approvals': 'Approvals & Accreditations',
  '/events': 'Events & Happenings',
  '/search': 'Search',
+ '/pg-programs-for-professionals': 'PG Programmes for Working Professionals',
 };
 
 const SITE_URL = 'https://www.technoindiauniversity.ai';
