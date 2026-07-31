@@ -64,8 +64,8 @@ const Home = () => {
  return (
  <div className="bg-white">
  <SEO
- title="Top Engineering & AI College in Kolkata | Techno India University"
- description="Join Techno India University, a leading B.Tech engineering college in kolkata, for career-focused CSE courses in AI, ML, Data Science, Cloud Computing, and more with Google & IBM certifications embedded in the curriculum. 90%+ eligible placements."
+ title="Techno India University: Top Engineering College in Kolkata | B.tech CSE With AI"
+ description="Join Techno India University, a leading engineering college in Kolkata, and pursue b.tech CSE in AI & ML, Data Science, Cloud Computing, and other emerging technologies with Google and IBM, backed by a 90%+ placement record."
  />
  <SchemaInjector schema={eduOrgSchema} />
  {/* §1 Hero */}

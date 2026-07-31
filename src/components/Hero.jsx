@@ -278,8 +278,8 @@ const Hero = () => {
  {/* ── Heading ── */}
  <motion.div className="text-center mb-4 md:mb-6" variants={fadeUp}>
  <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black leading-[1.1] tracking-tight">
- <span className="text-white">Kolkata's Leading B.Tech Engineering College </span>
- <span className="text-[#FF0000]">for Future-Ready AI Courses</span>
+ <span className="text-white">Leading B.Tech Engineering College in Kolkata </span>
+ <span className="text-[#FF0000]">Offering AI-Focused Programs</span>
  </h1>
  </motion.div>
 
