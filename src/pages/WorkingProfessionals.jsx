@@ -218,7 +218,7 @@ const programmes = [
   {
     n: '01', icon: Briefcase, accent: '#FF0000', name: 'MBA',
     tag: 'Working Professional Track',
-    specialisations: 'General Management · Business Analytics (IBM-powered) · Marketing · Finance · HR',
+    specialisations: 'Business Administration with Data Science, AI Tools & Strategic Management (IBM-powered)',
     duration: '2 Years', mode: 'Weekend / Hybrid',
     eligibility: "Bachelor's degree in any discipline + 2 years' work experience",
     bestFor: 'Professionals targeting management, leadership or techno-managerial roles',
@@ -246,7 +246,7 @@ const programmes = [
     n: '04', icon: FlaskConical, accent: '#FF4444', name: 'Ph.D',
     tag: 'AI — Part-Time / Half-Time',
     specialisations: 'Doctoral research in Artificial Intelligence, designed for working professionals',
-    duration: '3–6 Years (part-time)', mode: 'Coursework + research, flexible around work',
+    duration: 'Flexible (part-time)', mode: 'Coursework + research, flexible around work',
     eligibility: "Master's degree + entrance test / interview",
     bestFor: 'Professionals and academics pursuing doctoral research alongside their job',
     anchor: 'phd-section',
@@ -291,7 +291,7 @@ const feeRows = [
   { name: 'MBA (Working Professional)', eligibility: "Bachelor's degree + 2 years' experience", duration: '24 months' },
   { name: 'M.Tech (CSE — AI & ML)', eligibility: 'B.E./B.Tech in relevant branch', duration: '24 months' },
   { name: 'M.Sc (Data Science & AI)', eligibility: 'B.Sc in relevant discipline', duration: '24 months' },
-  { name: 'Ph.D (AI — Part-Time)', eligibility: "Master's degree + entrance/interview", duration: '3–6 years' },
+  { name: 'Ph.D (AI — Part-Time)', eligibility: "Master's degree + entrance/interview", duration: 'Flexible (part-time)' },
 ];
 
 const pageSchema = {
@@ -536,22 +536,11 @@ const WorkingProfessionals = () => {
           </div>
 
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-            className="rounded-2xl border border-white/10 bg-white/[0.02] p-6 md:p-8 mb-10">
+            className="rounded-2xl border border-white/10 bg-white/[0.02] p-6 md:p-8">
             <p className="text-gray-300 text-sm leading-relaxed">
               Working-learner placement and progression support includes resume and LinkedIn positioning for a postgraduate profile, internal-promotion case-building guidance, and access to the university's placement cell for professionals exploring a lateral move.
             </p>
           </motion.div>
-
-          <div className="grid md:grid-cols-3 gap-5">
-            {[1, 2, 3].map((n) => (
-              <div key={n} className="p-6 rounded-2xl border border-dashed border-white/15 bg-white/[0.015]">
-                <Sparkles className="w-5 h-5 text-gray-600 mb-3" />
-                <p className="text-gray-500 text-sm italic">
-                  Alumni proof point {n} — name, designation, company and before/after role to be added before launch.
-                </p>
-              </div>
-            ))}
-          </div>
         </div>
       </section>
 
@@ -627,22 +616,13 @@ const WorkingProfessionals = () => {
         </div>
       </section>
 
-      {/* ── SECTION 9 · FACULTY & RESEARCH ECOSYSTEM ──────────────────────── */}
+      {/* ── SECTION 9 · RESEARCH & INDUSTRY ECOSYSTEM ─────────────────────── */}
       <section className="py-8 md:py-16 px-4 md:px-10" style={{ background: 'linear-gradient(180deg, #020205 0%, #0a0a0f 100%)' }}>
         <div className="max-w-6xl mx-auto">
           <div className="relative mb-10">
             <GhostNum n="06" />
-            <p className="text-xs text-[#FF0000] font-black tracking-widest uppercase mb-3 relative z-10">Who You'll Learn From</p>
-            <h2 className="text-3xl md:text-5xl font-black text-white relative z-10">Faculty &amp; Research Ecosystem</h2>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 mb-10">
-            {[1, 2, 3].map((n) => (
-              <div key={n} className="p-6 rounded-2xl border border-dashed border-white/15 bg-white/[0.015]">
-                <div className="w-12 h-12 rounded-full bg-white/5 border border-white/10 mb-4" />
-                <p className="text-gray-500 text-sm italic">Faculty profile {n} — name, industry credential and academic credential to be added before launch.</p>
-              </div>
-            ))}
+            <p className="text-xs text-[#FF0000] font-black tracking-widest uppercase mb-3 relative z-10">Beyond the Classroom</p>
+            <h2 className="text-3xl md:text-5xl font-black text-white relative z-10">Research &amp; Industry Ecosystem</h2>
           </div>
 
           <div className="grid md:grid-cols-3 gap-5">
