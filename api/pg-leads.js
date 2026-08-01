@@ -4,7 +4,7 @@ import { schemas, validate } from './_lib/validate.js';
 // Forwards postgraduate working-professional enquiry leads to a Google Sheet
 // via a Google Apps Script Web App bound to that sheet. Override with
 // PG_LEADS_WEBHOOK_URL if the deployment is ever rotated to a new script.
-const DEFAULT_PG_LEADS_WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbx0XoS_xpi1Ghpgcsvp_0h3tMCmsg9uqu813wTks_Sqvad5J-9cZORdvq0G3zF63vMszQ/exec';
+const DEFAULT_PG_LEADS_WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbzdoZcNPDsUHnQ11M0NIyw3MSrLXn1vc5WtcVVGOUIkB66hnDUomHbRmFYqQUhL9I2pkA/exec';
 
 export default async function handler(req, res) {
     if (applyCors(req, res)) return res.status(200).end();
