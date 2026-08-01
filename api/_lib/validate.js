@@ -208,6 +208,7 @@ export const schemas = {
             email: z.string().email().max(200),
             programme: z.enum(['MBA', 'M.Tech', 'M.Sc', 'Ph.D']),
             experience: reqStr(1, 50),
+            state: reqStr(1, 200),
             city: reqStr(1, 200),
             source: optStr(100),
         }),

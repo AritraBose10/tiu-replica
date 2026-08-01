@@ -13,6 +13,14 @@ import SEO from '../components/SEO';
 import SchemaInjector from '../components/SchemaInjector';
 import sofLogo from '../assets/logo1.png';
 
+// ─── Real WhatsApp glyph (lucide-react has no brand icons) ──────────────────
+const WhatsAppIcon = ({ className = 'w-4 h-4' }) => (
+  <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.626.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
+    <path d="M12.001 2C6.478 2 2.001 6.477 2.001 12c0 1.892.526 3.66 1.437 5.166L2 22l4.981-1.407A9.94 9.94 0 0 0 12.001 22C17.523 22 22 17.523 22 12S17.523 2 12.001 2m0 18.06a8.03 8.03 0 0 1-4.331-1.267l-.31-.185-3.05.86.82-3.04-.202-.317A8.03 8.03 0 1 1 20.03 12c0 4.437-3.593 8.06-8.029 8.06" />
+  </svg>
+);
+
 const WHATSAPP_NUMBER = '918100203639';
 const ADMISSIONS_PHONE = '08062642222';
 
@@ -58,11 +66,51 @@ const GhostNum = ({ n }) => (
 const PROGRAMME_OPTIONS = ['MBA', 'M.Tech', 'M.Sc', 'Ph.D'];
 const EXPERIENCE_OPTIONS = ['2–4 years', '5–7 years', '8–10 years', '10+ years'];
 
+const INDIA_STATES_CITIES = {
+  'Andhra Pradesh': ['Visakhapatnam', 'Vijayawada', 'Guntur', 'Tirupati', 'Nellore'],
+  'Arunachal Pradesh': ['Itanagar', 'Naharlagun'],
+  'Assam': ['Guwahati', 'Silchar', 'Dibrugarh', 'Jorhat'],
+  'Bihar': ['Patna', 'Gaya', 'Bhagalpur', 'Muzaffarpur'],
+  'Chhattisgarh': ['Raipur', 'Bhilai', 'Bilaspur', 'Durg'],
+  'Goa': ['Panaji', 'Margao', 'Vasco da Gama'],
+  'Gujarat': ['Ahmedabad', 'Surat', 'Vadodara', 'Rajkot', 'Gandhinagar'],
+  'Haryana': ['Gurugram', 'Faridabad', 'Panchkula', 'Ambala'],
+  'Himachal Pradesh': ['Shimla', 'Dharamshala', 'Solan'],
+  'Jharkhand': ['Ranchi', 'Jamshedpur', 'Dhanbad', 'Bokaro'],
+  'Karnataka': ['Bengaluru', 'Mysuru', 'Mangaluru', 'Hubballi'],
+  'Kerala': ['Kochi', 'Thiruvananthapuram', 'Kozhikode', 'Thrissur'],
+  'Madhya Pradesh': ['Bhopal', 'Indore', 'Jabalpur', 'Gwalior'],
+  'Maharashtra': ['Mumbai', 'Pune', 'Nagpur', 'Nashik', 'Thane'],
+  'Manipur': ['Imphal'],
+  'Meghalaya': ['Shillong'],
+  'Mizoram': ['Aizawl'],
+  'Nagaland': ['Kohima', 'Dimapur'],
+  'Odisha': ['Bhubaneswar', 'Cuttack', 'Rourkela'],
+  'Punjab': ['Ludhiana', 'Amritsar', 'Jalandhar', 'Chandigarh'],
+  'Rajasthan': ['Jaipur', 'Jodhpur', 'Udaipur', 'Kota'],
+  'Sikkim': ['Gangtok'],
+  'Tamil Nadu': ['Chennai', 'Coimbatore', 'Madurai', 'Tiruchirappalli'],
+  'Telangana': ['Hyderabad', 'Warangal', 'Nizamabad'],
+  'Tripura': ['Agartala'],
+  'Uttar Pradesh': ['Lucknow', 'Kanpur', 'Noida', 'Ghaziabad', 'Varanasi', 'Agra'],
+  'Uttarakhand': ['Dehradun', 'Haridwar', 'Rishikesh'],
+  'West Bengal': ['Kolkata', 'Howrah', 'Durgapur', 'Siliguri', 'Asansol'],
+  'Andaman and Nicobar Islands': ['Port Blair'],
+  'Chandigarh': ['Chandigarh'],
+  'Dadra and Nagar Haveli and Daman and Diu': ['Daman', 'Silvassa'],
+  'Delhi': ['New Delhi', 'Dwarka', 'Rohini', 'Saket'],
+  'Jammu and Kashmir': ['Srinagar', 'Jammu'],
+  'Ladakh': ['Leh', 'Kargil'],
+  'Lakshadweep': ['Kavaratti'],
+  'Puducherry': ['Puducherry', 'Karaikal'],
+};
+const INDIA_STATES = Object.keys(INDIA_STATES_CITIES).sort();
+
 const inputClass = 'w-full bg-white/[0.04] border border-white/12 rounded-xl px-4 py-3 text-sm text-white placeholder:text-gray-600 focus:outline-none focus:border-[#FF0000]/50 transition-colors';
 
 const PGLeadForm = ({ compact = false, formId }) => {
   const navigate = useNavigate();
-  const [form, setForm] = useState({ name: '', mobile: '', email: '', programme: '', experience: '', city: '' });
+  const [form, setForm] = useState({ name: '', mobile: '', email: '', programme: '', experience: '', state: '', city: '' });
   const [status, setStatus] = useState('idle'); // idle | submitting | error
   const [error, setError] = useState('');
   const viewTracked = useRef(false);
@@ -75,6 +123,7 @@ const PGLeadForm = ({ compact = false, formId }) => {
   }, [formId]);
 
   const update = (field) => (e) => setForm((f) => ({ ...f, [field]: e.target.value }));
+  const updateState = (e) => setForm((f) => ({ ...f, state: e.target.value, city: '' }));
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -116,7 +165,16 @@ const PGLeadForm = ({ compact = false, formId }) => {
           {EXPERIENCE_OPTIONS.map((x) => <option key={x} value={x} className="bg-[#0a0a0f]">{x}</option>)}
         </select>
       </div>
-      <input required type="text" placeholder="City" value={form.city} onChange={update('city')} className={inputClass} />
+      <div className="grid grid-cols-2 gap-3">
+        <select required value={form.state} onChange={updateState} className={`${inputClass} text-gray-300`}>
+          <option value="" disabled>State</option>
+          {INDIA_STATES.map((s) => <option key={s} value={s} className="bg-[#0a0a0f]">{s}</option>)}
+        </select>
+        <select required value={form.city} onChange={update('city')} disabled={!form.state} className={`${inputClass} text-gray-300 disabled:opacity-50`}>
+          <option value="" disabled>{form.state ? 'City' : 'Select state first'}</option>
+          {(INDIA_STATES_CITIES[form.state] || []).map((c) => <option key={c} value={c} className="bg-[#0a0a0f]">{c}</option>)}
+        </select>
+      </div>
 
       {status === 'error' && (
         <p className="flex items-center gap-2 text-red-400 text-xs">
@@ -129,7 +187,7 @@ const PGLeadForm = ({ compact = false, formId }) => {
         {status === 'submitting' ? (
           <><Loader2 className="w-4 h-4 animate-spin" /> Submitting…</>
         ) : (
-          <>Check Your Eligibility <ArrowRight className="w-4 h-4" /></>
+          <>Apply Now <ArrowRight className="w-4 h-4" /></>
         )}
       </button>
       <p className="text-gray-600 text-[11px] text-center">By submitting, you agree to be contacted by Techno India University's admissions team.</p>
@@ -191,7 +249,7 @@ const StickyPGBar = () => {
               onClick={() => track('whatsapp_click', { placement: 'sticky_side' })}
               target="_blank" rel="noopener noreferrer"
               className="flex items-center justify-center w-12 h-12 rounded-full bg-green-500 text-white shadow-[0_4px_20px_rgba(34,197,94,0.35)] hover:scale-105 transition-transform">
-              <MessageCircle className="w-5 h-5" />
+              <WhatsAppIcon className="w-5 h-5" />
             </a>
           </motion.div>
 
@@ -204,7 +262,7 @@ const StickyPGBar = () => {
               onClick={() => track('whatsapp_click', { placement: 'sticky_mobile' })}
               target="_blank" rel="noopener noreferrer"
               className="flex items-center justify-center gap-2 py-3.5 text-green-400 font-bold text-xs uppercase tracking-wide">
-              <MessageCircle className="w-4 h-4" /> WhatsApp
+              <WhatsAppIcon className="w-4 h-4" /> WhatsApp
             </a>
             <button onClick={() => scrollToId('enquiry-form')}
               className="flex items-center justify-center gap-2 py-3.5 text-white font-black text-xs uppercase tracking-wide"
@@ -286,7 +344,6 @@ const faqs = [
   { q: 'Will my employer recognise it?', a: "Yes. All degrees are awarded by Techno India University, a UGC-recognised, NAAC-accredited and AICTE-approved university — the same recognition that applies to every full-time degree from the university." },
   { q: 'What happens if I miss a class?', a: 'Recorded lecture access and mentor catch-up sessions are built into the programme specifically so a missed live session, travel or a work deadline does not put you behind.' },
   { q: 'Do I need to attend campus, and how often?', a: 'Most of the programme is delivered online or on weekends. Periodic on-campus intensives are scheduled at EM-4, Sector V, Salt Lake — exact frequency is confirmed with your counsellor based on the programme you choose.' },
-  { q: 'Is the programme UGC / AICTE approved?', a: 'Yes. Techno India University is UGC-recognised, NAAC-accredited and AICTE-approved, and all postgraduate programmes on this page are offered under that recognition.' },
   { q: 'Can I continue if I am posted outside Kolkata?', a: 'Yes — the hybrid delivery model is built for exactly this. Live sessions are attended online, with on-campus intensives scheduled in advance so you can plan travel around them.' },
   { q: 'How do I manage notice periods, travel or shift work?', a: 'Talk to your counsellor during the eligibility call — cohort scheduling, recorded sessions and flexible assessment windows are designed to absorb exactly this kind of disruption.' },
   { q: 'Can I switch specialisation later?', a: 'Specialisation changes depend on seat availability and academic eligibility in the new track. Raise this during your counselling call so it can be assessed for your specific case.' },
@@ -366,13 +423,13 @@ const WorkingProfessionals = () => {
                 className="flex flex-col sm:flex-row gap-3">
                 <button onClick={() => scrollToId('hero-form')}
                   className="inline-flex items-center justify-center gap-2 bg-[#FF0000] text-white px-8 py-4 rounded-full font-black text-sm tracking-wider uppercase shadow-[0_0_30px_rgba(255,0,0,0.25)] hover:shadow-[0_0_50px_rgba(255,0,0,0.4)] hover:scale-[1.03] transition-all">
-                  Check Your Eligibility <ArrowRight className="w-4 h-4" />
+                  Apply Now <ArrowRight className="w-4 h-4" />
                 </button>
                 <a href={waLink("Hi, I'd like the brochure for MBA/M.Tech/M.Sc/PhD programmes for working professionals.")}
                   onClick={() => track('brochure_download_click', { placement: 'hero' })}
                   target="_blank" rel="noopener noreferrer"
                   className="inline-flex items-center justify-center gap-2 px-7 py-4 rounded-full font-bold border border-white/12 text-gray-300 hover:border-[#FF0000]/30 hover:text-[#FF0000] transition-colors text-sm">
-                  <MessageCircle className="w-4 h-4" /> Download Brochure
+                  <WhatsAppIcon className="w-4 h-4" /> Download Brochure
                 </a>
               </motion.div>
             </div>
@@ -384,7 +441,7 @@ const WorkingProfessionals = () => {
               <div className="absolute -bottom-3 -right-3 w-10 h-10 border-b-2 border-r-2 border-[#FF0000]/30 rounded-br-lg z-10" />
               <div className="relative rounded-3xl border border-white/12 overflow-hidden p-6 md:p-8"
                 style={{ background: 'linear-gradient(155deg, rgba(255,0,0,0.08) 0%, rgba(2,2,5,0.6) 55%, rgba(59,130,246,0.05) 100%)' }}>
-                <p className="text-white font-black text-lg mb-1">Check Your Eligibility</p>
+                <p className="text-white font-black text-lg mb-1">Apply Now</p>
                 <p className="text-gray-400 text-xs mb-5">Get a callback from our admissions team within 24 hours.</p>
                 <PGLeadForm formId="hero" />
               </div>
@@ -439,11 +496,17 @@ const WorkingProfessionals = () => {
                     <p><span className="text-gray-300 font-semibold">Eligibility:</span> {p.eligibility}</p>
                   </div>
                   <p className="text-gray-400 text-xs italic mb-5 flex-1">Best for: {p.bestFor}</p>
-                  <button onClick={() => scrollToId(p.anchor)}
-                    className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full border font-bold text-xs uppercase tracking-wide transition-colors"
-                    style={{ borderColor: `${p.accent}30`, color: p.accent }}>
-                    See Details <ArrowRight className="w-3.5 h-3.5" />
-                  </button>
+                  <div className="flex flex-col gap-2">
+                    <button onClick={() => scrollToId('hero-form')}
+                      className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-[#FF0000] text-white font-black text-xs uppercase tracking-wide hover:bg-[#CC0000] transition-colors">
+                      Apply Now <ArrowRight className="w-3.5 h-3.5" />
+                    </button>
+                    <button onClick={() => scrollToId(p.anchor)}
+                      className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full border font-bold text-xs uppercase tracking-wide transition-colors"
+                      style={{ borderColor: `${p.accent}30`, color: p.accent }}>
+                      See Details <ArrowRight className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
                 </motion.div>
               );
             })}
@@ -628,7 +691,7 @@ const WorkingProfessionals = () => {
                     onClick={() => track('sponsorship_letter_request')}
                     target="_blank" rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 text-xs font-bold text-green-400 hover:underline">
-                    <MessageCircle className="w-3.5 h-3.5" /> Request via WhatsApp
+                    <WhatsAppIcon className="w-3.5 h-3.5" /> Request via WhatsApp
                   </a>
                 )}
               </motion.div>
@@ -678,7 +741,7 @@ const WorkingProfessionals = () => {
                   <span>Talk to a counsellor: <a href={`tel:${ADMISSIONS_PHONE}`} className="text-white font-bold hover:text-[#FF0000] transition-colors">{ADMISSIONS_PHONE}</a></span>
                 </div>
                 <div className="flex items-center gap-3 text-gray-500">
-                  <MessageCircle className="w-4 h-4 text-green-500" />
+                  <WhatsAppIcon className="w-4 h-4 text-green-500" />
                   <a href={waLink("Hi, I'd like to talk to a counsellor about MBA/M.Tech/M.Sc/PhD for working professionals.")}
                     onClick={() => track('whatsapp_click', { placement: 'closing_cta' })}
                     target="_blank" rel="noopener noreferrer"
