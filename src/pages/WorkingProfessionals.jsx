@@ -1,17 +1,19 @@
 import { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 import {
   ArrowRight, Phone, MessageCircle, ChevronDown,
-  Briefcase, Cpu, TrendingUp, FlaskConical, Clock, Calendar,
+  Briefcase, Cpu, TrendingUp, FlaskConical, Clock,
   MapPin, ClipboardList, Users, BookOpen, Award,
-  GraduationCap, Video, CreditCard, Percent, Gift, Landmark,
+  Video, CreditCard, Percent, Gift, Landmark,
   ShieldCheck, UserCheck, FileCheck2, Sparkles, Building2,
+  Loader2, AlertCircle,
 } from 'lucide-react';
 import SEO from '../components/SEO';
 import SchemaInjector from '../components/SchemaInjector';
 import sofLogo from '../assets/logo1.png';
 
-const WHATSAPP_NUMBER = '916292233351';
+const WHATSAPP_NUMBER = '918100203639';
 const ADMISSIONS_PHONE = '08062642222';
 
 const waLink = (text) => `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
@@ -52,79 +54,86 @@ const GhostNum = ({ n }) => (
   </span>
 );
 
-// ─── ExtraEdge enquiry form widget (same integration used sitewide) ─────────
-const EEFormWidget = ({ formDomId }) => {
-  const [isLoading, setIsLoading] = useState(true);
-  const [iframeHeight, setIframeHeight] = useState(520);
-  const [iframeUrl, setIframeUrl] = useState('');
+// ─── Custom enquiry form — submits to /api/pg-leads, which forwards to a Google Sheet ──
+const PROGRAMME_OPTIONS = ['MBA', 'M.Tech', 'M.Sc', 'Ph.D'];
+const EXPERIENCE_OPTIONS = ['2–4 years', '5–7 years', '8–10 years', '10+ years'];
+
+const inputClass = 'w-full bg-white/[0.04] border border-white/12 rounded-xl px-4 py-3 text-sm text-white placeholder:text-gray-600 focus:outline-none focus:border-[#FF0000]/50 transition-colors';
+
+const PGLeadForm = ({ compact = false, formId }) => {
+  const navigate = useNavigate();
+  const [form, setForm] = useState({ name: '', mobile: '', email: '', programme: '', experience: '', city: '' });
+  const [status, setStatus] = useState('idle'); // idle | submitting | error
+  const [error, setError] = useState('');
+  const viewTracked = useRef(false);
 
   useEffect(() => {
-    const handleMessage = (event) => {
-      if (event.data && event.data.type === 'EE_WIDGET_LOADED') {
-        setIsLoading(false);
-        track('enquiry_form_view', { page: 'pg_working_professionals', form: formDomId });
-      }
-      if (event.data && event.data.type === 'EE_WIDGET_HEIGHT') setIframeHeight(event.data.height);
-    };
-    window.addEventListener('message', handleMessage);
+    if (!viewTracked.current) {
+      viewTracked.current = true;
+      track('enquiry_form_view', { page: 'pg_working_professionals', form: formId });
+    }
+  }, [formId]);
 
-    const widgetCode = `<!DOCTYPE html>
-<html>
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-body { margin: 0; padding: 0; background: transparent; font-family: sans-serif; }
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 3px; }
-</style>
-</head>
-<body>
-<script>
-(function(){var s=${JSON.stringify(window.location.search)};if(s)try{history.replaceState(null,'',s);}catch(_){}})();
-<\/script>
-<div class="ee-form-widget" id="${formDomId}"></div>
-<script>
-function reportHeight(){var h=document.body.scrollHeight;window.parent.postMessage({type:'EE_WIDGET_HEIGHT',height:h},'*');}
-window.addEventListener("DOMContentLoaded",function(){
-window.ee_form_widget_baseurl="https://eeconfigstaticfiles.blob.core.windows.net/staticfiles/ee-form-widget/";
-if(!document.getElementById("__formWidgetCss")){var e=document.createElement("link");e.id="__formWidgetCss";e.rel="stylesheet";e.href=window.ee_form_widget_baseurl+"css/stylesheet.min.css";e.type="text/css";document.getElementsByTagName("head")[0].appendChild(e);}
-var t=document.createElement("script");t.type="text/javascript";
-t.onload=async function(){var w=new eeFormWidget();await w.init("softiu","form-8","${formDomId}");window.parent.postMessage({type:'EE_WIDGET_LOADED'},'*');setTimeout(reportHeight,300);setTimeout(reportHeight,1000);};
-t.src=window.ee_form_widget_baseurl+"js/eeFormWidget.min.js";document.getElementsByTagName("head")[0].appendChild(t);});
-if(window.ResizeObserver){new ResizeObserver(reportHeight).observe(document.documentElement);}
-<\/script>
-</body>
-</html>`;
+  const update = (field) => (e) => setForm((f) => ({ ...f, [field]: e.target.value }));
 
-    try{var _qs=window.location.search,_p=new URLSearchParams(_qs);if(["utm_source","utm_medium","utm_campaign","utm_term","utm_content","channel"].some(function(k){return _p.has(k)})){var _url=window.location.href;if(_p.has("channel")&&!_p.has("utm_source")){var _u=new URL(_url);_u.searchParams.set("utm_source",_p.get("channel"));_url=_u.href;}localStorage.setItem("stored_url",JSON.stringify({url:_url,expiry:Date.now()+2592000000}));}}catch(_e){}
-    const blob = new Blob([widgetCode], { type: 'text/html' });
-    const url = URL.createObjectURL(blob);
-    setIframeUrl(url);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setStatus('submitting');
+    setError('');
+    track('form_submit_attempt', { page: 'pg_working_professionals', form: formId });
 
-    return () => {
-      window.removeEventListener('message', handleMessage);
-      URL.revokeObjectURL(url);
-    };
-  }, [formDomId]);
+    try {
+      const res = await fetch('/api/pg-leads', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...form, source: formId }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(data.error || 'Something went wrong. Please try again.');
+
+      track('form_submit', { page: 'pg_working_professionals', form: formId, programme: form.programme });
+      navigate('/thank-you');
+    } catch (err) {
+      setStatus('error');
+      setError(err.message || 'Something went wrong. Please try again.');
+    }
+  };
 
   return (
-    <div className="relative bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl shadow-2xl" style={{ padding: '10px 5px', height: iframeHeight + 40 }}>
-      {isLoading && (
-        <div className="absolute inset-0 flex items-center justify-center z-20 bg-black/20 backdrop-blur-sm rounded-3xl">
-          <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-red-500" />
-        </div>
+    <form onSubmit={handleSubmit} className={`space-y-3 ${compact ? '' : 'space-y-4'}`}>
+      <input required type="text" placeholder="Full Name" value={form.name} onChange={update('name')} className={inputClass} />
+      <div className="grid grid-cols-2 gap-3">
+        <input required type="tel" placeholder="Mobile Number" value={form.mobile} onChange={update('mobile')} className={inputClass} />
+        <input required type="email" placeholder="Email" value={form.email} onChange={update('email')} className={inputClass} />
+      </div>
+      <div className="grid grid-cols-2 gap-3">
+        <select required value={form.programme} onChange={update('programme')} className={`${inputClass} text-gray-300`}>
+          <option value="" disabled>Programme Interest</option>
+          {PROGRAMME_OPTIONS.map((p) => <option key={p} value={p} className="bg-[#0a0a0f]">{p}</option>)}
+        </select>
+        <select required value={form.experience} onChange={update('experience')} className={`${inputClass} text-gray-300`}>
+          <option value="" disabled>Years of Experience</option>
+          {EXPERIENCE_OPTIONS.map((x) => <option key={x} value={x} className="bg-[#0a0a0f]">{x}</option>)}
+        </select>
+      </div>
+      <input required type="text" placeholder="City" value={form.city} onChange={update('city')} className={inputClass} />
+
+      {status === 'error' && (
+        <p className="flex items-center gap-2 text-red-400 text-xs">
+          <AlertCircle className="w-4 h-4 flex-shrink-0" /> {error}
+        </p>
       )}
-      {iframeUrl && (
-        <iframe
-          src={iframeUrl}
-          title="Eligibility Check Enquiry Form"
-          className={`w-full border-0 z-10 rounded-2xl transition-opacity duration-500 ${isLoading ? 'opacity-0' : 'opacity-100'}`}
-          style={{ backgroundColor: 'transparent', height: iframeHeight }}
-        />
-      )}
-    </div>
+
+      <button type="submit" disabled={status === 'submitting'}
+        className="w-full inline-flex items-center justify-center gap-2 bg-[#FF0000] text-white px-6 py-3.5 rounded-xl font-black text-sm tracking-wider uppercase shadow-[0_0_30px_rgba(255,0,0,0.25)] hover:shadow-[0_0_50px_rgba(255,0,0,0.4)] hover:scale-[1.01] transition-all disabled:opacity-60 disabled:hover:scale-100">
+        {status === 'submitting' ? (
+          <><Loader2 className="w-4 h-4 animate-spin" /> Submitting…</>
+        ) : (
+          <>Check Your Eligibility <ArrowRight className="w-4 h-4" /></>
+        )}
+      </button>
+      <p className="text-gray-600 text-[11px] text-center">By submitting, you agree to be contacted by Techno India University's admissions team.</p>
+    </form>
   );
 };
 
@@ -157,7 +166,7 @@ const FAQItem = ({ faq, i }) => {
   );
 };
 
-// ─── Sticky page-specific CTA (desktop header strip + mobile bottom bar) ────
+// ─── Sticky page-specific CTA (desktop side rail + mobile bottom bar) ───────
 const StickyPGBar = () => {
   const [visible, setVisible] = useState(false);
   useEffect(() => {
@@ -170,24 +179,20 @@ const StickyPGBar = () => {
     <AnimatePresence>
       {visible && (
         <>
-          {/* Desktop header CTA */}
-          <motion.div initial={{ y: -60, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: -60, opacity: 0 }}
+          {/* Desktop side rail */}
+          <motion.div initial={{ x: 80, opacity: 0 }} animate={{ x: 0, opacity: 1 }} exit={{ x: 80, opacity: 0 }}
             transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-            className="hidden md:flex fixed top-0 left-0 right-0 z-[70] items-center justify-between px-8 py-3"
-            style={{ background: 'rgba(2,2,5,0.9)', backdropFilter: 'blur(12px)', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
-            <span className="text-white text-sm font-bold tracking-wide">MBA · M.Tech · M.Sc · Ph.D — for Working Professionals</span>
-            <div className="flex items-center gap-3">
-              <a href={waLink("Hi, I'm a working professional interested in your postgraduate programmes.")}
-                onClick={() => track('whatsapp_click', { placement: 'sticky_header' })}
-                target="_blank" rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-green-400 border border-green-500/30 px-4 py-2 rounded-full text-xs font-bold hover:bg-green-500/10 transition-colors">
-                <MessageCircle className="w-3.5 h-3.5" /> WhatsApp
-              </a>
-              <button onClick={() => scrollToId('enquiry-form')}
-                className="inline-flex items-center gap-2 bg-[#FF0000] text-white px-5 py-2 rounded-full text-xs font-black tracking-wide uppercase hover:bg-[#CC0000] transition-colors">
-                Check Eligibility
-              </button>
-            </div>
+            className="hidden md:flex fixed right-6 top-1/2 -translate-y-1/2 z-[70] flex-col items-end gap-3">
+            <button onClick={() => scrollToId('enquiry-form')}
+              className="flex items-center gap-2 bg-[#FF0000] text-white px-5 py-3.5 rounded-full font-black text-sm tracking-wide uppercase shadow-[0_4px_20px_rgba(255,0,0,0.35)] hover:bg-[#CC0000] hover:scale-105 transition-all">
+              Apply Now <ArrowRight className="w-4 h-4" />
+            </button>
+            <a href={waLink("Hi, I'm a working professional interested in your postgraduate programmes.")}
+              onClick={() => track('whatsapp_click', { placement: 'sticky_side' })}
+              target="_blank" rel="noopener noreferrer"
+              className="flex items-center justify-center w-12 h-12 rounded-full bg-green-500 text-white shadow-[0_4px_20px_rgba(34,197,94,0.35)] hover:scale-105 transition-transform">
+              <MessageCircle className="w-5 h-5" />
+            </a>
           </motion.div>
 
           {/* Mobile bottom bar */}
@@ -204,7 +209,7 @@ const StickyPGBar = () => {
             <button onClick={() => scrollToId('enquiry-form')}
               className="flex items-center justify-center gap-2 py-3.5 text-white font-black text-xs uppercase tracking-wide"
               style={{ background: 'linear-gradient(135deg, #FF0000, #CC0000)' }}>
-              Enquire Now
+              Apply Now
             </button>
           </motion.div>
         </>
@@ -219,28 +224,28 @@ const programmes = [
     n: '01', icon: Briefcase, accent: '#FF0000', name: 'MBA',
     tag: 'Working Professional Track',
     specialisations: 'Business Administration with Data Science, AI Tools & Strategic Management (IBM-powered)',
-    duration: '2 Years', mode: 'Weekend / Hybrid',
+    duration: '1/2 Years', mode: 'Weekend / Hybrid',
     eligibility: "Bachelor's degree in any discipline + 2 years' work experience",
     bestFor: 'Professionals targeting management, leadership or techno-managerial roles',
-    anchor: 'fee-table',
+    anchor: 'enquiry-form',
   },
   {
     n: '02', icon: Cpu, accent: '#3b82f6', name: 'M.Tech',
     tag: 'CSE — AI & Machine Learning',
     specialisations: 'Artificial Intelligence & Machine Learning — research-focused curriculum',
-    duration: '2 Years', mode: 'Weekend / Hybrid + campus lab access',
+    duration: '1/2 Years', mode: 'Weekend / Hybrid + campus lab access',
     eligibility: "B.E./B.Tech in a relevant branch (or equivalent) + 2 years' experience",
     bestFor: 'Engineers targeting technical leadership, R&D or product architecture roles',
-    anchor: 'fee-table',
+    anchor: 'enquiry-form',
   },
   {
     n: '03', icon: TrendingUp, accent: '#06b6d4', name: 'M.Sc',
     tag: 'Data Science & AI',
     specialisations: 'Machine learning, deep learning and data engineering',
-    duration: '2 Years', mode: 'Weekend / Hybrid',
+    duration: '1/2 Years', mode: 'Weekend / Hybrid',
     eligibility: 'B.Sc / B.E. / B.Tech with a quantitative background',
     bestFor: 'Analysts and engineers moving into applied data science roles',
-    anchor: 'fee-table',
+    anchor: 'enquiry-form',
   },
   {
     n: '04', icon: FlaskConical, accent: '#FF4444', name: 'Ph.D',
@@ -285,13 +290,6 @@ const faqs = [
   { q: 'Can I continue if I am posted outside Kolkata?', a: 'Yes — the hybrid delivery model is built for exactly this. Live sessions are attended online, with on-campus intensives scheduled in advance so you can plan travel around them.' },
   { q: 'How do I manage notice periods, travel or shift work?', a: 'Talk to your counsellor during the eligibility call — cohort scheduling, recorded sessions and flexible assessment windows are designed to absorb exactly this kind of disruption.' },
   { q: 'Can I switch specialisation later?', a: 'Specialisation changes depend on seat availability and academic eligibility in the new track. Raise this during your counselling call so it can be assessed for your specific case.' },
-];
-
-const feeRows = [
-  { name: 'MBA (Working Professional)', eligibility: "Bachelor's degree + 2 years' experience", duration: '24 months' },
-  { name: 'M.Tech (CSE — AI & ML)', eligibility: 'B.E./B.Tech in relevant branch', duration: '24 months' },
-  { name: 'M.Sc (Data Science & AI)', eligibility: 'B.Sc in relevant discipline', duration: '24 months' },
-  { name: 'Ph.D (AI — Part-Time)', eligibility: "Master's degree + entrance/interview", duration: 'Flexible (part-time)' },
 ];
 
 const pageSchema = {
@@ -347,7 +345,7 @@ const WorkingProfessionals = () => {
 
               <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.35 }}
                 className="text-gray-400 text-base md:text-lg leading-relaxed mb-6 max-w-xl">
-                <span className="text-white font-bold">MBA · M.Tech · M.Sc · Ph.D</span> For working professionals - weekend and hybrid delivery, built for professionals with 2+ years of experience.
+                <span className="text-white font-bold">MBA · M.Tech · M.Sc · Ph.D</span> <span className="text-white font-bold">For working professionals</span> - weekend and hybrid delivery, built for professionals with 2+ years of experience.
               </motion.p>
 
               {/* Partner strip */}
@@ -366,7 +364,7 @@ const WorkingProfessionals = () => {
               {/* CTAs */}
               <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.55 }}
                 className="flex flex-col sm:flex-row gap-3">
-                <button onClick={() => scrollToId('enquiry-form')}
+                <button onClick={() => scrollToId('hero-form')}
                   className="inline-flex items-center justify-center gap-2 bg-[#FF0000] text-white px-8 py-4 rounded-full font-black text-sm tracking-wider uppercase shadow-[0_0_30px_rgba(255,0,0,0.25)] hover:shadow-[0_0_50px_rgba(255,0,0,0.4)] hover:scale-[1.03] transition-all">
                   Check Your Eligibility <ArrowRight className="w-4 h-4" />
                 </button>
@@ -379,51 +377,19 @@ const WorkingProfessionals = () => {
               </motion.div>
             </div>
 
-            {/* Right — credibility card (no stock classroom photo, matches site's card aesthetic) */}
-            <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-              className="relative w-full">
+            {/* Right — hero enquiry form */}
+            <motion.div id="hero-form" initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+              className="relative w-full scroll-mt-24">
               <div className="absolute -top-3 -left-3 w-10 h-10 border-t-2 border-l-2 border-[#FF0000]/30 rounded-tl-lg z-10" />
               <div className="absolute -bottom-3 -right-3 w-10 h-10 border-b-2 border-r-2 border-[#FF0000]/30 rounded-br-lg z-10" />
-              <div className="relative rounded-3xl border border-white/12 overflow-hidden p-7 md:p-9"
+              <div className="relative rounded-3xl border border-white/12 overflow-hidden p-6 md:p-8"
                 style={{ background: 'linear-gradient(155deg, rgba(255,0,0,0.08) 0%, rgba(2,2,5,0.6) 55%, rgba(59,130,246,0.05) 100%)' }}>
-                <p className="text-[10px] font-black tracking-[0.2em] uppercase text-gray-400 mb-6">Built around your job, not the other way around</p>
-                <div className="space-y-5">
-                  {[
-                    { icon: Clock, label: 'Weekly commitment', value: '6–8 hours' },
-                    { icon: Calendar, label: 'Delivery', value: 'Weekend + evening, hybrid' },
-                    { icon: GraduationCap, label: 'Degree', value: 'Equivalent as full-time programme' },
-                  ].map((row, i) => (
-                    <div key={i} className="flex items-center gap-4">
-                      <div className="w-11 h-11 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center flex-shrink-0">
-                        <row.icon className="w-5 h-5 text-[#FF0000]" />
-                      </div>
-                      <div className="min-w-0">
-                        <p className="text-gray-500 text-[11px] font-bold uppercase tracking-wide">{row.label}</p>
-                        <p className="text-white font-bold text-sm">{row.value}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
+                <p className="text-white font-black text-lg mb-1">Check Your Eligibility</p>
+                <p className="text-gray-400 text-xs mb-5">Get a callback from our admissions team within 24 hours.</p>
+                <PGLeadForm formId="hero" />
               </div>
             </motion.div>
           </div>
-        </div>
-      </section>
-
-      {/* ── SECTION 2 · TRUST BAR ─────────────────────────────────────────── */}
-      <section className="py-8 border-y border-white/8 bg-black/40">
-        <div className="max-w-6xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-6">
-          <div className="flex flex-wrap items-center justify-center gap-8">
-            <img src="https://upload.wikimedia.org/wikipedia/en/4/4e/UGC_India_Logo.png" alt="UGC" className="h-8 md:h-10 object-contain opacity-80" />
-            <img src="https://upload.wikimedia.org/wikipedia/en/e/eb/All_India_Council_for_Technical_Education_logo.png" alt="AICTE" className="h-8 md:h-10 object-contain opacity-80" />
-            <img src="/assets/approvals/naac.png" alt="NAAC" className="h-8 md:h-10 object-contain opacity-80" />
-            <div className="hidden sm:block w-px h-8 bg-white/10" />
-            <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Google_Cloud_logo.svg" alt="Google Cloud" className="h-5 md:h-6 object-contain opacity-80" />
-            <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg" alt="IBM" className="h-5 md:h-6 object-contain opacity-80 brightness-0 invert" />
-          </div>
-          <p className="text-gray-500 text-xs md:text-sm text-center md:text-right max-w-sm">
-            40+ years of academic legacy · 50,000+ alumni worldwide
-          </p>
         </div>
       </section>
 
@@ -546,52 +512,13 @@ const WorkingProfessionals = () => {
         </div>
       </section>
 
-      {/* ── SECTION 7 · ELIGIBILITY & INVESTMENT ──────────────────────────── */}
-      <section id="fee-table" className="py-8 md:py-16 px-4 md:px-10 scroll-mt-24" style={{ background: 'linear-gradient(180deg, #0a0a0f 0%, #020205 100%)' }}>
-        <div className="max-w-6xl mx-auto">
-          <div className="relative mb-10">
-            <GhostNum n="04" />
-            <p className="text-xs text-[#FF0000] font-black tracking-widest uppercase mb-3 relative z-10">Straight Numbers</p>
-            <h2 className="text-3xl md:text-5xl font-black text-white relative z-10">Eligibility &amp; Investment</h2>
-          </div>
-
-          <div className="overflow-x-auto rounded-2xl border border-white/10">
-            <table className="w-full text-left border-collapse min-w-[640px]">
-              <thead className="bg-white/[0.05]">
-                <tr>
-                  {['Programme', 'Eligibility', 'Duration', 'Total Fee', 'EMI'].map((h) => (
-                    <th key={h} className="px-5 py-4 text-xs font-black tracking-widest uppercase text-gray-400">{h}</th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {feeRows.map((r, i) => (
-                  <tr key={i} className="border-t border-white/8 hover:bg-white/[0.03] transition-colors">
-                    <td className="px-5 py-5 text-white font-bold text-sm">{r.name}</td>
-                    <td className="px-5 py-5 text-gray-400 text-sm">{r.eligibility}</td>
-                    <td className="px-5 py-5 text-gray-400 text-sm">{r.duration}</td>
-                    <td className="px-5 py-5 text-sm">
-                      <a href={`tel:${ADMISSIONS_PHONE}`} className="text-[#FF0000] font-bold hover:underline">Contact Admissions</a>
-                    </td>
-                    <td className="px-5 py-5 text-sm">
-                      <a href={`tel:${ADMISSIONS_PHONE}`} className="text-[#FF0000] font-bold hover:underline">Contact Admissions</a>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-          <p className="text-gray-600 text-xs mt-4">Fee and EMI figures will be published here once confirmed by admissions — call {ADMISSIONS_PHONE} for current figures.</p>
-        </div>
-      </section>
-
       {/* ── SECTION 8 · PH.D DEDICATED BLOCK ───────────────────────────────── */}
       <section id="phd-section" className="py-8 md:py-16 px-4 md:px-10 scroll-mt-24">
         <div className="max-w-6xl mx-auto">
           <div className="relative mb-10">
-            <GhostNum n="05" />
+            <GhostNum n="04" />
             <p className="text-xs text-[#FF0000] font-black tracking-widest uppercase mb-3 relative z-10">A Different Kind of Enquiry</p>
-            <h2 className="text-3xl md:text-5xl font-black text-white relative z-10">Ph.D — Built for Working Scholars</h2>
+            <h2 className="text-3xl md:text-5xl font-black text-white relative z-10">Ph.D — Built for Working Professionals</h2>
             <p className="text-gray-400 text-sm mt-4 max-w-2xl relative z-10">
               Doctoral enquirers behave nothing like MBA enquirers, so here's the detail relevant specifically to your research ambitions.
             </p>
@@ -622,7 +549,7 @@ const WorkingProfessionals = () => {
       <section className="py-8 md:py-16 px-4 md:px-10" style={{ background: 'linear-gradient(180deg, #020205 0%, #0a0a0f 100%)' }}>
         <div className="max-w-6xl mx-auto">
           <div className="relative mb-10">
-            <GhostNum n="06" />
+            <GhostNum n="05" />
             <p className="text-xs text-[#FF0000] font-black tracking-widest uppercase mb-3 relative z-10">Beyond the Classroom</p>
             <h2 className="text-3xl md:text-5xl font-black text-white relative z-10">Research &amp; Industry Ecosystem</h2>
           </div>
@@ -681,7 +608,7 @@ const WorkingProfessionals = () => {
       <section className="py-8 md:py-16 px-4 md:px-10" style={{ background: 'linear-gradient(180deg, #020205 0%, #0a0a0f 100%)' }}>
         <div className="max-w-6xl mx-auto">
           <div className="relative mb-10">
-            <GhostNum n="07" />
+            <GhostNum n="06" />
             <p className="text-xs text-[#FF0000] font-black tracking-widest uppercase mb-3 relative z-10">Rescuing Price-Sensitive Leads</p>
             <h2 className="text-3xl md:text-5xl font-black text-white relative z-10">Funding Your Degree</h2>
           </div>
@@ -714,7 +641,7 @@ const WorkingProfessionals = () => {
       <section className="py-8 md:py-16 px-6">
         <div className="max-w-3xl mx-auto">
           <div className="mb-14 relative">
-            <GhostNum n="08" />
+            <GhostNum n="07" />
             <p className="text-xs text-[#FF0000] font-black tracking-widest uppercase mb-3 relative z-10">Frequently Asked</p>
             <h2 className="text-3xl md:text-5xl font-black text-white relative z-10">Got Questions?</h2>
           </div>
@@ -768,7 +695,9 @@ const WorkingProfessionals = () => {
               className="relative">
               <div className="absolute -top-3 -left-3 w-8 h-8 border-t-2 border-l-2 border-[#FF0000]/30 rounded-tl-lg" />
               <div className="absolute -bottom-3 -right-3 w-8 h-8 border-b-2 border-r-2 border-[#FF0000]/30 rounded-br-lg" />
-              <EEFormWidget formDomId="ee-form-pg-working-professionals" />
+              <div className="relative bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl shadow-2xl p-6 md:p-8">
+                <PGLeadForm formId="closing-cta" />
+              </div>
             </motion.div>
           </div>
         </div>

@@ -200,6 +200,18 @@ export const schemas = {
             value: z.any(),
         }),
     },
+
+    pgLeads: {
+        create: z.object({
+            name: reqStr(1, 200),
+            mobile: z.string().regex(/^[0-9+\-\s()]{7,20}$/, 'Enter a valid phone number'),
+            email: z.string().email().max(200),
+            programme: z.enum(['MBA', 'M.Tech', 'M.Sc', 'Ph.D']),
+            experience: reqStr(1, 50),
+            city: reqStr(1, 200),
+            source: optStr(100),
+        }),
+    },
 };
 
 export function validate(schema, data) {
