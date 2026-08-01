@@ -183,7 +183,8 @@ const PGLeadForm = ({ compact = false, formId }) => {
       )}
 
       <button type="submit" disabled={status === 'submitting'}
-        className="w-full inline-flex items-center justify-center gap-2 bg-[#FF0000] text-white px-6 py-3.5 rounded-xl font-black text-sm tracking-wider uppercase shadow-[0_0_30px_rgba(255,0,0,0.25)] hover:shadow-[0_0_50px_rgba(255,0,0,0.4)] hover:scale-[1.01] transition-all disabled:opacity-60 disabled:hover:scale-100">
+        style={{ background: 'linear-gradient(135deg, #FF0000, #CC0000)' }}
+        className="w-full inline-flex items-center justify-center gap-2 text-white px-6 py-4 rounded-full font-black text-sm tracking-widest uppercase shadow-[0_4px_20px_rgba(255,0,0,0.35)] hover:shadow-[0_6px_30px_rgba(255,0,0,0.5)] hover:scale-[1.015] active:scale-[0.99] transition-all disabled:opacity-60 disabled:hover:scale-100">
         {status === 'submitting' ? (
           <><Loader2 className="w-4 h-4 animate-spin" /> Submitting…</>
         ) : (
@@ -441,7 +442,10 @@ const WorkingProfessionals = () => {
               <div className="absolute -bottom-3 -right-3 w-10 h-10 border-b-2 border-r-2 border-[#FF0000]/30 rounded-br-lg z-10" />
               <div className="relative rounded-3xl border border-white/12 overflow-hidden p-6 md:p-8"
                 style={{ background: 'linear-gradient(155deg, rgba(255,0,0,0.08) 0%, rgba(2,2,5,0.6) 55%, rgba(59,130,246,0.05) 100%)' }}>
-                <p className="text-white font-black text-3xl md:text-4xl uppercase tracking-wide text-center mb-2">Apply Now</p>
+                <p className="text-center text-3xl md:text-4xl font-black tracking-tight mb-2">
+                  <span className="text-white">Apply </span>
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FF0000] to-orange-400">Now</span>
+                </p>
                 <p className="text-gray-400 text-xs text-center mb-5">Get a callback from our admissions team within 24 hours.</p>
                 <PGLeadForm formId="hero" />
               </div>
