@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
   ArrowRight, Phone, MessageCircle, ChevronDown,
   Briefcase, Cpu, TrendingUp, FlaskConical, Clock, Calendar,
-  MapPin, ClipboardList, Users, BookOpen, Award, CheckCircle2,
+  MapPin, ClipboardList, Users, BookOpen, Award,
   GraduationCap, Video, CreditCard, Percent, Gift, Landmark,
   ShieldCheck, UserCheck, FileCheck2, Sparkles, Building2,
 } from 'lucide-react';
@@ -341,23 +341,26 @@ const WorkingProfessionals = () => {
 
               <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2, duration: 0.7 }}
                 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black leading-[1.05] tracking-tight mb-6">
-                <span className="text-white">Advance Your Career </span>
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FF0000] to-orange-400">Without Pausing It</span>
+                <span className="text-white">Your Colleagues are Upskilling. </span>
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FF0000] to-orange-400">Are you?</span>
               </motion.h1>
 
               <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.35 }}
                 className="text-gray-400 text-base md:text-lg leading-relaxed mb-6 max-w-xl">
-                <span className="text-white font-bold">MBA · M.Tech · M.Sc · Ph.D</span> — UGC-recognised, weekend and hybrid delivery, built for professionals with 2+ years of experience.
+                <span className="text-white font-bold">MBA · M.Tech · M.Sc · Ph.D</span> For working professionals - weekend and hybrid delivery, built for professionals with 2+ years of experience.
               </motion.p>
 
-              {/* Micro-proof strip */}
+              {/* Partner strip */}
               <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.45 }}
                 className="flex flex-wrap gap-2 mb-8">
-                {['Weekend & evening classes', 'Same degree as full-time', 'EMI available'].map((t, i) => (
-                  <span key={i} className="inline-flex items-center gap-1.5 text-xs font-bold px-4 py-2 rounded-full border border-white/10 bg-white/[0.04] text-gray-300">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-[#FF0000]" /> {t}
-                  </span>
-                ))}
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/[0.04] border border-white/10">
+                  <span className="text-white/40 text-[10px] font-semibold uppercase tracking-widest whitespace-nowrap">In collaboration with</span>
+                  <img
+                    src="https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg"
+                    alt="IBM"
+                    className="h-5 object-contain opacity-80 brightness-0 invert"
+                  />
+                </div>
               </motion.div>
 
               {/* CTAs */}
@@ -388,8 +391,7 @@ const WorkingProfessionals = () => {
                   {[
                     { icon: Clock, label: 'Weekly commitment', value: '6–8 hours' },
                     { icon: Calendar, label: 'Delivery', value: 'Weekend + evening, hybrid' },
-                    { icon: GraduationCap, label: 'Degree', value: 'Same as full-time programme' },
-                    { icon: CreditCard, label: 'Payment', value: 'EMI options available' },
+                    { icon: GraduationCap, label: 'Degree', value: 'Equivalent as full-time programme' },
                   ].map((row, i) => (
                     <div key={i} className="flex items-center gap-4">
                       <div className="w-11 h-11 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center flex-shrink-0">
@@ -430,7 +432,7 @@ const WorkingProfessionals = () => {
         <div className="max-w-3xl mx-auto text-center">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="space-y-4">
             <p className="text-gray-300 text-lg md:text-xl leading-relaxed">
-              A promotion blocked without a postgraduate qualification. Technical skills ageing faster than your role can absorb. No room for a two-year residential break. A doctoral ambition that has never quite fitted the calendar.
+              A promotion blocked without a postgraduate qualification? Technical skills ageing faster than your role can absorb? No room for a two-year residential break? A doctoral ambition that has never quite fitted the calendar?
             </p>
             <p className="text-white text-xl md:text-2xl font-black leading-snug">
               You don't need to choose between your salary and your degree.
