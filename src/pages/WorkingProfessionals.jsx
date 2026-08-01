@@ -441,8 +441,8 @@ const WorkingProfessionals = () => {
               <div className="absolute -bottom-3 -right-3 w-10 h-10 border-b-2 border-r-2 border-[#FF0000]/30 rounded-br-lg z-10" />
               <div className="relative rounded-3xl border border-white/12 overflow-hidden p-6 md:p-8"
                 style={{ background: 'linear-gradient(155deg, rgba(255,0,0,0.08) 0%, rgba(2,2,5,0.6) 55%, rgba(59,130,246,0.05) 100%)' }}>
-                <p className="text-white font-black text-lg mb-1">Apply Now</p>
-                <p className="text-gray-400 text-xs mb-5">Get a callback from our admissions team within 24 hours.</p>
+                <p className="text-white font-black text-3xl md:text-4xl uppercase tracking-wide text-center mb-2">Apply Now</p>
+                <p className="text-gray-400 text-xs text-center mb-5">Get a callback from our admissions team within 24 hours.</p>
                 <PGLeadForm formId="hero" />
               </div>
             </motion.div>
@@ -738,14 +738,10 @@ const WorkingProfessionals = () => {
                 className="space-y-3 text-sm mb-6">
                 <div className="flex items-center gap-3 text-gray-500">
                   <Phone className="w-4 h-4 text-[#FF0000]" />
-                  <span>Talk to a counsellor: <a href={`tel:${ADMISSIONS_PHONE}`} className="text-white font-bold hover:text-[#FF0000] transition-colors">{ADMISSIONS_PHONE}</a></span>
-                </div>
-                <div className="flex items-center gap-3 text-gray-500">
-                  <WhatsAppIcon className="w-4 h-4 text-green-500" />
-                  <a href={waLink("Hi, I'd like to talk to a counsellor about MBA/M.Tech/M.Sc/PhD for working professionals.")}
+                  <span>Talk to a counsellor: <a href={`tel:${ADMISSIONS_PHONE}`} className="text-white font-bold hover:text-[#FF0000] transition-colors">{ADMISSIONS_PHONE}</a> / <a href={waLink("Hi, I'd like to talk to a counsellor about MBA/M.Tech/M.Sc/PhD for working professionals.")}
                     onClick={() => track('whatsapp_click', { placement: 'closing_cta' })}
                     target="_blank" rel="noopener noreferrer"
-                    className="text-white font-bold hover:text-green-400 transition-colors">WhatsApp a counsellor</a>
+                    className="text-white font-bold hover:text-green-400 transition-colors">81002 03639</a></span>
                 </div>
                 <div className="flex items-center gap-3 text-gray-500">
                   <MapPin className="w-4 h-4 text-[#FF0000]" />
