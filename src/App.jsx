@@ -13,6 +13,7 @@ import Events from './pages/Events';
 import SearchPage from './pages/SearchPage';
 import GoogleIBMCourse from './pages/GoogleIBMCourse';
 import ThankYou from './pages/ThankYou';
+import ThankYouMasters from './pages/ThankYouMasters';
 import AIEvent from './pages/AIEvent';
 import Blogs from './pages/Blogs';
 import BlogPost from './pages/BlogPost';
@@ -62,7 +63,7 @@ const ScrollToTop = () => {
 // Engagement widgets suppressed on certain pages
 const EngagementWidgets = () => {
  const { pathname } = useLocation();
- if (pathname === '/ai-event' || pathname === '/pg-programs-for-professionals') return null;
+ if (pathname === '/ai-event' || pathname === '/pg-programs-for-professionals' || pathname === '/pg-thank-you') return null;
  return (
  <>
  <StickyApplyButton />
@@ -124,6 +125,7 @@ export function AppShell() {
  <Route path="/search" element={<SearchPage />} />
  <Route path="/events-demo" element={<EventScraperDemo />} />
  <Route path="/thank-you" element={<ThankYou />} />
+ <Route path="/pg-thank-you" element={<ThankYouMasters />} />
  <Route path="/ai-event" element={<AIEvent />} />
  <Route path="/btech-admission-iit-kharagpur-collaboration" element={<IITKGPLanding />} />
  <Route path="/pg-programs-for-professionals" element={<WorkingProfessionals />} />

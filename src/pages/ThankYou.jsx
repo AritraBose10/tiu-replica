@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { CheckCircle, ArrowRight, Phone, Mail } from 'lucide-react';
 import SEO from '../components/SEO';
 import logo1 from '../assets/logo1.png';
@@ -14,9 +14,6 @@ const WhatsAppIcon = ({ className = 'w-4 h-4' }) => (
 );
 
 const ThankYou = () => {
- const location = useLocation();
- const isPGWorkingProfessionalsLead = location.state?.source === 'pg-working-professionals';
-
  // Inject Google Ads mapping and Conversion snippet
  useEffect(() => {
  // --- Meta Pixel Lead Event ---
@@ -46,10 +43,6 @@ const ThankYou = () => {
 
  // Sign-up conversion event (AW-18134909671)
  gtag('event', 'conversion', {'send_to': 'AW-18134909671/xmeCCIm0nqgcEOeFs8dD', 'value': 1.0, 'currency': 'INR'});
- ${isPGWorkingProfessionalsLead ? `
- // Submit lead form (Masters) conversion event (AW-18134909671) — PG working-professionals leads only
- gtag('event', 'conversion', {'send_to': 'AW-18134909671/pThiCN6itNwcEOeFs8dD', 'value': 1.0, 'currency': 'INR'});
- ` : ''}
  `;
  document.head.appendChild(inlineScript);
 
@@ -57,7 +50,7 @@ const ThankYou = () => {
  document.head.removeChild(tagScript);
  document.head.removeChild(inlineScript);
  };
- }, [isPGWorkingProfessionalsLead]);
+ }, []);
 
  return (
  <div className="min-h-screen bg-[#020205] relative overflow-hidden flex flex-col items-center justify-center px-4">
