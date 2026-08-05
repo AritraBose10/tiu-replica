@@ -141,7 +141,7 @@ const PGLeadForm = ({ compact = false, formId }) => {
       if (!res.ok) throw new Error(data.error || 'Something went wrong. Please try again.');
 
       track('form_submit', { page: 'pg_working_professionals', form: formId, programme: form.programme });
-      navigate('/thank-you');
+      navigate('/thank-you', { state: { source: 'pg-working-professionals' } });
     } catch (err) {
       setStatus('error');
       setError(err.message || 'Something went wrong. Please try again.');
