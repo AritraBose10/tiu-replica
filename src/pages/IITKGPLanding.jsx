@@ -245,7 +245,6 @@ const IITKGPLanding = () => {
       <SEO
         title="B.Tech CSE Admissions 2026 | Techno India University"
         description="B.Tech CSE degrees awarded solely by Techno India University, School of the Future. Programme includes IIT Kharagpur OCN micro-specialisation course(s) delivered through the Outreach Course Network. Admissions 2026 open."
-        noindex={true}
       />
       <SchemaInjector schema={pageSchema} />
       <CursorGlow />
