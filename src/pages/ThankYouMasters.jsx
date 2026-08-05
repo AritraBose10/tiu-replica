@@ -25,9 +25,9 @@ const ThankYouMasters = () => {
       window.fbq('track', 'Lead');
     }
 
-    // 1. Base Google Ads gtag script
+    // 1. Base Google Ads gtag script (Masters account AW-18134909671)
     const tagScript = document.createElement('script');
-    tagScript.src = 'https://www.googletagmanager.com/gtag/js?id=AW-340383729';
+    tagScript.src = 'https://www.googletagmanager.com/gtag/js?id=AW-18134909671';
     tagScript.async = true;
     document.head.appendChild(tagScript);
 
@@ -38,6 +38,7 @@ const ThankYouMasters = () => {
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
       gtag('config', 'AW-340383729');
+      gtag('config', 'AW-18134909671');
 
       // Lead Form conversion event (AW-340383729)
       gtag('event', 'conversion', {'send_to': 'AW-340383729/TC1qCODg5LIZEPGvp6IB'});
