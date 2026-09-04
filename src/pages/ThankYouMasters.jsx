@@ -25,6 +25,11 @@ const ThankYouMasters = () => {
       window.fbq('track', 'Lead');
     }
 
+    // --- OpenAI Pixel Lead Event ---
+    if (typeof window.oaiq === 'function') {
+      window.oaiq('measure', 'lead_created', { type: 'customer_action' });
+    }
+
     // 1. Base Google Ads gtag script (Masters account AW-18134909671)
     const tagScript = document.createElement('script');
     tagScript.src = 'https://www.googletagmanager.com/gtag/js?id=AW-18134909671';

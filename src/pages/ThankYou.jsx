@@ -21,6 +21,11 @@ const ThankYou = () => {
  window.fbq('track', 'Lead');
  }
 
+ // --- OpenAI Pixel Lead Event ---
+ if (typeof window.oaiq === 'function') {
+ window.oaiq('measure', 'lead_created', { type: 'customer_action' });
+ }
+
  // 1. Base Google Ads gtag script
  const tagScript = document.createElement('script');
  tagScript.src = 'https://www.googletagmanager.com/gtag/js?id=AW-340383729';
