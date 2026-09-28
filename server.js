@@ -6,14 +6,12 @@ import { readFileSync } from 'fs';
 import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
 import slowDown from 'express-slow-down';
-import axios from 'axios';
-import * as cheerio from 'cheerio';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 import { getTurso } from './api/_lib/turso.js';
-import { requireAuth } from './api/_lib/auth.js';
+import { scrapeTechnoTimes } from './api/_lib/scrape-techno-times.js';
 import authLoginHandler from './api/auth/login.js';
 import settingsHandler from './api/settings.js';
 import eventsHandler from './api/events.js';
@@ -108,30 +106,12 @@ app.all('/api/courses', coursesHandler);
 app.all('/api/blogs', blogsHandler);
 app.all('/api/pg-leads', pgLeadsHandler);
 
+// Public endpoint: powers the Techno Times feed on the /events page (no auth).
 app.get('/api/scrape-events', scrapeLimiter, async (req, res) => {
-    const auth = requireAuth(req);
-    if (!auth.authorized) return res.status(auth.status).json({ error: auth.message });
-
     try {
-        const { data } = await axios.get('https://technotimes.info/?s=sof', { timeout: 5000 });
-        const $ = cheerio.load(data);
-        const events = [];
-
-        $('.p-wrap').each((index, element) => {
-            const title = $(element).find('.entry-title a').text().trim();
-            const link = $(element).find('.entry-title a').attr('href');
-            const image = $(element).find('.p-flink img').attr('src');
-            const date = $(element).find('.meta-info-date abbr').text().trim();
-            const category = $(element).find('.p-cat-info a').text().trim();
-
-            if (title && link) {
-                events.push({ title, link, image, date, category });
-            }
-        });
-
-        res.json(events);
+        res.json(await scrapeTechnoTimes());
     } catch (error) {
-        console.error('Error scraping events:', error);
+        console.error('Error scraping events:', error.message);
         res.status(500).json({ error: 'Failed to scrape events' });
     }
 });

@@ -10,7 +10,8 @@ import SEO from '../components/SEO';
 import SchemaInjector from '../components/SchemaInjector';
 
 // ─── Mock Data ───────────────────────────────────────────────
-const CATEGORIES = ['All', 'Technical', 'Cultural', 'Workshop', 'Seminar', 'Sports'];
+// Preferred display order; anything else in the data is appended alphabetically.
+const CATEGORY_ORDER = ['Technical', 'Cultural', 'Workshop', 'Seminar', 'Sports', 'Event'];
 
 const fallbackEventsData = [
  {
@@ -260,7 +261,10 @@ const Events = () => {
  const fetchEvents = async () => {
  try {
  const response = await fetch('/api/scrape-events');
- if (response.ok) {
+ if (!response.ok) {
+ console.error(`Techno Times feed failed: HTTP ${response.status}`);
+ return;
+ }
  const data = await response.json();
  // Transform scraped data to match component shape
  const transformed = data.map((event, index) => ({
@@ -279,7 +283,6 @@ const Events = () => {
  isExternal: true
  }));
  setScrapedEvents(transformed);
- }
  } catch (err) {
  console.error("Failed to fetch events:", err);
  } finally {
@@ -294,6 +297,19 @@ const Events = () => {
 
  const [activeCategory, setActiveCategory] = useState('All');
  const [searchQuery, setSearchQuery] = useState('');
+
+ // Pills follow whatever is actually on the page, so scraped categories are always
+ // reachable and empty ones never render.
+ const categories = useMemo(() => {
+ const present = [...new Set(eventsData.map((e) => e.category).filter(Boolean))];
+ present.sort((a, b) => {
+ const ia = CATEGORY_ORDER.indexOf(a);
+ const ib = CATEGORY_ORDER.indexOf(b);
+ if (ia !== ib) return (ia === -1 ? Infinity : ia) - (ib === -1 ? Infinity : ib);
+ return a.localeCompare(b);
+ });
+ return ['All', ...present];
+ }, [eventsData]);
 
  const filteredEvents = eventsData.filter((event) => {
  const matchesCategory = activeCategory === 'All' || event.category === activeCategory;
@@ -516,7 +532,7 @@ const Events = () => {
 
  {/* Category pills */}
  <div className="flex flex-wrap gap-2">
- {CATEGORIES.map((cat) => (
+ {categories.map((cat) => (
  <motion.button
  key={cat}
  whileHover={{ scale: 1.05 }}
