@@ -123,11 +123,11 @@ async function prerender() {
         );
       }
 
-      // Replace <div id="root"></div> with rendered content
-      html = html.replace(
-        '<div id="root"></div>',
-        `<div id="root">${appHtml}</div>`
-      );
+      // Replace the #root container (and any no-JS fallback markup inside it)
+      // with the rendered content. The template ships a static SEO fallback
+      // block inside #root, so a naive '<div id="root"></div>' replace matches
+      // nothing and silently discards appHtml on every route.
+      html = replaceRootContent(html, appHtml, route);
 
       // 5. Write output to correct path
       const outDir = route === '/'
@@ -151,6 +151,38 @@ async function prerender() {
 
   console.log(`\n✅ Prerendered ${successCount}/${routes.length} routes successfully.`);
   console.log(`✅ sitemap.xml generated.\n`);
+}
+
+/**
+ * Swap the contents of <div id="root"> for the server-rendered markup.
+ *
+ * The index.html template keeps a static no-JS fallback block inside #root, so
+ * the container is not empty and its closing tag is not the next </div>. This
+ * walks the div nesting from the opening tag to find the matching close, and
+ * throws if the container cannot be located — a silent miss would ship every
+ * route with the fallback body, which is what used to happen.
+ */
+function replaceRootContent(html, appHtml, route) {
+  const openTag = '<div id="root">';
+  const start = html.indexOf(openTag);
+  if (start === -1) {
+    throw new Error(`Could not find ${openTag} in template (route ${route})`);
+  }
+
+  const bodyStart = start + openTag.length;
+  const tagRe = /<div\b[^>]*>|<\/div>/gi;
+  tagRe.lastIndex = bodyStart;
+
+  let depth = 1;
+  let match;
+  while ((match = tagRe.exec(html)) !== null) {
+    depth += match[0].startsWith('</') ? -1 : 1;
+    if (depth === 0) {
+      return html.slice(0, bodyStart) + appHtml + html.slice(match.index);
+    }
+  }
+
+  throw new Error(`Unbalanced <div id="root"> in template (route ${route})`);
 }
 
 function generateSitemap(routeMeta, hostname, excludedRoutes) {
