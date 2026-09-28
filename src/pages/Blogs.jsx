@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import {
   BookOpen, Clock, ArrowUpRight, Search, Tag,
@@ -9,7 +9,11 @@ import { Link, useNavigate } from 'react-router-dom';
 import SEO from '../components/SEO';
 
 // ─── Blog Data ────────────────────────────────────────────────
-const CATEGORIES = ['All', 'AI & Tech', 'Career', 'Campus Life', 'Research', 'Industry', 'Tutorials'];
+// Canonical ordering for the filter pills. The pills themselves are derived
+// from the categories the published posts actually use (see `availableCategories`)
+// — a hardcoded list advertises filters that return an empty state, which is
+// what happened when every post sat on the default 'General'.
+const CATEGORY_ORDER = ['AI & Tech', 'Career', 'Campus Life', 'Research', 'Industry', 'Tutorials', 'General'];
 
 const CATEGORY_ICONS = {
   'AI & Tech': Brain,
@@ -274,8 +278,24 @@ const Blogs = () => {
       .catch(() => setLoading(false));
   }, []);
 
+  // Only offer a pill for a category that has posts behind it.
+  const availableCategories = useMemo(() => {
+    const present = [...new Set(allBlogs.map((b) => b.category).filter(Boolean))];
+    present.sort((a, b) => {
+      const ia = CATEGORY_ORDER.indexOf(a);
+      const ib = CATEGORY_ORDER.indexOf(b);
+      return (ia === -1 ? 999 : ia) - (ib === -1 ? 999 : ib) || a.localeCompare(b);
+    });
+    return ['All', ...present];
+  }, [allBlogs]);
+
+  // If the active pill disappears (content re-categorised, or blogs still
+  // loading), fall back to All rather than stranding the reader on an empty
+  // result set. Derived during render — no effect, no extra pass.
+  const effectiveCategory = availableCategories.includes(activeCategory) ? activeCategory : 'All';
+
   const filteredBlogs = allBlogs.filter((blog) => {
-    const matchesCategory = activeCategory === 'All' || blog.category === activeCategory;
+    const matchesCategory = effectiveCategory === 'All' || blog.category === effectiveCategory;
     const tags = Array.isArray(blog.tags) ? blog.tags : [];
     const matchesSearch =
       blog.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -284,8 +304,9 @@ const Blogs = () => {
     return matchesCategory && matchesSearch;
   });
 
-  const featuredBlogs = allBlogs.filter((b) => b.featured);
-  const regularBlogs = filteredBlogs.filter((b) => !b.featured);
+  const isFeatured = (b) => b.featured === 1 || b.featured === true || b.featured === '1';
+  const featuredBlogs = allBlogs.filter(isFeatured);
+  const regularBlogs = filteredBlogs.filter((b) => !isFeatured(b));
 
   return (
     <div className="min-h-screen bg-[#020205] text-white overflow-x-hidden selection:bg-[#FF0000] selection:text-white">
@@ -400,7 +421,7 @@ const Blogs = () => {
               transition={{ delay: 1.1 }}
               className="flex flex-wrap gap-3 justify-center"
             >
-              {['AI & Tech', 'Career', 'Tutorials'].map((cat, i) => (
+              {availableCategories.filter((c) => c !== 'All').slice(0, 3).map((cat) => (
                 <motion.button
                   key={cat}
                   whileHover={{ scale: 1.08, boxShadow: '0 0 25px rgba(255,0,0,0.3)' }}
@@ -435,6 +456,9 @@ const Blogs = () => {
       <TagStrip />
 
       {/* ═══ FEATURED ═══ */}
+      {/* Rendered only when posts are actually flagged featured — otherwise the
+          section shipped a big "Featured Reads" heading above an empty grid. */}
+      {featuredBlogs.length > 0 && (
       <section className="py-24 px-4 bg-[#020205] relative">
         <div className="max-w-7xl mx-auto">
           <motion.div
@@ -462,6 +486,7 @@ const Blogs = () => {
           </div>
         </div>
       </section>
+      )}
 
       {/* ═══ ALL BLOGS + FILTERS ═══ */}
       <section className="py-24 px-4 bg-gradient-to-b from-[#020205] via-[#06060f] to-[#020205] relative">
@@ -515,14 +540,14 @@ const Blogs = () => {
 
             {/* Category pills */}
             <div className="flex flex-wrap gap-2">
-              {CATEGORIES.map((cat) => (
+              {availableCategories.map((cat) => (
                 <motion.button
                   key={cat}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => setActiveCategory(cat)}
                   className={`px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 border ${
-                    activeCategory === cat
+                    effectiveCategory === cat
                       ? 'bg-[#FF0000] text-white border-[#FF0000] shadow-[0_0_20px_rgba(255,0,0,0.35)]'
                       : 'bg-white/5 text-gray-400 border-white/10 hover:border-[#FF0000]/30 hover:text-white'
                   }`}
@@ -536,15 +561,15 @@ const Blogs = () => {
           {/* Blog Grid */}
           <AnimatePresence mode="wait">
             <motion.div
-              key={activeCategory + searchQuery}
+              key={effectiveCategory + searchQuery}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.3 }}
               className="grid md:grid-cols-2 lg:grid-cols-3 gap-7"
             >
-              {(activeCategory === 'All' && !searchQuery ? regularBlogs : filteredBlogs).length > 0 ? (
-                (activeCategory === 'All' && !searchQuery ? regularBlogs : filteredBlogs).map((blog, index) => (
+              {(effectiveCategory === 'All' && !searchQuery ? regularBlogs : filteredBlogs).length > 0 ? (
+                (effectiveCategory === 'All' && !searchQuery ? regularBlogs : filteredBlogs).map((blog, index) => (
                   <BlogCard key={blog.id} blog={blog} index={index} />
                 ))
               ) : (
