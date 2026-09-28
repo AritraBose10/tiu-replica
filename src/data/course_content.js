@@ -27,7 +27,7 @@ export const courseContent = {
       'The AI/ML specialisation takes the full CSE core — data structures, operating systems, networks, databases — and layers a machine learning track on top of it from the second year onward. You move from classical statistical learning to deep neural networks, and every theory module is paired with a build: a recommender, a vision pipeline, a fine-tuned language model. Final-year work is a capstone on real data, supervised jointly by faculty and an industry mentor.',
     highlights: [
       { title: 'ML from second year, not final year', detail: 'Supervised learning starts in semester 3, so you have five semesters of model-building before you graduate — not one rushed elective.' },
-      { title: 'Google Cloud as the default environment', detail: 'Training runs, notebooks and deployments happen on GCP — Vertex AI, BigQuery, Cloud Run — the same stack the certifications test you on.' },
+      { title: 'Google Cloud as the default environment', detail: 'Training runs, notebooks and deployments happen on GCP — Vertex AI, BigQuery, Cloud Run — production tooling rather than a teaching sandbox.' },
       { title: 'Capstone on live data', detail: 'Final-year projects are scoped with a hiring partner and run on their problem, so the portfolio you interview with is real work.' },
       { title: 'Maths taught as ML maths', detail: 'Linear algebra, probability and optimisation are taught against the models that use them, rather than as isolated first-year papers.' },
     ],
@@ -38,7 +38,6 @@ export const courseContent = {
       { year: 'Year 4', theme: 'Specialisation, internship and capstone', modules: ['Generative AI & Large Language Models', 'Reinforcement Learning', 'AI Ethics, Fairness & Governance', 'Industry Internship', 'Capstone Project'] },
     ],
     tools: ['Python', 'PyTorch', 'TensorFlow', 'scikit-learn', 'Google Cloud Vertex AI', 'BigQuery', 'Docker', 'Git', 'Hugging Face'],
-    certifications: ['Google Cloud Associate Cloud Engineer', 'Google Cloud Professional Machine Learning Engineer', 'AI & Machine Learning', 'Data Engineering'],
     whoFor: [
       'Students who want to build AI systems, not just use them',
       'Anyone comfortable with mathematics who wants that maths to pay off in code',
@@ -48,7 +47,6 @@ export const courseContent = {
     faqs: [
       { q: 'Do I need to know programming before joining?', a: 'No. Year 1 starts from first principles with Python and C. What helps far more is comfort with school-level mathematics, since the ML track leans on algebra and probability throughout.' },
       { q: 'How is this different from plain B.Tech CSE?', a: 'The CSE core is the same. The difference is roughly six additional AI/ML papers from semester 3 onward — machine learning, deep learning, computer vision, NLP, generative AI and MLOps — plus a capstone that has to ship a working model.' },
-      { q: 'Are the Google Cloud certifications included?', a: 'The coursework is built against the certification syllabus and the labs run on Google Cloud, so preparation is part of the degree rather than a separate paid course.' },
       { q: 'What kind of roles do graduates target?', a: 'AI Engineer, Machine Learning Engineer, Data Scientist and NLP Specialist are the common first-job titles. A number of students also go on to M.Tech or research programmes.' },
     ],
   },
@@ -70,7 +68,6 @@ export const courseContent = {
       { year: 'Year 4', theme: 'Specialisation, internship and capstone', modules: ['Deep Learning for Structured Data', 'Business Analytics & Decision Science', 'Data Governance & Privacy', 'Industry Internship', 'Capstone Project'] },
     ],
     tools: ['Python', 'SQL', 'Google BigQuery', 'Apache Spark', 'Airflow', 'dbt', 'Looker Studio', 'pandas', 'Tableau'],
-    certifications: ['Google Cloud Professional Data Engineer', 'Google Cloud Associate Cloud Engineer', 'Data Engineering', 'AI & Machine Learning'],
     whoFor: [
       'Students who like finding the answer inside messy data',
       'Anyone aiming at analytics or data engineering roles rather than pure research',
@@ -102,7 +99,6 @@ export const courseContent = {
       { year: 'Year 4', theme: 'Specialisation, internship and capstone', modules: ['Multi-Cloud & Hybrid Architecture', 'Serverless and Event-Driven Design', 'Cloud Cost Engineering', 'Industry Internship', 'Capstone Project'] },
     ],
     tools: ['Google Cloud Platform', 'Kubernetes', 'Docker', 'Terraform', 'Linux', 'Jenkins / GitHub Actions', 'Prometheus & Grafana', 'Python', 'Go'],
-    certifications: ['Google Cloud Associate Cloud Engineer', 'Google Cloud Professional Cloud Architect', 'Cloud Computing', 'IoT & Edge Computing'],
     whoFor: [
       'Students who enjoy making systems run, not only making them work once',
       'Anyone targeting DevOps, SRE or platform engineering roles',
@@ -125,7 +121,7 @@ export const courseContent = {
       { title: 'Breadth first, specialisation later', detail: 'You choose an elective direction in year three, after you have seen enough of the field to choose well.' },
       { title: 'Strong systems grounding', detail: 'Operating systems, networks and compilers are taught as full papers — the foundation that ages best.' },
       { title: 'Software engineering as practice', detail: 'Version control, code review, testing and agile delivery are built into project work from year two.' },
-      { title: 'Cloud certification track alongside the degree', detail: 'The Google Cloud pathway runs in parallel regardless of which electives you pick.' },
+      { title: 'Cloud experience whichever track you pick', detail: 'The Google Cloud pathway runs in parallel regardless of which electives you choose.' },
     ],
     curriculum: [
       { year: 'Year 1', theme: 'Programming and mathematical foundations', modules: ['Programming with C & Python', 'Discrete Mathematics', 'Linear Algebra & Calculus', 'Digital Logic Design', 'Data Structures'] },
@@ -134,7 +130,6 @@ export const courseContent = {
       { year: 'Year 4', theme: 'Advanced electives, internship and capstone', modules: ['Elective II & III (specialisation track)', 'Distributed Systems', 'Professional Practice & Ethics', 'Industry Internship', 'Capstone Project'] },
     ],
     tools: ['Java', 'Python', 'C/C++', 'SQL', 'Git', 'Docker', 'Google Cloud Platform', 'React', 'Linux'],
-    certifications: ['Google Cloud Associate Cloud Engineer', 'Cloud Computing', 'Data Engineering', 'AI & Machine Learning'],
     whoFor: [
       'Students who want the widest set of doors open at graduation',
       'Anyone unsure yet whether they lean towards AI, cloud, security or product engineering',
@@ -248,7 +243,7 @@ export const courseContent = {
       'A four-year BCA that treats data science as the main subject rather than a final-semester elective. The computing core — programming, databases, web development — is built in the first two years, and from there the IBM-designed track takes over with analytics, machine learning and Watson-based AI application development. It suits students who want an applied, industry-facing route into data roles without a B.Tech entrance route.',
     highlights: [
       { title: 'Applied route into data roles', detail: 'Less theoretical load than B.Tech, more time on tools and delivery — built for students who want to be job-ready in analytics.' },
-      { title: 'IBM-designed AI track', detail: 'Watson, SPSS and IBM Cloud tooling sit inside the coursework, with the associated certification path.' },
+      { title: 'IBM-designed AI track', detail: 'Watson, SPSS and IBM Cloud tooling sit inside the coursework rather than alongside it.' },
       { title: 'Open to non-PCM students', detail: 'Accessible to commerce and humanities students with Mathematics or Computer Science at 10+2 level.' },
       { title: 'Portfolio over transcript', detail: 'Every specialisation semester carries a deliverable — a dashboard, a model, a deployed app — that goes into your portfolio.' },
     ],
@@ -259,7 +254,6 @@ export const courseContent = {
       { year: 'Year 4', theme: 'Advanced applications, internship and project', modules: ['Deep Learning Basics', 'Natural Language Processing with Watson', 'Big Data Technologies', 'Industry Internship', 'Major Project'] },
     ],
     tools: ['Python', 'SQL', 'IBM Watson Studio', 'IBM Cloud', 'Power BI', 'pandas & scikit-learn', 'Tableau', 'Excel'],
-    certifications: ['IBM Data Science', 'IBM AI & Machine Learning', 'Data Engineering', 'Cloud Computing'],
     whoFor: [
       'Students who want a data career without the B.Tech route',
       'Commerce or science students with Mathematics at school level',
@@ -291,7 +285,6 @@ export const courseContent = {
       { year: 'Year 4', theme: 'Specialisation, internship and project', modules: ['Threat Intelligence', 'Red Team / Blue Team Exercises', 'Governance, Risk & Compliance', 'Industry Internship', 'Major Project'] },
     ],
     tools: ['Kali Linux', 'Wireshark', 'Metasploit', 'Burp Suite', 'IBM QRadar', 'Splunk', 'Nmap', 'Python', 'Autopsy'],
-    certifications: ['IBM Cybersecurity', 'Cloud Security', 'Security Operations', 'Network Defence'],
     whoFor: [
       'Students who instinctively ask how a system could be broken',
       'Anyone targeting SOC, penetration testing or forensics roles',
@@ -302,14 +295,13 @@ export const courseContent = {
       { q: 'Is ethical hacking actually legal?', a: 'Yes, when performed with authorisation. The programme covers the legal framework alongside the technique, and all offensive practice happens inside a sanctioned lab environment.' },
       { q: 'Do I need a Science background?', a: 'A science stream is the usual route, but students from other streams with Mathematics or Computer Science at 10+2 are considered.' },
       { q: 'What is the first job likely to be?', a: 'Most graduates start as SOC Analyst, Security Analyst or Junior Penetration Tester. Forensics roles usually follow a couple of years of experience.' },
-      { q: 'Are certifications included?', a: 'The coursework is aligned to IBM cybersecurity credentials, earned through the programme rather than bought separately.' },
     ],
   },
 
   'bsc-data-analytics-gen-ai': {
     eligibility: '10+2 in any stream with Mathematics or Statistics as a subject',
     overview:
-      'An undergraduate degree built around where analytics is actually heading — classical data analysis in the first half, generative AI and large language models in the second. You learn to query, model and visualise data, then move on to prompt engineering, retrieval-augmented generation and building applications on top of foundation models. The IBM track supplies the tooling and the certification path.',
+      'An undergraduate degree built around where analytics is actually heading — classical data analysis in the first half, generative AI and large language models in the second. You learn to query, model and visualise data, then move on to prompt engineering, retrieval-augmented generation and building applications on top of foundation models. The IBM track supplies the tooling.',
     highlights: [
       { title: 'Generative AI as core curriculum', detail: 'LLMs, prompting, fine-tuning and RAG are full modules, not a guest lecture.' },
       { title: 'Analytics foundation first', detail: 'You learn statistics and SQL before touching foundation models, so the AI work rests on something solid.' },
@@ -323,7 +315,6 @@ export const courseContent = {
       { year: 'Year 4', theme: 'Advanced practice, internship and project', modules: ['Fine-Tuning & Model Evaluation', 'AI Agents and Automation', 'Responsible & Explainable AI', 'Industry Internship', 'Major Project'] },
     ],
     tools: ['Python', 'SQL', 'IBM watsonx', 'Hugging Face', 'LangChain', 'Power BI', 'pandas', 'Vector databases'],
-    certifications: ['IBM Generative AI', 'IBM Data Science', 'AI & Machine Learning', 'Data Engineering'],
     whoFor: [
       'Students who want to work with generative AI as builders rather than users',
       'Anyone drawn to analytics but wanting the newest layer of the field as well',
@@ -410,7 +401,7 @@ export const courseContent = {
     highlights: [
       { title: 'Business first, analytics as the method', detail: 'You learn the functional areas properly, then learn to analyse them — which is what analyst roles actually require.' },
       { title: 'From Excel to Python', detail: 'The analytics track progresses deliberately, so students from any 10+2 stream can follow it.' },
-      { title: 'IBM analytics tooling', detail: 'Cognos, SPSS and watsonx are used in coursework with the associated certification path.' },
+      { title: 'IBM analytics tooling', detail: 'Cognos, SPSS and watsonx are used in coursework, not just named in it.' },
       { title: 'Case-based assessment', detail: 'Much of the grading is live cases and presentations rather than written examinations alone.' },
     ],
     curriculum: [
@@ -420,7 +411,6 @@ export const courseContent = {
       { year: 'Year 4', theme: 'Strategy, internship and project', modules: ['Strategic Management', 'Decision Science & Optimisation', 'Entrepreneurship', 'Industry Internship', 'Capstone Project'] },
     ],
     tools: ['Excel', 'SQL', 'Python', 'IBM Cognos Analytics', 'IBM SPSS', 'Power BI', 'Tableau'],
-    certifications: ['IBM Business Analytics', 'IBM Data Science', 'Data Visualisation', 'Business Intelligence'],
     whoFor: [
       'Students who want a business career but not an innumerate one',
       'Anyone targeting business analyst, consulting or product roles',
@@ -442,7 +432,7 @@ export const courseContent = {
     highlights: [
       { title: 'Analytics inside every specialisation', detail: 'Whether you take finance or marketing, the second year is taught with the data tooling that function actually uses.' },
       { title: 'Summer internship between years', detail: 'An eight-to-ten week placement that frequently converts into a pre-placement offer.' },
-      { title: 'IBM certification track', detail: 'Business analytics and AI credentials are earned through coursework alongside the degree.' },
+      { title: 'Analytics tooling taught in context', detail: 'IBM analytics platforms are used inside the functional modules rather than as a standalone unit.' },
       { title: 'Live consulting projects', detail: 'Second-year teams work on scoped problems with partner organisations.' },
     ],
     curriculum: [
@@ -453,7 +443,6 @@ export const courseContent = {
       { year: 'Semester 4', theme: 'Strategy and capstone', modules: ['Corporate Strategy', 'Business Ethics & Governance', 'AI for Business Leaders', 'Dissertation / Capstone'] },
     ],
     tools: ['Excel', 'IBM Cognos Analytics', 'IBM SPSS', 'Power BI', 'SQL', 'Tableau'],
-    certifications: ['IBM Business Analytics', 'IBM Data Science', 'AI for Business', 'Business Intelligence'],
     whoFor: [
       'Graduates from any discipline moving into management roles',
       'Candidates who want an MBA that takes data seriously',
@@ -464,7 +453,7 @@ export const courseContent = {
       { q: 'Do I need work experience to apply?', a: 'No, the programme admits fresh graduates. Work experience strengthens the classroom and often the outcome, but it is not a bar to entry.' },
       { q: 'Which specialisation should I choose?', a: 'The choice is made at the end of year one, after the core has given you exposure to each function — and after the summer internship, which is often the most useful signal.' },
       { q: 'How is this different from the Working Professional MBA?', a: 'This is the full-time programme with a summer internship and on-campus placement support. The Working Professional MBA is designed to be taken alongside a job.' },
-      { q: 'What does the IBM collaboration actually add?', a: 'The analytics modules are taught on IBM tooling and aligned to IBM credentials, so you leave with certifications alongside the degree.' },
+      { q: 'What does the IBM collaboration actually add?', a: 'The analytics modules are taught on IBM tooling, so the platforms you use in the classroom are the ones used in industry.' },
     ],
   },
 

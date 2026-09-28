@@ -2,7 +2,7 @@ import React, { useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link, useParams, Navigate } from 'react-router-dom';
 import {
-  ArrowRight, ArrowUpRight, Award, BadgeCheck, Briefcase, Building2, Calendar,
+  ArrowRight, ArrowUpRight, Award, Briefcase, Building2, Calendar,
   CheckCircle2, ChevronDown, ChevronRight, Clock, GraduationCap, IndianRupee,
   Layers, Sparkles, Target, Users, Wrench,
 } from 'lucide-react';
@@ -22,7 +22,6 @@ const fadeUp = {
 // (Home / GoogleIBMCourse). Used only as a fallback for courses that do not
 // yet have their own highlights in course_content.js.
 const PROOF_POINTS = [
-  { title: 'Embedded certifications', detail: '10+ industry certifications earned inside the degree, not sold as an add-on.' },
   { title: '200+ hiring partners', detail: 'Structured internships fed into the curriculum through TIU\'s partner network.' },
   { title: '90%+ placement record', detail: 'Across TIU\'s School of the Future programmes.' },
   { title: 'Co-designed coursework', detail: 'Built with Google Cloud and IBM engineers rather than adapted from a generic syllabus.' },
@@ -300,39 +299,20 @@ const CourseDetail = () => {
           </Section>
         )}
 
-        {/* Tools & certifications */}
-        {(content?.tools?.length > 0 || content?.certifications?.length > 0) && (
-          <Section id="tools" title="Tools, platforms and certifications" icon={Wrench} delay={0.15}>
-            <div className="grid md:grid-cols-2 gap-4">
-              {content?.tools?.length > 0 && (
-                <div className="bg-white/[0.03] border border-white/10 rounded-2xl p-6">
-                  <div className="text-[11px] uppercase tracking-wider text-gray-500 font-bold mb-4">
-                    What you&apos;ll work with
-                  </div>
-                  <div className="flex flex-wrap gap-2">
-                    {content.tools.map((t, i) => (
-                      <span key={i} className="text-[13px] text-gray-300 bg-white/[0.04] border border-white/10 rounded-lg px-3 py-1.5">
-                        {t}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              )}
-              {content?.certifications?.length > 0 && (
-                <div className="bg-white/[0.03] border border-white/10 rounded-2xl p-6">
-                  <div className="text-[11px] uppercase tracking-wider text-gray-500 font-bold mb-4">
-                    Certification tracks embedded in the degree
-                  </div>
-                  <ul className="space-y-2.5">
-                    {content.certifications.map((c, i) => (
-                      <li key={i} className="flex items-start gap-2.5 text-[14px] text-gray-300">
-                        <BadgeCheck className="w-4 h-4 text-[#FF0000] shrink-0 mt-0.5" />
-                        {c}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
+        {/* Tools & platforms */}
+        {content?.tools?.length > 0 && (
+          <Section id="tools" title="Tools and platforms" icon={Wrench} delay={0.15}>
+            <div className="bg-white/[0.03] border border-white/10 rounded-2xl p-6">
+              <div className="text-[11px] uppercase tracking-wider text-gray-500 font-bold mb-4">
+                What you&apos;ll work with
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {content.tools.map((t, i) => (
+                  <span key={i} className="text-[13px] text-gray-300 bg-white/[0.04] border border-white/10 rounded-lg px-3 py-1.5">
+                    {t}
+                  </span>
+                ))}
+              </div>
             </div>
           </Section>
         )}
