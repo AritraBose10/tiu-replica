@@ -2,9 +2,9 @@ import React, { useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link, useParams, Navigate } from 'react-router-dom';
 import {
-  ArrowRight, ArrowUpRight, Award, Briefcase, Building2, Calendar,
+  ArrowRight, ArrowUpRight, Award, BadgeCheck, Briefcase, Building2, Calendar,
   CheckCircle2, ChevronDown, ChevronRight, Clock, GraduationCap, IndianRupee,
-  Sparkles, Target, Users,
+  Layers, Sparkles, Target, Users, Wrench,
 } from 'lucide-react';
 import coursesData from '../data/mock_courses.json';
 import { getCourseContent } from '../data/course_content';
@@ -96,6 +96,16 @@ const CourseDetail = () => {
       name: 'Techno India University',
       sameAs: 'https://www.technoindiauniversity.ai',
     },
+    ...(content?.curriculum?.length
+      ? {
+          syllabusSections: content.curriculum.map((block, i) => ({
+            '@type': 'Syllabus',
+            position: i + 1,
+            name: block.year,
+            description: [block.theme, ...(block.modules || [])].filter(Boolean).join('. '),
+          })),
+        }
+      : {}),
     hasCourseInstance: {
       '@type': 'CourseInstance',
       courseMode: 'onsite',
@@ -141,6 +151,8 @@ const CourseDetail = () => {
 
   const navLinks = [
     content?.overview && { href: '#overview', label: 'Overview' },
+    content?.curriculum?.length && { href: '#curriculum', label: 'Curriculum' },
+    content?.tools?.length && { href: '#tools', label: 'Tools' },
     { href: '#careers', label: 'Careers' },
     content?.faqs?.length && { href: '#faqs', label: 'FAQs' },
   ].filter(Boolean);
@@ -258,6 +270,72 @@ const CourseDetail = () => {
             ))}
           </div>
         </Section>
+
+        {/* Curriculum */}
+        {content?.curriculum?.length > 0 && (
+          <Section id="curriculum" title="What you study, year by year" icon={Layers} delay={0.15}>
+            <div className="space-y-4">
+              {content.curriculum.map((block, i) => (
+                <div key={i} className="relative bg-white/[0.03] border border-white/10 rounded-2xl p-6">
+                  <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-4">
+                    <span className="text-[#FF0000] font-black text-sm uppercase tracking-wider">{block.year}</span>
+                    {block.theme && <span className="text-gray-500 text-sm">— {block.theme}</span>}
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    {(block.modules || []).map((m, j) => (
+                      <span
+                        key={j}
+                        className="text-[13px] text-gray-300 bg-white/[0.04] border border-white/10 rounded-lg px-3 py-1.5"
+                      >
+                        {m}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+            <p className="text-gray-600 text-xs mt-4">
+              Indicative structure. Module sequencing may vary by batch and regulatory guidelines.
+            </p>
+          </Section>
+        )}
+
+        {/* Tools & certifications */}
+        {(content?.tools?.length > 0 || content?.certifications?.length > 0) && (
+          <Section id="tools" title="Tools, platforms and certifications" icon={Wrench} delay={0.15}>
+            <div className="grid md:grid-cols-2 gap-4">
+              {content?.tools?.length > 0 && (
+                <div className="bg-white/[0.03] border border-white/10 rounded-2xl p-6">
+                  <div className="text-[11px] uppercase tracking-wider text-gray-500 font-bold mb-4">
+                    What you&apos;ll work with
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    {content.tools.map((t, i) => (
+                      <span key={i} className="text-[13px] text-gray-300 bg-white/[0.04] border border-white/10 rounded-lg px-3 py-1.5">
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+              {content?.certifications?.length > 0 && (
+                <div className="bg-white/[0.03] border border-white/10 rounded-2xl p-6">
+                  <div className="text-[11px] uppercase tracking-wider text-gray-500 font-bold mb-4">
+                    Certification tracks embedded in the degree
+                  </div>
+                  <ul className="space-y-2.5">
+                    {content.certifications.map((c, i) => (
+                      <li key={i} className="flex items-start gap-2.5 text-[14px] text-gray-300">
+                        <BadgeCheck className="w-4 h-4 text-[#FF0000] shrink-0 mt-0.5" />
+                        {c}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
+          </Section>
+        )}
 
         {/* Who it's for */}
         {content?.whoFor?.length > 0 && (
