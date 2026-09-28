@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
+import coursesData from '../data/mock_courses.json';
 
 /**
  * Route → human-readable label map for breadcrumbs.
@@ -40,8 +41,24 @@ const BreadcrumbSchema = () => {
  }
  ];
 
+ // Course detail pages get a 3-level trail: Home > Programs & Courses > Course
+ const courseMatch = pathname.match(/^\/courses\/([^/]+)$/);
+ if (courseMatch) {
+ const course = coursesData.find(c => c.id === courseMatch[1]);
+ items.push({
+ "@type": "ListItem",
+ "position": 2,
+ "name": "Programs & Courses",
+ "item": `${SITE_URL}/courses`
+ });
+ items.push({
+ "@type": "ListItem",
+ "position": 3,
+ "name": course ? course.title : courseMatch[1],
+ "item": `${SITE_URL}${pathname}`
+ });
+ } else if (pathname !== '/') {
  // If we're not on the homepage, add the current page
- if (pathname !== '/') {
  const label = ROUTE_LABELS[pathname] || pathname.replace(/^\//, '').replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
  items.push({
  "@type": "ListItem",

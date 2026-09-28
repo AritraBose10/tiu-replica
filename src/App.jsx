@@ -4,6 +4,7 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Home from './pages/Home';
 import Courses from './pages/Courses';
+import CourseDetail from './pages/CourseDetail';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import FAQ from './pages/FAQ';
@@ -113,6 +114,7 @@ export function AppShell() {
  <Routes>
  <Route path="/" element={<Home />} />
  <Route path="/courses" element={<Courses />} />
+ <Route path="/courses/:slug" element={<CourseDetail />} />
  <Route path="/about" element={<About />} />
  <Route path="/apply" element={<Admissions />} />
  <Route path="/admissions" element={<Navigate to="/apply" replace />} />

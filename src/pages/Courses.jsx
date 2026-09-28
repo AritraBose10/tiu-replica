@@ -8,60 +8,8 @@ import emversityLogo from '../assets/emversity.png';
 import { COURSES_QUERY } from '../lib/queries';
 import SEO from '../components/SEO';
 import SchemaInjector from '../components/SchemaInjector';
+import { getCareerPaths } from '../utils/careerPaths';
 
-// Career paths lookup merged into course objects client-side
-// so chips show regardless of whether data comes from Sanity or mock JSON.
-const careerPathsMap = {
- 'Computer Science': ['Software Engineer', 'Cloud Architect', 'DevOps Lead', 'Full-Stack Developer'],
- 'AI': ['AI Engineer', 'ML Researcher', 'Data Scientist', 'NLP Specialist'],
- 'Data Science': ['Data Scientist', 'Analytics Engineer', 'BI Developer', 'Data Architect'],
- 'Cloud': ['Cloud Architect', 'SRE Engineer', 'Platform Engineer', 'Cloud Security Analyst'],
- 'M.Tech': ['AI Research Scientist', 'ML Lead', 'Deep Learning Engineer', 'Computer Vision Engineer'],
- 'BCA': ['Data Analyst', 'Junior Data Scientist', 'AI Developer', 'BI Analyst'],
- 'Data Analytics': ['GenAI Developer', 'Prompt Engineer', 'Data Analyst', 'AI Product Manager'],
- 'Cyber': ['Security Analyst', 'Penetration Tester', 'SOC Analyst', 'Cybersecurity Consultant'],
- 'M.Sc': ['Senior Data Scientist', 'ML Engineer', 'Research Scientist', 'Analytics Lead'],
- 'BBA Business': ['Business Analyst', 'Product Manager', 'Growth Strategist', 'Fintech Analyst'],
- 'MBA Business': ['Strategy Consultant', 'VP Analytics', 'Product Director', 'Data-Driven CEO'],
- 'Hotel': ['Hotel Manager', 'F&B Director', 'Revenue Manager', 'Hospitality Consultant'],
- 'Executive MBA': ['C-Suite Executive', 'VP Operations', 'Managing Director', 'Entrepreneur'],
- 'Visual Communication': ['Brand Designer', 'Art Director', 'UX Designer', 'Creative Lead'],
- 'Game Art': ['Game Artist', '3D Modeler', 'Concept Artist', 'Environment Designer'],
- 'Product Design': ['UX/UI Designer', 'Product Designer', 'Interaction Designer', 'Design Strategist'],
- 'Advertising': ['Creative Director', 'Ad Strategist', 'Brand Manager', 'Digital Marketing Lead'],
- 'Sound': ['Sound Engineer', 'Audio Producer', 'Mixing Engineer', 'Studio Manager'],
- 'Game Development': ['Game Developer', 'Unity Engineer', 'Gameplay Programmer', 'Technical Designer'],
- 'Gaming': ['Game Developer', 'Unity Engineer', 'Gameplay Programmer', 'Technical Designer'],
- 'Filmmaking': ['Film Director', 'Cinematographer', 'Editor', 'Documentary Filmmaker'],
- 'Visual Effects': ['VFX Artist', '3D Animator', 'Motion Graphics Designer', 'Compositing Artist'],
- 'VFX': ['VFX Artist', '3D Animator', 'Motion Graphics Designer', 'Compositing Artist'],
- 'Cardiovascular': ['Cath Lab Technologist', 'Echocardiography Technician', 'Electrophysiology Lab Tech', 'Cardiac Device Specialist'],
- 'Anesthesia': ['Anesthesia Technologist', 'OT Technician', 'Perfusionist', 'Clinical Coordinator'],
- 'Anaesthesia': ['Anaesthesia Technologist', 'OT Technician', 'Perfusionist', 'Clinical Coordinator'],
- 'BMLT': ['Lab Technologist', 'Pathology Analyst', 'Research Technician', 'QC Officer'],
- 'Medical Lab': ['Lab Technologist', 'Pathology Analyst', 'Research Technician', 'QC Officer'],
- 'MMLT': ['Senior Lab Scientist', 'Lab Director', 'Clinical Researcher', 'Biotech Consultant'],
- 'BMRIT': ['Radiologic Technologist', 'MRI Technician', 'CT Scan Specialist', 'Imaging Physicist'],
- 'UX': ['UX/UI Designer', 'Product Designer', 'Interaction Designer', 'Design Strategist'],
- 'Agriculture': ['Agronomist', 'Farm Manager', 'Agriculture Consultant', 'Research Scientist'],
- 'LLB': ['Corporate Advocate', 'Legal Consultant', 'Litigator', 'Compliance Officer'],
- 'Nursing': ['Nurse', 'Clinical Specialist', 'Nurse Educator', 'Hospital Administrator'],
- 'LL.B': ['Advocate', 'Corporate Lawyer', 'Legal Consultant', 'Judicial Officer'],
- 'B.Com': ['Accountant', 'Financial Analyst', 'Tax Consultant', 'Audit Associate'],
- 'Media Science': ['Journalist', 'Public Relations Officer', 'Digital Content Creator', 'Media Planner'],
- 'Microbiology': ['Biotechnologist', 'Microbiologist', 'Quality Control Analyst', 'Research Technician'],
- 'Biotechnology': ['Biotechnologist', 'Microbiologist', 'Quality Control Analyst', 'Research Technician'],
-};
-
-
-/** Match a course title to career paths from the lookup map */
-const getCareerPaths = (title) => {
- if (!title) return ['Industry Professional', 'Specialist', 'Researcher'];
- for (const [key, paths] of Object.entries(careerPathsMap)) {
- if (title.includes(key)) return paths;
- }
- return ['Industry Professional', 'Specialist', 'Consultant', 'Entrepreneur'];
-};
 // --- 3D Flip Card Component ---
 const FlipCard = ({ course, index }) => {
  const [flipped, setFlipped] = useState(false);
@@ -111,7 +59,7 @@ const FlipCard = ({ course, index }) => {
  </div>
 
  <h3 className="text-2xl font-black text-white mb-4 leading-tight group-hover:text-[#FF0000] transition-colors duration-300">
- {course.title}
+ <Link to={`/courses/${course.id}`} onClick={(e) => e.stopPropagation()}>{course.title}</Link>
  </h3>
 
  <p className="text-gray-400 text-sm line-clamp-3 leading-relaxed group-hover:text-gray-300 transition-colors">
@@ -120,7 +68,7 @@ const FlipCard = ({ course, index }) => {
  </div>
 
  {/* Bottom Section */}
- <div className="relative pt-6 border-t border-white/5">
+ <div className="relative pt-6 border-t border-white/5 space-y-3">
  <div className="flex justify-between items-center">
  <div className="text-white/60 text-sm">
  <span className="block text-xs uppercase tracking-wider text-[#FF0000] font-bold mb-0.5">Duration</span>
@@ -137,6 +85,15 @@ const FlipCard = ({ course, index }) => {
  <ArrowUpRight className="w-4 h-4" />
  </motion.button>
  </div>
+
+ <Link
+ to={`/courses/${course.id}`}
+ onClick={(e) => e.stopPropagation()}
+ className="flex items-center justify-center gap-2 w-full py-2.5 rounded-full text-[#FF0000] text-xs font-bold border border-[#FF0000]/20 bg-[#FF0000]/5 hover:bg-[#FF0000]/10 transition-all duration-300"
+ >
+ View Program Details
+ <ArrowRight className="w-3.5 h-3.5" />
+ </Link>
  </div>
  </div>
  </div>

@@ -5,7 +5,11 @@
  "description": "This is TIU's flagship B.Tech CSE course in Kolkata purpose-built for students who want to lead in Artificial Intelligence and Machine Learning. Widely regarded as one of the best AI courses after 12th available in India, this program combines rigorous academics with Google Cloud certifications and real-world AI projects.",
  "category": "School of Engineering & Technology",
  "duration": "4 Years",
- "link": "#"
+ "link": "#",
+ "focusKeyword": "artificial intelligence engineering",
+ "seoTitle": "B.Tech CSE AI & ML Course in Kolkata | Artificial Intelligence Engineering | TIU",
+ "seoDescription": "B.Tech CSE with AI & ML at Techno India University — a Google Cloud-powered artificial intelligence engineering degree in Kolkata. Live AI/ML projects, embedded certifications, 90%+ placement record. Admissions 2026 open.",
+ "seoH1": "B.Tech in Artificial Intelligence & Machine Learning (CSE AI/ML) in Kolkata"
  },
  {
  "id": "btech-cse-data-science",
@@ -13,7 +17,10 @@
  "description": "Enrol in the most comprehensive data science course in Kolkata at the undergraduate level. Students learn to build end-to-end data pipelines, master statistical modelling, and use Python, SQL, and Google BigQuery on live datasets. A top choice among b tech colleges in West Bengal for data-driven careers.",
  "category": "School of Engineering & Technology",
  "duration": "4 Years",
- "link": "#"
+ "link": "#",
+ "focusKeyword": "btech cse data science",
+ "seoTitle": "B.Tech CSE Data Science Course in Kolkata | TIU x Google Cloud",
+ "seoDescription": "B.Tech CSE in Data Science at Techno India University — build data pipelines, statistical models, and BigQuery projects with embedded Google Cloud certification. One of Kolkata's most comprehensive data science engineering courses."
  },
  {
  "id": "btech-cse-cloud",
@@ -21,7 +28,10 @@
  "description": "One of the most advanced cloud computing courses in Kolkata, this program covers cloud architecture, DevOps, Kubernetes, microservices, and Google Cloud Platform in depth. Ideal for students pursuing a B.Tech college in West Bengal that offers enterprise-grade technology exposure.",
  "category": "School of Engineering & Technology",
  "duration": "4 Years",
- "link": "#"
+ "link": "#",
+ "focusKeyword": "cloud computing course",
+ "seoTitle": "Cloud Computing Course in Kolkata | B.Tech CSE Cloud Computing | TIU",
+ "seoDescription": "B.Tech CSE in Cloud Computing at Techno India University, Kolkata — cloud architecture, DevOps, Kubernetes and Google Cloud Platform, taught with enterprise-grade tooling. Embedded Google Cloud certification, 90%+ placement record."
  },
  {
  "id": "btech-cse",
@@ -29,7 +39,11 @@
  "description": "A comprehensive Computer Science and Engineering program at TIU that builds a strong foundation in programming, algorithms, computer architecture, and software engineering. Enhanced with Google Cloud certifications and industry-aligned projects, this program is ideal for students seeking a well-rounded B.Tech college in Kolkata with deep technical exposure.",
  "category": "School of Engineering & Technology",
  "duration": "4 Years",
- "link": "#"
+ "link": "#",
+ "focusKeyword": "btech in computer science",
+ "seoTitle": "B.Tech in Computer Science & Engineering (CSE) in Kolkata | TIU x Google Cloud",
+ "seoDescription": "B.Tech in Computer Science and Engineering at Techno India University, Kolkata — programming, algorithms, computer architecture and software engineering, with embedded Google Cloud certification and a 90%+ placement record.",
+ "seoH1": "B.Tech in Computer Science and Engineering (CSE) in Kolkata"
  },
  {
  "id": "bca-data-science-ai",
@@ -50,10 +64,13 @@
  {
  "id": "bba-business-analytics",
  "title": "BBA Business Analytics in Collaboration with Powered by IBM",
- "description": "Combine business management skills with data analytics and AI insights.",
+ "description": "Combine business management skills with data analytics and AI insights. An IBM-powered business analyst training track — students work with real datasets, BI dashboards, and analytics tooling used in industry, not just business-analyst classes taught from a textbook.",
  "category": "School of Business & Management",
  "duration": "4 Years",
- "link": "#"
+ "link": "#",
+ "focusKeyword": "business analyst training",
+ "seoTitle": "BBA Business Analytics Course in Kolkata | Business Analyst Training | TIU x IBM",
+ "seoDescription": "BBA in Business Analytics at Techno India University, Kolkata, powered by IBM — hands-on business analyst training with real datasets and BI tooling, embedded IBM certification, and placement support."
  },
  {
  "id": "bsc-cyber-security",
@@ -207,7 +224,10 @@
  "description": "Bachelor of Physiotherapy preparing students for clinical practice in physical rehabilitation and therapeutic care.",
  "category": "Health & Allied Sciences",
  "duration": "4.5 Years",
- "link": "#"
+ "link": "#",
+ "focusKeyword": "physiotherapy course",
+ "seoTitle": "BPT — Bachelor of Physiotherapy Course in Kolkata | Techno India University",
+ "seoDescription": "BPT (Bachelor of Physiotherapy) at Techno India University, Kolkata — a 4.5-year physiotherapy course preparing students for clinical practice in rehabilitation and therapeutic care, with placement support."
  },
  {
  "id": "bmrit",
@@ -215,7 +235,10 @@
  "description": "Bachelor of Medical Radiation and Imaging Technology with training in radiology, imaging diagnostics, and radiation safety.",
  "category": "Health & Allied Sciences",
  "duration": "4 Years",
- "link": "#"
+ "link": "#",
+ "focusKeyword": "medical radiology",
+ "seoTitle": "BMRIT — Medical Radiology & Imaging Technology Course in Kolkata | TIU",
+ "seoDescription": "BMRIT (Bachelor of Medical Radiation and Imaging Technology) at Techno India University, Kolkata — hands-on training in medical radiology, imaging diagnostics, and radiation safety."
  },
  {
  "id": "mpt",
@@ -223,7 +246,9 @@
  "description": "Master of Physiotherapy offering advanced clinical specialisation in physical therapy and rehabilitation sciences.",
  "category": "Health & Allied Sciences",
  "duration": "2 Years",
- "link": "#"
+ "link": "#",
+ "seoTitle": "MPT — Master of Physiotherapy Course in Kolkata | Techno India University",
+ "seoDescription": "MPT (Master of Physiotherapy) at Techno India University, Kolkata — advanced clinical specialisation in physical therapy and rehabilitation sciences for BPT graduates."
  },
  {
  "id": "mmlt",
@@ -231,7 +256,10 @@
  "description": "Master of Medical Laboratory Technology providing advanced expertise in laboratory diagnostics and clinical pathology.",
  "category": "Health & Allied Sciences",
  "duration": "2 Years",
- "link": "#"
+ "link": "#",
+ "focusKeyword": "medical laboratory technology",
+ "seoTitle": "MMLT — Master of Medical Laboratory Technology in Kolkata | TIU",
+ "seoDescription": "MMLT (Master of Medical Laboratory Technology) at Techno India University, Kolkata — advanced expertise in laboratory diagnostics and clinical pathology for science and MLT graduates."
  },
  {
  "id": "phd-ai-full-time",

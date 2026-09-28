@@ -18,6 +18,7 @@ const courses = {
  {
  id: 1,
  title: 'B.Tech CSE-AI/ML',
+ slug: 'btech-cse-ai-ml',
  subtitle: 'Powered by GOOGLE',
  partner: 'Google',
  duration: '4 Years',
@@ -27,6 +28,7 @@ const courses = {
  {
  id: 2,
  title: 'B.Tech CSE-Data Science',
+ slug: 'btech-cse-data-science',
  subtitle: 'Powered by GOOGLE',
  partner: 'Google',
  duration: '4 Years',
@@ -36,6 +38,7 @@ const courses = {
  {
  id: 3,
  title: 'B.Tech CSE-Cloud Computing',
+ slug: 'btech-cse-cloud',
  subtitle: 'Powered by GOOGLE',
  partner: 'Google',
  duration: '4 Years',
@@ -45,6 +48,7 @@ const courses = {
  {
  id: 20,
  title: 'M.Tech CSE AI/ML',
+ slug: 'mtech-cse-ai-ml',
  subtitle: 'Advanced Research Focus',
  partner: 'Tech',
  duration: '2 Years',
@@ -54,6 +58,7 @@ const courses = {
  {
  id: 21,
  title: 'PhD in AI (Full Time)',
+ slug: 'phd-ai-full-time',
  subtitle: 'Doctoral Research Program',
  partner: 'Research',
  duration: '4.5 - 5.5 Years',
@@ -63,6 +68,7 @@ const courses = {
  {
  id: 22,
  title: 'PhD in AI (Half Time)',
+ slug: 'phd-ai-half-time',
  subtitle: 'Doctoral Research Program',
  partner: 'Research',
  duration: 'NA',
@@ -74,6 +80,7 @@ const courses = {
  {
  id: 4,
  title: 'BCA with Data Science and AI',
+ slug: 'bca-data-science-ai',
  subtitle: 'Powered by IBM',
  partner: 'IBM',
  duration: '4 Years',
@@ -83,6 +90,7 @@ const courses = {
  {
  id: 5,
  title: 'B.Sc (H) Cyber Security and Ethical Hacking',
+ slug: 'bsc-cyber-security',
  subtitle: 'Powered by IBM',
  partner: 'IBM',
  duration: '4 Years',
@@ -92,6 +100,7 @@ const courses = {
  {
  id: 23,
  title: 'B.Sc (H) Data Analytics and Generative AI',
+ slug: 'bsc-data-analytics-gen-ai',
  subtitle: 'Powered by IBM',
  partner: 'IBM',
  duration: '4 Years',
@@ -101,6 +110,7 @@ const courses = {
  {
  id: 24,
  title: 'MSc. In Data Science AI',
+ slug: 'msc-data-science-ai',
  subtitle: 'Advanced Postgraduate Program',
  partner: 'Tech',
  duration: '2 Years',
@@ -110,6 +120,7 @@ const courses = {
  {
  id: 6,
  title: 'B.Sc Agriculture',
+ slug: 'bsc-agriculture',
  subtitle: 'Modern Agricultural Sciences',
  partner: 'AgriTech',
  duration: '4 Years',
@@ -121,6 +132,7 @@ const courses = {
  {
  id: 7,
  title: 'BBA Business Analytics',
+ slug: 'bba-business-analytics',
  subtitle: 'Powered by IBM',
  partner: 'IBM',
  duration: '4 Years',
@@ -130,6 +142,7 @@ const courses = {
  {
  id: 8,
  title: 'MBA',
+ slug: 'mba-ibm',
  subtitle: 'Powered by IBM',
  partner: 'IBM',
  duration: '2 Years',
@@ -139,6 +152,7 @@ const courses = {
  {
  id: 25,
  title: 'Working Professional MBA',
+ slug: 'working-professional-mba',
  subtitle: 'Flexible Learning',
  partner: 'Business',
  duration: '2 Years',
@@ -148,6 +162,7 @@ const courses = {
  {
  id: 9,
  title: 'B.Sc (H) Hotel and Hospital Management',
+ slug: 'bsc-hotel-hospitality',
  subtitle: 'Hospitality & Management',
  partner: 'Hospitality',
  duration: '4 Years',
@@ -159,6 +174,7 @@ const courses = {
  {
  id: 10,
  title: 'B. Des Visual Communication & Digital Design',
+ slug: 'bdes-visual-comm',
  subtitle: 'Digital Design Focus',
  partner: 'Design',
  duration: '4 Years',
@@ -168,6 +184,7 @@ const courses = {
  {
  id: 26,
  title: 'B. Des Game Art & Design',
+ slug: 'bdes-game-art',
  subtitle: 'Game Art & Concept Design',
  partner: 'Design',
  duration: '4 Years',
@@ -177,6 +194,7 @@ const courses = {
  {
  id: 27,
  title: 'B. Des Digital Product Design',
+ slug: 'bdes-digital-product',
  subtitle: 'UX & Product Design',
  partner: 'Design',
  duration: '4 Years',
@@ -186,6 +204,7 @@ const courses = {
  {
  id: 28,
  title: 'M.Des in Advertising, design and digital communications',
+ slug: 'mdes-advertising',
  subtitle: 'Advanced Design Studies',
  partner: 'Design',
  duration: '2 Years',
@@ -195,6 +214,7 @@ const courses = {
  {
  id: 11,
  title: 'B.Sc (H) in Game Development',
+ slug: 'bsc-game-development',
  subtitle: 'Industry Skilling by Seamedu',
  partner: 'Seamedu',
  duration: '4 Years',
@@ -204,6 +224,7 @@ const courses = {
  {
  id: 12,
  title: 'B.Sc (H) in Filmmaking',
+ slug: 'bsc-filmmaking',
  subtitle: 'Industry Skilling by Seamedu',
  partner: 'Seamedu',
  duration: '4 Years',
@@ -213,6 +234,7 @@ const courses = {
  {
  id: 18,
  title: 'B.Sc (H) in Sound Engineering',
+ slug: 'bsc-sound-engineering',
  subtitle: 'Industry Skilling by Seamedu',
  partner: 'Seamedu',
  duration: '4 Years',
@@ -222,6 +244,7 @@ const courses = {
  {
  id: 19,
  title: 'B.Sc (H) in Visual Effects & Animation',
+ slug: 'bsc-vfx-animation',
  subtitle: 'Industry Skilling by Seamedu',
  partner: 'Seamedu',
  duration: '4 Years',
@@ -233,6 +256,7 @@ const courses = {
  {
  id: 13,
  title: 'B.Sc (H) Cardiovascular Technology',
+ slug: 'bsc-cardiovascular',
  subtitle: 'Industry Skilling by Emversity',
  partner: 'Emversity',
  duration: '4 Years',
@@ -242,6 +266,7 @@ const courses = {
  {
  id: 14,
  title: 'B.Sc (H) Anesthesia and Operation Theater Technology',
+ slug: 'bsc-anesthesia',
  subtitle: 'Industry Skilling by Emversity',
  partner: 'Emversity',
  duration: '4 Years',
@@ -251,6 +276,7 @@ const courses = {
  {
  id: 29,
  title: 'BPT',
+ slug: 'bpt',
  subtitle: 'Bachelor of Physiotherapy',
  partner: 'Health',
  duration: '4.5 Years',
@@ -260,6 +286,7 @@ const courses = {
  {
  id: 30,
  title: 'BMRIT',
+ slug: 'bmrit',
  subtitle: 'Medical Radiation & Imaging Technology',
  partner: 'Health',
  duration: '4 Years',
@@ -269,6 +296,7 @@ const courses = {
  {
  id: 31,
  title: 'MPT',
+ slug: 'mpt',
  subtitle: 'Master of Physiotherapy',
  partner: 'Health',
  duration: '2 Years',
@@ -278,6 +306,7 @@ const courses = {
  {
  id: 32,
  title: 'MMLT',
+ slug: 'mmlt',
  subtitle: 'Master of Medical Lab Technology',
  partner: 'Health',
  duration: '2 Years',
@@ -332,7 +361,14 @@ const ProgramFlipCard = ({ course, index }) => {
  >
  <div className={`flip-card-inner ${flipped ? 'flipped' : ''}`}>
  {/* ===== FRONT FACE ===== */}
- <div className="flip-card-front group relative bg-[#11111f] rounded-3xl p-1 overflow-hidden">
+ {/* Faces stay in the DOM while hidden, so pointer-events follow the flip —
+     otherwise the face turned away can still swallow clicks. */}
+ <Link
+ to={`/courses/${course.slug}`}
+ aria-label={`View ${course.title} programme details`}
+ className="flip-card-front group relative block bg-[#11111f] rounded-3xl p-1 overflow-hidden"
+ style={{ pointerEvents: flipped ? 'none' : 'auto' }}
+ >
  {/* Hover Gradient Border */}
  <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
 
@@ -341,7 +377,7 @@ const ProgramFlipCard = ({ course, index }) => {
  <motion.button
  whileHover={{ scale: 1.1 }}
  whileTap={{ scale: 0.95 }}
- onClick={(e) => { e.stopPropagation(); setFlipped(true); }}
+ onClick={(e) => { e.preventDefault(); e.stopPropagation(); setFlipped(true); }}
  className="absolute top-4 right-4 w-10 h-10 bg-[#FF0000] rounded-full flex items-center justify-center cursor-pointer hover:shadow-[0_0_15px_rgba(255,0,0,0.5)] transition-shadow duration-300 z-10"
  >
  <ArrowUpRight className="w-5 h-5 text-white" />
@@ -410,25 +446,28 @@ const ProgramFlipCard = ({ course, index }) => {
  </div>
  </div>
  </div>
- </div>
+ </Link>
 
  {/* ===== BACK FACE ===== */}
- <div className="flip-card-back bg-[#11111f] rounded-3xl p-1">
- <div className="relative bg-[#0a0a1a] h-full rounded-[20px] p-8 overflow-hidden flex flex-col justify-between">
+ <div
+ className="flip-card-back bg-[#11111f] rounded-3xl p-1"
+ style={{ pointerEvents: flipped ? 'auto' : 'none' }}
+ >
+ <div className="relative bg-[#0a0a1a] h-full rounded-[20px] p-5 overflow-hidden flex flex-col justify-between">
  {/* Accent glow */}
  <div className="absolute top-0 right-0 w-40 h-40 bg-[#FF0000]/10 rounded-full blur-3xl pointer-events-none" />
  <div className="absolute bottom-0 left-0 w-32 h-32 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
 
  {/* Header + Chips */}
  <div className="relative z-10">
- <span className="inline-flex items-center gap-2 bg-[#FF0000]/10 text-[#FF0000] text-[10px] font-bold px-3 py-1.5 rounded-lg border border-[#FF0000]/20 uppercase tracking-widest mb-4">
+ <span className="inline-flex items-center gap-2 bg-[#FF0000]/10 text-[#FF0000] text-[10px] font-bold px-3 py-1.5 rounded-lg border border-[#FF0000]/20 uppercase tracking-widest mb-3">
  <Sparkles className="w-3 h-3" />
  Career Outcomes
  </span>
  <h3 className="text-lg font-black text-white mb-1 leading-tight">
  Where This Takes You
  </h3>
- <p className="text-gray-500 text-xs mb-5 truncate">
+ <p className="text-gray-500 text-xs mb-3 truncate">
  {course.title}
  </p>
 
@@ -440,7 +479,7 @@ const ProgramFlipCard = ({ course, index }) => {
  initial={{ opacity: 0, x: -10 }}
  animate={flipped ? { opacity: 1, x: 0 } : {}}
  transition={{ delay: 0.2 + i * 0.1, duration: 0.3 }}
- className="flex items-center gap-1.5 w-full bg-white/5 text-white text-xs font-semibold px-3 py-2 rounded-lg border border-white/10 hover:bg-[#FF0000]/10 hover:border-[#FF0000]/30 hover:text-[#FF0000] transition-all duration-300"
+ className="flex items-center gap-1.5 w-full bg-white/5 text-white text-xs font-semibold px-3 py-1.5 rounded-lg border border-white/10 hover:bg-[#FF0000]/10 hover:border-[#FF0000]/30 hover:text-[#FF0000] transition-all duration-300"
  >
  <Briefcase className="w-3 h-3 text-gray-500 shrink-0" />
  {path}
@@ -450,7 +489,7 @@ const ProgramFlipCard = ({ course, index }) => {
  </div>
 
  {/* Back Button */}
- <div className="relative z-10 pt-4 border-t border-white/5">
+ <div className="relative z-10 pt-3 border-t border-white/5">
  <motion.button
  whileHover={{ scale: 1.05 }}
  whileTap={{ scale: 0.95 }}
