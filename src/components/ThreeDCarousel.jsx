@@ -144,7 +144,7 @@ const ThreeDCarousel = ({ items = [] }) => {
  {/* Image */}
  <img
  src={item.url}
- alt={`Slide ${index}`}
+ alt={item.alt || item.caption}
  loading={index === 0 ? 'eager' : 'lazy'}
  fetchPriority={index === 0 ? 'high' : 'auto'}
  className="w-full h-full object-cover transition-all duration-500 will-change-transform"

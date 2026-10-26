@@ -25,7 +25,7 @@ const defaultGalleryImages = [
  span: 'col-span-1 row-span-1',
  },
  {
- src: '/assets/images/swarakriti.webp',
+ src: '/assets/images/Cultural.webp',
  alt: 'Cultural Festival',
  caption: 'Annual Cultural Fest',
  category: 'Cultural Events',
@@ -53,9 +53,9 @@ const defaultGalleryImages = [
  span: 'col-span-1 row-span-1',
  },
  {
- src: '/assets/images/Cultural.webp',
- alt: 'Student Performance',
- caption: 'Music & Creative Night',
+ src: '/assets/images/Student.webp',
+ alt: "Collage of moments from the Google Developer Student Clubs freshers' orientation",
+ caption: "Freshers' Orientation",
  category: 'Cultural Events',
  span: 'col-span-1 row-span-1',
  },

@@ -3,8 +3,8 @@ import CrudPage from '../../components/admin/CrudPage';
 const columns = [
  { key: 'name', label: 'Name' },
  {
- key: 'logo_url', label: 'Logo', render: (v) => v ? (
- <img src={v} alt="" style={{ height: 24, maxWidth: 80, filter: 'brightness(0) invert(1)', opacity: 0.7 }} />
+ key: 'logo_url', label: 'Logo', render: (v, row) => v ? (
+ <img src={v} alt={row.name ? `${row.name} logo` : 'Partner logo'} style={{ height: 24, maxWidth: 80, filter: 'brightness(0) invert(1)', opacity: 0.7 }} />
  ) : '\u2013'
  },
  { key: 'sort_order', label: 'Order' },

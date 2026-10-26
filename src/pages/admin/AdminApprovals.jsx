@@ -6,8 +6,8 @@ const columns = [
  {
  key: 'logo',
  label: 'Logo',
- render: (val) => val && val.startsWith('http') ? (
- <img src={val} alt="" style={{ width: 32, height: 32, objectFit: 'contain', borderRadius: 4, background: '#fff' }} />
+ render: (val, row) => val && val.startsWith('http') ? (
+ <img src={val} alt={row.name ? `${row.name} logo` : 'Approval body logo'} style={{ width: 32, height: 32, objectFit: 'contain', borderRadius: 4, background: '#fff' }} />
  ) : (
  <span>{val || ' '}</span>
  ),

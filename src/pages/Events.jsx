@@ -374,7 +374,8 @@ const Events = () => {
  {getSetting('events_bg') && (
  <img
  src={getSetting('events_bg')}
- alt="Events"
+ alt=""
+ aria-hidden="true"
  className="w-full h-full object-cover"
  />
  )}

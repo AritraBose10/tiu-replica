@@ -261,6 +261,28 @@ const TagStrip = () => {
   );
 };
 
+// ─── Loading Skeleton ─────────────────────────────────────────
+// Mirrors BlogCard's dimensions (h-48 image strip, p-6 body) so the grid keeps
+// its height and nothing jumps when the real posts arrive.
+const BlogCardSkeleton = () => (
+  <div className="relative bg-[#0a0a12]/80 border border-white/5 rounded-2xl overflow-hidden h-full flex flex-col animate-pulse">
+    <div className="h-48 bg-white/[0.06] flex-shrink-0" />
+    <div className="p-6 flex-1 flex flex-col">
+      <div className="h-5 bg-white/[0.06] rounded w-4/5 mb-2.5" />
+      <div className="h-5 bg-white/[0.06] rounded w-3/5 mb-5" />
+      <div className="h-3 bg-white/[0.04] rounded w-full mb-2" />
+      <div className="h-3 bg-white/[0.04] rounded w-11/12 mb-6" />
+      <div className="mt-auto flex items-center gap-3 pt-4 border-t border-white/5">
+        <div className="w-8 h-8 rounded-full bg-white/[0.06]" />
+        <div className="flex-1">
+          <div className="h-3 bg-white/[0.06] rounded w-24 mb-1.5" />
+          <div className="h-2.5 bg-white/[0.04] rounded w-16" />
+        </div>
+      </div>
+    </div>
+  </div>
+);
+
 // ─── Main Blogs Page ──────────────────────────────────────────
 const Blogs = () => {
   const [activeCategory, setActiveCategory] = useState('All');
@@ -314,6 +336,26 @@ const Blogs = () => {
         title="TIU Blog | AI, Tech, Career & Campus Stories"
         description="Read the latest articles, tutorials, career guides, and campus stories from Techno India University's School of the Future."
       />
+      {/* Top loading bar — indeterminate, since /api/blogs reports no progress. */}
+      <AnimatePresence>
+        {loading && (
+          <motion.div
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
+            className="fixed top-0 left-0 right-0 h-[3px] bg-white/5 z-[60] overflow-hidden"
+            role="progressbar"
+            aria-label="Loading articles"
+            aria-busy="true"
+          >
+            <motion.div
+              className="h-full w-1/3 bg-gradient-to-r from-transparent via-[#FF0000] to-transparent"
+              animate={{ x: ['-120%', '420%'] }}
+              transition={{ duration: 1.1, repeat: Infinity, ease: 'linear' }}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       <FloatingBackground />
 
       {/* ═══ HERO ═══ */}
@@ -561,14 +603,16 @@ const Blogs = () => {
           {/* Blog Grid */}
           <AnimatePresence mode="wait">
             <motion.div
-              key={effectiveCategory + searchQuery}
+              key={loading ? 'loading' : effectiveCategory + searchQuery}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.3 }}
               className="grid md:grid-cols-2 lg:grid-cols-3 gap-7"
             >
-              {(effectiveCategory === 'All' && !searchQuery ? regularBlogs : filteredBlogs).length > 0 ? (
+              {loading ? (
+                Array.from({ length: 6 }).map((_, i) => <BlogCardSkeleton key={`skeleton-${i}`} />)
+              ) : (effectiveCategory === 'All' && !searchQuery ? regularBlogs : filteredBlogs).length > 0 ? (
                 (effectiveCategory === 'All' && !searchQuery ? regularBlogs : filteredBlogs).map((blog, index) => (
                   <BlogCard key={blog.id} blog={blog} index={index} />
                 ))

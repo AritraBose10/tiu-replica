@@ -11,6 +11,7 @@ import FAQ from './pages/FAQ';
 import Admissions from './pages/Admissions';
 import Approvals from './pages/Approvals';
 import Events from './pages/Events';
+import Gallery from './pages/Gallery';
 import SearchPage from './pages/SearchPage';
 import GoogleIBMCourse from './pages/GoogleIBMCourse';
 import ThankYou from './pages/ThankYou';
@@ -123,6 +124,7 @@ export function AppShell() {
  <Route path="/faq" element={<FAQ />} />
  <Route path="/approvals" element={<Approvals />} />
  <Route path="/events" element={<Events />} />
+ <Route path="/gallery" element={<Gallery />} />
  <Route path="/blogs" element={<Blogs />} />
  <Route path="/search" element={<SearchPage />} />
  <Route path="/events-demo" element={<EventScraperDemo />} />

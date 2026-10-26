@@ -357,7 +357,7 @@ function BlogEditor({ blog, onBack, onSaved }) {
             </div>
             {form.feature_image && (
               <div className="mt-3 relative rounded-xl overflow-hidden border border-white/10 max-h-48 group/img">
-                <img src={form.feature_image} alt="Feature" className="w-full h-48 object-cover" />
+                <img src={form.feature_image} alt={form.title ? `Feature image for ${form.title}` : 'Feature image preview'} className="w-full h-48 object-cover" />
                 <button
                   type="button"
                   onClick={() => set('feature_image', '')}

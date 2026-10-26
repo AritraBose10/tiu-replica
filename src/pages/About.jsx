@@ -463,7 +463,7 @@ const About = () => {
  />
  <img
  src={campusImg}
- alt="Campus"
+ alt="Techno India University campus building in Kolkata"
  className="relative rounded-3xl shadow-2xl border border-white/10"
  />
  <motion.div

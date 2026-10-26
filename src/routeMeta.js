@@ -51,6 +51,12 @@ export const routeMeta = {
  changefreq: 'weekly',
  priority: 0.8
  },
+ '/gallery': {
+ title: 'Campus Gallery | Life at School of the Future | Techno India University',
+ description: "Explore photos of campus life at Techno India University's School of the Future — hackathons, industry visits with Google and IBM, workshops, cultural events and student milestones.",
+ changefreq: 'monthly',
+ priority: 0.6
+ },
  '/approvals': {
  title: 'Accreditation & Approvals | UGC, NAAC, AICTE',
  description: "Techno India University's School Of The Future is accredited by UGC, NAAC, AICTE & AIU. Discover our regulatory approvals, rankings and commitment to quality education.",

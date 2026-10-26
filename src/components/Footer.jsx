@@ -19,6 +19,7 @@ const Footer = () => {
  <Link to="/apply" className="text-gray-400 hover:text-white transition-colors">Admissions</Link>
  <Link to="/faq" className="text-gray-400 hover:text-white transition-colors">FAQ</Link>
  <Link to="/approvals" className="text-gray-400 hover:text-white transition-colors">Approvals</Link>
+ <Link to="/gallery" className="text-gray-400 hover:text-white transition-colors">Gallery</Link>
  <Link to="/courses" className="text-gray-400 hover:text-white transition-colors">Google and IBM Courses</Link>
  </nav>
 

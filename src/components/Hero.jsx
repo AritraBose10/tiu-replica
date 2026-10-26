@@ -192,6 +192,7 @@ const ExteriorWireframe = ({ src }) => (
  <img
  src={src || "/wireframes/exterior.webp"}
  alt=""
+ aria-hidden="true"
  className="w-full h-full object-cover opacity-35 filter grayscale contrast-125"
  />
  </div>
@@ -206,6 +207,7 @@ const InteriorWireframe = ({ src }) => (
  <img
  src={src || "/wireframes/interior.webp"}
  alt=""
+ aria-hidden="true"
  className="w-full h-full object-cover opacity-35 filter grayscale contrast-125"
  />
  </div>
@@ -221,11 +223,11 @@ const Hero = () => {
 
  // Use local carousel images
  const carouselItems = [
- { url: '/assets/images/c1.webp', caption: getSetting('home_carousel_caption_1') },
- { url: '/assets/images/c2.webp', caption: getSetting('home_carousel_caption_2') },
- { url: '/assets/images/c3.webp', caption: getSetting('home_carousel_caption_3') },
- { url: '/assets/images/c4.webp', caption: getSetting('home_carousel_caption_4') },
- { url: '/assets/images/c5.webp', caption: getSetting('home_carousel_caption_5') },
+ { url: '/assets/images/c1.webp', alt: 'Techno India University main entrance lobby with reception desk', caption: getSetting('home_carousel_caption_1') },
+ { url: '/assets/images/c2.webp', alt: 'School of the Future students at the Google for Education Leadership Summit', caption: getSetting('home_carousel_caption_2') },
+ { url: '/assets/images/c3.webp', alt: 'Techno India University campus building in Kolkata', caption: getSetting('home_carousel_caption_3') },
+ { url: '/assets/images/c4.webp', alt: 'School of the Future student team posing at a hackathon venue', caption: getSetting('home_carousel_caption_4') },
+ { url: '/assets/images/c5.webp', alt: 'Students attending a seminar in the university auditorium', caption: getSetting('home_carousel_caption_5') },
  ];
 
  const containerVariants = {

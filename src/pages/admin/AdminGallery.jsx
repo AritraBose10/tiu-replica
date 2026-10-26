@@ -4,8 +4,8 @@ const columns = [
  { key: 'caption', label: 'Caption' },
  { key: 'category', label: 'Category' },
  {
- key: 'src', label: 'Preview', render: (v) => v ? (
- <img src={v} alt="" style={{ height: 40, borderRadius: 6, border: '1px solid rgba(255,255,255,0.06)' }} />
+ key: 'src', label: 'Preview', render: (v, row) => v ? (
+ <img src={v} alt={row.alt || row.caption || 'Gallery image preview'} style={{ height: 40, borderRadius: 6, border: '1px solid rgba(255,255,255,0.06)' }} />
  ) : '\u2013'
  },
  { key: 'span', label: 'Grid Span' },

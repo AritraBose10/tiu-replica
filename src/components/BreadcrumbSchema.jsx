@@ -15,6 +15,7 @@ const ROUTE_LABELS = {
  '/faq': 'FAQ',
  '/approvals': 'Approvals & Accreditations',
  '/events': 'Events & Happenings',
+ '/gallery': 'Campus Gallery',
  '/search': 'Search',
  '/pg-programs-for-professionals': 'PG Programmes for Working Professionals',
 };

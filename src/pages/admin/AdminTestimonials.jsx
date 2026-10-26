@@ -5,10 +5,10 @@ const columns = [
  {
  key: 'image',
  label: 'Photo',
- render: (v) => v ? (
+ render: (v, row) => v ? (
  <img
  src={getDriveImageUrl(v, 80)}
- alt="student"
+ alt={row.name ? `Photo of ${row.name}` : 'Student photo'}
  style={{
  width: 40, height: 40, borderRadius: '50%', objectFit: 'cover',
  border: '2px solid rgba(255,0,0,0.3)', background: '#111'
