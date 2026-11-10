@@ -21,6 +21,7 @@ import Blogs from './pages/Blogs';
 import BlogPost from './pages/BlogPost';
 import IITKGPLanding from './pages/IITKGPLanding';
 import WorkingProfessionals from './pages/WorkingProfessionals';
+import TNJEE from './pages/TNJEE';
 import BreadcrumbSchema from './components/BreadcrumbSchema';
 import EventScraperDemo from './components/EventScraperDemo';
 import { AnimatePresence } from 'framer-motion';
@@ -133,6 +134,7 @@ export function AppShell() {
  <Route path="/ai-event" element={<AIEvent />} />
  <Route path="/btech-admission-iit-kharagpur-collaboration" element={<IITKGPLanding />} />
  <Route path="/pg-programs-for-professionals" element={<WorkingProfessionals />} />
+ <Route path="/tnjee" element={<TNJEE />} />
  <Route path="/blogs/:slug" element={<BlogPost />} />
  <Route path="*" element={<NotFound />} />
  </Routes>

@@ -12,18 +12,10 @@ import SchemaInjector from '../components/SchemaInjector';
 import sofLogo from '../assets/logo1.png';
 import ocnLockup from '../assets/iit-kharagpur-ocn-logo-horizontal-transparent.png';
 
+// Mandatory OCN disclaimer (verbatim — PS/OCN/BRAND/2026-01 §4.1), shared with /tnjee
+import { DisclaimerPanel } from '../components/OcnDisclaimer';
+
 const MotionLink = motion.create(Link);
-
-// ─── Mandatory OCN disclaimer (verbatim — PS/OCN/BRAND/2026-01 §4.1) ──────────
-const OCN_DISCLAIMER = "IIT Kharagpur provides specific micro-specialisation course(s) to students of this programme through its Outreach Course Network. The degree/programme is awarded solely by Techno India University. IIT Kharagpur does not award, co-award, or endorse any degree of Techno India University. All IIT Kharagpur credentials (OCN Student Identity Card, institutional email ID, OCN Micro-Specialisation Certificate, and OCN Alumni Status) are subject to IIT Kharagpur's policies and conferred at its sole discretion.";
-
-// ─── Reusable disclaimer panel (legible, same field of view as any OCN mention)
-const DisclaimerPanel = ({ className = '' }) => (
-  <div className={`rounded-xl border border-white/12 bg-white/[0.04] px-5 py-4 ${className}`}>
-    <p className="text-[10px] font-black tracking-widest uppercase text-gray-500 mb-2">Important — please read</p>
-    <p className="text-gray-300 text-[13px] leading-relaxed">{OCN_DISCLAIMER}</p>
-  </div>
-);
 
 // ─── Cursor Glow ──────────────────────────────────────────────────────────────
 const CursorGlow = () => {
