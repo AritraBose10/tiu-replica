@@ -12,7 +12,7 @@ import SchemaInjector from '../components/SchemaInjector';
 import sofLogo from '../assets/logo1.png';
 import ocnLockup from '../assets/iit-kharagpur-ocn-logo-horizontal-transparent.png';
 
-// Mandatory OCN disclaimer (verbatim — PS/OCN/BRAND/2026-01 §4.1), shared with /tnjee
+// Mandatory OCN disclaimer (verbatim — PS/OCN/BRAND/2026-01 §4.1)
 import { DisclaimerPanel } from '../components/OcnDisclaimer';
 
 const MotionLink = motion.create(Link);

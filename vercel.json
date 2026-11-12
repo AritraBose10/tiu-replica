@@ -74,10 +74,6 @@
             "destination": "/blogs/:slug/index.html"
         },
         {
-            "source": "/tnjee",
-            "destination": "/tnjee/index.html"
-        },
-        {
             "source": "/cloud-ai-certification-courses-kolkata",
             "destination": "/cloud-ai-certification-courses-kolkata/index.html"
         },

@@ -75,12 +75,6 @@ export const routeMeta = {
  changefreq: 'weekly',
  priority: 0.9
  },
- '/tnjee': {
- title: 'TNJEE 2027 | Techno India University Admissions — B.Tech CSE with Google Cloud & IBM Courses',
- description: 'Apply for TNJEE 2027, the entrance exam for Techno India University, West Bengal. One application, two pathways: B.Tech CSE with Google Cloud, or BCA, BBA, B.Sc and MBA courses with IBM at the School of the Future.',
- changefreq: 'weekly',
- priority: 0.9
- },
  '/btech-admission-iit-kharagpur-collaboration': {
  title: 'B.Tech CSE Admissions 2026 | Techno India University',
  description: 'B.Tech CSE degrees awarded solely by Techno India University, School of the Future. Programme includes IIT Kharagpur OCN micro-specialisation course(s) delivered through the Outreach Course Network. Admissions 2026 open.',
