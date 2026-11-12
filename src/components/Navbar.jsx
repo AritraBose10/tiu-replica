@@ -16,6 +16,17 @@ const Navbar = () => {
  return () => window.removeEventListener('scroll', handleScroll);
  }, []);
 
+ // Lock page scroll while the menu is open so the menu panel scrolls instead
+ useEffect(() => {
+ if (!isOpen) return;
+ const prev = document.body.style.overflow;
+ document.body.style.overflow = 'hidden';
+ return () => { document.body.style.overflow = prev; };
+ }, [isOpen]);
+
+ // Close the menu on route change
+ useEffect(() => { setIsOpen(false); }, [location.pathname]);
+
  const navLinks = [
  { name: 'Home', path: '/' },
  { name: 'About Us', path: '/about' },
@@ -80,9 +91,10 @@ const Navbar = () => {
  animate={{ opacity: 1, y: 0 }}
  exit={{ opacity: 0, y: -20 }}
  transition={{ duration: 0.3 }}
- className="fixed inset-0 z-40 bg-black/95 backdrop-blur-xl pt-24"
+ className="fixed inset-0 z-40 bg-black/95 backdrop-blur-xl overflow-y-auto overscroll-contain"
+ style={{ paddingTop: 'calc(var(--navbar-top, 1rem) + 4.5rem)' }}
  >
- <div className="max-w-7xl mx-auto px-6">
+ <div className="max-w-7xl mx-auto px-6 pb-12">
  <nav className="flex flex-col gap-1">
  {navLinks.map((link, index) => (
  <motion.div
@@ -94,7 +106,7 @@ const Navbar = () => {
  <Link
  to={link.path}
  onClick={() => setIsOpen(false)}
- className={`block py-4 text-2xl font-medium border-b border-white/10 transition-all duration-300 ${location.pathname === link.path
+ className={`block py-3 md:py-4 text-xl md:text-2xl font-medium border-b border-white/10 transition-all duration-300 ${location.pathname === link.path
  ? 'text-red-500 pl-4'
  : 'text-white/80 hover:text-red-500 hover:pl-4'
  }`}
